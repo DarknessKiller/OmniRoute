@@ -887,6 +887,18 @@ export const FEATURE_FLAG_DEFINITIONS: FeatureFlagDefinition[] = [
     warningLevel: "caution",
   },
   {
+    key: "CLAUDE_OAUTH_SUMMARIZED_THINKING_UNREDACTED",
+    label: "Claude OAuth Summarized Thinking",
+    description:
+      'Let a Claude OAuth request that asks for readable thinking (thinking.display "summarized") drop the redact-thinking-2026-02-12 Anthropic beta, which otherwise makes Anthropic return empty, signature-only thinking blocks. Off by default: that beta is part of the Claude Code OAuth wire fingerprint, so OAuth requests keep it unchanged. API-key Claude requests already honor summarized thinking without this flag; OMNIROUTE_REDACT_THINKING=false also reaches OAuth only when this flag is on.',
+    descriptionI18nKey: "featureFlagClaudeOauthSummarizedThinkingUnredactedDescription",
+    category: "runtime",
+    defaultValue: "false",
+    type: "boolean",
+    requiresRestart: false,
+    warningLevel: "caution",
+  },
+  {
     key: "KIRO_TOOL_CALL_REPAIR_ENABLED",
     label: "Kiro Tool Call Repair",
     description:
@@ -897,6 +909,18 @@ export const FEATURE_FLAG_DEFINITIONS: FeatureFlagDefinition[] = [
     type: "boolean",
     requiresRestart: false,
     warningLevel: "info",
+  },
+  {
+    key: "IMAGE_GENERATION_LONG_JOBS",
+    label: "Image Generation: Long Jobs",
+    description:
+      "For OpenAI-compatible image generation: use the connection's timeout (providerSpecificData.timeoutMs), else the central upstream fetch timeout (FETCH_TIMEOUT_MS, then REQUEST_TIMEOUT_MS, default 600 s) instead of the fixed 120 s image budget; end a request the caller cancelled with 499; and let the Playground receive long image jobs as an SSE stream with keepalive heartbeats. Off by default: the fixed budget applies and caller cancellation is not propagated. The deadline covering the response body read is always on.",
+    descriptionI18nKey: "featureFlagImageGenerationLongJobsDescription",
+    category: "runtime",
+    defaultValue: "false",
+    type: "boolean",
+    requiresRestart: false,
+    warningLevel: "caution",
   },
 
   // ──────────────── CLI (5) ────────────────
