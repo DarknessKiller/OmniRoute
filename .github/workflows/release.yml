@@ -74,7 +74,6 @@ jobs:
           platforms: linux/amd64
           tags: |
             ghcr.io/${{ steps.repo.outputs.LOWERCASE }}:${{ steps.version.outputs.VERSION }}
-            ghcr.io/${{ steps.repo.outputs.LOWERCASE }}:latest
           build-args: |
             OMNIROUTE_USE_TURBOPACK=0
             OMNIROUTE_BUILD_MEMORY_MB=12288
