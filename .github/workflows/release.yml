@@ -30,7 +30,11 @@ jobs:
 
       - run: npm ci
 
+      # Cold full lint is killed silently on the 7 GB hosted runner without the
+      # heap raise (quality.yml lint-guard, 2026-08-30).
       - run: npm run lint
+        env:
+          NODE_OPTIONS: --max-old-space-size=8192
 
   docker:
     name: Build and push image
