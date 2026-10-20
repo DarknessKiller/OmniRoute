@@ -19,8 +19,10 @@ RUN apt-get update \
 FROM base AS builder
 WORKDIR /app
 
-# Cache dependency layer
-COPY package.json bun.lock* pnpm-workspace.yaml* ./
+# Cache dependency layer. `bun.lock` is deliberately not copied: it is excluded by
+# .gitignore and .dockerignore, so a `bun.lock*` glob here would never match and the
+# install stays unpinned (see the release workflow's docker-bun job).
+COPY package.json pnpm-workspace.yaml* ./
 COPY open-sse/package.json ./open-sse/package.json
 COPY packages/ ./packages/
 
