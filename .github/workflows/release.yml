@@ -1,12 +1,15 @@
 name: Release
 
-# Replaces every previous workflow in this repo: lint, build the Docker image
-# with buildx, push it to GHCR. One pipeline, any release/v* branch.
+# One pipeline. A branch push to release/v* builds and pushes the version-tagged
+# images; a `v*` tag push runs only the promote job, which re-tags those existing
+# digests as :latest instead of rebuilding.
 
 on:
   push:
     branches:
       - "release/v*"
+    tags:
+      - "v*"
 
 permissions:
   contents: read
@@ -20,6 +23,9 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    # Branch runs only. A `v*` tag push goes to promote-latest instead, so nothing
+    # here rebuilds on a tag.
+    if: github.ref_type == 'branch'
     steps:
       - uses: actions/checkout@v7
 
@@ -40,6 +46,7 @@ jobs:
     name: Build and push image
     needs: lint
     runs-on: ubuntu-latest
+    if: github.ref_type == 'branch'
     steps:
       - uses: actions/checkout@v7
 
@@ -84,6 +91,7 @@ jobs:
     name: Build and push Bun image
     needs: lint
     runs-on: ubuntu-latest
+    if: github.ref_type == 'branch'
     # Bun is a best-effort runtime (AGENTS.md → Environment) and Dockerfile.bun has no
     # committed bun lockfile — `.gitignore` and `.dockerignore` both exclude `bun.lock` —
     # so `bun install` resolves fresh versions on every build and a green build is not yet
@@ -123,6 +131,48 @@ jobs:
           platforms: linux/amd64
           tags: |
             ghcr.io/${{ steps.repo.outputs.LOWERCASE }}:${{ steps.version.outputs.VERSION }}-bun
-            ghcr.io/${{ steps.repo.outputs.LOWERCASE }}:latest-bun
           cache-from: type=gha,scope=docker-bun-base
           cache-to: type=gha,scope=docker-bun-base,mode=max
+
+  promote-latest:
+    name: Promote latest tags
+    # Runs only for a `v*` tag push. The version-tagged images were pushed by the
+    # branch run, so this re-points `:latest` / `:latest-bun` at those digests and
+    # never rebuilds. Skipped quietly when an image was never built (e.g. the Bun
+    # image failed its non-blocking build).
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve version
+        id: version
+        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Lowercase repo
+        id: repo
+        run: echo "LOWERCASE=${GITHUB_REPOSITORY,,}" >> "$GITHUB_OUTPUT"
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v4.6.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Promote version tags to latest
+        env:
+          VERSION: ${{ steps.version.outputs.VERSION }}
+          IMAGE: ghcr.io/${{ steps.repo.outputs.LOWERCASE }}
+        run: |
+          set -euo pipefail
+          for suffix in "" "-bun"; do
+            source_tag="${IMAGE}:${VERSION}${suffix}"
+            if docker buildx imagetools inspect "$source_tag" >/dev/null 2>&1; then
+              docker buildx imagetools create -t "${IMAGE}:latest${suffix}" "$source_tag"
+              echo "promoted $source_tag -> ${IMAGE}:latest${suffix}"
+            else
+              echo "::warning::$source_tag not found — skipping latest${suffix}" >&2
+            fi
+          done
