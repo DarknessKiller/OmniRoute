@@ -52,6 +52,17 @@ ENV DASHBOARD_ALLOW_EMBED=$DASHBOARD_ALLOW_EMBED
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 
+# Build budget, mirroring the node image so the same --build-args apply. The V8 heap
+# flag is inert under Bun (JavaScriptCore ignores --max-old-space-size); the worker
+# cap is the lever that actually holds: Next derives `workers = CIRCLE_NODE_TOTAL - 1`
+# and each build process peaks at the measured ~4.5 GB RSS (#7518 / #13140), so an
+# uncapped pool OOMs a 16 GB hosted runner during page-data collection.
+ARG OMNIROUTE_BUILD_MEMORY_MB=6144
+ENV NODE_OPTIONS="--max-old-space-size=${OMNIROUTE_BUILD_MEMORY_MB}"
+
+ARG OMNIROUTE_BUILD_WORKERS=2
+ENV CIRCLE_NODE_TOTAL=${OMNIROUTE_BUILD_WORKERS}
+
 # Bun native Next.js build execution
 RUN bun run --quiet build
 
