@@ -18,6 +18,13 @@ type CodexMessageLike = MessageLike & {
   [CODEX_RESPONSE_ITEM_META]?: CodexResponseItemMeta;
 };
 
+/** True for a synthesized `role:"tool"` message created from a Responses output item. */
+export function isResponsesToolOutputMessage(message: unknown): boolean {
+  if (!isRecord(message)) return false;
+  const m = message as CodexMessageLike;
+  return m.role === "tool" && m[CODEX_RESPONSE_ITEM_META] !== undefined;
+}
+
 type ResponsesItem = {
   type?: unknown;
   role?: unknown;
