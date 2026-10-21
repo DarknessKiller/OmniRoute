@@ -10,7 +10,7 @@ import { applyCompression } from "../../../open-sse/services/compression/strateg
 
 const BIG = "The quick brown fox jumps over the lazy dog. ".repeat(80);
 
-function compress(input: unknown[]) {
+function compress(input: unknown) {
   return applyCompression(
     {
       model: "gpt-5",
@@ -46,5 +46,18 @@ describe("ccr on Responses bodies", () => {
     assert.match(String(instruction.content), /\[CCR protocol\]/);
     assert.equal(body.input[1].role, "developer");
     assert.equal(body.input.length, 3);
+  });
+
+  it("turns a string input into an item array when the protocol instruction is injected", () => {
+    const result = compress(BIG);
+    const body = result.body as { input: Array<Record<string, unknown>> };
+
+    assert.equal(result.compressed, true);
+    assert.ok(Array.isArray(body.input));
+    assert.equal(body.input[0].role, "system");
+    assert.match(String(body.input[0].content), /\[CCR protocol\]/);
+    assert.equal(body.input[1].role, "user");
+    assert.match(String(body.input[1].content), /\[CCR retrieve hash=/);
+    assert.equal(body.input.length, 2);
   });
 });

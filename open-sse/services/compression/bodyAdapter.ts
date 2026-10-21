@@ -342,6 +342,31 @@ function adaptChatBodyForCompression(body: Record<string, unknown>): Compression
   };
 }
 
+/**
+ * Re-attach the restored `input` to a Responses body. A string `input` collapses back to a
+ * string unless an engine injected messages, in which case it becomes an array of items with
+ * the injected items first.
+ */
+function finalizeResponsesInput(
+  rest: Record<string, unknown>,
+  originalInput: unknown,
+  items: unknown[],
+  injectedItems: unknown[]
+): Record<string, unknown> {
+  if (typeof originalInput === "string") {
+    const first = items[0];
+    const content = isRecord(first) ? (first.content ?? originalInput) : originalInput;
+    return {
+      ...rest,
+      input:
+        injectedItems.length === 0
+          ? content
+          : [...injectedItems, { type: "message", role: "user", content }],
+    };
+  }
+  return { ...rest, input: [...injectedItems, ...items] };
+}
+
 export function adaptBodyForCompression(
   body: Record<string, unknown>,
   preserveToolNames: string[] = []
@@ -424,18 +449,7 @@ export function adaptBodyForCompression(
         });
         const rest = { ...compressedBody };
         delete rest.messages;
-        if (typeof body.input === "string") {
-          const first = nextInput[0];
-          const content = isRecord(first) ? (first.content ?? body.input) : body.input;
-          return {
-            ...rest,
-            input:
-              injectedItems.length === 0
-                ? content
-                : [...injectedItems, { type: "message", role: "user", content }],
-          };
-        }
-        return { ...rest, input: [...injectedItems, ...nextInput] };
+        return finalizeResponsesInput(rest, body.input, nextInput, injectedItems);
       }
 
       // Compaction restore (#8560): rebuild input so Layer-3 history drops actually shrink
@@ -495,18 +509,7 @@ export function adaptBodyForCompression(
 
       const rest = { ...compressedBody };
       delete rest.messages;
-      if (typeof body.input === "string") {
-        const first = cleanedInput[0];
-        const content = isRecord(first) ? (first.content ?? body.input) : body.input;
-        return {
-          ...rest,
-          input:
-            injectedItems.length === 0
-              ? content
-              : [...injectedItems, { type: "message", role: "user", content }],
-        };
-      }
-      return { ...rest, input: [...injectedItems, ...cleanedInput] };
+      return finalizeResponsesInput(rest, body.input, cleanedInput, injectedItems);
     },
   };
 }
