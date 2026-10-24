@@ -8950,8 +8950,7 @@
       "statsTitle": "ការរកឃើញតាំងពីចាប់ផ្ដើមឡើងវិញ",
       "statsEmpty": "មិនទាន់មានការរកឃើញទេ។",
       "statsRequest": "សំណើ"
-    },
-    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
+    }
   },
   "contextRtk": {
     "title": "ម៉ាស៊ីន RTK",

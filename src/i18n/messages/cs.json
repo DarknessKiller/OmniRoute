@@ -8950,8 +8950,7 @@
       "statsTitle": "Detekce od restartu",
       "statsEmpty": "Zatím žádné detekce.",
       "statsRequest": "Požadavky"
-    },
-    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
+    }
   },
   "contextRtk": {
     "title": "Modul RTK",

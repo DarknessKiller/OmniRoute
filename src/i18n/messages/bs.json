@@ -8950,8 +8950,7 @@
       "statsTitle": "Otkrivanja od ponovnog pokretanja",
       "statsEmpty": "Još nema otkrivanja.",
       "statsRequest": "Zahtjevi"
-    },
-    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
+    }
   },
   "contextRtk": {
     "title": "RTK pogon",

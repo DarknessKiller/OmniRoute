@@ -8950,8 +8950,7 @@
       "statsTitle": "الاكتشافات منذ إعادة التشغيل",
       "statsEmpty": "لا توجد اكتشافات بعد.",
       "statsRequest": "الطلبات"
-    },
-    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
+    }
   },
   "contextRtk": {
     "title": "محرك آر تي كيه",

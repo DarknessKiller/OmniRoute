@@ -8950,8 +8950,7 @@
       "statsTitle": "Yeniden başlatmadan bu yana tespitler",
       "statsEmpty": "Henüz tespit yok.",
       "statsRequest": "İstekler"
-    },
-    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
+    }
   },
   "contextRtk": {
     "title": "RTK Motoru",

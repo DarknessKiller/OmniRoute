@@ -8950,8 +8950,7 @@
       "statsTitle": "Fund siden genstart",
       "statsEmpty": "Ingen fund endnu.",
       "statsRequest": "Anmodninger"
-    },
-    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
+    }
   },
   "contextRtk": {
     "title": "RTK Engine",

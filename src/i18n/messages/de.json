@@ -8950,8 +8950,7 @@
       "statsTitle": "Erkennungen seit dem Neustart",
       "statsEmpty": "Noch keine Erkennungen.",
       "statsRequest": "Anfragen"
-    },
-    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
+    }
   },
   "contextRtk": {
     "title": "RTK-Engine",

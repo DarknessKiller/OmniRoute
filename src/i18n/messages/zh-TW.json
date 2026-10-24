@@ -8950,8 +8950,7 @@
       "statsTitle": "自重新啟動以來的偵測",
       "statsEmpty": "尚無偵測。",
       "statsRequest": "請求"
-    },
-    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
+    }
   },
   "contextRtk": {
     "title": "RTK 引擎",

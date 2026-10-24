@@ -8950,8 +8950,7 @@
       "statsTitle": "పునఃప్రారంభం నుండి గుర్తింపులు",
       "statsEmpty": "ఇంకా గుర్తింపులు లేవు.",
       "statsRequest": "అభ్యర్థనలు"
-    },
-    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
+    }
   },
   "contextRtk": {
     "title": "RTK ఇంజిన్",

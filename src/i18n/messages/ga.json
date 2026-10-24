@@ -8950,8 +8950,7 @@
       "statsTitle": "Brathanna ó atosú",
       "statsEmpty": "Níl aon bhrath fós.",
       "statsRequest": "Iarratais"
-    },
-    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
+    }
   },
   "contextRtk": {
     "title": "Inneall RTK",

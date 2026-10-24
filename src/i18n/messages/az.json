@@ -8950,8 +8950,7 @@
       "statsTitle": "Yenidən başladılandan bəri aşkarlamalar",
       "statsEmpty": "Hələ aşkarlama yoxdur.",
       "statsRequest": "Sorğular"
-    },
-    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
+    }
   },
   "contextRtk": {
     "title": "RTK Mühərriki",

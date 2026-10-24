@@ -8950,8 +8950,7 @@
       "statsTitle": "Zaznave od ponovnega zagona",
       "statsEmpty": "Še ni zaznav.",
       "statsRequest": "Zahteve"
-    },
-    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
+    }
   },
   "contextRtk": {
     "title": "Pogon RTK",

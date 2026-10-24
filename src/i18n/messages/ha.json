@@ -8950,8 +8950,7 @@
       "statsTitle": "Ganowa tun sake farawa",
       "statsEmpty": "Babu ganowa tukuna.",
       "statsRequest": "Buƙatu"
-    },
-    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
+    }
   },
   "contextRtk": {
     "title": "Injin RTK",

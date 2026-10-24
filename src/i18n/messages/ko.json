@@ -8950,8 +8950,7 @@
       "statsTitle": "재시작 이후 감지",
       "statsEmpty": "아직 감지된 항목이 없습니다.",
       "statsRequest": "요청"
-    },
-    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
+    }
   },
   "contextRtk": {
     "title": "RTK 엔진",

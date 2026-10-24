@@ -8950,8 +8950,7 @@
       "statsTitle": "Rilevamenti dal riavvio",
       "statsEmpty": "Ancora nessun rilevamento.",
       "statsRequest": "Richieste"
-    },
-    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
+    }
   },
   "contextRtk": {
     "title": "Motore RTK",

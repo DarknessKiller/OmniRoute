@@ -8950,8 +8950,7 @@
       "statsTitle": "شناسایی‌ها از زمان راه‌اندازی مجدد",
       "statsEmpty": "هنوز موردی شناسایی نشده است.",
       "statsRequest": "درخواست‌ها"
-    },
-    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
+    }
   },
   "contextRtk": {
     "title": "موتور RTK",

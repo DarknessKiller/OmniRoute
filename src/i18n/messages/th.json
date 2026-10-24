@@ -8950,8 +8950,7 @@
       "statsTitle": "การตรวจพบตั้งแต่รีสตาร์ต",
       "statsEmpty": "ยังไม่มีการตรวจพบ",
       "statsRequest": "คำขอ"
-    },
-    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
+    }
   },
   "contextRtk": {
     "title": "RTK Engine",

@@ -320,11 +320,9 @@ function NamedCombosManager() {
               <option value="full">{t("intensityFull")}</option>
               <option value="ultra">{t("intensityUltra")}</option>
             </select>
-            <p className="text-xs text-text-muted">
-              {tSettings("compressionOutputModeFallbackHint")}
-            </p>
             {outputStyles.length > 0 && (
-              <p className="text-xs text-text-muted">
+              <p className="mt-1 mb-0 text-xs text-text-muted">
+                {t("intensityLite")}/{t("intensityFull")}/{t("intensityUltra")} ={" "}
                 {tSettings("compressionOutputStylesDescription")}
               </p>
             )}

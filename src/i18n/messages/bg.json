@@ -8950,8 +8950,7 @@
       "statsTitle": "Засичания от рестарта",
       "statsEmpty": "Все още няма засичания.",
       "statsRequest": "Заявки"
-    },
-    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
+    }
   },
   "contextRtk": {
     "title": "RTK Engine",

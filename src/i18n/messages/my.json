@@ -8950,8 +8950,7 @@
       "statsTitle": "ပြန်စတင်ပြီးနောက် တွေ့ရှိမှုများ",
       "statsEmpty": "တွေ့ရှိမှု မရှိသေးပါ။",
       "statsRequest": "တောင်းဆိုမှုများ"
-    },
-    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
+    }
   },
   "contextRtk": {
     "title": "RTK Engine",

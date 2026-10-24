@@ -8950,8 +8950,7 @@
       "statsTitle": "Detecties sinds herstart",
       "statsEmpty": "Nog geen detecties.",
       "statsRequest": "Verzoeken"
-    },
-    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
+    }
   },
   "contextRtk": {
     "title": "RTK Engine",

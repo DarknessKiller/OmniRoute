@@ -8950,8 +8950,7 @@
       "statsTitle": "പുനരാരംഭിച്ചതിന് ശേഷമുള്ള കണ്ടെത്തലുകൾ",
       "statsEmpty": "ഇതുവരെ കണ്ടെത്തലുകളൊന്നുമില്ല.",
       "statsRequest": "അഭ്യർത്ഥനകൾ"
-    },
-    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
+    }
   },
   "contextRtk": {
     "title": "RTK എഞ്ചിൻ",

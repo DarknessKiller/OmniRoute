@@ -8950,8 +8950,7 @@
       "statsTitle": "Àwọn àwárí láti ìgbà àtúnbẹ̀rẹ̀",
       "statsEmpty": "Kò sí àwárí kankan síbẹ̀.",
       "statsRequest": "Àwọn ìbéèrè"
-    },
-    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
+    }
   },
   "contextRtk": {
     "title": "Ẹ́ńjìnnì RTK",

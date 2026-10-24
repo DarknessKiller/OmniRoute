@@ -8950,8 +8950,7 @@
       "statsTitle": "זיהויים מאז ההפעלה מחדש",
       "statsEmpty": "אין זיהויים עדיין.",
       "statsRequest": "בקשות"
-    },
-    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
+    }
   },
   "contextRtk": {
     "title": "מנוע RTK",

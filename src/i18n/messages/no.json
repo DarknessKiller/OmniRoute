@@ -8950,8 +8950,7 @@
       "statsTitle": "Funn siden omstart",
       "statsEmpty": "Ingen funn ennå.",
       "statsRequest": "Forespørsler"
-    },
-    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
+    }
   },
   "contextRtk": {
     "title": "RTK-motor",
