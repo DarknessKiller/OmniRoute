@@ -10,6 +10,7 @@ import { CompressionPipelineEditor } from "@/shared/components/compression/Compr
 import { ComboCompressionModeSelect } from "@/shared/components/compression/ComboCompressionModeSelect";
 import CompressionHub from "./CompressionHub";
 
+import { OutputStylesSelectionEditor } from "./OutputStylesSelectionEditor";
 type PipelineStep = { engine: string; intensity?: string };
 type CompressionCombo = {
   id: string;
@@ -19,6 +20,7 @@ type CompressionCombo = {
   languagePacks: string[];
   outputMode: boolean;
   outputModeIntensity: string;
+  outputStyles?: Array<{ id: string; level: string }>;
   isDefault: boolean;
 };
 type RoutingCombo = {
@@ -51,7 +53,7 @@ function NamedCombosManager() {
   const [selectedPacks, setSelectedPacks] = useState<string[]>(["en"]);
   const [outputMode, setOutputMode] = useState(false);
   const [outputModeIntensity, setOutputModeIntensity] = useState("full");
-  const [assignmentIds, setAssignmentIds] = useState<string[]>([]);
+  const [outputStyles, setOutputStyles] = useState<Array<{ id: string; level: string }>>([]);
   const [saving, setSaving] = useState(false);
   const [activeComboId, setActiveComboId] = useState<string | null>(null);
   const [compressionEnabled, setCompressionEnabled] = useState(false);
@@ -111,6 +113,7 @@ function NamedCombosManager() {
     setSelectedPacks(["en"]);
     setOutputMode(false);
     setOutputModeIntensity("full");
+    setOutputStyles([]);
     setAssignmentIds([]);
     setError(null);
   };
@@ -132,6 +135,7 @@ function NamedCombosManager() {
     setSelectedPacks(combo.languagePacks?.length ? combo.languagePacks : ["en"]);
     setOutputMode(Boolean(combo.outputMode));
     setOutputModeIntensity(combo.outputModeIntensity ?? "full");
+    setOutputStyles(combo.outputStyles ?? []);
     setAssignmentIds(await loadAssignments(combo.id));
   };
 
@@ -153,8 +157,9 @@ function NamedCombosManager() {
         description,
         pipeline,
         languagePacks: selectedPacks,
-        outputMode,
-        outputModeIntensity,
+        outputMode: Boolean(outputStyles.length > 0 || outputMode),
+        outputModeIntensity: outputStyles.length > 0 ? undefined : outputModeIntensity,
+        outputStyles: outputStyles.length > 0 ? outputStyles : undefined,
       };
       const res = await fetch(
         editingId ? `/api/context/combos/${editingId}` : "/api/context/combos",
@@ -295,15 +300,23 @@ function NamedCombosManager() {
               />
               {t("enabled")}
             </label>
-            <select
-              value={outputModeIntensity}
-              onChange={(event) => setOutputModeIntensity(event.target.value)}
-              className="w-full rounded-lg border border-border bg-bg px-3 py-2 text-sm"
-            >
-              <option value="lite">{t("intensityLite")}</option>
-              <option value="full">{t("intensityFull")}</option>
-              <option value="ultra">{t("intensityUltra")}</option>
-            </select>
+            {outputStyles.length === 0 ? (
+              <select
+                value={outputModeIntensity}
+                onChange={(event) => setOutputModeIntensity(event.target.value)}
+                className="w-full rounded-lg border border-border bg-bg px-3 py-2 text-sm"
+                aria-label={t("outputMode")}
+              >
+                <option value="lite">{t("intensityLite")}</option>
+                <option value="full">{t("intensityFull")}</option>
+                <option value="ultra">{t("intensityUltra")}</option>
+              </select>
+            ) : null}
+            <OutputStylesSelectionEditor
+              value={outputStyles}
+              onChange={setOutputStyles}
+              disabled={saving}
+            />
           </div>
           <div>
             <h3 className="mb-2 text-sm font-semibold text-text-main">{t("assignToRouting")}</h3>
