@@ -58,6 +58,7 @@ function NamedCombosManager() {
   const [activeComboId, setActiveComboId] = useState<string | null>(null);
   const [compressionEnabled, setCompressionEnabled] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [savedMessage, setSavedMessage] = useState<string | null>(null);
   // The defaults (activeComboId null, compressionEnabled false) suppress the
   // master-switch warning, hide the Active badge and disable the override selects,
   // so a failed settings GET must show a retry instead. A retry re-runs the loads;
@@ -116,6 +117,7 @@ function NamedCombosManager() {
     setOutputStyles([]);
     setAssignmentIds([]);
     setError(null);
+    setSavedMessage(null);
   };
 
   const loadAssignments = async (id: string) => {
@@ -182,6 +184,7 @@ function NamedCombosManager() {
       });
       resetForm();
       refresh();
+      setSavedMessage(tCommon("savedSuccessfully"));
     } finally {
       setSaving(false);
     }
@@ -295,23 +298,33 @@ function NamedCombosManager() {
             <label className="flex items-center gap-2">
               <input
                 type="checkbox"
-                checked={outputMode}
+                checked={outputMode || outputStyles.length > 0}
+                disabled={saving || outputStyles.length > 0}
+                title={
+                  outputStyles.length > 0
+                    ? tSettings("compressionOutputStylesDescription")
+                    : undefined
+                }
                 onChange={(event) => setOutputMode(event.target.checked)}
               />
               {t("enabled")}
             </label>
-            {outputStyles.length === 0 ? (
-              <select
-                value={outputModeIntensity}
-                onChange={(event) => setOutputModeIntensity(event.target.value)}
-                className="w-full rounded-lg border border-border bg-bg px-3 py-2 text-sm"
-                aria-label={t("outputMode")}
-              >
-                <option value="lite">{t("intensityLite")}</option>
-                <option value="full">{t("intensityFull")}</option>
-                <option value="ultra">{t("intensityUltra")}</option>
-              </select>
-            ) : null}
+            <select
+              value={outputModeIntensity}
+              onChange={(event) => setOutputModeIntensity(event.target.value)}
+              disabled={saving || outputStyles.length > 0}
+              className="w-full rounded-lg border border-border bg-bg px-3 py-2 text-sm disabled:opacity-50"
+              aria-label={t("outputMode")}
+            >
+              <option value="lite">{t("intensityLite")}</option>
+              <option value="full">{t("intensityFull")}</option>
+              <option value="ultra">{t("intensityUltra")}</option>
+            </select>
+            {outputStyles.length > 0 && (
+              <p className="text-xs text-text-muted">
+                {tSettings("compressionOutputStylesDescription")}
+              </p>
+            )}
             <OutputStylesSelectionEditor
               value={outputStyles}
               onChange={setOutputStyles}
@@ -354,6 +367,12 @@ function NamedCombosManager() {
         {error && (
           <p className="mt-4 text-sm text-danger" role="alert">
             {error}
+          </p>
+        )}
+
+        {savedMessage && (
+          <p className="mt-4 text-sm text-green-500" role="status" data-testid="combos-saved-flash">
+            {savedMessage}
           </p>
         )}
 
