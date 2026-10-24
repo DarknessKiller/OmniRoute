@@ -10,6 +10,7 @@
  */
 
 import type { CompressionConfig } from "../../services/compression/types.ts";
+import { OUTPUT_STYLE_IDS } from "../../services/compression/outputStyles/catalog.ts";
 import type { RuntimeCompressionCombo } from "./compressionComboPredicates.ts";
 
 export function mergeCompressionComboIntoConfig(
@@ -64,6 +65,15 @@ export function mergeCompressionComboIntoConfig(
       enabled: compressionCombo.outputMode,
       intensity: comboOutputIntensity,
     },
+    // Backported output styles (migration 213): when the combo carries a styles
+    // selection it wins via the resolveOutputStyleSelection precedence (explicit
+    // outputStyles > legacy cavemanOutputMode → terse-prose + intensity).
+    outputStyles:
+      compressionCombo.outputStyles && compressionCombo.outputStyles.length > 0
+        ? compressionCombo.outputStyles.filter((entry) =>
+            OUTPUT_STYLE_IDS.includes(entry.id)
+          )
+        : config.outputStyles,
     comboOverrides,
   };
 }

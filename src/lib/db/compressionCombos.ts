@@ -1,11 +1,14 @@
 import { v4 as uuidv4 } from "uuid";
+import { OUTPUT_STYLE_IDS } from "@omniroute/open-sse/services/compression/outputStyles/catalog.ts";
 import type {
+  OutputStyleSelectionEntry,
   CompressionEngineId,
   CompressionPipelineStep,
 } from "@omniroute/open-sse/services/compression/types.ts";
 
 import { backupDbFile } from "./backup";
 import { getDbInstance, rowToCamel } from "./core";
+import { cavemanIntensitySchema } from "@/shared/validation/compressionConfigSchemas";
 
 export interface CompressionCombo {
   id: string;
@@ -15,6 +18,7 @@ export interface CompressionCombo {
   languagePacks: string[];
   outputMode: boolean;
   outputModeIntensity: string;
+  outputStyles?: OutputStyleSelectionEntry[];
   isDefault: boolean;
   createdAt: string;
   updatedAt: string;
@@ -86,6 +90,22 @@ function normalizeLanguagePacks(value: unknown): string[] {
     (pack): pack is string => typeof pack === "string" && pack.trim().length > 0
   );
   return [...new Set(packs.length > 0 ? packs.map((pack) => pack.trim()) : ["en"])];
+}
+
+// Backport of the engine panel's unified output-styles selection (migration 213).
+// Ids and levels come from the shared catalog/schema (single source of truth). Unknown
+// ids or levels are dropped on read and write, so a newer install's styles simply
+// decay to a shorter list on an older binary.
+const KNOWN_OUTPUT_STYLE_IDS = new Set(OUTPUT_STYLE_IDS);
+const OUTPUT_STYLE_LEVELS = new Set(cavemanIntensitySchema.options);
+
+function normalizeOutputStyles(value: unknown): OutputStyleSelectionEntry[] {
+  return parseJsonArray<OutputStyleSelectionEntry>(value, []).flatMap((entry) => {
+    if (!entry || typeof entry.id !== "string" || typeof entry.level !== "string") return [];
+    const id = entry.id.trim();
+    if (!KNOWN_OUTPUT_STYLE_IDS.has(id) || !OUTPUT_STYLE_LEVELS.has(entry.level)) return [];
+    return [{ id, level: entry.level as OutputStyleSelectionEntry["level"] }];
+  });
 }
 
 function isLegacySeededDefaultPipeline(pipeline: CompressionPipelineStep[]): boolean {
@@ -160,6 +180,14 @@ function ensureCompressionComboTables(): void {
     CREATE INDEX IF NOT EXISTS idx_compression_combo_assignments_routing
       ON compression_combo_assignments(routing_combo_id);
   `);
+  // Migration 213 backport: the output_styles column may be missing on DBs that ran
+  // ensureCompressionComboTables before the migration runner (watchers/CLI warm paths).
+  const comboCols = db.prepare("PRAGMA table_info('compression_combos')").all() as Array<{
+    name: string;
+  }>;
+  if (!comboCols.some((col) => col.name === "output_styles")) {
+    db.exec("ALTER TABLE compression_combos ADD COLUMN output_styles TEXT NOT NULL DEFAULT '[]'");
+  }
   db.prepare(
     `
     INSERT OR IGNORE INTO compression_combos (
@@ -192,6 +220,7 @@ function rowToCompressionCombo(row: unknown): CompressionCombo | null {
     outputMode: Boolean(camel.outputMode),
     outputModeIntensity: String(camel.outputModeIntensity ?? "full"),
     isDefault: Boolean(camel.isDefault),
+    outputStyles: normalizeOutputStyles(camel.outputStyles),
     createdAt: String(camel.createdAt ?? ""),
     updatedAt: String(camel.updatedAt ?? ""),
   };
@@ -229,6 +258,9 @@ function buildComboPayload(data: Partial<CompressionCombo>, existing?: Compressi
     outputMode: data.outputMode ?? existing?.outputMode ?? false,
     outputModeIntensity: data.outputModeIntensity ?? existing?.outputModeIntensity ?? "full",
     isDefault: data.isDefault ?? existing?.isDefault ?? false,
+    outputStyles: data.outputStyles
+      ? normalizeOutputStyles(data.outputStyles)
+      : (existing?.outputStyles ?? []),
     createdAt: existing?.createdAt ?? now,
     updatedAt: now,
   };
@@ -270,9 +302,9 @@ export function createCompressionCombo(data: Partial<CompressionCombo>): Compres
       `
       INSERT INTO compression_combos (
         id, name, description, pipeline, language_packs, output_mode, output_mode_intensity,
-        is_default, created_at, updated_at
+        is_default, output_styles, created_at, updated_at
       )
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `
     ).run(
       combo.id,
@@ -283,6 +315,7 @@ export function createCompressionCombo(data: Partial<CompressionCombo>): Compres
       combo.outputMode ? 1 : 0,
       combo.outputModeIntensity,
       combo.isDefault ? 1 : 0,
+      JSON.stringify(combo.outputStyles ?? []),
       combo.createdAt,
       combo.updatedAt
     );
@@ -307,7 +340,7 @@ export function updateCompressionCombo(
       `
       UPDATE compression_combos
       SET name = ?, description = ?, pipeline = ?, language_packs = ?, output_mode = ?,
-          output_mode_intensity = ?, is_default = ?, updated_at = ?
+          output_mode_intensity = ?, is_default = ?, output_styles = ?, updated_at = ?
       WHERE id = ?
     `
     ).run(
@@ -318,6 +351,7 @@ export function updateCompressionCombo(
       combo.outputMode ? 1 : 0,
       combo.outputModeIntensity,
       combo.isDefault ? 1 : 0,
+      JSON.stringify(combo.outputStyles ?? []),
       combo.updatedAt,
       id
     );

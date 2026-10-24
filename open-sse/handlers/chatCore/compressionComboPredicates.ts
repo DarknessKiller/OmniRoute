@@ -22,6 +22,7 @@ export type RuntimeCompressionCombo = {
   languagePacks: string[];
   outputMode: boolean;
   outputModeIntensity: string;
+  outputStyles?: Array<{ id: string; level: "lite" | "full" | "ultra" }>;
 };
 
 export function isBuiltinStackedPipeline(
