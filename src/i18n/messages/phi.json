@@ -8950,7 +8950,8 @@
       "statsTitle": "Mga natukoy mula nang mag-restart",
       "statsEmpty": "Wala pang natukoy.",
       "statsRequest": "Mga request"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "Engine ng RTK",

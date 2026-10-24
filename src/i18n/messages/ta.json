@@ -8950,7 +8950,8 @@
       "statsTitle": "மறுதொடக்கத்திற்குப் பின் கண்டறிதல்கள்",
       "statsEmpty": "இதுவரை கண்டறிதல்கள் இல்லை.",
       "statsRequest": "கோரிக்கைகள்"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "RTK எஞ்சின்",

@@ -8950,7 +8950,8 @@
       "statsTitle": "Deteções desde o reinício",
       "statsEmpty": "Ainda sem deteções.",
       "statsRequest": "Pedidos"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "Motor RTK",

@@ -8950,7 +8950,8 @@
       "statsTitle": "Atklājumi kopš restartēšanas",
       "statsEmpty": "Atklājumu vēl nav.",
       "statsRequest": "Pieprasījumi"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "RTK dzinējs",

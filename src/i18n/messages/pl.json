@@ -8950,7 +8950,8 @@
       "statsTitle": "Wykrycia od ponownego uruchomienia",
       "statsEmpty": "Brak wykryć.",
       "statsRequest": "Żądania"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "Silnik RTK",

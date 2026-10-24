@@ -8950,7 +8950,8 @@
       "statsTitle": "再起動以降の検出",
       "statsEmpty": "まだ検出はありません。",
       "statsRequest": "リクエスト"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "RTKエンジン",

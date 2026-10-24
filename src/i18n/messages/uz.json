@@ -8950,7 +8950,8 @@
       "statsTitle": "Qayta ishga tushirilgandan beri aniqlashlar",
       "statsEmpty": "Hali aniqlashlar yo'q.",
       "statsRequest": "So'rovlar"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "RTK mexanizmi",

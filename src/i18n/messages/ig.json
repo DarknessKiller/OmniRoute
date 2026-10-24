@@ -8950,7 +8950,8 @@
       "statsTitle": "Nchọpụta kemgbe mmalitegharị",
       "statsEmpty": "Enweghị nchọpụta ka ọ dị ugbu a.",
       "statsRequest": "Arịrịọ"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "Injin RTK",

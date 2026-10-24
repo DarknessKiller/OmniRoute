@@ -8950,7 +8950,8 @@
       "statsTitle": "Հայտնաբերումներ վերագործարկումից ի վեր",
       "statsEmpty": "Դեռ հայտնաբերումներ չկան։",
       "statsRequest": "Հարցումներ"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "RTK շարժիչ",

@@ -8950,7 +8950,8 @@
       "statsTitle": "Виявлення від перезапуску",
       "statsEmpty": "Виявлень поки немає.",
       "statsRequest": "Запити"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "Двигун RTK",

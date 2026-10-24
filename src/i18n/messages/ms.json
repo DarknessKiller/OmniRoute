@@ -8950,7 +8950,8 @@
       "statsTitle": "Pengesanan sejak dimulakan semula",
       "statsEmpty": "Belum ada pengesanan.",
       "statsRequest": "Permintaan"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "Enjin RTK",

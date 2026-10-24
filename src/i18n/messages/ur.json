@@ -8950,7 +8950,8 @@
       "statsTitle": "دوبارہ شروع ہونے کے بعد سے نشاندہیاں",
       "statsEmpty": "ابھی تک کوئی نشاندہی نہیں۔",
       "statsRequest": "درخواستیں"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "RTK انجن",

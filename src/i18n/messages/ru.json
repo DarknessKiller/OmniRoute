@@ -8950,7 +8950,8 @@
       "statsTitle": "Обнаружения с момента перезапуска",
       "statsEmpty": "Пока нет обнаружений.",
       "statsRequest": "Запросы"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "RTK Engine",

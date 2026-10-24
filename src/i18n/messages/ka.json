@@ -8950,7 +8950,8 @@
       "statsTitle": "აღმოჩენები გადატვირთვის შემდეგ",
       "statsEmpty": "აღმოჩენები ჯერ არ არის.",
       "statsRequest": "მოთხოვნები"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "RTK ძრავა",

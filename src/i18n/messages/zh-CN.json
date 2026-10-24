@@ -8950,7 +8950,8 @@
       "statsTitle": "自重启以来的检测",
       "statsEmpty": "暂无检测。",
       "statsRequest": "请求"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "命令输出过滤引擎",

@@ -8950,7 +8950,8 @@
       "statsTitle": "Откривања од поновног покретања",
       "statsEmpty": "Још нема откривања.",
       "statsRequest": "Захтеви"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "RTK Engine",

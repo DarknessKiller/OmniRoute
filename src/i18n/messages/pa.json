@@ -8950,7 +8950,8 @@
       "statsTitle": "ਮੁੜ-ਚਾਲੂ ਹੋਣ ਤੋਂ ਬਾਅਦ ਦੀਆਂ ਪਛਾਣਾਂ",
       "statsEmpty": "ਅਜੇ ਕੋਈ ਪਛਾਣ ਨਹੀਂ।",
       "statsRequest": "ਬੇਨਤੀਆਂ"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "RTK ਇੰਜਣ",

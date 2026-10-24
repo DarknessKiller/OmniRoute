@@ -8950,7 +8950,8 @@
       "statsTitle": "Phát hiện kể từ khi khởi động lại",
       "statsEmpty": "Chưa có phát hiện nào.",
       "statsRequest": "Yêu cầu"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "Công cụ RTK",

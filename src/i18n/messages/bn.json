@@ -8950,7 +8950,8 @@
       "statsTitle": "পুনরায় চালুর পর থেকে শনাক্তকরণ",
       "statsEmpty": "এখনও কোনো শনাক্তকরণ নেই।",
       "statsRequest": "অনুরোধ"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "RTK ইঞ্জিন",

@@ -8950,7 +8950,8 @@
       "statsTitle": "Detecții de la repornire",
       "statsEmpty": "Nicio detecție încă.",
       "statsRequest": "Cereri"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "Motor RTK",

@@ -8950,7 +8950,8 @@
       "statsTitle": "Ugunduzi tangu kuanzishwa upya",
       "statsEmpty": "Bado hakuna ugunduzi.",
       "statsRequest": "Maombi"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "Injini ya RTK",

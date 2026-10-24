@@ -8950,7 +8950,8 @@
       "statsTitle": "ዳግም ከተጀመረ ወዲህ የተገኙ",
       "statsEmpty": "እስካሁን የተገኘ የለም።",
       "statsRequest": "ጥያቄዎች"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "RTK ሞተር",

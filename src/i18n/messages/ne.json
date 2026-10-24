@@ -8950,7 +8950,8 @@
       "statsTitle": "पुनः सुरु भएदेखिका पहिचानहरू",
       "statsEmpty": "अहिलेसम्म कुनै पहिचान छैन।",
       "statsRequest": "अनुरोधहरू"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "RTK इन्जिन",

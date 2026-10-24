@@ -54,6 +54,9 @@ export function OutputStylesSelectionEditor({
       className="mt-2 space-y-2 border-t border-border/30 pt-2"
       data-testid="output-styles-editor"
     >
+      <p className="text-sm font-medium text-text-main">
+        {tSettings("compressionSettingsOutputStyles")}
+      </p>
       <p className="text-xs text-text-muted">{tSettings("compressionOutputStylesDescription")}</p>
       {OUTPUT_STYLE_IDS.filter((id) => {
         const m = outputStyleMeta(id);

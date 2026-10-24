@@ -8950,7 +8950,8 @@
       "statsTitle": "पुन्हा सुरू झाल्यापासूनच्या ओळखी",
       "statsEmpty": "अद्याप कोणतीही ओळख नाही.",
       "statsRequest": "विनंत्या"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "RTK इंजिन",

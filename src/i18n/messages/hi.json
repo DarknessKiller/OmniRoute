@@ -8950,7 +8950,8 @@
       "statsTitle": "पुनरारंभ के बाद से पहचान",
       "statsEmpty": "अभी तक कोई पहचान नहीं।",
       "statsRequest": "अनुरोध"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "RTK इंजन",

@@ -8950,7 +8950,8 @@
       "statsTitle": "ପୁନଃଆରମ୍ଭ ପରଠାରୁ ଚିହ୍ନଟ",
       "statsEmpty": "ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ଚିହ୍ନଟ ନାହିଁ।",
       "statsRequest": "ଅନୁରୋଧ"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "RTK ଇଞ୍ଜିନ୍",

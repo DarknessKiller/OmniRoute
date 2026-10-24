@@ -8950,7 +8950,8 @@
       "statsTitle": "Aptikimai nuo paleidimo iš naujo",
       "statsEmpty": "Aptikimų dar nėra.",
       "statsRequest": "Užklausos"
-    }
+    },
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected."
   },
   "contextRtk": {
     "title": "RTK variklis",

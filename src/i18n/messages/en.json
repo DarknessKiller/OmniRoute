@@ -8222,6 +8222,7 @@
     "compressionAdaptivePolicyPercentage": "Percentage of window",
     "compressionAdaptivePolicyAbsolute": "Absolute token budget",
     "compressionOutputStylesDescription": "Inject response-shaping instructions without rewriting provider output. Combine freely.",
+    "compressionOutputModeFallbackHint": "Used only when no output styles below are selected.",
     "mcpAccessibilityDescription": "Scopes MCP tool outputs (separate store).",
     "compressionStylesTileSummary": "{tokens, number} tokens saved · {runs, plural, one {# run styled} other {# runs styled}}",
     "compressionStylesTileEmpty": "No styled runs yet.",
