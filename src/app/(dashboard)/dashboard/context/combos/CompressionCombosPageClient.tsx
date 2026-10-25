@@ -412,17 +412,24 @@ function NamedCombosManager() {
             })}
           </div>
           {outputStyles.length > 0 && (
-            <pre
-              data-testid="combo-output-styles-preview"
-              className="mt-3 max-h-48 overflow-auto whitespace-pre-wrap rounded-lg border border-border bg-bg p-2 font-mono text-[11px] text-text-muted"
-            >
-              {/* One block per selected pack: the runtime language is detected per request,
-                  so a zh pack must show its 文言 text instead of packs[0] only. */}
-              {[...new Set(selectedPacks.length ? selectedPacks : ["en"])]
-                .map((pack) => buildOutputStylesInstruction(outputStyles, pack))
-                .filter(Boolean)
-                .join("\n\n")}
-            </pre>
+            <>
+              <pre
+                data-testid="combo-output-styles-preview"
+                className="mt-3 max-h-48 overflow-auto whitespace-pre-wrap rounded-lg border border-border bg-bg p-2 font-mono text-[11px] text-text-muted"
+              >
+                {/* One block per selected pack: the runtime language is detected per request,
+                    so a zh pack must show its 文言 text instead of packs[0] only. */}
+                {[...new Set(selectedPacks.length ? selectedPacks : ["en"])]
+                  .map((pack) => buildOutputStylesInstruction(outputStyles, pack))
+                  .filter(Boolean)
+                  .join("\n\n")}
+              </pre>
+              {selectedPacks.length > 1 && (
+                <p className="mt-1 text-xs text-text-muted">
+                  {tSettings("compressionOutputStylesPreviewNote")}
+                </p>
+              )}
+            </>
           )}
         </div>
 
