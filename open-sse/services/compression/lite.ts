@@ -154,7 +154,7 @@ const TAIL_SHARE = 0.3;
 /**
  * Truncate a tool result string to the Lite cap. Multi-line content keeps its tail as well as its
  * head: a head-only cut deletes the lines an agent is about to edit (anchors, grep hits at the
- * bottom), so it invents them from memory and the edit fails as STALE_ANCHOR (retro 2026-10-26 #5).
+ * bottom), so the model rebuilds them from memory and the edit it makes is rejected as stale.
  * Single-line content still gets the #8169 word-boundary cut.
  */
 function truncateToolText(text: string, maxLength: number): string {

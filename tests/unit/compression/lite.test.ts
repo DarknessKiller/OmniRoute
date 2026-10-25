@@ -115,8 +115,8 @@ describe("compressToolResults", () => {
     assert.equal(result.applied, false);
     assert.equal(result.body.messages![0].content, "x".repeat(1500));
   });
-  // A head-only cut deleted the lines the agent was about to edit, so it invented an anchor from
-  // memory and hashline answered STALE_ANCHOR (retro 2026-10-26 #5).
+  // A head-only cut deletes the lines an agent is about to edit, so it rebuilds the anchor from
+  // memory and the edit is rejected as stale.
   it("keeps the tail of a long line-addressed tool result so its anchors survive", () => {
     const lines = Array.from(
       { length: 95 },
