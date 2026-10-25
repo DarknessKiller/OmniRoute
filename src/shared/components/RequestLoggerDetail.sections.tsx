@@ -272,6 +272,18 @@ export function ConversationContextSection({ log, detail }) {
     liveDetail?.requestBody ?? liveDetail?.pipelinePayloads?.clientRequest ?? null;
   const requestTurns = buildRequestTurns(requestBody) ?? [];
 
+  // The context panel shows the CLIENT's original request body, which predates the
+  // proxy's own system-prompt injection (global prefix/suffix at chatCore's pre-translation
+  // pass). That injected turn only exists in the translated/provider request snapshot, so
+  // when the client sent no system prompt the bubble was missing entirely. Pull it from
+  // providerRequest — without deleting any client-side turns already present.
+  const providerRequestTurns =
+    buildRequestTurns(liveDetail?.pipelinePayloads?.providerRequest ?? null) ?? [];
+  const providerSystemTurn = providerRequestTurns.find((turn) => turn.role === "system");
+  if (providerSystemTurn && !requestTurns.some((turn) => turn.role === "system")) {
+    requestTurns.unshift(providerSystemTurn);
+  }
+
   const responseBody = liveDetail?.responseBody ?? null;
   const responseTurns: NormalizedTurn[] =
     responseBody != null
