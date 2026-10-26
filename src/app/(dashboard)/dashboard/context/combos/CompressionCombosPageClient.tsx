@@ -24,6 +24,7 @@ type CompressionCombo = {
   pipeline: PipelineStep[];
   languagePacks: string[];
   outputMode: boolean;
+  outputModeIntensity: string;
   outputStyles: OutputStyleSelection[];
   isDefault: boolean;
 };
