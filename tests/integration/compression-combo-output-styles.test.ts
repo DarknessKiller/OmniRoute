@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import { createChatPipelineHarness } from "./_chatPipelineHarness.ts";
+import { CALL_LOG_SETTLE_TIMEOUT_MS } from "../helpers/callLogSettle.ts";
 
 const harness = await createChatPipelineHarness("compression-combo-output-styles");
 const compressionDb = await import("../../src/lib/db/compression.ts");
@@ -79,7 +80,7 @@ test("a compression combo's own output styles reach the upstream body and the ca
     if (!match) return null;
     const detail = await callLogs.getCallLogById(match.id);
     return (detail as { detailState?: string } | null)?.detailState === "ready" ? detail : null;
-  });
+  }, CALL_LOG_SETTLE_TIMEOUT_MS);
   assert.ok(row, "the combo call-log row's detail artifact becomes ready");
   const logged = JSON.stringify(row.requestBody ?? null);
   assert.ok(
