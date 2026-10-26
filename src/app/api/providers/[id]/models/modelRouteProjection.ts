@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import { getRegistryEntry } from "@omniroute/open-sse/config/providerRegistry.ts";
 import { filterChatSelectableModels } from "@omniroute/open-sse/services/modelEndpointPolicy.ts";
 import { filterSelectableModels } from "@omniroute/open-sse/services/modelLifecycle.ts";
-import { getModelIsHidden } from "@/lib/db/models";
+import { getHiddenChatModels } from "@/lib/hiddenChatModels";
+import { createHiddenModelLookup } from "@/lib/hiddenModelLookup";
 import { getSettings } from "@/lib/db/settings";
 import { getStaticModelsForProvider } from "@/lib/providers/staticModels";
 import { SAFE_OUTBOUND_FETCH_PRESETS, safeOutboundFetch } from "@/shared/network/safeOutboundFetch";
@@ -10,6 +11,23 @@ import { getProviderOutboundGuard } from "@/shared/network/outboundUrlGuardPolic
 import { getModelsByProviderId } from "@/shared/constants/models";
 import { isProviderBlockedByIdOrAlias } from "@/shared/utils/noAuthProviders";
 import { mergeLocalCatalogModels } from "./discovery/helpers";
+
+/**
+ * Drop hidden models. Visibility is a model-level policy: it never depends on the provider
+ * being listed under Security > Blocked Providers. Callers decide whether to apply it (the
+ * route does when the caller opts in or ENFORCE_HIDDEN_MODELS is on). Keys are normalized
+ * through the shared hidden lookup (alias / canonical id / provider-node prefix), unlike the
+ * old raw provider-id match.
+ */
+async function dropHiddenModels<T extends { id: string }>(
+  providerId: string,
+  connectionId: string,
+  models: readonly T[]
+): Promise<T[]> {
+  if (models.length === 0) return [...models];
+  const hidden = createHiddenModelLookup(await getHiddenChatModels());
+  return models.filter((model) => !hidden(providerId, model.id) && !hidden(connectionId, model.id));
+}
 
 export function filterModelsForRoute<
   T extends { id: string; supportedEndpoints?: readonly string[] },
@@ -56,7 +74,7 @@ async function fetchLiveNoAuthModels(
 
     const selectable = filterModelsForRoute(providerId, liveModels, chatOnly);
     const visible = excludeHidden
-      ? selectable.filter((model) => !getModelIsHidden(providerId, model.id))
+      ? await dropHiddenModels(providerId, connectionId, selectable)
       : selectable;
     return NextResponse.json({
       provider: providerId,
@@ -101,7 +119,7 @@ export async function buildNoAuthModelsResponse(
   ).map((model) => ({ id: model.id, name: model.name || model.id }));
   const selectable = filterModelsForRoute(providerId, catalog, chatOnly);
   const visible = excludeHidden
-    ? selectable.filter((model) => !getModelIsHidden(providerId, model.id))
+    ? await dropHiddenModels(providerId, connectionId, selectable)
     : selectable;
   return NextResponse.json({
     provider: providerId,
