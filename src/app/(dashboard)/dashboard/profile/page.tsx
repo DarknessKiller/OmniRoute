@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { PageHeader } from "@omniroute/ui-kit/page-header";
 import Badge from "@/shared/components/Badge";
 import Button from "@/shared/components/Button";
 import Card from "@/shared/components/Card";
@@ -198,9 +197,7 @@ export default function ProfilePage() {
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Kit PageHeader (its own h1): the shell drops its title while a .ci-page-header is
-          mounted, so the page has one "Profile" heading (KEA-7886 P12). */}
-      <PageHeader compact title={t("profile")} />
+      <h1 className="sr-only lg:hidden">{t("profile")}</h1>
       {error && (
         <div role="alert" className="p-3 rounded-lg bg-error-bg text-error text-sm">
           {error}
