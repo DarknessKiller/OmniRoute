@@ -113,7 +113,6 @@ import { resolveProviderAlias } from "@omniroute/open-sse/services/providerAlias
 import { resolveServerErrorMessage } from "@/lib/api/serverErrorMessage";
 import { useTranslations } from "next-intl";
 import { cn } from "@/shared/utils/cn";
-import { strategyBadgeClass } from "./strategyPalette";
 
 const ModelSelectModal = dynamic(() => import("@/shared/components/ModelSelectModal"), {
   ssr: false,
@@ -606,9 +605,22 @@ function getStrategyDescription(t, strategy) {
   );
 }
 
-// Strategy badge colour: one shared palette on the kit chart tokens (strategyPalette.ts, P8).
+// Categorical strategy hues from the kit chart palette (--ci-chart-*) plus the status tokens;
+// chart-1 (lime) is skipped because lime text is unreadable on the light surface.
+const STRATEGY_BADGE_CLASS = {
+  weighted: "bg-warning/15 text-warning",
+  "round-robin": "bg-chart-4/15 text-chart-4",
+  "context-relay": "bg-chart-5/15 text-chart-5",
+  random: "bg-chart-3/15 text-chart-3",
+  "least-used": "bg-chart-2/15 text-chart-2",
+  "cost-optimized": "bg-success/15 text-success",
+  "reset-aware": "bg-chart-5/15 text-chart-5",
+  "fill-first": "bg-warning/15 text-warning",
+  p2c: "bg-chart-3/15 text-chart-3",
+};
+
 function getStrategyBadgeClass(strategy) {
-  return strategyBadgeClass(strategy);
+  return STRATEGY_BADGE_CLASS[strategy] || "bg-info/15 text-info";
 }
 
 function moveArrayItem(items, fromIndex, toIndex) {

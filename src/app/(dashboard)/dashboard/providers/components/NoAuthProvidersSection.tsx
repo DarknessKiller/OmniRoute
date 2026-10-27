@@ -6,7 +6,6 @@ import { Button, ProviderCardGrid } from "@/shared/components";
 import { getProviderAlias } from "@/shared/constants/providers";
 import type { ProviderEntry } from "../providerPageUtils";
 import ProviderCard from "./ProviderCard";
-import { CategoryDot } from "./CategoryDot";
 import ProviderCountBadge from "./ProviderCountBadge";
 
 /** Provider shape consumed by {@link ProviderCard} for a no-auth entry. */
@@ -91,7 +90,7 @@ export default function NoAuthProvidersSection({
         title={
           <span className="flex items-center gap-2">
             {t("noAuthProviders")}{" "}
-            <CategoryDot category="no-auth" size="md" label={t("noAuthLabel")} />
+            <span className="size-2.5 rounded-full bg-stone-500" title={t("noAuthLabel")} />
             <ProviderCountBadge {...count} />
           </span>
         }
