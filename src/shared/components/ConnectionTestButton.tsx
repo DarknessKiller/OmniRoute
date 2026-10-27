@@ -4,8 +4,12 @@ import { useEffect, useId, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import Button from "./Button";
 import Modal, { TALL_MODAL_PROPS } from "./Modal";
+import { DiscoveryDegradedNotice } from "./DiscoveryDegradedNotice";
+import { readDiscoveryDegradation } from "@/shared/discovery/degradedCause";
 
 type Model = { id: string; name?: string };
+/** Whether the proposed list comes from the built-in catalog, and why. */
+type CatalogDegradation = { degraded: boolean; cause?: string };
 type Props = {
   connectionId: string;
   disabled?: boolean;
@@ -27,6 +31,7 @@ export default function ConnectionTestButton({ connectionId, disabled, compact, 
   const [busy, setBusy] = useState(false);
   const inFlight = useRef(false);
   const [models, setModels] = useState<Model[]>([]);
+  const [degradation, setDegradation] = useState<CatalogDegradation>({ degraded: false });
   const [modelId, setModelId] = useState("");
   const [savedModelId, setSavedModelId] = useState("");
   const [prompt, setPrompt] = useState("");
@@ -53,6 +58,9 @@ export default function ConnectionTestButton({ connectionId, disabled, compact, 
           (model: Model) => typeof model.id === "string"
         );
         setModels(available);
+        // The proposed list may come from the built-in catalog: the operator
+        // must know it before choosing a model from it.
+        setDegradation(readDiscoveryDegradation(catalog));
         setModelId(config.modelId || "");
         setSavedModelId(config.modelId || "");
         setPrompt(config.prompt);
@@ -164,6 +172,10 @@ export default function ConnectionTestButton({ connectionId, disabled, compact, 
                   ))}
                 </select>
                 {!models.length && <p className="text-sm text-text-muted">{t("noModels")}</p>}
+                <DiscoveryDegradedNotice
+                  degraded={degradation.degraded}
+                  cause={degradation.cause}
+                />
                 <div>
                   <p className="text-sm font-medium">{t("message")}</p>
                   <p className="mt-1 whitespace-pre-wrap break-words rounded-lg bg-black/5 p-3 text-sm dark:bg-white/5">
