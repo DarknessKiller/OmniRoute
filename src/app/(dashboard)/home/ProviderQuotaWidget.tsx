@@ -10,6 +10,10 @@ import { PROVIDER_LABEL } from "../dashboard/usage/components/ProviderLimits/con
 import { translateUsageOrFallback } from "../dashboard/usage/components/ProviderLimits/i18nFallback";
 import { parseQuotaData } from "../dashboard/usage/components/ProviderLimits/quotaParsing";
 import {
+  ConnectionsAuthError,
+  fetchDashboardConnections,
+} from "../dashboard/usage/components/ProviderLimits/fetchConnections";
+import {
   formatCountdown,
   formatQuotaLabel,
   getBarColor,
@@ -159,6 +163,7 @@ export default function ProviderQuotaWidget({
   const [connections, setConnections] = useState<Connection[]>([]);
   const [quotaData, setQuotaData] = useState<QuotaData>({});
   const [loading, setLoading] = useState(true);
+  const [authRequired, setAuthRequired] = useState(false);
   const [refreshingAll, setRefreshingAll] = useState(false);
   const [updatedAt, setUpdatedAt] = useState<number | null>(null);
   const refreshingAllRef = useRef(false);
@@ -171,13 +176,21 @@ export default function ProviderQuotaWidget({
   const loadData = useCallback(async () => {
     setLoading(true);
     try {
-      const [connectionsResponse, quotasResponse] = await Promise.all([
-        fetch("/api/providers/client"),
+      const [connectionList, quotasResponse] = await Promise.all([
+        fetchDashboardConnections<Connection>().then(
+          (list) => {
+            setAuthRequired(false);
+            return list;
+          },
+          (error) => {
+            setAuthRequired(error instanceof ConnectionsAuthError);
+            return [] as Connection[];
+          }
+        ),
         fetch("/api/usage/provider-limits"),
       ]);
-      const connectionData = connectionsResponse.ok ? await connectionsResponse.json() : {};
       const quotaResponseData = quotasResponse.ok ? await quotasResponse.json() : {};
-      const relevant = ((connectionData.connections || []) as Connection[]).filter(
+      const relevant = connectionList.filter(
         (connection) =>
           supportsProviderQuota(connection.provider, connection) &&
           (connection.authType === "oauth" || connection.authType === "apikey")
@@ -308,7 +321,9 @@ export default function ProviderQuotaWidget({
         </div>
       ) : providerGroups.length === 0 ? (
         <div className="px-4 py-8 text-center text-sm text-text-muted">
-          {tr("noProviders", "No Providers Connected")}
+          {authRequired
+            ? tr("quotaAuthRequired", "Authentication required - sign in to the dashboard")
+            : tr("noProviders", "No Providers Connected")}
         </div>
       ) : compact ? (
         /* Compact mode: 3-column card grid, flat across all connections */
