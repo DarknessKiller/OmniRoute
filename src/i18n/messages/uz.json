@@ -998,13 +998,7 @@
     "batchFileUsedByCount": "{count, plural, one {# ta toʻplamda} other {# ta toʻplamda}} ishlatiladi",
     "batchFilePreview": "Koʻrib chiqish",
     "batchFilePreviewTruncated": "Dastlabki {shown} qator koʻrsatilmoqda (jami {total} qator)",
-    "batchFileDownloadFull": "Toʻliq faylni yuklab olish",
-    "dialogTitleFallback": "Muloqot oynasi",
-    "pagination": "Sahifalash",
-    "clearFilters": "Filtrlarni tozalash",
-    "tokensPageTitle": "Tokenlar",
-    "tokensPageDescription": "Tokenlarni API kalitlari oʻrtasida yuboring, taklif kodlarini ulashing va hamjamiyat serverlarini ulang.",
-    "tokensServerUrlLabel": "Server URL manzili"
+    "batchFileDownloadFull": "Toʻliq faylni yuklab olish"
   },
   "disabled": "Oʻchirilgan",
   "featureFlagOmnirouteEmergencyFallbackDescription": "Byudjeti tugagan soʻrovlarni favqulodda bepul zaxira provayder/modelga yoʻnaltirish.",
@@ -1491,11 +1485,7 @@
       "chatIdPlaceholder": "-100123456789 yoki @channelname",
       "chatIdHint": "Chat/kanalning noyob raqamli identifikatori yoki ommaviy foydalanuvchi nomi.",
       "tutorial": "Telegram webhookini qanday sozlash mumkin:"
-    },
-    "copy": "Nusxalash",
-    "copied": "Nusxalandi!",
-    "expandDetails": "Tafsilotlarni koʻrsatish",
-    "collapseDetails": "Tafsilotlarni yashirish"
+    }
   },
   "compliance": {
     "auditTitle": "Audit",
@@ -1607,8 +1597,7 @@
     "mcpMetricCalls24h": "Chaqiruvlar (24 soat)",
     "mcpMetricSuccessRate": "Muvaffaqiyat darajasi",
     "mcpMetricAvgDuration": "Oʻrtacha davomiylik",
-    "mcpMetricTopTool": "Eng ko‘p ishlatiladigan vosita",
-    "dismissError": "Xatoni yopish"
+    "mcpMetricTopTool": "Eng ko‘p ishlatiladigan vosita"
   },
   "themesPage": {
     "title": "Mavzular",
@@ -1724,9 +1713,7 @@
     "settingsAdvancedDescription": "Kengaytirilgan foydali yuk qoidalari, so‘rov cheklovlari va proksi API sozlamalari",
     "mitmProxyDescription": "Trafikni tekshirish va nosozliklarni tuzatish uchun MITM proksi sozlamalarini belgilang",
     "oneProxyDescription": "Kengaytirilgan proksi zanjirlash uchun 1Proxy sozlamalarini belgilang",
-    "omniSkillsDescription": "Promptlar va vositalarni avtomatik bajarish uchun sandbox ko‘nikmalarini o‘rnating va boshqaring",
-    "openMenu": "Menyuni ochish",
-    "products": "Keak mahsulotlari"
+    "omniSkillsDescription": "Promptlar va vositalarni avtomatik bajarish uchun sandbox ko‘nikmalarini o‘rnating va boshqaring"
   },
   "cloudSyncStatus": {
     "synced": "Sinxronlandi",
@@ -2512,8 +2499,7 @@
     "preferredConnections": "Afzal ulanishlar",
     "preferredConnectionsDesc": "Har bir kalit uchun ustuvorlik tartibi. Afzal ulanish mavjud bo'lmasa, marshrutlash keyingi mos ulanishga o'tadi.",
     "preferredConnectionsNone": "Afzallik belgilanmagan — standart marshrutlash strategiyasi qo'llaniladi.",
-    "preferredConnectionsClear": "Tozalash",
-    "removeSelection": "{name}ni olib tashlash"
+    "preferredConnectionsClear": "Tozalash"
   },
   "auditLog": {
     "title": "Audit jurnali",
@@ -2625,9 +2611,7 @@
     "imageToTextBridgeCta": "Modality Bridge sozlamalarida Tasvir→Matn koʻprigini sozlang",
     "sttBridgeCta": "Modality Bridge sozlamalarida Nutq→Matn koʻprigini sozlang",
     "existingConnection": "Mavjud ulanish",
-    "openrouterSttDescription": "OpenRouter nutqdan matnga oʻtkazish modellari sozlangan OpenRouter ulanishingizdan foydalanadi. Alohida hisob maʼlumotlari talab qilinmaydi.",
-    "modalityTabsAria": "Media turi",
-    "serviceKindsAria": "Xizmat turi"
+    "openrouterSttDescription": "OpenRouter nutqdan matnga oʻtkazish modellari sozlangan OpenRouter ulanishingizdan foydalanadi. Alohida hisob maʼlumotlari talab qilinmaydi."
   },
   "search": {
     "searchQuery": "Qidiruv soʻrovi",
@@ -3298,8 +3282,7 @@
     "cliproxyapiUnknown": "Nomaʼlum",
     "cliproxyapiUpdate": "Yangilash",
     "cliproxyapiUpdateAvailable": "Yangilanish mavjud: v{current} → v{latest}",
-    "cliproxyapiVersion": "Versiya",
-    "removeMapping": "Moslashtirishni olib tashlash"
+    "cliproxyapiVersion": "Versiya"
   },
   "modelCatalog": {
     "title": "Modellar va Kombolar",
@@ -4036,13 +4019,7 @@
     "duplicateAutoComboSnapshotMsg": "Bu shablonga mos keladigan, hozir ulangan provayderlar/modellarning joriy holatini tahrirlanadigan kombinatsiya sifatida saqlaydi.",
     "duplicateAutoComboFailedPrefix": "Avtomatik kombinatsiyani nusxalab bo‘lmadi:",
     "duplicateAutoComboUnknownError": "Noma’lum xato",
-    "duplicateAutoComboTitle": "{name} asosida statik kombinatsiya yaratish",
-    "weightPercent": "Vazn (%)",
-    "clearSearch": "Qidiruvni tozalash",
-    "responseValidationRemoveCheck": "Tekshiruvni olib tashlash",
-    "responseValidationPath": "JSON yoʻli",
-    "responseValidationCondition": "Shart",
-    "responseValidationValue": "Kutilgan qiymat"
+    "duplicateAutoComboTitle": "{name} asosida statik kombinatsiya yaratish"
   },
   "costs": {
     "title": "Xarajatlar",
@@ -5316,8 +5293,7 @@
         "skipped": "allaqachon sozlangan",
         "failed": "muvaffaqiyatsiz"
       }
-    },
-    "stepProgress": "Sozlash jarayoni"
+    }
   },
   "providers": {
     "tosAvoidNoticeTitle": "Bu provayder sukut bo‘yicha auto tarkibidan chiqarilgan",
@@ -8981,7 +8957,7 @@
       "statsEmpty": "Hali aniqlashlar yo'q.",
       "statsRequest": "So'rovlar"
     },
-    "modelOverrideKey": "Qayta belgilash kaliti"
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection."
   },
   "contextRtk": {
     "title": "RTK mexanizmi",
@@ -9065,8 +9041,7 @@
     "tomlTestPassed": "Muvaffaqiyatli",
     "tomlTestFailed": "Muvaffaqiyatsiz",
     "tomlImportError": "RTK TOML fayliga ishlov berib boʻlmadi.",
-    "tomlFileReadError": "Tanlangan TOML faylini oʻqib boʻlmadi.",
-    "viewMode": "Koʻrish rejimi"
+    "tomlFileReadError": "Tanlangan TOML faylini oʻqib boʻlmadi."
   },
   "compressionEngineConfig": {
     "loading": "Yuklanmoqda…",
@@ -9288,8 +9263,7 @@
     "languagePacksList": "Til paketlari: {packs}",
     "dragToReorder": "Bosqich tartibini oʻzgartirish uchun sudrang",
     "engine": "Mexanizm",
-    "intensity": "Daraja",
-    "compressionOverride": "Siqishni qayta belgilash"
+    "intensity": "Daraja"
   },
   "compressionStudio": {
     "noRun": "Siqish jarayoni mavjud emas.",
@@ -9349,8 +9323,7 @@
     "encoderWinner": "g‘olib: {winner}",
     "encoder": "enkoder",
     "bytes": "bayt",
-    "tokensCl100k": "tokenlar (cl100k)",
-    "studioViews": "Studio koʻrinishlari"
+    "tokensCl100k": "tokenlar (cl100k)"
   },
   "omniglyph": {
     "preview": "Oldindan ko‘rish",
@@ -9556,9 +9529,7 @@
     "tooltipMinLength": "Bundan qisqa xabarlar siqilmaydi. Pastroq = ko‘proq siqish.",
     "tooltipMinSavings": "Faqat kamida shuncha token tejalsa, siqiladi.",
     "ultraSettings": "Ultra sozlamalar",
-    "ultraSettingsDesc": "SLM asosidagi semantik siqish",
-    "defaultLanguage": "Standart til",
-    "viewMode": "Koʻrish rejimi"
+    "ultraSettingsDesc": "SLM asosidagi semantik siqish"
   },
   "translator": {
     "title": "Tarjimon",
@@ -11117,8 +11088,7 @@
       "message": "Xabar",
       "error": "Xato",
       "completion": "Yakunlash"
-    },
-    "statusFilter": "Holat"
+    }
   },
   "templateNames": {
     "simple-chat": "Oddiy chat",
@@ -11299,8 +11269,7 @@
     "minutesAgo": "{minutes} daqiqa oldin",
     "hoursAgo": "{hours} soat oldin",
     "daysAgo": "{days} kun oldin",
-    "entries": "Yozuvlar",
-    "viewSwitcherAria": "Kesh koʻrinishi"
+    "entries": "Yozuvlar"
   },
   "proxyConfigModal": {
     "levelGlobal": "Umumiy",
@@ -11645,8 +11614,7 @@
     "notMeasured": "O‘lchanmagan",
     "upstream4xx": "{count} murojaat tashqarisidagi xatolar",
     "upstream5xx": "{count} server tashqarisidagi xatolar",
-    "uniformEgressLine": "{provider} da {exits} ta chiqishdan {affected} tasi birga ishlamayapti (soʻnggi {hours} soat) — chiqish muammosi emas",
-    "moreActions": "Boshqa amallar"
+    "uniformEgressLine": "{provider} da {exits} ta chiqishdan {affected} tasi birga ishlamayapti (soʻnggi {hours} soat) — chiqish muammosi emas"
   },
   "playground": {
     "title": "Model sinov maydoni",
@@ -11852,8 +11820,7 @@
       "nextButton": "Keyingi",
       "runButton": "Ishga tushirish",
       "promptPlaceholder": "Xabaringizni kiriting… (yuborish uchun Enter, yangi qator uchun Shift+Enter)"
-    },
-    "playgroundTabs": "Playground rejimlari"
+    }
   },
   "miniPlayground": {
     "endpoint": "Yakuniy nuqta",
@@ -11924,8 +11891,7 @@
     "assistant": "Yordamchi",
     "errorLabel": "Xato",
     "requestFailed": "So‘rov bajarilmadi",
-    "stop": "To‘xtatish",
-    "messageInputAria": "Xabar"
+    "stop": "To‘xtatish"
   },
   "requestLogger": {
     "recording": "Yozib olinmoqda",
@@ -12112,18 +12078,8 @@
       "resilienceRotations": "{count} ta hisob rotatsiyasi",
       "resilienceRetried": "Bo‘sh navbat qayta urinildi",
       "resilienceContinued": "Oqim o‘rtasidan davom ettirildi",
-      "resilienceRecovered": "Barqarorlik amali bilan tiklandi",
-      "conversationContext": "Suhbat konteksti",
-      "goToBottom": "Pastga oʻtish",
-      "liveRefreshOn": "Jonli yangilash: yoqilgan",
-      "liveRefreshOff": "Jonli yangilash: oʻchirilgan",
-      "liveRefresh": "Jonli yangilash",
-      "continuesFromParent": "ota elementdan davom etadi",
-      "continuesFrom": "{id} dan davom etadi",
-      "viewConversation": "suhbatni koʻrish",
-      "openConversation": "{id} suhbatini ochish"
-    },
-    "tableLabel": "Soʻrov jurnallari"
+      "resilienceRecovered": "Barqarorlik amali bilan tiklandi"
+    }
   },
   "proxyLogger": {
     "filterAll": "Barchasi",
@@ -12168,9 +12124,7 @@
     "colServedBy": "Ta'minlovchi",
     "filterTraffic": "Trafik",
     "filterTests": "Sinovlar",
-    "filterSource": "Manba",
-    "tableLabel": "Proksi jurnallari",
-    "sortLogs": "Jurnallarni saralash"
+    "filterSource": "Manba"
   },
   "endpointOptions": {
     "speech": "Nutq",
@@ -12255,8 +12209,7 @@
     "statusExhausted": "TUGAGAN",
     "statusAlerting": "OGOHLANTIRILMOQDA",
     "statusError": "XATO",
-    "moreSuffix": "+yana {count} ta",
-    "feedFilterLabel": "Hodisalarni filtrlash"
+    "moreSuffix": "+yana {count} ta"
   },
   "quotaShare": {
     "weightPercent": "Ulush %",
@@ -12423,10 +12376,7 @@
     "ungroupedTitle": "Guruhlanmagan",
     "ungroupedHint": "Bu pullar ma’lum bir guruhga biriktirilmagan. Ularni haqiqiy guruhga ko‘chirish uchun pulni tahrirlang.",
     "removeFailed": "Bu pulni olib tashlab bo‘lmadi.",
-    "dismiss": "Yopish",
-    "allocationsHeading": "Ajratmalar",
-    "wizardRemoveDimension": "Oʻlchamni olib tashlash",
-    "wizardRemoveKey": "Kalitni olib tashlash"
+    "dismiss": "Yopish"
   },
   "plugins": {
     "title": "Plaginlar",
@@ -12584,8 +12534,7 @@
       "settingsUpdateFailed": "Sozlamalarni yangilash amalga oshmadi",
       "serviceRevealApiKey": "{actor} {target} uchun API kalitini ko‘rsatdi",
       "genericEvent": "{actor} {target}"
-    },
-    "dismissError": "Xatoni yopish"
+    }
   },
   "agentBridge": {
     "title": "AgentBridge",
@@ -12718,21 +12667,7 @@
       "goNow": "Hozir o‘tish",
       "message": "MITM Proxy endi AgentBridge bo‘limida joylashgan.",
       "title": "Bu sahifa ko‘chirildi"
-    },
-    "dnsOn": "DNS yoqilgan",
-    "dnsOff": "DNS oʻchirilgan",
-    "showServerSettings": "Server sozlamalarini koʻrsatish",
-    "hideServerSettings": "Server sozlamalarini yashirish",
-    "upstreamCaTesting": "Sinovdan oʻtkazilmoqda…",
-    "removeMapping": "Moslikni olib tashlash",
-    "mappingSourcePlaceholder": "masalan, gemini-3.6-flash-medium yoki mosligi belgilanmagan barcha modellar uchun *",
-    "mappingWildcardHint": "Aniq mosligi belgilanmagan har bir modelni OmniRoute orqali tanlangan maqsadga yoʻnaltirish uchun manba sifatida * dan foydalaning. Manbaning aniq mosliklari har doim * dan ustun turadi.",
-    "wizardDetectingModels": "Tutib olingan trafikdan modellar aniqlanmoqda...",
-    "wizardDetectedModels": "Tutib olingan trafikda {count, plural, one {# ta model} other {# ta model}} topildi. Qoʻshmoqchi boʻlganlaringizni tanlang:",
-    "wizardSelectedModels": "{count, plural, one {# ta model} other {# ta model}} tanlandi. Keyingi ekranda ularni OmniRoute modellariga moslaysiz.",
-    "wizardAddModels": "{count, plural, one {# ta modelni} other {# ta modelni}} qoʻshish",
-    "wizardNoModelsDetected": "Hali hech qanday model aniqlanmadi. Soʻrov yuborish uchun {agent} dan foydalaning, soʻng trafikdan modellarni avtomatik aniqlash uchun ushbu ustani qayta ishga tushiring.",
-    "wizardNoModelsHint": "Yoki ushbu ustani yoping va agent kartasida mosliklarni qoʻlda qoʻshing."
+    }
   },
   "providerStats": {
     "unknownError": "Noma’lum xato",
@@ -12762,11 +12697,7 @@
     "avgTtft": "O‘rtacha TTFT",
     "avgTotal": "O‘rtacha jami vaqt",
     "requestTelemetry": "So‘rov telemetriyasi",
-    "requestTelemetryDescription": "7 bosqichli konveyer tafsilotlari (oxirgi 5 daqiqa)",
-    "title": "Provayder statistikasi",
-    "description": "Har bir provayder va model boʻyicha trafik, kechikish va muvaffaqiyat koʻrsatkichlari",
-    "combo": "Kombinatsiya",
-    "toggleModels": "{provider} modellarini koʻrsatish"
+    "requestTelemetryDescription": "7 bosqichli konveyer tafsilotlari (oxirgi 5 daqiqa)"
   },
   "relay": {
     "title": "Serversiz rele proksilari",
@@ -12927,18 +12858,7 @@
     "noRequestBody": "So‘rov tanasi yo‘q.",
     "noResponseBody": "Javob tanasi yo‘q.",
     "formatted": "Formatlangan",
-    "raw": "Xom",
-    "requestCount": "{count, plural, one {# ta soʻrov} other {# ta soʻrov}}",
-    "expandList": "Roʻyxatni yoyish",
-    "collapseList": "Roʻyxatni yigʻish",
-    "snippetLanguage": "Kod parchasi tili",
-    "headersTable": "Sarlavhalar",
-    "showSecrets": "Maxfiy maʼlumotlarni koʻrsatish",
-    "maskSecrets": "Maxfiy maʼlumotlarni niqoblash",
-    "llmNotAvailable": "Ushbu soʻrov uchun LLM metamaʼlumotlari mavjud emas.",
-    "llmStreamYes": "ha (SSE)",
-    "llmStreamNo": "yoʻq",
-    "llmTotalTokens": "Jami: {count} ta token"
+    "raw": "Xom"
   },
   "cliCommon": {
     "companion": {
@@ -13397,8 +13317,7 @@
     "colReliabilityHelp": "Bu provayder so‘nggi 24 soat ichida amalda javob bergan chaqiruvlar ulushi. Tire trafik ko‘rsatkichni aniqlash uchun juda kam bo‘lganini anglatadi.",
     "reliabilitySample": "So‘nggi {hours} soatda {requests} ta chaqiruvdan {successes} tasi muvaffaqiyatli bajarildi",
     "reliabilityTooFew": "So‘nggi {hours} soatda atigi {requests} ta chaqiruv — ko‘rsatkichni aniqlash uchun juda kam",
-    "reliabilityNoTraffic": "So‘nggi 24 soatda hech qanday chaqiruv qayd etilmadi",
-    "categoryFilter": "Vazifa toifasi"
+    "reliabilityNoTraffic": "So‘nggi 24 soatda hech qanday chaqiruv qayd etilmadi"
   },
   "discovery": {
     "title": "Provayderlarni topish",
@@ -13423,11 +13342,7 @@
     "method": "Usul",
     "auth": "Autentifikatsiya",
     "feasibility": "Amalga oshirish mumkinligi",
-    "models": "Modellar",
-    "provider": "Provayder",
-    "status": "Holat",
-    "endpoint": "Endpoint",
-    "actions": "Amallar"
+    "models": "Modellar"
   },
   "noAuthProvider": {
     "title": "Autentifikatsiya talab qilinmaydi",
@@ -13476,8 +13391,7 @@
     "ownProxy": "Shaxsiy proksi",
     "freeTierPause": "{model} modeli to'xtatildi (429), {time} da qaytadi",
     "freeTierPauseProvider": "To'xtatildi (429), {time} da qaytadi",
-    "freeTierPauseNote": "Ushbu instance ichidagi jarayonni to‘xtatish",
-    "proxyType": "Proksi turi"
+    "freeTierPauseNote": "Ushbu instance ichidagi jarayonni to‘xtatish"
   },
   "gamification": {
     "leaderboardScopes": {
@@ -13650,10 +13564,7 @@
         "description": "Yashirin yutuq kutmoqda...",
         "criteria": "Bu nishonni ochish uchun yashirin yutuqni bajaring."
       }
-    },
-    "leaderboardTitle": "Yetakchilar jadvali",
-    "leaderboardDescription": "API kalitlaringiz bo‘yicha reytinglar va yutuqlar",
-    "badgeLocked": "Qulflangan"
+    }
   },
   "featureFlags": {
     "title": "Funksiya bayroqlari",
@@ -13948,8 +13859,7 @@
     "unknown": "nomaʼlum",
     "unknownProvider": "nomaʼlum provayder",
     "unknownModel": "nomaʼlum model",
-    "resolvedTargetMetrics": "{requests} soʻrov · {success} muvaffaqiyatli · {latency} · kvota {quota}",
-    "timeRange": "Vaqt oralig‘i"
+    "resolvedTargetMetrics": "{requests} soʻrov · {success} muvaffaqiyatli · {latency} · kvota {quota}"
   },
   "usageLimits": {
     "usdUsageQuota": "USD sarf-xarajat kvotasi",
@@ -14096,11 +14006,7 @@
     "learnMore": "Batafsil",
     "changelogLoadFailed": "O‘zgarishlar jurnalini yuklab bo‘lmadi. Keyinroq qayta urinib ko‘ring.",
     "retry": "Qayta urinish",
-    "viewFullHistory": "To‘liq tarixni GitHub’da ko‘rish",
-    "title": "Yangiliklar va o‘zgarishlar jurnali",
-    "description": "OmniRoute jamoasi e’lonlari va eng so‘nggi reliz qaydlari",
-    "viewLabel": "Ko‘rish",
-    "loadingNews": "E’lonlar yuklanmoqda..."
+    "viewFullHistory": "To‘liq tarixni GitHub’da ko‘rish"
   },
   "reasoningRouting": {
     "editor": {
@@ -14651,9 +14557,7 @@
       "circuitBreakerState": "Provayder avtomatik uzgichining holati",
       "lastUpdate": "Oxirgi yangilanish: {timestamp}",
       "uptimeMinutes": "{minutes} daq.",
-      "uptimeHoursMinutes": "{hours} soat {minutes} daq.",
-      "breakerClosed": "Yopiq",
-      "breakerNotClosed": "Ochiq yoki yarim ochiq"
+      "uptimeHoursMinutes": "{hours} soat {minutes} daq."
     },
     "statusPages": {
       "400": {
@@ -14728,9 +14632,6 @@
         "primaryAction": "Texnik xizmat tafsilotlari",
         "secondaryAction": "Tizim holati"
       }
-    },
-    "miniapp": {
-      "askAnything": "Istalgan narsani so‘rang…"
     }
   },
   "kiroAuthModal": {
@@ -14921,20 +14822,7 @@
     "mcp": "MCP",
     "mcpTool": "MCP tool",
     "scope": "Scope",
-    "apiKey": "API key",
-    "visibleCount": "{visible} tasi ko‘rinmoqda / jami {total} ta",
-    "modeLabel": "Ko‘rish rejimi",
-    "jumpToNow": "Joriy vaqtga o‘tish, HOZIR chizig‘i {position}% pozitsiyaga qaytadi",
-    "laneReuse": "Qatorni qayta ishlatish",
-    "laneReuseLabel": "Qatorni qayta ishlatish oynasi (daqiqa)",
-    "laneReuseHint": "Bir xil suhbat identifikatoriga ega so‘rovlar orasidagi tanaffus ushbu daqiqalar sonidan kam bo‘lsa, ular vaqt jadvalining bir qatorida qoladi.",
-    "laneReuseUnit": "daq.",
-    "autoRefresh": "Avtomatik yangilash",
-    "autoRefreshLabel": "Avtomatik yangilash oralig‘i (soniya)",
-    "autoRefreshHint": "Vaqt jadvali serverdan so‘rovlar ro‘yxatini qanchalik tez-tez qayta olishi.",
-    "autoRefreshUnit": "son.",
-    "zoomOut": "Kichraytirish",
-    "zoomIn": "Kattalashtirish"
+    "apiKey": "API key"
   },
   "metadata": {
     "compressionTitle": "Siqish",

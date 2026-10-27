@@ -998,13 +998,7 @@
     "batchFileUsedByCount": "Naudoja {count, plural, one {# paketas} few {# paketai} other {# paketų}}",
     "batchFilePreview": "Peržiūra",
     "batchFilePreviewTruncated": "Rodomos pirmosios {shown} eilutės (iš viso {total} eilučių)",
-    "batchFileDownloadFull": "Atsisiųsti visą failą",
-    "dialogTitleFallback": "Dialogas",
-    "pagination": "Puslapių numeravimas",
-    "clearFilters": "Išvalyti filtrus",
-    "tokensPageTitle": "Žetonai",
-    "tokensPageDescription": "Siųskite žetonus tarp API raktų, bendrinkite kvietimų kodus ir prijunkite bendruomenės serverius.",
-    "tokensServerUrlLabel": "Serverio URL"
+    "batchFileDownloadFull": "Atsisiųsti visą failą"
   },
   "disabled": "Išjungta",
   "featureFlagOmnirouteEmergencyFallbackDescription": "Nukreipti užklausas, kurių biudžetas išnaudotas, į avarinį nemokamą atsarginį teikėją / modelį.",
@@ -1491,11 +1485,7 @@
       "chatIdPlaceholder": "-100123456789 arba @channelname",
       "chatIdHint": "Unikalus skaitinis pokalbio ar kanalo identifikatorius arba viešasis naudotojo vardas.",
       "tutorial": "Kaip sukonfigūruoti Telegram webhook:"
-    },
-    "copy": "Kopijuoti",
-    "copied": "Nukopijuota!",
-    "expandDetails": "Rodyti išsamią informaciją",
-    "collapseDetails": "Slėpti išsamią informaciją"
+    }
   },
   "compliance": {
     "auditTitle": "Auditas",
@@ -1607,8 +1597,7 @@
     "mcpMetricCalls24h": "Iškvietimai (24 val.)",
     "mcpMetricSuccessRate": "Sėkmės rodiklis",
     "mcpMetricAvgDuration": "Vid. trukmė",
-    "mcpMetricTopTool": "Populiariausias įrankis",
-    "dismissError": "Uždaryti klaidos pranešimą"
+    "mcpMetricTopTool": "Populiariausias įrankis"
   },
   "themesPage": {
     "title": "Temos",
@@ -1724,9 +1713,7 @@
     "settingsAdvancedDescription": "Išplėstinės naudingosios apkrovos taisyklės, užklausų limitai ir tarpinio serverio API nustatymai",
     "mitmProxyDescription": "Konfigūruoti MITM tarpinio serverio nustatymus srauto tikrinimui ir derinimui",
     "oneProxyDescription": "Konfigūruoti 1Proxy nustatymus išplėstiniam tarpinių serverių grandinės sudarymui",
-    "omniSkillsDescription": "Įdiegti ir tvarkyti smėlio dėžės įgūdžius automatizuotam užklausų ir įrankių vykdymui",
-    "openMenu": "Atverti meniu",
-    "products": "Keak produktai"
+    "omniSkillsDescription": "Įdiegti ir tvarkyti smėlio dėžės įgūdžius automatizuotam užklausų ir įrankių vykdymui"
   },
   "cloudSyncStatus": {
     "synced": "Sinchronizuota",
@@ -2512,8 +2499,7 @@
     "preferredConnections": "Pageidaujami ryšiai",
     "preferredConnectionsDesc": "Kiekvieno rakto prioriteto tvarka. Jei pageidaujamas ryšys nepasiekiamas, maršrutizavimas pereina prie kito tinkamo.",
     "preferredConnectionsNone": "Pageidavimas nenustatytas — naudojama numatytoji maršrutizavimo strategija.",
-    "preferredConnectionsClear": "Išvalyti",
-    "removeSelection": "Pašalinti {name}"
+    "preferredConnectionsClear": "Išvalyti"
   },
   "auditLog": {
     "title": "Audito žurnalas",
@@ -2625,9 +2611,7 @@
     "imageToTextBridgeCta": "Sukonfigūruokite Vaizdas→Tekstas tiltą Modality Bridge nustatymuose",
     "sttBridgeCta": "Sukonfigūruokite kalbos→teksto tiltą Modality Bridge nustatymuose",
     "existingConnection": "Esamas ryšys",
-    "openrouterSttDescription": "OpenRouter kalbos į tekstą modeliai naudoja jūsų sukonfigūruotą OpenRouter ryšį. Atskiras kredencialas nereikalingas.",
-    "modalityTabsAria": "Medijos tipas",
-    "serviceKindsAria": "Paslaugos tipas"
+    "openrouterSttDescription": "OpenRouter kalbos į tekstą modeliai naudoja jūsų sukonfigūruotą OpenRouter ryšį. Atskiras kredencialas nereikalingas."
   },
   "search": {
     "searchQuery": "Paieškos užklausa",
@@ -3298,8 +3282,7 @@
     "cliproxyapiUnknown": "Nežinoma",
     "cliproxyapiUpdate": "Atnaujinti",
     "cliproxyapiUpdateAvailable": "Yra atnaujinimas: v{current} → v{latest}",
-    "cliproxyapiVersion": "Versija",
-    "removeMapping": "Pašalinti susiejimą"
+    "cliproxyapiVersion": "Versija"
   },
   "modelCatalog": {
     "title": "Modeliai ir deriniai",
@@ -4036,13 +4019,7 @@
     "duplicateAutoComboSnapshotMsg": "Taip šiuo metu prijungtų, šį šabloną atitinkančių teikėjų ir modelių momentinė kopija bus įrašyta į redaguojamą kombo.",
     "duplicateAutoComboFailedPrefix": "Nepavyko dubliuoti automatinio kombo:",
     "duplicateAutoComboUnknownError": "Nežinoma klaida",
-    "duplicateAutoComboTitle": "Sukurti statinį kombo iš {name}",
-    "weightPercent": "Svoris (%)",
-    "clearSearch": "Išvalyti paiešką",
-    "responseValidationRemoveCheck": "Pašalinti patikrą",
-    "responseValidationPath": "JSON kelias",
-    "responseValidationCondition": "Sąlyga",
-    "responseValidationValue": "Tikėtina reikšmė"
+    "duplicateAutoComboTitle": "Sukurti statinį kombo iš {name}"
   },
   "costs": {
     "title": "Išlaidos",
@@ -5316,8 +5293,7 @@
         "skipped": "jau sukonfigūruota",
         "failed": "nepavyko"
       }
-    },
-    "stepProgress": "Sąrankos eiga"
+    }
   },
   "providers": {
     "tosAvoidNoticeTitle": "Šis teikėjas pagal numatytuosius nustatymus neįtrauktas į auto",
@@ -8981,7 +8957,7 @@
       "statsEmpty": "Aptikimų dar nėra.",
       "statsRequest": "Užklausos"
     },
-    "modelOverrideKey": "Perrašymo raktas"
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection."
   },
   "contextRtk": {
     "title": "RTK variklis",
@@ -9065,8 +9041,7 @@
     "tomlTestPassed": "Pavyko",
     "tomlTestFailed": "Nepavyko",
     "tomlImportError": "Nepavyko apdoroti RTK TOML failo.",
-    "tomlFileReadError": "Nepavyko perskaityti pasirinkto TOML failo.",
-    "viewMode": "Rodymo režimas"
+    "tomlFileReadError": "Nepavyko perskaityti pasirinkto TOML failo."
   },
   "compressionEngineConfig": {
     "loading": "Įkeliama…",
@@ -9288,8 +9263,7 @@
     "languagePacksList": "Kalbų paketai: {packs}",
     "dragToReorder": "Vilkite, kad pakeistumėte veiksmo vietą",
     "engine": "Variklis",
-    "intensity": "Intensyvumas",
-    "compressionOverride": "Glaudinimo perrašymas"
+    "intensity": "Intensyvumas"
   },
   "compressionStudio": {
     "noRun": "Nėra pasiekiamo glaudinimo vykdymo.",
@@ -9349,8 +9323,7 @@
     "encoderWinner": "laimėtojas: {winner}",
     "encoder": "koduotuvas",
     "bytes": "baitai",
-    "tokensCl100k": "žetonai (cl100k)",
-    "studioViews": "Studio rodiniai"
+    "tokensCl100k": "žetonai (cl100k)"
   },
   "omniglyph": {
     "preview": "Peržiūra",
@@ -9556,9 +9529,7 @@
     "tooltipMinLength": "Trumpesni pranešimai neglaudinami. Mažesnis = daugiau glaudinimo.",
     "tooltipMinSavings": "Glaudinti tik tada, jei sutaupoma bent tiek tokenų.",
     "ultraSettings": "„Ultra“ nustatymai",
-    "ultraSettingsDesc": "SLM grindžiamas semantinis glaudinimas",
-    "defaultLanguage": "Numatytoji kalba",
-    "viewMode": "Rodymo režimas"
+    "ultraSettingsDesc": "SLM grindžiamas semantinis glaudinimas"
   },
   "translator": {
     "title": "Vertėjas",
@@ -11117,8 +11088,7 @@
       "message": "Pranešimas",
       "error": "Klaida",
       "completion": "Užbaigimas"
-    },
-    "statusFilter": "Būsena"
+    }
   },
   "templateNames": {
     "simple-chat": "Paprastas pokalbis",
@@ -11299,8 +11269,7 @@
     "minutesAgo": "prieš {minutes} min.",
     "hoursAgo": "prieš {hours} val.",
     "daysAgo": "prieš {days} d.",
-    "entries": "Įrašai",
-    "viewSwitcherAria": "Podėlio rodinys"
+    "entries": "Įrašai"
   },
   "proxyConfigModal": {
     "levelGlobal": "Visuotinis",
@@ -11645,8 +11614,7 @@
     "notMeasured": "Neišmatuota",
     "upstream4xx": "{count} kliento klaidos",
     "upstream5xx": "{count} serverio klaidos",
-    "uniformEgressLine": "{affected} iš {exits} išėjimų genda kartu tinkle {provider} (per paskutines {hours}h) — ne išėjimo problema",
-    "moreActions": "Daugiau veiksmų"
+    "uniformEgressLine": "{affected} iš {exits} išėjimų genda kartu tinkle {provider} (per paskutines {hours}h) — ne išėjimo problema"
   },
   "playground": {
     "title": "Modelių bandymų aplinka",
@@ -11852,8 +11820,7 @@
       "nextButton": "Toliau",
       "runButton": "Paleisti",
       "promptPlaceholder": "Įveskite žinutę… („Enter“ – siųsti, „Shift+Enter“ – nauja eilutė)"
-    },
-    "playgroundTabs": "Bandymų aplinkos režimai"
+    }
   },
   "miniPlayground": {
     "endpoint": "Galinis taškas",
@@ -11924,8 +11891,7 @@
     "assistant": "Asistentas",
     "errorLabel": "Klaida",
     "requestFailed": "Užklausa nepavyko",
-    "stop": "Sustabdyti",
-    "messageInputAria": "Pranešimas"
+    "stop": "Sustabdyti"
   },
   "requestLogger": {
     "recording": "Įrašoma",
@@ -12112,18 +12078,8 @@
       "resilienceRotations": "{count} paskyrų rotacijos",
       "resilienceRetried": "Tuščias ėjimas pakartotas",
       "resilienceContinued": "Tęsta srauto viduryje",
-      "resilienceRecovered": "Atkurta atsparumo veiksmu",
-      "conversationContext": "Pokalbio kontekstas",
-      "goToBottom": "Pereiti į apačią",
-      "liveRefreshOn": "Tiesioginis atnaujinimas: įjungtas",
-      "liveRefreshOff": "Tiesioginis atnaujinimas: išjungtas",
-      "liveRefresh": "Tiesioginis atnaujinimas",
-      "continuesFromParent": "tęsiama nuo pirminio elemento",
-      "continuesFrom": "Tęsiama nuo {id}",
-      "viewConversation": "Peržiūrėti pokalbį",
-      "openConversation": "Atidaryti pokalbį {id}"
-    },
-    "tableLabel": "Užklausų žurnalai"
+      "resilienceRecovered": "Atkurta atsparumo veiksmu"
+    }
   },
   "proxyLogger": {
     "filterAll": "Visi",
@@ -12168,9 +12124,7 @@
     "colServedBy": "Teikia",
     "filterTraffic": "Srautas",
     "filterTests": "Testai",
-    "filterSource": "Šaltinis",
-    "tableLabel": "Tarpinio serverio žurnalai",
-    "sortLogs": "Rūšiuoti žurnalus"
+    "filterSource": "Šaltinis"
   },
   "endpointOptions": {
     "speech": "Kalba",
@@ -12255,8 +12209,7 @@
     "statusExhausted": "IŠNAUDOTA",
     "statusAlerting": "ĮSPĖJAMA",
     "statusError": "KLAIDA",
-    "moreSuffix": "+ dar {count}",
-    "feedFilterLabel": "Filtruoti įvykius"
+    "moreSuffix": "+ dar {count}"
   },
   "quotaShare": {
     "weightPercent": "Svoris (%)",
@@ -12423,10 +12376,7 @@
     "ungroupedTitle": "Be grupės",
     "ungroupedHint": "Šie telkiniai nepriskirti jokiai žinomai grupei. Redaguokite telkinį, kad perkeltumėte jį į sukurtą grupę.",
     "removeFailed": "Nepavyko pašalinti šio telkinio.",
-    "dismiss": "Uždaryti",
-    "allocationsHeading": "Paskirstymai",
-    "wizardRemoveDimension": "Pašalinti dimensiją",
-    "wizardRemoveKey": "Pašalinti raktą"
+    "dismiss": "Uždaryti"
   },
   "plugins": {
     "title": "Įskiepiai",
@@ -12584,8 +12534,7 @@
       "settingsUpdateFailed": "Nepavyko atnaujinti nustatymų",
       "serviceRevealApiKey": "{actor} atskleidė {target} API raktą",
       "genericEvent": "{actor} {target}"
-    },
-    "dismissError": "Atmesti klaidą"
+    }
   },
   "agentBridge": {
     "title": "AgentBridge",
@@ -12718,21 +12667,7 @@
       "goNow": "Eiti dabar",
       "message": "MITM Proxy dabar pasiekiamas AgentBridge skiltyje.",
       "title": "Šis puslapis perkeltas"
-    },
-    "dnsOn": "DNS įjungtas",
-    "dnsOff": "DNS išjungtas",
-    "showServerSettings": "Rodyti serverio nustatymus",
-    "hideServerSettings": "Slėpti serverio nustatymus",
-    "upstreamCaTesting": "Tikrinama…",
-    "removeMapping": "Pašalinti susiejimą",
-    "mappingSourcePlaceholder": "pvz., gemini-3.6-flash-medium arba * visiems nesusietiems modeliams",
-    "mappingWildcardHint": "Naudokite * kaip šaltinį, kad kiekvienas modelis, neturintis aiškaus susiejimo, būtų nukreiptas per OmniRoute į pasirinktą tikslą. Tikslūs šaltinio atitikmenys visada turi pirmenybę prieš *.",
-    "wizardDetectingModels": "Aptinkami modeliai perimtame sraute...",
-    "wizardDetectedModels": "{count, plural, one {Perimtame sraute rastas # modelis} other {Perimtame sraute rasta # modelių}}. Pasirinkite norimus pridėti:",
-    "wizardSelectedModels": "{count, plural, one {Pasirinktas # modelis} other {Pasirinkta # modelių}}. Kitame ekrane pasirinktus modelius susiesite su OmniRoute modeliais.",
-    "wizardAddModels": "{count, plural, one {Pridėti # modelį} other {Pridėti # modelių}}",
-    "wizardNoModelsDetected": "Kol kas neaptikta jokių modelių. Naudodami {agent} pateikite užklausą, tada dar kartą paleiskite šį vediklį, kad modeliai būtų automatiškai aptikti sraute.",
-    "wizardNoModelsHint": "Arba uždarykite šį vediklį ir pridėkite susiejimus rankiniu būdu agento kortelėje."
+    }
   },
   "providerStats": {
     "unknownError": "Nežinoma klaida",
@@ -12762,11 +12697,7 @@
     "avgTtft": "Vid. TTFT",
     "avgTotal": "Vid. bendra trukmė",
     "requestTelemetry": "Užklausų telemetrija",
-    "requestTelemetryDescription": "7 etapų proceso išklotinė (paskutinės 5 minutės)",
-    "title": "Teikėjų statistika",
-    "description": "Kiekvieno teikėjo ir modelio srautas, delsa bei sėkmės rodikliai",
-    "combo": "Derinys",
-    "toggleModels": "Rodyti {provider} modelius"
+    "requestTelemetryDescription": "7 etapų proceso išklotinė (paskutinės 5 minutės)"
   },
   "relay": {
     "title": "Be serverių veikiantys perdavimo tarpiniai serveriai",
@@ -12927,18 +12858,7 @@
     "noRequestBody": "Užklausos turinio nėra.",
     "noResponseBody": "Atsakymo turinio nėra.",
     "formatted": "Suformatuota",
-    "raw": "Neapdorota",
-    "requestCount": "{count, plural, one {# užklausa} other {# užklausų}}",
-    "expandList": "Išskleisti sąrašą",
-    "collapseList": "Suskleisti sąrašą",
-    "snippetLanguage": "Kodo fragmento kalba",
-    "headersTable": "Antraštės",
-    "showSecrets": "Rodyti slaptus duomenis",
-    "maskSecrets": "Maskuoti slaptus duomenis",
-    "llmNotAvailable": "Šios užklausos LLM metaduomenys nepasiekiami.",
-    "llmStreamYes": "taip (SSE)",
-    "llmStreamNo": "ne",
-    "llmTotalTokens": "Iš viso: {count} žetonų"
+    "raw": "Neapdorota"
   },
   "cliCommon": {
     "companion": {
@@ -13397,8 +13317,7 @@
     "colReliabilityHelp": "Iškvietimų, į kuriuos šis paslaugų teikėjas iš tikrųjų atsakė per pastarąsias 24 valandas, dalis. Brūkšnys reiškia, kad srautas buvo per mažas rodikliui nustatyti.",
     "reliabilitySample": "Per pastarąsias {hours} val. sėkmingi buvo {successes} iš {requests} iškvietimų",
     "reliabilityTooFew": "Per pastarąsias {hours} val. buvo tik {requests} iškvietimų — per mažai rodikliui nustatyti",
-    "reliabilityNoTraffic": "Per pastarąsias 24 val. iškvietimų neužregistruota",
-    "categoryFilter": "Užduoties kategorija"
+    "reliabilityNoTraffic": "Per pastarąsias 24 val. iškvietimų neužregistruota"
   },
   "discovery": {
     "title": "Paslaugų teikėjų aptikimas",
@@ -13423,11 +13342,7 @@
     "method": "Metodas",
     "auth": "Autentifikavimas",
     "feasibility": "Įgyvendinamumas",
-    "models": "Modeliai",
-    "provider": "Teikėjas",
-    "status": "Būsena",
-    "endpoint": "Galinis taškas",
-    "actions": "Veiksmai"
+    "models": "Modeliai"
   },
   "noAuthProvider": {
     "title": "Autentifikavimas nereikalingas",
@@ -13476,8 +13391,7 @@
     "ownProxy": "Nuosavas tarpinis serveris",
     "freeTierPause": "Modelis {model} pristabdytas (429), grįš {time}",
     "freeTierPauseProvider": "Pristabdyta (429), grįš {time}",
-    "freeTierPauseNote": "Pertraukimas procese šiame egzemplioriuje",
-    "proxyType": "Tarpinio serverio tipas"
+    "freeTierPauseNote": "Pertraukimas procese šiame egzemplioriuje"
   },
   "gamification": {
     "leaderboardScopes": {
@@ -13650,10 +13564,7 @@
         "description": "Jūsų laukia paslėptas pasiekimas...",
         "criteria": "Įvykdykite paslėpto pasiekimo sąlygas, kad atskleistumėte šį ženklelį."
       }
-    },
-    "leaderboardTitle": "Lyderių lentelė",
-    "leaderboardDescription": "Jūsų API raktų reitingai ir pasiekimai",
-    "badgeLocked": "Užrakinta"
+    }
   },
   "featureFlags": {
     "title": "Funkcijų žymos",
@@ -13948,8 +13859,7 @@
     "unknown": "nežinoma",
     "unknownProvider": "nežinomas teikėjas",
     "unknownModel": "nežinomas modelis",
-    "resolvedTargetMetrics": "{requests} užkl. · {success} sėkmingų · {latency} · kvota {quota}",
-    "timeRange": "Laiko intervalas"
+    "resolvedTargetMetrics": "{requests} užkl. · {success} sėkmingų · {latency} · kvota {quota}"
   },
   "usageLimits": {
     "usdUsageQuota": "Naudojimo kvota USD",
@@ -14096,11 +14006,7 @@
     "learnMore": "Sužinoti daugiau",
     "changelogLoadFailed": "Nepavyko įkelti pakeitimų žurnalo. Bandykite dar kartą vėliau.",
     "retry": "Bandyti dar kartą",
-    "viewFullHistory": "Peržiūrėti visą istoriją GitHub svetainėje",
-    "title": "Naujienos ir pakeitimų žurnalas",
-    "description": "OmniRoute komandos pranešimai ir naujausios laidos pastabos",
-    "viewLabel": "Peržiūrėti",
-    "loadingNews": "Įkeliami pranešimai..."
+    "viewFullHistory": "Peržiūrėti visą istoriją GitHub svetainėje"
   },
   "reasoningRouting": {
     "editor": {
@@ -14651,9 +14557,7 @@
       "circuitBreakerState": "Paslaugų teikėjo grandinės pertraukiklio būsena",
       "lastUpdate": "Paskutinį kartą atnaujinta: {timestamp}",
       "uptimeMinutes": "{minutes} min.",
-      "uptimeHoursMinutes": "{hours} val. {minutes} min.",
-      "breakerClosed": "Uždaryta",
-      "breakerNotClosed": "Atidaryta arba pusiau atidaryta"
+      "uptimeHoursMinutes": "{hours} val. {minutes} min."
     },
     "statusPages": {
       "400": {
@@ -14728,9 +14632,6 @@
         "primaryAction": "Techninės priežiūros informacija",
         "secondaryAction": "Sistemos būsena"
       }
-    },
-    "miniapp": {
-      "askAnything": "Klauskite bet ko…"
     }
   },
   "kiroAuthModal": {
@@ -14921,20 +14822,7 @@
     "mcp": "MCP",
     "mcpTool": "MCP tool",
     "scope": "Scope",
-    "apiKey": "API key",
-    "visibleCount": "Rodoma: {visible} / iš viso: {total}",
-    "modeLabel": "Peržiūros režimas",
-    "jumpToNow": "Pereiti prie dabartinio laiko; linija DABAR grąžinama į {position} % padėtį",
-    "laneReuse": "Pakartotinis juostos naudojimas",
-    "laneReuseLabel": "Pakartotinio juostos naudojimo intervalas (minutėmis)",
-    "laneReuseHint": "Užklausos su tuo pačiu pokalbio ID lieka toje pačioje laiko juostos eilutėje, jei tarpas tarp jų yra trumpesnis nei nurodytas minučių skaičius.",
-    "laneReuseUnit": "min.",
-    "autoRefresh": "Automatinis atnaujinimas",
-    "autoRefreshLabel": "Automatinio atnaujinimo intervalas (sekundėmis)",
-    "autoRefreshHint": "Kaip dažnai laiko juosta iš serverio iš naujo gauna užklausų sąrašą.",
-    "autoRefreshUnit": "sek.",
-    "zoomOut": "Nutolinti",
-    "zoomIn": "Priartinti"
+    "apiKey": "API key"
   },
   "metadata": {
     "compressionTitle": "Glaudinimas",

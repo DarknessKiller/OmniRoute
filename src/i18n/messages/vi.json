@@ -2495,7 +2495,11 @@
     "onlySelectedConnections": "Chỉ các kết nối đã chọn",
     "selectAtLeastOneConnection": "Chọn ít nhất một kết nối hoặc chọn Tất cả kết nối.",
     "allConnectionsDesc": "Khóa này có thể dùng bất kỳ kết nối đang hoạt động nào.",
-    "restrictedToConnections": "Giới hạn ở {count, plural, one {# kết nối} other {# kết nối}}."
+    "restrictedToConnections": "Giới hạn ở {count, plural, one {# kết nối} other {# kết nối}}.",
+    "preferredConnections": "Kết nối ưu tiên",
+    "preferredConnectionsClear": "Xóa",
+    "preferredConnectionsDesc": "Thứ tự ưu tiên theo từng khóa. Nếu một kết nối ưu tiên không khả dụng, định tuyến sẽ chuyển sang kết nối đủ điều kiện tiếp theo.",
+    "preferredConnectionsNone": "Chưa đặt ưu tiên — chiến lược định tuyến mặc định được sử dụng."
   },
   "auditLog": {
     "title": "Nhật ký kiểm tra",
@@ -4014,7 +4018,8 @@
     "duplicateAutoComboSnapshotMsg": "Điều này sẽ chụp lại các nhà cung cấp/mô hình đang kết nối hiện tại phù hợp với mẫu này vào một tổ hợp có thể chỉnh sửa.",
     "duplicateAutoComboFailedPrefix": "Không thể sao chép tổ hợp tự động:",
     "duplicateAutoComboUnknownError": "Lỗi không xác định",
-    "duplicateAutoComboTitle": "Tạo tổ hợp tĩnh từ {name}"
+    "duplicateAutoComboTitle": "Tạo tổ hợp tĩnh từ {name}",
+    "builderStaleModel": "Không có trong danh mục trực tiếp"
   },
   "costs": {
     "title": "Chi phí",
@@ -8951,7 +8956,8 @@
       "statsTitle": "Phát hiện kể từ khi khởi động lại",
       "statsEmpty": "Chưa có phát hiện nào.",
       "statsRequest": "Yêu cầu"
-    }
+    },
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection."
   },
   "contextRtk": {
     "title": "Công cụ RTK",
@@ -10291,7 +10297,11 @@
     "codexPaidCreditsLabel": "Tín dụng trả phí Codex",
     "codexPaidCreditsAvailable": "Khả dụng (không báo cáo số dư)",
     "codexPaidCreditsUnavailable": "Không khả dụng hoặc đã đạt giới hạn chi tiêu",
-    "codexPaidCreditsUnlimited": "Không giới hạn"
+    "codexPaidCreditsUnlimited": "Không giới hạn",
+    "claudeResetCreditDefaultTitle": "Đặt lại giới hạn Claude",
+    "claudeResetCreditsModalExplainer": "Tín dụng đặt lại Claude khả dụng và lượt đặt lại phiên hàng tuần cho tài khoản này.",
+    "claudeResetCreditsModalTitle": "Tín dụng đặt lại Claude",
+    "confirmRedeemClaudeResetCredit": "Việc quy đổi sẽ ngay lập tức đặt lại các giới hạn sử dụng Claude đủ điều kiện và tiêu hao vĩnh viễn khoản tín dụng này."
   },
   "modals": {
     "waitingAuth": "Đang chờ ủy quyền",
@@ -11603,7 +11613,8 @@
     "notMeasured": "Chưa đo",
     "upstream4xx": "{count} lỗi phía client",
     "upstream5xx": "{count} lỗi máy chủ",
-    "uniformEgressLine": "{affected} trên {exits} exit cùng lỗi trên {provider} (trong {hours} giờ qua) — không phải vấn đề exit"
+    "uniformEgressLine": "{affected} trên {exits} exit cùng lỗi trên {provider} (trong {hours} giờ qua) — không phải vấn đề exit",
+    "poolSetAsideKindOperatorReported": "sự cố do nhà vận hành báo cáo"
   },
   "playground": {
     "title": "Khu thử nghiệm mô hình",

@@ -998,13 +998,7 @@
     "batchFileUsedByCount": "Usado por {count, plural, one {# lote} other {# lotes}}",
     "batchFilePreview": "Pré-visualização",
     "batchFilePreviewTruncated": "A mostrar as primeiras {shown} linhas ({total} linhas no total)",
-    "batchFileDownloadFull": "Transferir Ficheiro Completo",
-    "dialogTitleFallback": "Caixa de diálogo",
-    "pagination": "Paginação",
-    "clearFilters": "Limpar filtros",
-    "tokensPageTitle": "Tokens",
-    "tokensPageDescription": "Envie tokens entre chaves de API, partilhe códigos de convite e ligue servidores da comunidade.",
-    "tokensServerUrlLabel": "URL do servidor"
+    "batchFileDownloadFull": "Transferir Ficheiro Completo"
   },
   "disabled": "Desativado",
   "featureFlagOmnirouteEmergencyFallbackDescription": "Encaminhar pedidos com orçamento esgotado para o fornecedor/modelo de contingência gratuito de emergência.",
@@ -1491,11 +1485,7 @@
       "chatIdPlaceholder": "-100123456789 ou @channelname",
       "chatIdHint": "O identificador numérico exclusivo ou nome de utilizador público do chat/canal.",
       "tutorial": "Como configurar o webhook do Telegram:"
-    },
-    "copy": "Copiar",
-    "copied": "Copiado!",
-    "expandDetails": "Mostrar detalhes",
-    "collapseDetails": "Ocultar detalhes"
+    }
   },
   "compliance": {
     "auditTitle": "Auditoria",
@@ -1607,8 +1597,7 @@
     "mcpMetricCalls24h": "Chamadas (24h)",
     "mcpMetricSuccessRate": "Taxa de sucesso",
     "mcpMetricAvgDuration": "Duração média",
-    "mcpMetricTopTool": "Ferramenta principal",
-    "dismissError": "Dispensar erro"
+    "mcpMetricTopTool": "Ferramenta principal"
   },
   "themesPage": {
     "title": "Temas",
@@ -1724,9 +1713,7 @@
     "settingsAdvancedDescription": "Regras avançadas de payload, limites de pedidos e definições de API de proxy",
     "mitmProxyDescription": "Configura definições de proxy MITM para inspeção de tráfego e depuração",
     "oneProxyDescription": "Configura definições do 1Proxy para encadeamento avançado de proxy",
-    "omniSkillsDescription": "Instalar e gerir competências de sandbox para execução automatizada de prompts e ferramentas",
-    "openMenu": "Abrir menu",
-    "products": "Produtos Keak"
+    "omniSkillsDescription": "Instalar e gerir competências de sandbox para execução automatizada de prompts e ferramentas"
   },
   "cloudSyncStatus": {
     "synced": "Sincronizado",
@@ -2512,8 +2499,7 @@
     "preferredConnections": "Ligações preferenciais",
     "preferredConnectionsDesc": "Ordem de prioridade por chave. Se uma ligação preferencial estiver indisponível, o encaminhamento passa para a próxima elegível.",
     "preferredConnectionsNone": "Nenhuma preferência definida — é usada a estratégia de encaminhamento predefinida.",
-    "preferredConnectionsClear": "Limpar",
-    "removeSelection": "Remover {name}"
+    "preferredConnectionsClear": "Limpar"
   },
   "auditLog": {
     "title": "Registro de auditoria",
@@ -2625,9 +2611,7 @@
     "imageToTextBridgeCta": "Configure a ponte Imagem→Texto nas definições da Ponte de Modalidade",
     "sttBridgeCta": "Configure a ponte Fala→Texto nas definições da Modality Bridge",
     "existingConnection": "Conexão existente",
-    "openrouterSttDescription": "Os modelos de reconhecimento de voz para texto do OpenRouter utilizam a sua conexão OpenRouter configurada. Nenhuma credencial separada é necessária.",
-    "modalityTabsAria": "Tipo de multimédia",
-    "serviceKindsAria": "Tipo de serviço"
+    "openrouterSttDescription": "Os modelos de reconhecimento de voz para texto do OpenRouter utilizam a sua conexão OpenRouter configurada. Nenhuma credencial separada é necessária."
   },
   "search": {
     "searchQuery": "Consulta de Pesquisa",
@@ -3298,8 +3282,7 @@
     "cliproxyapiUnknown": "Desconhecido",
     "cliproxyapiUpdate": "Atualizar",
     "cliproxyapiUpdateAvailable": "Atualização disponível: v{current} → v{latest}",
-    "cliproxyapiVersion": "Versão",
-    "removeMapping": "Remover mapeamento"
+    "cliproxyapiVersion": "Versão"
   },
   "modelCatalog": {
     "title": "Modelos e Combos",
@@ -4036,13 +4019,7 @@
     "duplicateAutoComboSnapshotMsg": "Isto irá capturar os provedores/modelos atualmente conectados que correspondem a este modelo em uma combinação editável.",
     "duplicateAutoComboFailedPrefix": "Falha ao duplicar a combinação automática:",
     "duplicateAutoComboUnknownError": "Erro desconhecido",
-    "duplicateAutoComboTitle": "Criar uma combinação estática de {name}",
-    "weightPercent": "Peso (%)",
-    "clearSearch": "Limpar pesquisa",
-    "responseValidationRemoveCheck": "Remover verificação",
-    "responseValidationPath": "Caminho JSON",
-    "responseValidationCondition": "Condição",
-    "responseValidationValue": "Valor esperado"
+    "duplicateAutoComboTitle": "Criar uma combinação estática de {name}"
   },
   "costs": {
     "title": "Custos",
@@ -5316,8 +5293,7 @@
         "skipped": "já configurado",
         "failed": "falhou"
       }
-    },
-    "stepProgress": "Progresso da configuração"
+    }
   },
   "providers": {
     "tosAvoidNoticeTitle": "Este fornecedor é excluído do auto por predefinição",
@@ -8981,7 +8957,7 @@
       "statsEmpty": "Ainda sem deteções.",
       "statsRequest": "Pedidos"
     },
-    "modelOverrideKey": "Chave de substituição"
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection."
   },
   "contextRtk": {
     "title": "Motor RTK",
@@ -9065,8 +9041,7 @@
     "tomlTestPassed": "Passou",
     "tomlTestFailed": "Falhou",
     "tomlImportError": "Não foi possível processar o ficheiro RTK TOML.",
-    "tomlFileReadError": "Não foi possível ler o ficheiro TOML selecionado.",
-    "viewMode": "Modo de visualização"
+    "tomlFileReadError": "Não foi possível ler o ficheiro TOML selecionado."
   },
   "compressionEngineConfig": {
     "loading": "A carregar…",
@@ -9288,8 +9263,7 @@
     "languagePacksList": "Pacotes de idioma: {packs}",
     "dragToReorder": "Arraste para reordenar o passo",
     "engine": "Motor",
-    "intensity": "Intensidade",
-    "compressionOverride": "Substituição da compressão"
+    "intensity": "Intensidade"
   },
   "compressionStudio": {
     "noRun": "Nenhuma execução de compressão disponível.",
@@ -9349,8 +9323,7 @@
     "encoderWinner": "vencedor: {winner}",
     "encoder": "codificador",
     "bytes": "bytes",
-    "tokensCl100k": "tokens (cl100k)",
-    "studioViews": "Vistas do Studio"
+    "tokensCl100k": "tokens (cl100k)"
   },
   "omniglyph": {
     "preview": "Pré-visualização",
@@ -9556,9 +9529,7 @@
     "tooltipMinLength": "Mensagens menores que isso não são compactadas. Menor = mais compressão.",
     "tooltipMinSavings": "Compacte apenas se salvar pelo menos esse número de tokens.",
     "ultraSettings": "Configurações Ultra",
-    "ultraSettingsDesc": "Compressão semântica alimentada por SLM",
-    "defaultLanguage": "Idioma predefinido",
-    "viewMode": "Modo de visualização"
+    "ultraSettingsDesc": "Compressão semântica alimentada por SLM"
   },
   "translator": {
     "title": "Tradutor",
@@ -11117,8 +11088,7 @@
       "message": "Mensagem",
       "error": "Erro",
       "completion": "Conclusão"
-    },
-    "statusFilter": "Estado"
+    }
   },
   "templateNames": {
     "simple-chat": "Chat Simples",
@@ -11299,8 +11269,7 @@
     "minutesAgo": "há {minutes}m",
     "hoursAgo": "há {hours}h",
     "daysAgo": "há {days}d",
-    "entries": "Entradas",
-    "viewSwitcherAria": "Vista da cache"
+    "entries": "Entradas"
   },
   "proxyConfigModal": {
     "levelGlobal": "Globais",
@@ -11645,8 +11614,7 @@
     "notMeasured": "Não medido",
     "upstream4xx": "{count} erros de cliente upstream",
     "upstream5xx": "{count} erros de servidor upstream",
-    "uniformEgressLine": "{affected} de {exits} saídas falham em conjunto em {provider} (últimas {hours}h) — não é um problema de saída",
-    "moreActions": "Mais ações"
+    "uniformEgressLine": "{affected} de {exits} saídas falham em conjunto em {provider} (últimas {hours}h) — não é um problema de saída"
   },
   "playground": {
     "title": "Title",
@@ -11852,8 +11820,7 @@
       "nextButton": "Seguinte",
       "runButton": "Executar",
       "promptPlaceholder": "Introduza a sua mensagem… (Enter para enviar, Shift+Enter para nova linha)"
-    },
-    "playgroundTabs": "Modos do Playground"
+    }
   },
   "miniPlayground": {
     "endpoint": "Ponto final",
@@ -11924,8 +11891,7 @@
     "assistant": "Assistente",
     "errorLabel": "Erro",
     "requestFailed": "O pedido falhou",
-    "stop": "Parar",
-    "messageInputAria": "Mensagem"
+    "stop": "Parar"
   },
   "requestLogger": {
     "recording": "A gravar",
@@ -12112,18 +12078,8 @@
       "resilienceRotations": "{count} rotações de conta",
       "resilienceRetried": "Turno vazio repetido",
       "resilienceContinued": "Retomado no meio do fluxo",
-      "resilienceRecovered": "Recuperado por uma ação de resiliência",
-      "conversationContext": "Contexto da conversa",
-      "goToBottom": "Ir para o fim",
-      "liveRefreshOn": "Atualização em tempo real: ativada",
-      "liveRefreshOff": "Atualização em tempo real: desativada",
-      "liveRefresh": "Atualização em tempo real",
-      "continuesFromParent": "continua a partir do elemento principal",
-      "continuesFrom": "Continua a partir de {id}",
-      "viewConversation": "ver conversa",
-      "openConversation": "Abrir conversa {id}"
-    },
-    "tableLabel": "Registos de pedidos"
+      "resilienceRecovered": "Recuperado por uma ação de resiliência"
+    }
   },
   "proxyLogger": {
     "filterAll": "Todos",
@@ -12168,9 +12124,7 @@
     "colServedBy": "Servido por",
     "filterTraffic": "Tráfego",
     "filterTests": "Testes",
-    "filterSource": "Fonte",
-    "tableLabel": "Registos do proxy",
-    "sortLogs": "Ordenar registos"
+    "filterSource": "Fonte"
   },
   "endpointOptions": {
     "speech": "Fala",
@@ -12255,8 +12209,7 @@
     "statusExhausted": "ESGOTADO",
     "statusAlerting": "EM ALERTA",
     "statusError": "ERRO",
-    "moreSuffix": "+{count} mais",
-    "feedFilterLabel": "Filtrar eventos"
+    "moreSuffix": "+{count} mais"
   },
   "quotaShare": {
     "weightPercent": "Peso %",
@@ -12423,10 +12376,7 @@
     "ungroupedTitle": "Sem grupo",
     "ungroupedHint": "Estas pools não estão atribuídas a um grupo conhecido. Edite uma pool para a mover para um grupo real.",
     "removeFailed": "Não foi possível remover este pool.",
-    "dismiss": "Dispensar",
-    "allocationsHeading": "Alocações",
-    "wizardRemoveDimension": "Remover dimensão",
-    "wizardRemoveKey": "Remover chave"
+    "dismiss": "Dispensar"
   },
   "plugins": {
     "title": "Plugins",
@@ -12584,8 +12534,7 @@
       "settingsUpdateFailed": "Falha ao atualizar as definições",
       "serviceRevealApiKey": "{actor} revelou a chave de API para {target}",
       "genericEvent": "{actor} {target}"
-    },
-    "dismissError": "Fechar erro"
+    }
   },
   "agentBridge": {
     "title": "AgentBridge",
@@ -12718,21 +12667,7 @@
       "goNow": "Ir agora",
       "message": "O MITM Proxy reside agora no AgentBridge.",
       "title": "Esta página foi movida"
-    },
-    "dnsOn": "DNS ativado",
-    "dnsOff": "DNS desativado",
-    "showServerSettings": "Mostrar definições do servidor",
-    "hideServerSettings": "Ocultar definições do servidor",
-    "upstreamCaTesting": "A testar…",
-    "removeMapping": "Remover mapeamento",
-    "mappingSourcePlaceholder": "por ex., gemini-3.6-flash-medium, ou * para todos os modelos não mapeados",
-    "mappingWildcardHint": "Utilize * como origem para encaminhar através do OmniRoute todos os modelos sem um mapeamento explícito para o destino selecionado. As correspondências exatas da origem têm sempre prioridade sobre *.",
-    "wizardDetectingModels": "A detetar modelos no tráfego intercetado...",
-    "wizardDetectedModels": "Foram encontrados {count, plural, one {# modelo} other {# modelos}} no tráfego intercetado. Selecione os que pretende adicionar:",
-    "wizardSelectedModels": "{count, plural, one {# modelo selecionado} other {# modelos selecionados}}. Irá mapeá-los para modelos do OmniRoute no ecrã seguinte.",
-    "wizardAddModels": "Adicionar {count, plural, one {# modelo} other {# modelos}}",
-    "wizardNoModelsDetected": "Ainda não foram detetados modelos. Utilize {agent} para efetuar um pedido e, em seguida, execute novamente este assistente para detetar automaticamente modelos no tráfego.",
-    "wizardNoModelsHint": "Em alternativa, feche este assistente e adicione os mapeamentos manualmente no cartão do agente."
+    }
   },
   "providerStats": {
     "unknownError": "Erro desconhecido",
@@ -12762,11 +12697,7 @@
     "avgTtft": "TTFT médio",
     "avgTotal": "Total médio",
     "requestTelemetry": "Telemetria de pedidos",
-    "requestTelemetryDescription": "Desagregação do pipeline de 7 fases (últimos 5 minutos)",
-    "title": "Estatísticas dos fornecedores",
-    "description": "Tráfego, latência e taxas de sucesso por fornecedor e por modelo",
-    "combo": "Combinação",
-    "toggleModels": "Mostrar modelos de {provider}"
+    "requestTelemetryDescription": "Desagregação do pipeline de 7 fases (últimos 5 minutos)"
   },
   "relay": {
     "title": "Proxies de relay serverless",
@@ -12927,18 +12858,7 @@
     "noRequestBody": "Sem corpo do pedido.",
     "noResponseBody": "Sem corpo da resposta.",
     "formatted": "Formatado",
-    "raw": "Em bruto",
-    "requestCount": "{count, plural, one {# pedido} other {# pedidos}}",
-    "expandList": "Expandir lista",
-    "collapseList": "Fechar lista",
-    "snippetLanguage": "Linguagem do fragmento",
-    "headersTable": "Cabeçalhos",
-    "showSecrets": "Mostrar segredos",
-    "maskSecrets": "Ocultar segredos",
-    "llmNotAvailable": "Os metadados de LLM não estão disponíveis para este pedido.",
-    "llmStreamYes": "sim (SSE)",
-    "llmStreamNo": "não",
-    "llmTotalTokens": "Total: {count} tokens"
+    "raw": "Em bruto"
   },
   "cliCommon": {
     "companion": {
@@ -13397,8 +13317,7 @@
     "colReliabilityHelp": "Percentagem de chamadas a que este fornecedor respondeu efetivamente nas últimas 24 horas. Um travessão significa que processou tráfego insuficiente para determinar uma taxa.",
     "reliabilitySample": "{successes} de {requests} chamadas foram bem-sucedidas nas últimas {hours} h",
     "reliabilityTooFew": "Apenas {requests} chamadas nas últimas {hours} h — demasiado poucas para determinar uma taxa",
-    "reliabilityNoTraffic": "Nenhuma chamada registada nas últimas 24 h",
-    "categoryFilter": "Categoria da tarefa"
+    "reliabilityNoTraffic": "Nenhuma chamada registada nas últimas 24 h"
   },
   "discovery": {
     "title": "Deteção de Fornecedores",
@@ -13423,11 +13342,7 @@
     "method": "Método",
     "auth": "Autenticação",
     "feasibility": "Viabilidade",
-    "models": "Modelos",
-    "provider": "Fornecedor",
-    "status": "Estado",
-    "endpoint": "Endpoint",
-    "actions": "Ações"
+    "models": "Modelos"
   },
   "noAuthProvider": {
     "title": "Nenhuma autenticação necessária",
@@ -13476,8 +13391,7 @@
     "ownProxy": "Proxy próprio",
     "freeTierPause": "Modelo {model} em pausa (429), retoma em {time}",
     "freeTierPauseProvider": "Em pausa (429), retoma em {time}",
-    "freeTierPauseNote": "Pausa em processo nesta instância",
-    "proxyType": "Tipo de proxy"
+    "freeTierPauseNote": "Pausa em processo nesta instância"
   },
   "gamification": {
     "leaderboardScopes": {
@@ -13650,10 +13564,7 @@
         "description": "Uma conquista oculta aguarda...",
         "criteria": "Conclua a conquista oculta para revelar este emblema."
       }
-    },
-    "leaderboardTitle": "Tabela classificativa",
-    "leaderboardDescription": "Classificações e conquistas das suas chaves de API",
-    "badgeLocked": "Bloqueado"
+    }
   },
   "featureFlags": {
     "title": "Sinalizadores de Funcionalidades",
@@ -13948,8 +13859,7 @@
     "unknown": "desconhecido",
     "unknownProvider": "fornecedor desconhecido",
     "unknownModel": "modelo desconhecido",
-    "resolvedTargetMetrics": "{requests} req · {success} sucesso · {latency} · quota {quota}",
-    "timeRange": "Intervalo de tempo"
+    "resolvedTargetMetrics": "{requests} req · {success} sucesso · {latency} · quota {quota}"
   },
   "usageLimits": {
     "usdUsageQuota": "Quota de utilização em USD",
@@ -14096,11 +14006,7 @@
     "learnMore": "Saber mais",
     "changelogLoadFailed": "Não foi possível carregar o registo de alterações. Por favor, tente novamente mais tarde.",
     "retry": "Tentar novamente",
-    "viewFullHistory": "Ver histórico completo no GitHub",
-    "title": "Notícias e registo de alterações",
-    "description": "Anúncios da equipa OmniRoute e as notas de lançamento mais recentes",
-    "viewLabel": "Ver",
-    "loadingNews": "A carregar anúncios..."
+    "viewFullHistory": "Ver histórico completo no GitHub"
   },
   "reasoningRouting": {
     "editor": {
@@ -14651,9 +14557,7 @@
       "circuitBreakerState": "Estado do Disjuntor do Fornecedor",
       "lastUpdate": "Última atualização: {timestamp}",
       "uptimeMinutes": "{minutes}min",
-      "uptimeHoursMinutes": "{hours}h {minutes}min",
-      "breakerClosed": "Fechado",
-      "breakerNotClosed": "Aberto ou semiaberto"
+      "uptimeHoursMinutes": "{hours}h {minutes}min"
     },
     "statusPages": {
       "400": {
@@ -14728,9 +14632,6 @@
         "primaryAction": "Detalhes de Manutenção",
         "secondaryAction": "Estado do Sistema"
       }
-    },
-    "miniapp": {
-      "askAnything": "Pergunte qualquer coisa…"
     }
   },
   "kiroAuthModal": {
@@ -14921,20 +14822,7 @@
     "mcp": "MCP",
     "mcpTool": "MCP tool",
     "scope": "Scope",
-    "apiKey": "API key",
-    "visibleCount": "{visible} visíveis / {total} no total",
-    "modeLabel": "Modo de visualização",
-    "jumpToNow": "Ir para a hora atual; a linha AGORA é reposta na posição {position}%",
-    "laneReuse": "Reutilização de faixas",
-    "laneReuseLabel": "Janela de reutilização de faixas (minutos)",
-    "laneReuseHint": "Os pedidos que partilham um ID de conversa permanecem na mesma linha cronológica, desde que o intervalo entre eles seja inferior a este número de minutos.",
-    "laneReuseUnit": "min",
-    "autoRefresh": "Atualização automática",
-    "autoRefreshLabel": "Intervalo de atualização automática (segundos)",
-    "autoRefreshHint": "Frequência com que a linha cronológica volta a obter a lista de pedidos do servidor.",
-    "autoRefreshUnit": "s",
-    "zoomOut": "Reduzir zoom",
-    "zoomIn": "Aumentar zoom"
+    "apiKey": "API key"
   },
   "metadata": {
     "compressionTitle": "Compressão",

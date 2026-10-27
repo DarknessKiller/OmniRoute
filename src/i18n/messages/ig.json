@@ -998,13 +998,7 @@
     "batchFileUsedByCount": "E ji ya na {count, plural, one {# ogbe} other {# ogbe}}",
     "batchFilePreview": "Nlele",
     "batchFilePreviewTruncated": "Na-egosi ahịrị {shown} mbụ (ahịrị {total} n'ozuzu)",
-    "batchFileDownloadFull": "Budata Faịlụ Zuru Ezu",
-    "dialogTitleFallback": "Igbe mkparịta ụka",
-    "pagination": "Nkewa peeji",
-    "clearFilters": "Hichapụ nzacha",
-    "tokensPageTitle": "Token",
-    "tokensPageDescription": "Zipụ token n'etiti igodo API, kesaa koodu ọkpụkpọ òkù ma jikọọ sava obodo.",
-    "tokensServerUrlLabel": "URL sava"
+    "batchFileDownloadFull": "Budata Faịlụ Zuru Ezu"
   },
   "disabled": "Agbanyụrụ",
   "featureFlagOmnirouteEmergencyFallbackDescription": "Ziga arịrịọ ndị mmefu ego ha gwụrụ na provider/model ndabere efu maka ọnọdụ mberede.",
@@ -1491,11 +1485,7 @@
       "chatIdPlaceholder": "-100123456789 ma ọ bụ @channelname",
       "chatIdHint": "Ihe njirimara ọnụọgụ pụrụ iche ma ọ bụ aha njirimara ọha nke mkparịta ụka/ọwa ahụ.",
       "tutorial": "Otu esi ahazi webhook Telegram:"
-    },
-    "copy": "Detuo",
-    "copied": "E detuola!",
-    "expandDetails": "Gosi nkọwa",
-    "collapseDetails": "Zoo nkọwa"
+    }
   },
   "compliance": {
     "auditTitle": "Nnyocha",
@@ -1607,8 +1597,7 @@
     "mcpMetricCalls24h": "Oku (24h)",
     "mcpMetricSuccessRate": "Ọnụego ihe ịga nke ọma",
     "mcpMetricAvgDuration": "Nkezi oge",
-    "mcpMetricTopTool": "Ngwa kacha eji",
-    "dismissError": "Wepụ njehie"
+    "mcpMetricTopTool": "Ngwa kacha eji"
   },
   "themesPage": {
     "title": "Ọdịdị",
@@ -1724,9 +1713,7 @@
     "settingsAdvancedDescription": "Iwu payload dị elu, oke arịrịọ, na ntọala API proxy",
     "mitmProxyDescription": "Hazie ntọala proxy MITM maka inyocha okporo ụzọ netwọkụ na idozi njehie",
     "oneProxyDescription": "Hazie ntọala 1Proxy maka ijikọ proxy n'ụzọ dị elu",
-    "omniSkillsDescription": "Wụnye ma jikwaa nkà sandbox maka ịrụ prompt na ngwa ọrụ na-akpaghị aka",
-    "openMenu": "Mepee menu",
-    "products": "Ngwaahịa Keak"
+    "omniSkillsDescription": "Wụnye ma jikwaa nkà sandbox maka ịrụ prompt na ngwa ọrụ na-akpaghị aka"
   },
   "cloudSyncStatus": {
     "synced": "Emekọrịtala",
@@ -2512,8 +2499,7 @@
     "preferredConnections": "Njikọ ndị a họọrọ karịa",
     "preferredConnectionsDesc": "Usoro mbụ maka igodo ọ bụla. Ọ bụrụ na njikọ a họọrọ adịghị, nduzi na-aga n'njikọ ruru eru na-esote.",
     "preferredConnectionsNone": "Edobeghị mmasị ọ bụla — a na-eji usoro nduzi ndabara.",
-    "preferredConnectionsClear": "Kpochapụ",
-    "removeSelection": "Wepụ {name}"
+    "preferredConnectionsClear": "Kpochapụ"
   },
   "auditLog": {
     "title": "Ndekọ Nnyocha",
@@ -2625,9 +2611,7 @@
     "imageToTextBridgeCta": "Hazie njikọ Onyonyo→Ederede na ntọala Modality Bridge",
     "sttBridgeCta": "Hazie njikọ Okwu→Ederede na ntọala Modality Bridge",
     "existingConnection": "Njikọ dị adị",
-    "openrouterSttDescription": "Ụdị OpenRouter nke na-atụgharị okwu ka ọ bụrụ ederede na-eji njikọ OpenRouter ị haziri. Achọghị nzere ọzọ.",
-    "modalityTabsAria": "Ụdị mgbasa ozi",
-    "serviceKindsAria": "Ụdị ọrụ"
+    "openrouterSttDescription": "Ụdị OpenRouter nke na-atụgharị okwu ka ọ bụrụ ederede na-eji njikọ OpenRouter ị haziri. Achọghị nzere ọzọ."
   },
   "search": {
     "searchQuery": "Ajụjụ Ọchụchọ",
@@ -3298,8 +3282,7 @@
     "cliproxyapiUnknown": "Amaghị",
     "cliproxyapiUpdate": "Melite",
     "cliproxyapiUpdateAvailable": "Mmelite dị: v{current} → v{latest}",
-    "cliproxyapiVersion": "Ụdị",
-    "removeMapping": "Wepụ njikọ"
+    "cliproxyapiVersion": "Ụdị"
   },
   "modelCatalog": {
     "title": "Ụdị & Combos",
@@ -4036,13 +4019,7 @@
     "duplicateAutoComboSnapshotMsg": "Nke a ga-echekwa ọnọdụ ndị na-eweta ọrụ/model ejikọrọ ugbu a dabara na ndebiri a n'ime ngwakọta a pụrụ idezi.",
     "duplicateAutoComboFailedPrefix": "Ime oyiri nke ngwakọta akpaka dara:",
     "duplicateAutoComboUnknownError": "Njehie amaghị ama",
-    "duplicateAutoComboTitle": "Mepụta ngwakọta anaghị agbanwe agbanwe site na {name}",
-    "weightPercent": "Ibu (%)",
-    "clearSearch": "Hichapụ ọchụchọ",
-    "responseValidationRemoveCheck": "Wepụ nlele",
-    "responseValidationPath": "Ụzọ JSON",
-    "responseValidationCondition": "Ọnọdụ",
-    "responseValidationValue": "Uru a tụrụ anya ya"
+    "duplicateAutoComboTitle": "Mepụta ngwakọta anaghị agbanwe agbanwe site na {name}"
   },
   "costs": {
     "title": "Ọnụ ahịa",
@@ -5316,8 +5293,7 @@
         "skipped": "ahazielarị",
         "failed": "dara"
       }
-    },
-    "stepProgress": "Ọganihu nhazi"
+    }
   },
   "providers": {
     "tosAvoidNoticeTitle": "A na-ewepụ onye na-enye ọrụ a na auto na ndabara",
@@ -8981,7 +8957,7 @@
       "statsEmpty": "Enweghị nchọpụta ka ọ dị ugbu a.",
       "statsRequest": "Arịrịọ"
     },
-    "modelOverrideKey": "Igodo nnọchi"
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection."
   },
   "contextRtk": {
     "title": "Injin RTK",
@@ -9065,8 +9041,7 @@
     "tomlTestPassed": "Gara nke ọma",
     "tomlTestFailed": "Dara ada",
     "tomlImportError": "Enweghị ike ịhazi faịlụ RTK TOML.",
-    "tomlFileReadError": "Enweghị ike ịgụ faịlụ TOML ahọpụtara.",
-    "viewMode": "Ụdị nlele"
+    "tomlFileReadError": "Enweghị ike ịgụ faịlụ TOML ahọpụtara."
   },
   "compressionEngineConfig": {
     "loading": "Na-ebunye…",
@@ -9288,8 +9263,7 @@
     "languagePacksList": "Ngwugwu asụsụ: {packs}",
     "dragToReorder": "Dọrọ iji hazigharịa nzọụkwụ",
     "engine": "Injin",
-    "intensity": "Ogo ike",
-    "compressionOverride": "Nnọchi mkpakọ"
+    "intensity": "Ogo ike"
   },
   "compressionStudio": {
     "noRun": "Enweghị usoro mkpakọ emere dị.",
@@ -9349,8 +9323,7 @@
     "encoderWinner": "onye mmeri: {winner}",
     "encoder": "ihe ngbanwe koodu",
     "bytes": "byte",
-    "tokensCl100k": "token (cl100k)",
-    "studioViews": "Nlele Studio"
+    "tokensCl100k": "token (cl100k)"
   },
   "omniglyph": {
     "preview": "Nlele mbụ",
@@ -9556,9 +9529,7 @@
     "tooltipMinLength": "A naghị eme mkpakọ n’ozi ndị dị mkpụmkpụ karịa nke a. Nke dị ala = mkpakọ karịa.",
     "tooltipMinSavings": "Mee mkpakọ naanị ma ọ bụrụ na ọ na-echekwa opekata mpe token ole a.",
     "ultraSettings": "Ntọala Ultra",
-    "ultraSettingsDesc": "Mkpakọ semantiki nke SLM na-akwado",
-    "defaultLanguage": "Asụsụ ndabara",
-    "viewMode": "Ụdị nlele"
+    "ultraSettingsDesc": "Mkpakọ semantiki nke SLM na-akwado"
   },
   "translator": {
     "title": "Onye Ntụgharị",
@@ -11117,8 +11088,7 @@
       "message": "Ozi",
       "error": "Njehie",
       "completion": "Mmecha"
-    },
-    "statusFilter": "Ọnọdụ"
+    }
   },
   "templateNames": {
     "simple-chat": "Mkparịta ụka Dị Mfe",
@@ -11299,8 +11269,7 @@
     "minutesAgo": "nkeji {minutes} gara aga",
     "hoursAgo": "awa {hours} gara aga",
     "daysAgo": "ụbọchị {days} gara aga",
-    "entries": "Ndenye",
-    "viewSwitcherAria": "Nlele cache"
+    "entries": "Ndenye"
   },
   "proxyConfigModal": {
     "levelGlobal": "Zuru ụwa ọnụ",
@@ -11645,8 +11614,7 @@
     "notMeasured": "A tụghị",
     "upstream4xx": "{count} njehie onye ahịa n'elu",
     "upstream5xx": "{count} njehie sava n'elu",
-    "uniformEgressLine": "{affected} n'ime {exits} ụzọ ọpụpụ na-ada ọnụ na {provider} (n'ime {hours}h gara aga) — ọ bụghị nsogbu ụzọ ọpụpụ",
-    "moreActions": "Omume ndị ọzọ"
+    "uniformEgressLine": "{affected} n'ime {exits} ụzọ ọpụpụ na-ada ọnụ na {provider} (n'ime {hours}h gara aga) — ọ bụghị nsogbu ụzọ ọpụpụ"
   },
   "playground": {
     "title": "Ebe Nnwale Model",
@@ -11852,8 +11820,7 @@
       "nextButton": "Ọzọ",
       "runButton": "Gbaa",
       "promptPlaceholder": "Tinye ozi gị… (Enter iji zipu, Shift+Enter maka ahịrị ọhụrụ)"
-    },
-    "playgroundTabs": "Ụdị Playground"
+    }
   },
   "miniPlayground": {
     "endpoint": "Ebe njedebe",
@@ -11924,8 +11891,7 @@
     "assistant": "Onye enyemaka",
     "errorLabel": "Njehie",
     "requestFailed": "Arịrịọ ahụ dara",
-    "stop": "Kwụsị",
-    "messageInputAria": "Ozi"
+    "stop": "Kwụsị"
   },
   "requestLogger": {
     "recording": "Na-edekọ",
@@ -12112,18 +12078,8 @@
       "resilienceRotations": "Ntụgharị akaụntụ {count}",
       "resilienceRetried": "Anwaghachiri ntụgharị efu",
       "resilienceContinued": "Maliteghachiri n'etiti iyi",
-      "resilienceRecovered": "Eweghachiri site na omume nkwụsi ike",
-      "conversationContext": "Ọnọdụ mkparịta ụka",
-      "goToBottom": "Gaa na ala",
-      "liveRefreshOn": "Mmelite ozugbo: agbanyere",
-      "liveRefreshOff": "Mmelite ozugbo: agbanyụrụ",
-      "liveRefresh": "Mmelite ozugbo",
-      "continuesFromParent": "na-aga n'ihu site na nke nne na nna",
-      "continuesFrom": "Na-aga n'ihu site na {id}",
-      "viewConversation": "lee mkparịta ụka",
-      "openConversation": "Mepee mkparịta ụka {id}"
-    },
-    "tableLabel": "Ndekọ arịrịọ"
+      "resilienceRecovered": "Eweghachiri site na omume nkwụsi ike"
+    }
   },
   "proxyLogger": {
     "filterAll": "Ha niile",
@@ -12168,9 +12124,7 @@
     "colServedBy": "Nyeere site na",
     "filterTraffic": "Ọnụ ọgụgụ",
     "filterTests": "Nnwale",
-    "filterSource": "Isi iyi",
-    "tableLabel": "Ndekọ proxy",
-    "sortLogs": "Hazie ndekọ"
+    "filterSource": "Isi iyi"
   },
   "endpointOptions": {
     "speech": "Okwu",
@@ -12255,8 +12209,7 @@
     "statusExhausted": "AGWỤCHAALA",
     "statusAlerting": "NA-ADỌ AKA NA NTỊ",
     "statusError": "NJEHIE",
-    "moreSuffix": "+{count} ọzọ",
-    "feedFilterLabel": "Nyochaa ihe omume"
+    "moreSuffix": "+{count} ọzọ"
   },
   "quotaShare": {
     "weightPercent": "Ibu %",
@@ -12423,10 +12376,7 @@
     "ungroupedTitle": "Ndị na-enweghị otu",
     "ungroupedHint": "E kenyebeghị pool ndị a n’otu amaara. Dezie pool iji bugharịa ya n’ezi otu.",
     "removeFailed": "Enweghị ike iwepụ pool a.",
-    "dismiss": "Mechie",
-    "allocationsHeading": "Nkesa",
-    "wizardRemoveDimension": "Wepụ akụkụ",
-    "wizardRemoveKey": "Wepụ igodo"
+    "dismiss": "Mechie"
   },
   "plugins": {
     "title": "Ngwa mgbakwunye",
@@ -12584,8 +12534,7 @@
       "settingsUpdateFailed": "Mmelite ntọala dara",
       "serviceRevealApiKey": "{actor} ekpughela API key maka {target}",
       "genericEvent": "{actor} {target}"
-    },
-    "dismissError": "Wepụ njehie"
+    }
   },
   "agentBridge": {
     "title": "AgentBridge",
@@ -12718,21 +12667,7 @@
       "goNow": "Gaa ugbu a",
       "message": "MITM Proxy dị ugbu a n'okpuru AgentBridge.",
       "title": "Ebugharịla ibe a"
-    },
-    "dnsOn": "Agbanyere DNS",
-    "dnsOff": "Agbanyụrụ DNS",
-    "showServerSettings": "Gosi ntọala sava",
-    "hideServerSettings": "Zoo ntọala sava",
-    "upstreamCaTesting": "Na-anwale…",
-    "removeMapping": "Wepụ njikọ",
-    "mappingSourcePlaceholder": "dịka ọmụmaatụ, gemini-3.6-flash-medium, ma ọ bụ * maka ndị niile na-enweghị njikọ",
-    "mappingWildcardHint": "Jiri * dị ka isi mmalite iji zipụ ụdị ọ bụla na-enweghị njikọ akọwapụtara site na OmniRoute gaa na ebumnuche ahọpụtara. Ndakọrịta isi mmalite kpọmkwem na-aka * mgbe niile.",
-    "wizardDetectingModels": "Na-achọpụta ụdị site na ngagharị data e jidere...",
-    "wizardDetectedModels": "Achọpụtara {count, plural, one {# ụdị} other {# ụdị}} na ngagharị data e jidere. Họrọ ndị ịchọrọ ịgbakwunye:",
-    "wizardSelectedModels": "Ahọrọla {count, plural, one {# ụdị} other {# ụdị}}. Ị ga-ejikọta ha na ụdị OmniRoute na ihuenyo na-esote.",
-    "wizardAddModels": "Tinye {count, plural, one {# ụdị} other {# ụdị}}",
-    "wizardNoModelsDetected": "Achọpụtabeghị ụdị ọ bụla. Jiri {agent} zipụ arịrịọ, wee malite usoro nduzi a ọzọ ka ọ chọpụta ụdị site na ngagharị data na-akpaghị aka.",
-    "wizardNoModelsHint": "Ma ọ bụ mechie usoro nduzi a ma jiri aka tinye njikọ na kaadị onye nnọchi anya."
+    }
   },
   "providerStats": {
     "unknownError": "Njehie amaghị ama",
@@ -12762,11 +12697,7 @@
     "avgTtft": "Nkezi TTFT",
     "avgTotal": "Nkezi Ngụkọta",
     "requestTelemetry": "Telemetrị Arịrịọ",
-    "requestTelemetryDescription": "Nkọwa usoro nwere akụkụ 7 (n'ime nkeji 5 gara aga)",
-    "title": "Ọnụọgụgụ ndị na-eweta",
-    "description": "Ngagharị data, oge igbu oge na ọnụego ihe ịga nke ọma nke onye na-eweta ọ bụla na ụdị ọ bụla",
-    "combo": "Ngwakọta",
-    "toggleModels": "Gosi ụdị nke {provider}"
+    "requestTelemetryDescription": "Nkọwa usoro nwere akụkụ 7 (n'ime nkeji 5 gara aga)"
   },
   "relay": {
     "title": "Proksi Relay Serverless",
@@ -12927,18 +12858,7 @@
     "noRequestBody": "Enweghị ahụ arịrịọ.",
     "noResponseBody": "Enweghị ahụ nzaghachi.",
     "formatted": "Ahaziri",
-    "raw": "Nke a na-ahazighị",
-    "requestCount": "{count, plural, one {# arịrịọ} other {# arịrịọ}}",
-    "expandList": "Gbasaa ndepụta",
-    "collapseList": "Kpọkọọ ndepụta",
-    "snippetLanguage": "Asụsụ iberibe koodu",
-    "headersTable": "Nkụnye isi",
-    "showSecrets": "Gosi ihe nzuzo",
-    "maskSecrets": "Kpuchie ihe nzuzo",
-    "llmNotAvailable": "Ozi nkọwa LLM adịghị maka arịrịọ a.",
-    "llmStreamYes": "ee (SSE)",
-    "llmStreamNo": "mba",
-    "llmTotalTokens": "Ngụkọta: token {count}"
+    "raw": "Nke a na-ahazighị"
   },
   "cliCommon": {
     "companion": {
@@ -13397,8 +13317,7 @@
     "colReliabilityHelp": "Pasent nke oku onye na-enye ọrụ a zara n'ezie n'ime awa 24 gara aga. Akara ogologo pụtara na ọ nyere data dị oke ole nke na-agaghị ekwe ka e kwuo ọnụego.",
     "reliabilitySample": "Oku {successes} n'ime {requests} gara nke ọma n'ime awa {hours} gara aga",
     "reliabilityTooFew": "Naanị oku {requests} n'ime awa {hours} gara aga — ha dị oke ole nke na-agaghị ekwe ka e kwuo ọnụego",
-    "reliabilityNoTraffic": "Enweghị oku e dekọrọ n'ime awa 24 gara aga",
-    "categoryFilter": "Ụdị ọrụ"
+    "reliabilityNoTraffic": "Enweghị oku e dekọrọ n'ime awa 24 gara aga"
   },
   "discovery": {
     "title": "Nchọpụta Ndị Na-enye Ọrụ",
@@ -13423,11 +13342,7 @@
     "method": "Usoro",
     "auth": "Nyocha njirimara",
     "feasibility": "Ikike ịrụ ọrụ",
-    "models": "Ụdị",
-    "provider": "Onye na-eweta ọrụ",
-    "status": "Ọnọdụ",
-    "endpoint": "Ebe njedebe",
-    "actions": "Omume"
+    "models": "Ụdị"
   },
   "noAuthProvider": {
     "title": "Achọghị nyocha njirimara",
@@ -13476,8 +13391,7 @@
     "ownProxy": "Proxy nke gị",
     "freeTierPause": "Model {model} edagbakwuru (429), ga-alọta {time}",
     "freeTierPauseProvider": "Edagbakwuru (429), ga-alọta {time}",
-    "freeTierPauseNote": "Njikwa ọganihu na usoro a na nke a",
-    "proxyType": "Ụdị proxy"
+    "freeTierPauseNote": "Njikwa ọganihu na usoro a na nke a"
   },
   "gamification": {
     "leaderboardScopes": {
@@ -13650,10 +13564,7 @@
         "description": "Mmezu zoro ezo na-echere...",
         "criteria": "Mezue mmezu zoro ezo ahụ iji kpughee baajị a."
       }
-    },
-    "leaderboardTitle": "Tebụl ọkwa",
-    "leaderboardDescription": "Ọkwa na mmezu n'ofe igodo API gị",
-    "badgeLocked": "Akpọchiri"
+    }
   },
   "featureFlags": {
     "title": "Ọkọlọtọ Atụmatụ",
@@ -13948,8 +13859,7 @@
     "unknown": "amaghị",
     "unknownProvider": "onye na-eweta ọrụ a na-amaghị",
     "unknownModel": "ụdị a na-amaghị",
-    "resolvedTargetMetrics": "arịrịọ {requests} · ihe ịga nke ọma {success} · {latency} · oke {quota}",
-    "timeRange": "Oke oge"
+    "resolvedTargetMetrics": "arịrịọ {requests} · ihe ịga nke ọma {success} · {latency} · oke {quota}"
   },
   "usageLimits": {
     "usdUsageQuota": "Oke ojiji USD",
@@ -14096,11 +14006,7 @@
     "learnMore": "Mụtakwuo",
     "changelogLoadFailed": "Enweghị ike ibunye ndekọ mgbanwe. Biko nwaa ọzọ ma emechaa.",
     "retry": "Nwaa ọzọ",
-    "viewFullHistory": "Lelee ndekọ zuru ezu na GitHub",
-    "title": "Akụkọ na ndekọ mgbanwe",
-    "description": "Ọkwa sitere n'aka ndị otu OmniRoute na ndetu mwepụta kacha ọhụrụ",
-    "viewLabel": "Lelee",
-    "loadingNews": "Na-ebudata ọkwa..."
+    "viewFullHistory": "Lelee ndekọ zuru ezu na GitHub"
   },
   "reasoningRouting": {
     "editor": {
@@ -14651,9 +14557,7 @@
       "circuitBreakerState": "Ọnọdụ Circuit Breaker nke Onye Na-eweta Ọrụ",
       "lastUpdate": "Mmelite ikpeazụ: {timestamp}",
       "uptimeMinutes": "nkeji {minutes}",
-      "uptimeHoursMinutes": "awa {hours} nkeji {minutes}",
-      "breakerClosed": "Emechiri",
-      "breakerNotClosed": "Emeghe ma ọ bụ ọkara-emeghe"
+      "uptimeHoursMinutes": "awa {hours} nkeji {minutes}"
     },
     "statusPages": {
       "400": {
@@ -14728,9 +14632,6 @@
         "primaryAction": "Nkọwa Mmezi",
         "secondaryAction": "Ọnọdụ Sistemụ"
       }
-    },
-    "miniapp": {
-      "askAnything": "Jụọ ihe ọ bụla…"
     }
   },
   "kiroAuthModal": {
@@ -14921,20 +14822,7 @@
     "mcp": "MCP",
     "mcpTool": "MCP tool",
     "scope": "Scope",
-    "apiKey": "API key",
-    "visibleCount": "{visible} a na-ahụ anya / {total} na ngụkọta",
-    "modeLabel": "Ụdị nlele",
-    "jumpToNow": "Gaa ozugbo n'oge ugbu a; ahịrị NOW ga-alaghachi n'ọnọdụ {position}%",
-    "laneReuse": "Ijigharị ahịrị",
-    "laneReuseLabel": "Oghere oge maka ijigharị ahịrị (nkeji)",
-    "laneReuseHint": "Arịrịọ ndị nwere otu ID mkparịta ụka ga-anọ n'otu ahịrị usoro oge ma ọ bụrụ na oge dị n'etiti ha erughị nkeji ole a.",
-    "laneReuseUnit": "nkej.",
-    "autoRefresh": "Mmelite akpaaka",
-    "autoRefreshLabel": "Oge etiti mmelite akpaaka (sekọnd)",
-    "autoRefreshHint": "Ugboro ole usoro oge na-esiteghachi na sava nweta ndepụta arịrịọ.",
-    "autoRefreshUnit": "sek.",
-    "zoomOut": "Belata mbugharị",
-    "zoomIn": "Mụbaa mbugharị"
+    "apiKey": "API key"
   },
   "metadata": {
     "compressionTitle": "Mkpakọ",

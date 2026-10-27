@@ -2495,7 +2495,11 @@
     "onlySelectedConnections": "Apenas as conexões selecionadas",
     "selectAtLeastOneConnection": "Selecione pelo menos uma conexão ou escolha Todas as conexões.",
     "allConnectionsDesc": "Esta chave pode usar qualquer conexão ativa.",
-    "restrictedToConnections": "Restrita a {count, plural, one {# conexão} other {# conexões}}."
+    "restrictedToConnections": "Restrita a {count, plural, one {# conexão} other {# conexões}}.",
+    "preferredConnections": "Conexões preferenciais",
+    "preferredConnectionsClear": "Limpar",
+    "preferredConnectionsDesc": "Ordem de prioridade por chave. Se uma conexão preferencial estiver indisponível, o roteamento passa para a próxima elegível.",
+    "preferredConnectionsNone": "Nenhuma preferência definida — a estratégia de roteamento padrão é usada."
   },
   "auditLog": {
     "title": "Log de Auditoria",
@@ -4014,7 +4018,8 @@
     "duplicateAutoComboSnapshotMsg": "Isso irá capturar os provedores/modelos atualmente conectados que correspondem a este modelo em uma combinação editável.",
     "duplicateAutoComboFailedPrefix": "Falha ao duplicar a combinação automática:",
     "duplicateAutoComboUnknownError": "Erro desconhecido",
-    "duplicateAutoComboTitle": "Criar uma combinação estática de {name}"
+    "duplicateAutoComboTitle": "Criar uma combinação estática de {name}",
+    "builderStaleModel": "Fora do catálogo ao vivo"
   },
   "costs": {
     "title": "Custos",
@@ -8951,7 +8956,8 @@
       "statsTitle": "Detecções desde a reinicialização",
       "statsEmpty": "Nenhuma detecção ainda.",
       "statsRequest": "Requisições"
-    }
+    },
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection."
   },
   "contextRtk": {
     "title": "Motor RTK",
@@ -10291,7 +10297,11 @@
     "codexPaidCreditsLabel": "Créditos pagos do Codex",
     "codexPaidCreditsAvailable": "Disponível (saldo não informado)",
     "codexPaidCreditsUnavailable": "Indisponível ou limite de gastos atingido",
-    "codexPaidCreditsUnlimited": "Ilimitado"
+    "codexPaidCreditsUnlimited": "Ilimitado",
+    "claudeResetCreditDefaultTitle": "Redefinição de limite do Claude",
+    "claudeResetCreditsModalExplainer": "Créditos de redefinição do Claude disponíveis e redefinições semanais de sessão para esta conta.",
+    "claudeResetCreditsModalTitle": "Créditos de redefinição do Claude",
+    "confirmRedeemClaudeResetCredit": "O resgate redefine imediatamente os limites de uso elegíveis do Claude e consome este crédito permanentemente."
   },
   "modals": {
     "waitingAuth": "Aguardando Autorização",
@@ -11603,7 +11613,8 @@
     "notMeasured": "Não medido",
     "upstream4xx": "{count} erros de cliente upstream",
     "upstream5xx": "{count} erros de servidor upstream",
-    "uniformEgressLine": "{affected} de {exits} saídas falham juntas em {provider} (últimas {hours}h) — não é um problema de saída"
+    "uniformEgressLine": "{affected} de {exits} saídas falham juntas em {provider} (últimas {hours}h) — não é um problema de saída",
+    "poolSetAsideKindOperatorReported": "interrupção relatada pelo operador"
   },
   "playground": {
     "title": "Title",

@@ -998,13 +998,7 @@
     "batchFileUsedByCount": "Används av {count, plural, one {# batch} other {# batches}}",
     "batchFilePreview": "Förhandsgranskning",
     "batchFilePreviewTruncated": "Visar de första {shown} raderna ({total} totalt rader)",
-    "batchFileDownloadFull": "Ladda Ner Hela Filen",
-    "dialogTitleFallback": "Dialogruta",
-    "pagination": "Sidnumrering",
-    "clearFilters": "Rensa filter",
-    "tokensPageTitle": "Tokens",
-    "tokensPageDescription": "Skicka tokens mellan API-nycklar, dela inbjudningskoder och anslut communityservrar.",
-    "tokensServerUrlLabel": "Server-URL"
+    "batchFileDownloadFull": "Ladda Ner Hela Filen"
   },
   "disabled": "Inaktiverad",
   "featureFlagOmnirouteEmergencyFallbackDescription": "Dirigera anrop med förbrukad budget till den kostnadsfria reservleverantören/-modellen för nödfall.",
@@ -1491,11 +1485,7 @@
       "chatIdPlaceholder": "-100123456789 eller @channelname",
       "chatIdHint": "Den unika numeriska identifieraren eller det offentliga användarnamnet för chatten/kanalen.",
       "tutorial": "Så här konfigurerar du en Telegram-webhook:"
-    },
-    "copy": "Kopiera",
-    "copied": "Kopierat!",
-    "expandDetails": "Visa detaljer",
-    "collapseDetails": "Dölj detaljer"
+    }
   },
   "compliance": {
     "auditTitle": "Revision",
@@ -1607,8 +1597,7 @@
     "mcpMetricCalls24h": "Samtal (24h)",
     "mcpMetricSuccessRate": "Framgångsfrekvens",
     "mcpMetricAvgDuration": "Genomsnittlig varaktighet",
-    "mcpMetricTopTool": "Toppverktyg",
-    "dismissError": "Avfärda fel"
+    "mcpMetricTopTool": "Toppverktyg"
   },
   "themesPage": {
     "title": "Teman",
@@ -1724,9 +1713,7 @@
     "settingsAdvancedDescription": "Avancerade nyttolastregler, gränser för förfrågningar och inställningar för proxy-API",
     "mitmProxyDescription": "Konfigurera MITM-proxyinställningar för trafikinspektion och felsökning",
     "oneProxyDescription": "Konfigurera 1Proxy-inställningar för avancerad proxykedjning",
-    "omniSkillsDescription": "Installera och hantera sandlådefärdigheter för automatiserad körning av prompter och verktyg",
-    "openMenu": "Öppna meny",
-    "products": "Keak-produkter"
+    "omniSkillsDescription": "Installera och hantera sandlådefärdigheter för automatiserad körning av prompter och verktyg"
   },
   "cloudSyncStatus": {
     "synced": "Synkroniserad",
@@ -2512,8 +2499,7 @@
     "preferredConnections": "Föredragna anslutningar",
     "preferredConnectionsDesc": "Prioritetsordning per nyckel. Om en föredragen anslutning inte är tillgänglig faller routningen tillbaka på nästa behöriga.",
     "preferredConnectionsNone": "Ingen preferens angiven — standardstrategin för routning används.",
-    "preferredConnectionsClear": "Rensa",
-    "removeSelection": "Ta bort {name}"
+    "preferredConnectionsClear": "Rensa"
   },
   "auditLog": {
     "title": "Revisionslogg",
@@ -2625,9 +2611,7 @@
     "imageToTextBridgeCta": "Konfigurera Image→Text-bron i Inställningar för Modality Bridge",
     "sttBridgeCta": "Konfigurera tal→text-bryggan i inställningarna för Modality Bridge",
     "existingConnection": "Befintlig anslutning",
-    "openrouterSttDescription": "OpenRouter tal-till-text modeller använder din konfigurerade OpenRouter-anslutning. Ingen separat autentisering krävs.",
-    "modalityTabsAria": "Medietyp",
-    "serviceKindsAria": "Tjänstetyp"
+    "openrouterSttDescription": "OpenRouter tal-till-text modeller använder din konfigurerade OpenRouter-anslutning. Ingen separat autentisering krävs."
   },
   "search": {
     "searchQuery": "Sökfråga",
@@ -3298,8 +3282,7 @@
     "cliproxyapiUnknown": "Okänd",
     "cliproxyapiUpdate": "Uppdatera",
     "cliproxyapiUpdateAvailable": "Uppdatering tillgänglig: v{current} → v{latest}",
-    "cliproxyapiVersion": "Version",
-    "removeMapping": "Ta bort mappning"
+    "cliproxyapiVersion": "Version"
   },
   "modelCatalog": {
     "title": "Modeller & kombinationer",
@@ -4036,13 +4019,7 @@
     "duplicateAutoComboSnapshotMsg": "Detta kommer att ta en ögonblicksbild av de för närvarande anslutna leverantörerna/modellerna som matchar denna mall i en redigerbar kombination.",
     "duplicateAutoComboFailedPrefix": "Kopiering av automatisk kombination misslyckades:",
     "duplicateAutoComboUnknownError": "Okänt fel",
-    "duplicateAutoComboTitle": "Skapa en statisk kombination från {name}",
-    "weightPercent": "Vikt (%)",
-    "clearSearch": "Rensa sökning",
-    "responseValidationRemoveCheck": "Ta bort kontroll",
-    "responseValidationPath": "JSON-sökväg",
-    "responseValidationCondition": "Villkor",
-    "responseValidationValue": "Förväntat värde"
+    "duplicateAutoComboTitle": "Skapa en statisk kombination från {name}"
   },
   "costs": {
     "title": "Kostnader",
@@ -5316,8 +5293,7 @@
         "skipped": "redan konfigurerad",
         "failed": "misslyckades"
       }
-    },
-    "stepProgress": "Konfigurationsförlopp"
+    }
   },
   "providers": {
     "tosAvoidNoticeTitle": "Den här leverantören är som standard utesluten från auto",
@@ -8981,7 +8957,7 @@
       "statsEmpty": "Inga upptäckter än.",
       "statsRequest": "Förfrågningar"
     },
-    "modelOverrideKey": "Åsidosättningsnyckel"
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection."
   },
   "contextRtk": {
     "title": "RTK-motor",
@@ -9065,8 +9041,7 @@
     "tomlTestPassed": "Lyckades",
     "tomlTestFailed": "Misslyckades",
     "tomlImportError": "Kunde inte bearbeta RTK TOML-filen.",
-    "tomlFileReadError": "Kunde inte läsa den valda TOML-filen.",
-    "viewMode": "Visningsläge"
+    "tomlFileReadError": "Kunde inte läsa den valda TOML-filen."
   },
   "compressionEngineConfig": {
     "loading": "Laddar…",
@@ -9288,8 +9263,7 @@
     "languagePacksList": "Språkpaket: {packs}",
     "dragToReorder": "Dra för att ändra ordning på steg",
     "engine": "Motor",
-    "intensity": "Intensitet",
-    "compressionOverride": "Åsidosättning av komprimering"
+    "intensity": "Intensitet"
   },
   "compressionStudio": {
     "noRun": "Ingen komprimeringskörning tillgänglig.",
@@ -9349,8 +9323,7 @@
     "encoderWinner": "vinnare: {winner}",
     "encoder": "kodare",
     "bytes": "byte",
-    "tokensCl100k": "token (cl100k)",
-    "studioViews": "Studiovyer"
+    "tokensCl100k": "token (cl100k)"
   },
   "omniglyph": {
     "preview": "Förhandsgranskning",
@@ -9556,9 +9529,7 @@
     "tooltipMinLength": "Meddelanden kortare än detta komprimeras inte. Lägre = mer kompression.",
     "tooltipMinSavings": "Komprimera bara om det sparar åtminstone så många tokens.",
     "ultraSettings": "Ultrainställningar",
-    "ultraSettingsDesc": "SLM-driven semantisk komprimering",
-    "defaultLanguage": "Standardspråk",
-    "viewMode": "Visningsläge"
+    "ultraSettingsDesc": "SLM-driven semantisk komprimering"
   },
   "translator": {
     "title": "Översättare",
@@ -11117,8 +11088,7 @@
       "message": "Meddelande",
       "error": "Fel",
       "completion": "Slutförande"
-    },
-    "statusFilter": "Status"
+    }
   },
   "templateNames": {
     "simple-chat": "Enkel chatt",
@@ -11299,8 +11269,7 @@
     "minutesAgo": "{minutes}m sedan",
     "hoursAgo": "{hours}t sedan",
     "daysAgo": "{days}d sedan",
-    "entries": "Poster",
-    "viewSwitcherAria": "Cachevy"
+    "entries": "Poster"
   },
   "proxyConfigModal": {
     "levelGlobal": "Global",
@@ -11645,8 +11614,7 @@
     "notMeasured": "Inte mätt",
     "upstream4xx": "{count} uppströms klientfel",
     "upstream5xx": "{count} uppströms serverfel",
-    "uniformEgressLine": "{affected} av {exits} utgångar fallerar samtidigt hos {provider} (senaste {hours}h) — inte ett utgångsproblem",
-    "moreActions": "Fler åtgärder"
+    "uniformEgressLine": "{affected} av {exits} utgångar fallerar samtidigt hos {provider} (senaste {hours}h) — inte ett utgångsproblem"
   },
   "playground": {
     "title": "Title",
@@ -11852,8 +11820,7 @@
       "nextButton": "Nästa",
       "runButton": "Kör",
       "promptPlaceholder": "Skriv ditt meddelande… (Enter för att skicka, Shift+Enter för ny rad)"
-    },
-    "playgroundTabs": "Playground-lägen"
+    }
   },
   "miniPlayground": {
     "endpoint": "Slutpunkt",
@@ -11924,8 +11891,7 @@
     "assistant": "Assistent",
     "errorLabel": "Fel",
     "requestFailed": "Förfrågan misslyckades",
-    "stop": "Stoppa",
-    "messageInputAria": "Meddelande"
+    "stop": "Stoppa"
   },
   "requestLogger": {
     "recording": "Spelar in",
@@ -12112,18 +12078,8 @@
       "resilienceRotations": "{count} kontorotationer",
       "resilienceRetried": "Tom tur försökt igen",
       "resilienceContinued": "Återupptaget mitt i strömmen",
-      "resilienceRecovered": "Återställt av en motståndskraftsåtgärd",
-      "conversationContext": "Konversationskontext",
-      "goToBottom": "Gå längst ned",
-      "liveRefreshOn": "Liveuppdatering: på",
-      "liveRefreshOff": "Liveuppdatering: av",
-      "liveRefresh": "Liveuppdatering",
-      "continuesFromParent": "fortsätter från överordnad",
-      "continuesFrom": "Fortsätter från {id}",
-      "viewConversation": "visa konversation",
-      "openConversation": "Öppna konversation {id}"
-    },
-    "tableLabel": "Förfrågningsloggar"
+      "resilienceRecovered": "Återställt av en motståndskraftsåtgärd"
+    }
   },
   "proxyLogger": {
     "filterAll": "Alla",
@@ -12168,9 +12124,7 @@
     "colServedBy": "Serverad av",
     "filterTraffic": "Trafik",
     "filterTests": "Tester",
-    "filterSource": "Källa",
-    "tableLabel": "Proxyloggar",
-    "sortLogs": "Sortera loggar"
+    "filterSource": "Källa"
   },
   "endpointOptions": {
     "speech": "Tal",
@@ -12255,8 +12209,7 @@
     "statusExhausted": "FÖRBRUKAD",
     "statusAlerting": "VARNING",
     "statusError": "FEL",
-    "moreSuffix": "+{count} fler",
-    "feedFilterLabel": "Filtrera händelser"
+    "moreSuffix": "+{count} fler"
   },
   "quotaShare": {
     "weightPercent": "Vikt %",
@@ -12423,10 +12376,7 @@
     "ungroupedTitle": "Ogrupperade",
     "ungroupedHint": "Dessa pooler är inte tilldelade till en känd grupp. Redigera en pool för att flytta den till en riktig grupp.",
     "removeFailed": "Det gick inte att ta bort den här poolen.",
-    "dismiss": "Stäng",
-    "allocationsHeading": "Tilldelningar",
-    "wizardRemoveDimension": "Ta bort dimension",
-    "wizardRemoveKey": "Ta bort nyckel"
+    "dismiss": "Stäng"
   },
   "plugins": {
     "title": "Insticksprogram",
@@ -12584,8 +12534,7 @@
       "settingsUpdateFailed": "Uppdatering av inställningar misslyckades",
       "serviceRevealApiKey": "{actor} visade API-nyckel för {target}",
       "genericEvent": "{actor} {target}"
-    },
-    "dismissError": "Avfärda fel"
+    }
   },
   "agentBridge": {
     "title": "AgentBridge",
@@ -12718,21 +12667,7 @@
       "goNow": "Gå nu",
       "message": "MITM-proxyn finns nu under AgentBridge.",
       "title": "Denna sida har flyttats"
-    },
-    "dnsOn": "DNS på",
-    "dnsOff": "DNS av",
-    "showServerSettings": "Visa serverinställningar",
-    "hideServerSettings": "Dölj serverinställningar",
-    "upstreamCaTesting": "Testar…",
-    "removeMapping": "Ta bort mappning",
-    "mappingSourcePlaceholder": "t.ex. gemini-3.6-flash-medium eller * för alla som saknar mappning",
-    "mappingWildcardHint": "Använd * som källa för att dirigera alla modeller utan en explicit mappning via OmniRoute till det valda målet. Exakta källmatchningar har alltid företräde framför *.",
-    "wizardDetectingModels": "Identifierar modeller från uppfångad trafik...",
-    "wizardDetectedModels": "Hittade {count, plural, one {# modell} other {# modeller}} i uppfångad trafik. Välj de som du vill lägga till:",
-    "wizardSelectedModels": "{count, plural, one {# modell har valts} other {# modeller har valts}}. Du mappar dem till OmniRoute-modeller på nästa skärm.",
-    "wizardAddModels": "Lägg till {count, plural, one {# modell} other {# modeller}}",
-    "wizardNoModelsDetected": "Inga modeller har identifierats än. Använd {agent} för att göra en förfrågan och kör sedan den här guiden igen för att automatiskt identifiera modeller från trafiken.",
-    "wizardNoModelsHint": "Eller stäng den här guiden och lägg till mappningar manuellt på agentkortet."
+    }
   },
   "providerStats": {
     "unknownError": "Okänt fel",
@@ -12762,11 +12697,7 @@
     "avgTtft": "Genomsnittlig TTFT",
     "avgTotal": "Genomsnittlig total",
     "requestTelemetry": "Anropstelemetri",
-    "requestTelemetryDescription": "Uppdelning av 7-fas-pipeline (senaste 5 minuterna)",
-    "title": "Leverantörsstatistik",
-    "description": "Trafik, latens och lyckandefrekvens per leverantör och modell",
-    "combo": "Kombination",
-    "toggleModels": "Visa modeller för {provider}"
+    "requestTelemetryDescription": "Uppdelning av 7-fas-pipeline (senaste 5 minuterna)"
   },
   "relay": {
     "title": "Serverlösa relay-proxies",
@@ -12927,18 +12858,7 @@
     "noRequestBody": "Ingen request body.",
     "noResponseBody": "Ingen response body.",
     "formatted": "Formaterad",
-    "raw": "Rå",
-    "requestCount": "{count, plural, one {# förfrågan} other {# förfrågningar}}",
-    "expandList": "Expandera lista",
-    "collapseList": "Fäll ihop lista",
-    "snippetLanguage": "Språk för kodexempel",
-    "headersTable": "HTTP-huvuden",
-    "showSecrets": "Visa hemligheter",
-    "maskSecrets": "Maskera hemligheter",
-    "llmNotAvailable": "LLM-metadata är inte tillgängliga för den här förfrågan.",
-    "llmStreamYes": "ja (SSE)",
-    "llmStreamNo": "nej",
-    "llmTotalTokens": "Totalt: {count} token"
+    "raw": "Rå"
   },
   "cliCommon": {
     "companion": {
@@ -13397,8 +13317,7 @@
     "colReliabilityHelp": "Andel anrop som den här leverantören faktiskt besvarade under de senaste 24 timmarna. Ett streck innebär att den hanterade för lite trafik för att en andel ska kunna anges.",
     "reliabilitySample": "{successes} av {requests} anrop lyckades under de senaste {hours} h",
     "reliabilityTooFew": "Endast {requests} anrop under de senaste {hours} h – för få för att ange en andel",
-    "reliabilityNoTraffic": "Inga anrop registrerade under de senaste 24 h",
-    "categoryFilter": "Uppgiftskategori"
+    "reliabilityNoTraffic": "Inga anrop registrerade under de senaste 24 h"
   },
   "discovery": {
     "title": "Leverantörssökning",
@@ -13423,11 +13342,7 @@
     "method": "Metod",
     "auth": "Autentisering",
     "feasibility": "Genomförbarhet",
-    "models": "Modeller",
-    "provider": "Leverantör",
-    "status": "Status",
-    "endpoint": "Slutpunkt",
-    "actions": "Åtgärder"
+    "models": "Modeller"
   },
   "noAuthProvider": {
     "title": "Ingen autentisering krävs",
@@ -13476,8 +13391,7 @@
     "ownProxy": "Egen proxy",
     "freeTierPause": "Modellen {model} pausades (429), tillbaka {time}",
     "freeTierPauseProvider": "Pausat (429), tillbaka {time}",
-    "freeTierPauseNote": "Paus i processen på denna instans",
-    "proxyType": "Proxytyp"
+    "freeTierPauseNote": "Paus i processen på denna instans"
   },
   "gamification": {
     "leaderboardScopes": {
@@ -13650,10 +13564,7 @@
         "description": "En dold prestation väntar...",
         "criteria": "Slutför den dolda prestationen för att visa detta märke."
       }
-    },
-    "leaderboardTitle": "Topplista",
-    "leaderboardDescription": "Rankningar och prestationer för dina API-nycklar",
-    "badgeLocked": "Låst"
+    }
   },
   "featureFlags": {
     "title": "Funktionsflaggor",
@@ -13948,8 +13859,7 @@
     "unknown": "okänd",
     "unknownProvider": "okänd leverantör",
     "unknownModel": "okänd modell",
-    "resolvedTargetMetrics": "{requests} anrop · {success} lyckade · {latency} · kvot {quota}",
-    "timeRange": "Tidsintervall"
+    "resolvedTargetMetrics": "{requests} anrop · {success} lyckade · {latency} · kvot {quota}"
   },
   "usageLimits": {
     "usdUsageQuota": "USD-användningskvot",
@@ -14096,11 +14006,7 @@
     "learnMore": "Läs mer",
     "changelogLoadFailed": "Kunde inte läsa in ändringsloggen. Försök igen senare.",
     "retry": "Försök igen",
-    "viewFullHistory": "Visa fullständig historik på GitHub",
-    "title": "Nyheter och ändringslogg",
-    "description": "Meddelanden från OmniRoute-teamet och de senaste versionsanteckningarna",
-    "viewLabel": "Visa",
-    "loadingNews": "Läser in meddelanden..."
+    "viewFullHistory": "Visa fullständig historik på GitHub"
   },
   "reasoningRouting": {
     "editor": {
@@ -14651,9 +14557,7 @@
       "circuitBreakerState": "Leverantörens Kretsbrytartillstånd",
       "lastUpdate": "Senaste uppdatering: {timestamp}",
       "uptimeMinutes": "{minutes} min",
-      "uptimeHoursMinutes": "{hours} tim {minutes} min",
-      "breakerClosed": "Stängd",
-      "breakerNotClosed": "Öppen eller halvöppen"
+      "uptimeHoursMinutes": "{hours} tim {minutes} min"
     },
     "statusPages": {
       "400": {
@@ -14728,9 +14632,6 @@
         "primaryAction": "Underhållsdetaljer",
         "secondaryAction": "Systemstatus"
       }
-    },
-    "miniapp": {
-      "askAnything": "Fråga vad som helst…"
     }
   },
   "kiroAuthModal": {
@@ -14921,20 +14822,7 @@
     "mcp": "MCP",
     "mcpTool": "MCP tool",
     "scope": "Scope",
-    "apiKey": "API key",
-    "visibleCount": "{visible} synliga / {total} totalt",
-    "modeLabel": "Visningsläge",
-    "jumpToNow": "Hoppa till aktuell tid. NU-linjen återställs till positionen {position} %",
-    "laneReuse": "Återanvändning av spår",
-    "laneReuseLabel": "Tidsfönster för återanvändning av spår (minuter)",
-    "laneReuseHint": "Förfrågningar som delar ett konversations-id ligger kvar på samma rad i tidslinjen så länge avståndet mellan dem är mindre än så här många minuter.",
-    "laneReuseUnit": "min",
-    "autoRefresh": "Automatisk uppdatering",
-    "autoRefreshLabel": "Intervall för automatisk uppdatering (sekunder)",
-    "autoRefreshHint": "Hur ofta tidslinjen hämtar listan över förfrågningar från servern på nytt.",
-    "autoRefreshUnit": "s",
-    "zoomOut": "Zooma ut",
-    "zoomIn": "Zooma in"
+    "apiKey": "API key"
   },
   "metadata": {
     "compressionTitle": "Komprimering",

@@ -2495,7 +2495,11 @@
     "onlySelectedConnections": "Only selected connections",
     "selectAtLeastOneConnection": "Select at least one connection or choose All connections.",
     "allConnectionsDesc": "This key can use any active connection.",
-    "restrictedToConnections": "Restricted to {count, plural, one {# connection} other {# connections}}."
+    "restrictedToConnections": "Restricted to {count, plural, one {# connection} other {# connections}}.",
+    "preferredConnections": "Preferred connections",
+    "preferredConnectionsClear": "Clear",
+    "preferredConnectionsDesc": "Per-key priority order. If a preferred connection is unavailable, routing falls back to the next eligible one.",
+    "preferredConnectionsNone": "No preference set — the default routing strategy is used."
   },
   "auditLog": {
     "title": "Audit Log",
@@ -4014,7 +4018,8 @@
     "duplicateAutoComboSnapshotMsg": "This will snapshot the currently connected providers/models that match this template into an editable combo.",
     "duplicateAutoComboFailedPrefix": "Failed to duplicate auto-combo:",
     "duplicateAutoComboUnknownError": "Unknown error",
-    "duplicateAutoComboTitle": "Create a static combo from {name}"
+    "duplicateAutoComboTitle": "Create a static combo from {name}",
+    "builderStaleModel": "Not in live catalog"
   },
   "costs": {
     "title": "Costs",
@@ -10292,7 +10297,11 @@
     "updatedShort": "Updated",
     "lastRefreshed": "Last refreshed",
     "providerQuota": "Provider Quota",
-    "providerQuotaHomeHint": "Live status across connected accounts"
+    "providerQuotaHomeHint": "Live status across connected accounts",
+    "claudeResetCreditDefaultTitle": "Claude limit reset",
+    "claudeResetCreditsModalExplainer": "Available Claude reset credits and weekly session resets for this account.",
+    "claudeResetCreditsModalTitle": "Claude reset credits",
+    "confirmRedeemClaudeResetCredit": "Redeeming immediately resets the eligible Claude usage limits and permanently consumes this credit."
   },
   "modals": {
     "waitingAuth": "Waiting for Authorization",
@@ -11604,7 +11613,8 @@
     "notMeasured": "Not measured",
     "upstream4xx": "{count} upstream client errors",
     "upstream5xx": "{count} upstream server errors",
-    "uniformEgressLine": "{affected} of {exits} exits fail together on {provider} (last {hours}h) — not an exit problem"
+    "uniformEgressLine": "{affected} of {exits} exits fail together on {provider} (last {hours}h) — not an exit problem",
+    "poolSetAsideKindOperatorReported": "outage reported by operator"
   },
   "playground": {
     "title": "Model Playground",

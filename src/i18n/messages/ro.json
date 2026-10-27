@@ -998,13 +998,7 @@
     "batchFileUsedByCount": "Folosit de {count, plural, one {# lot} other {# loturi}}",
     "batchFilePreview": "Previzualizare",
     "batchFilePreviewTruncated": "Afișare primele {shown} linii ({total} linii totale)",
-    "batchFileDownloadFull": "Descarcă Fișierul Complet",
-    "dialogTitleFallback": "Dialog",
-    "pagination": "Paginare",
-    "clearFilters": "Șterge filtrele",
-    "tokensPageTitle": "Tokenuri",
-    "tokensPageDescription": "Trimite tokenuri între cheile API, distribuie coduri de invitație și conectează serverele comunității.",
-    "tokensServerUrlLabel": "URL-ul serverului"
+    "batchFileDownloadFull": "Descarcă Fișierul Complet"
   },
   "disabled": "Dezactivat",
   "featureFlagOmnirouteEmergencyFallbackDescription": "Redirecționează cererile cu buget epuizat către furnizorul/modelul de rezervă gratuit de urgență.",
@@ -1491,11 +1485,7 @@
       "chatIdPlaceholder": "-100123456789 sau @channelname",
       "chatIdHint": "Identificatorul numeric unic sau numele de utilizator public al chatului/canalului.",
       "tutorial": "Cum se configurează webhook-ul Telegram:"
-    },
-    "copy": "Copiază",
-    "copied": "Copiat!",
-    "expandDetails": "Afișează detaliile",
-    "collapseDetails": "Ascunde detaliile"
+    }
   },
   "compliance": {
     "auditTitle": "Audit",
@@ -1607,8 +1597,7 @@
     "mcpMetricCalls24h": "Apeluri (24h)",
     "mcpMetricSuccessRate": "Rata de succes",
     "mcpMetricAvgDuration": "Durata medie",
-    "mcpMetricTopTool": "Instrument de top",
-    "dismissError": "Închide eroarea"
+    "mcpMetricTopTool": "Instrument de top"
   },
   "themesPage": {
     "title": "Teme",
@@ -1724,9 +1713,7 @@
     "settingsAdvancedDescription": "Reguli avansate pentru sarcina utilă, limite pentru cereri și setări API pentru proxy",
     "mitmProxyDescription": "Configurați setările proxy-ului MITM pentru inspectarea traficului și depanare",
     "oneProxyDescription": "Configurați setările 1Proxy pentru înlănțuirea avansată a proxy-urilor",
-    "omniSkillsDescription": "Instalează și gestionează abilități sandbox pentru executarea automată a prompturilor și instrumentelor",
-    "openMenu": "Deschide meniul",
-    "products": "Produse Keak"
+    "omniSkillsDescription": "Instalează și gestionează abilități sandbox pentru executarea automată a prompturilor și instrumentelor"
   },
   "cloudSyncStatus": {
     "synced": "Sincronizat",
@@ -2512,8 +2499,7 @@
     "preferredConnections": "Conexiuni preferate",
     "preferredConnectionsDesc": "Ordine de prioritate pentru fiecare cheie. Dacă o conexiune preferată nu este disponibilă, rutarea trece la următoarea eligibilă.",
     "preferredConnectionsNone": "Nicio preferință setată — se folosește strategia de rutare implicită.",
-    "preferredConnectionsClear": "Golește",
-    "removeSelection": "Elimină {name}"
+    "preferredConnectionsClear": "Golește"
   },
   "auditLog": {
     "title": "Jurnal de audit",
@@ -2625,9 +2611,7 @@
     "imageToTextBridgeCta": "Configurează puntea Imagine→Text în setările Modality Bridge",
     "sttBridgeCta": "Configurează puntea Speech→Text în setările Modality Bridge",
     "existingConnection": "Conexiune existentă",
-    "openrouterSttDescription": "Modelele de recunoaștere vocală OpenRouter folosesc conexiunea OpenRouter configurată de tine. Nu este necesară o acreditivă separată.",
-    "modalityTabsAria": "Tip media",
-    "serviceKindsAria": "Tip serviciu"
+    "openrouterSttDescription": "Modelele de recunoaștere vocală OpenRouter folosesc conexiunea OpenRouter configurată de tine. Nu este necesară o acreditivă separată."
   },
   "search": {
     "searchQuery": "Interogare de căutare",
@@ -3298,8 +3282,7 @@
     "cliproxyapiUnknown": "Necunoscut",
     "cliproxyapiUpdate": "Actualizare",
     "cliproxyapiUpdateAvailable": "Actualizare disponibilă: v{current} → v{latest}",
-    "cliproxyapiVersion": "Versiune",
-    "removeMapping": "Elimină maparea"
+    "cliproxyapiVersion": "Versiune"
   },
   "modelCatalog": {
     "title": "Modele și combo-uri",
@@ -4036,13 +4019,7 @@
     "duplicateAutoComboSnapshotMsg": "Acesta va captura furnizorii/modelurile conectate în prezent care se potrivesc cu acest șablon într-o combinație editabilă.",
     "duplicateAutoComboFailedPrefix": "Duplicarea combinației automate a eșuat:",
     "duplicateAutoComboUnknownError": "Eroare necunoscută",
-    "duplicateAutoComboTitle": "Creați o combinație statică din {name}",
-    "weightPercent": "Pondere (%)",
-    "clearSearch": "Șterge căutarea",
-    "responseValidationRemoveCheck": "Elimină verificarea",
-    "responseValidationPath": "Cale JSON",
-    "responseValidationCondition": "Condiție",
-    "responseValidationValue": "Valoare așteptată"
+    "duplicateAutoComboTitle": "Creați o combinație statică din {name}"
   },
   "costs": {
     "title": "Costuri",
@@ -5316,8 +5293,7 @@
         "skipped": "deja configurat",
         "failed": "eșuat"
       }
-    },
-    "stepProgress": "Progresul configurării"
+    }
   },
   "providers": {
     "tosAvoidNoticeTitle": "Acest furnizor este exclus implicit din auto",
@@ -8981,7 +8957,7 @@
       "statsEmpty": "Nicio detecție încă.",
       "statsRequest": "Cereri"
     },
-    "modelOverrideKey": "Cheie de suprascriere"
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection."
   },
   "contextRtk": {
     "title": "Motor RTK",
@@ -9065,8 +9041,7 @@
     "tomlTestPassed": "Reușit",
     "tomlTestFailed": "Eșuat",
     "tomlImportError": "Nu s-a putut procesa fișierul RTK TOML.",
-    "tomlFileReadError": "Nu s-a putut citi fișierul TOML selectat.",
-    "viewMode": "Mod de vizualizare"
+    "tomlFileReadError": "Nu s-a putut citi fișierul TOML selectat."
   },
   "compressionEngineConfig": {
     "loading": "Se încarcă…",
@@ -9288,8 +9263,7 @@
     "languagePacksList": "Pachete de limbi: {packs}",
     "dragToReorder": "Trageți pentru a reordona pasul",
     "engine": "Motor",
-    "intensity": "Intensitate",
-    "compressionOverride": "Suprascrierea compresiei"
+    "intensity": "Intensitate"
   },
   "compressionStudio": {
     "noRun": "Nicio rulare de compresie disponibilă.",
@@ -9349,8 +9323,7 @@
     "encoderWinner": "câștigător: {winner}",
     "encoder": "codificator",
     "bytes": "octeți",
-    "tokensCl100k": "tokeni (cl100k)",
-    "studioViews": "Vizualizări Studio"
+    "tokensCl100k": "tokeni (cl100k)"
   },
   "omniglyph": {
     "preview": "Previzualizare",
@@ -9556,9 +9529,7 @@
     "tooltipMinLength": "Mesajele mai scurte decât aceasta nu sunt comprimate. Mai jos = compresie mai mare.",
     "tooltipMinSavings": "Comprimați doar dacă salvează cel puțin atât de multe jetoane.",
     "ultraSettings": "Setări Ultra",
-    "ultraSettingsDesc": "Compresie semantică alimentată de SLM",
-    "defaultLanguage": "Limba implicită",
-    "viewMode": "Mod de vizualizare"
+    "ultraSettingsDesc": "Compresie semantică alimentată de SLM"
   },
   "translator": {
     "title": "Traducător",
@@ -11117,8 +11088,7 @@
       "message": "Mesaj",
       "error": "Eroare",
       "completion": "Finalizare"
-    },
-    "statusFilter": "Stare"
+    }
   },
   "templateNames": {
     "simple-chat": "Chat simplu",
@@ -11299,8 +11269,7 @@
     "minutesAgo": "acum {minutes}m",
     "hoursAgo": "acum {hours}h",
     "daysAgo": "acum {days}z",
-    "entries": "Intrări",
-    "viewSwitcherAria": "Vizualizare cache"
+    "entries": "Intrări"
   },
   "proxyConfigModal": {
     "levelGlobal": "Global",
@@ -11645,8 +11614,7 @@
     "notMeasured": "Nemăsurat",
     "upstream4xx": "{count} erori de client upstream",
     "upstream5xx": "{count} erori de server upstream",
-    "uniformEgressLine": "{affected} din {exits} exit-uri eșuează împreună pe {provider} (ultimele {hours}h) — nu este o problemă de exit",
-    "moreActions": "Mai multe acțiuni"
+    "uniformEgressLine": "{affected} din {exits} exit-uri eșuează împreună pe {provider} (ultimele {hours}h) — nu este o problemă de exit"
   },
   "playground": {
     "title": "Title",
@@ -11852,8 +11820,7 @@
       "nextButton": "Înainte",
       "runButton": "Rulează",
       "promptPlaceholder": "Introdu mesajul tău… (Enter pentru a trimite, Shift+Enter pentru rând nou)"
-    },
-    "playgroundTabs": "Moduri Playground"
+    }
   },
   "miniPlayground": {
     "endpoint": "Punct final",
@@ -11924,8 +11891,7 @@
     "assistant": "Asistent",
     "errorLabel": "Eroare",
     "requestFailed": "Solicitarea a eșuat",
-    "stop": "Oprește",
-    "messageInputAria": "Mesaj"
+    "stop": "Oprește"
   },
   "requestLogger": {
     "recording": "Înregistrare",
@@ -12112,18 +12078,8 @@
       "resilienceRotations": "{count} rotații de cont",
       "resilienceRetried": "Tură goală reîncercată",
       "resilienceContinued": "Reluat la mijlocul fluxului",
-      "resilienceRecovered": "Recuperat printr-o acțiune de reziliență",
-      "conversationContext": "Contextul conversației",
-      "goToBottom": "Mergi la final",
-      "liveRefreshOn": "Actualizare în timp real: activată",
-      "liveRefreshOff": "Actualizare în timp real: dezactivată",
-      "liveRefresh": "Actualizare în timp real",
-      "continuesFromParent": "continuă de la părinte",
-      "continuesFrom": "Continuă de la {id}",
-      "viewConversation": "vezi conversația",
-      "openConversation": "Deschide conversația {id}"
-    },
-    "tableLabel": "Jurnale de solicitări"
+      "resilienceRecovered": "Recuperat printr-o acțiune de reziliență"
+    }
   },
   "proxyLogger": {
     "filterAll": "Toate",
@@ -12168,9 +12124,7 @@
     "colServedBy": "Servit de",
     "filterTraffic": "Trafic",
     "filterTests": "Teste",
-    "filterSource": "Sursă",
-    "tableLabel": "Jurnale proxy",
-    "sortLogs": "Sortează jurnalele"
+    "filterSource": "Sursă"
   },
   "endpointOptions": {
     "speech": "Vorbire",
@@ -12255,8 +12209,7 @@
     "statusExhausted": "EPUIZATĂ",
     "statusAlerting": "ÎN ALERTĂ",
     "statusError": "EROARE",
-    "moreSuffix": "+încă {count}",
-    "feedFilterLabel": "Filtrează evenimentele"
+    "moreSuffix": "+încă {count}"
   },
   "quotaShare": {
     "weightPercent": "Pondere %",
@@ -12423,10 +12376,7 @@
     "ungroupedTitle": "Negrupate",
     "ungroupedHint": "Aceste pool-uri nu sunt atribuite unui grup cunoscut. Editați un pool pentru a-l muta într-un grup real.",
     "removeFailed": "Acest grup de cote nu a putut fi eliminat.",
-    "dismiss": "Închideți",
-    "allocationsHeading": "Alocări",
-    "wizardRemoveDimension": "Elimină dimensiunea",
-    "wizardRemoveKey": "Elimină cheia"
+    "dismiss": "Închideți"
   },
   "plugins": {
     "title": "Pluginuri",
@@ -12584,8 +12534,7 @@
       "settingsUpdateFailed": "Actualizarea setărilor a eșuat",
       "serviceRevealApiKey": "{actor} a dezvăluit cheia API pentru {target}",
       "genericEvent": "{actor} {target}"
-    },
-    "dismissError": "Închide eroarea"
+    }
   },
   "agentBridge": {
     "title": "AgentBridge",
@@ -12718,21 +12667,7 @@
       "goNow": "Accesează acum",
       "message": "Proxy-ul MITM se află acum în AgentBridge.",
       "title": "Această pagină a fost mutată"
-    },
-    "dnsOn": "DNS activat",
-    "dnsOff": "DNS dezactivat",
-    "showServerSettings": "Afișează setările serverului",
-    "hideServerSettings": "Ascunde setările serverului",
-    "upstreamCaTesting": "Se testează…",
-    "removeMapping": "Elimină maparea",
-    "mappingSourcePlaceholder": "de ex., gemini-3.6-flash-medium sau * pentru toate modelele nemapate",
-    "mappingWildcardHint": "Folosește * ca sursă pentru a direcționa prin OmniRoute către ținta selectată fiecare model fără o mapare explicită. Potrivirile exacte ale sursei au întotdeauna prioritate față de *.",
-    "wizardDetectingModels": "Se detectează modelele din traficul interceptat...",
-    "wizardDetectedModels": "{count, plural, one {S-a găsit # model} few {S-au găsit # modele} other {S-au găsit # de modele}} în traficul interceptat. Selectează modelele pe care vrei să le adaugi:",
-    "wizardSelectedModels": "{count, plural, one {# model selectat} few {# modele selectate} other {# de modele selectate}}. Le vei mapa la modele OmniRoute în ecranul următor.",
-    "wizardAddModels": "Adaugă {count, plural, one {# model} few {# modele} other {# de modele}}",
-    "wizardNoModelsDetected": "Nu a fost detectat încă niciun model. Folosește {agent} pentru a efectua o solicitare, apoi rulează din nou acest asistent pentru a detecta automat modelele din trafic.",
-    "wizardNoModelsHint": "Sau închide acest asistent și adaugă manual mapările în cardul agentului."
+    }
   },
   "providerStats": {
     "unknownError": "Eroare necunoscută",
@@ -12762,11 +12697,7 @@
     "avgTtft": "TTFT mediu",
     "avgTotal": "Total mediu",
     "requestTelemetry": "Telemetrie cereri",
-    "requestTelemetryDescription": "Defalcare pipeline în 7 faze (ultimele 5 minute)",
-    "title": "Statistici despre furnizori",
-    "description": "Trafic, latență și rate de succes pentru fiecare furnizor și model",
-    "combo": "Combinație",
-    "toggleModels": "Afișează modelele pentru {provider}"
+    "requestTelemetryDescription": "Defalcare pipeline în 7 faze (ultimele 5 minute)"
   },
   "relay": {
     "title": "Proxy-uri relay serverless",
@@ -12927,18 +12858,7 @@
     "noRequestBody": "Fără corp al cererii.",
     "noResponseBody": "Fără corp al răspunsului.",
     "formatted": "Formatat",
-    "raw": "Brut",
-    "requestCount": "{count, plural, one {# solicitare} few {# solicitări} other {# de solicitări}}",
-    "expandList": "Extinde lista",
-    "collapseList": "Restrânge lista",
-    "snippetLanguage": "Limbajul fragmentului de cod",
-    "headersTable": "Antete",
-    "showSecrets": "Afișează secretele",
-    "maskSecrets": "Maschează secretele",
-    "llmNotAvailable": "Metadatele LLM nu sunt disponibile pentru această solicitare.",
-    "llmStreamYes": "da (SSE)",
-    "llmStreamNo": "nu",
-    "llmTotalTokens": "Total: {count} tokenuri"
+    "raw": "Brut"
   },
   "cliCommon": {
     "companion": {
@@ -13397,8 +13317,7 @@
     "colReliabilityHelp": "Proporția apelurilor la care acest furnizor a răspuns efectiv în ultimele 24 de ore. O liniuță înseamnă că a gestionat prea puțin trafic pentru a stabili o rată.",
     "reliabilitySample": "{successes} din {requests} apeluri au reușit în ultimele {hours} h",
     "reliabilityTooFew": "Doar {requests} apeluri în ultimele {hours} h — prea puține pentru a stabili o rată",
-    "reliabilityNoTraffic": "Niciun apel înregistrat în ultimele 24 h",
-    "categoryFilter": "Categoria sarcinii"
+    "reliabilityNoTraffic": "Niciun apel înregistrat în ultimele 24 h"
   },
   "discovery": {
     "title": "Descoperire furnizori",
@@ -13423,11 +13342,7 @@
     "method": "Metodă",
     "auth": "Autentificare",
     "feasibility": "Fezabilitate",
-    "models": "Modele",
-    "provider": "Furnizor",
-    "status": "Stare",
-    "endpoint": "Punct final",
-    "actions": "Acțiuni"
+    "models": "Modele"
   },
   "noAuthProvider": {
     "title": "Nu este necesară autentificarea",
@@ -13476,8 +13391,7 @@
     "ownProxy": "Proxy propriu",
     "freeTierPause": "Modelul {model} este pus în pauză (429), revine la {time}",
     "freeTierPauseProvider": "Pus în pauză (429), revine la {time}",
-    "freeTierPauseNote": "Pauză în proces pe această instanță",
-    "proxyType": "Tip de proxy"
+    "freeTierPauseNote": "Pauză în proces pe această instanță"
   },
   "gamification": {
     "leaderboardScopes": {
@@ -13650,10 +13564,7 @@
         "description": "O realizare ascunsă te așteaptă...",
         "criteria": "Finalizează realizarea ascunsă pentru a dezvălui această insignă."
       }
-    },
-    "leaderboardTitle": "Clasament",
-    "leaderboardDescription": "Clasamente și realizări pentru cheile tale API",
-    "badgeLocked": "Blocat"
+    }
   },
   "featureFlags": {
     "title": "Indicatori de funcționalități",
@@ -13948,8 +13859,7 @@
     "unknown": "necunoscut",
     "unknownProvider": "furnizor necunoscut",
     "unknownModel": "model necunoscut",
-    "resolvedTargetMetrics": "{requests} req · {success} succes · {latency} · cotă {quota}",
-    "timeRange": "Interval de timp"
+    "resolvedTargetMetrics": "{requests} req · {success} succes · {latency} · cotă {quota}"
   },
   "usageLimits": {
     "usdUsageQuota": "Cotă de utilizare USD",
@@ -14096,11 +14006,7 @@
     "learnMore": "Aflați mai multe",
     "changelogLoadFailed": "Nu s-a putut încărca jurnalul de modificări. Vă rugăm să încercați din nou mai târziu.",
     "retry": "Reîncercați",
-    "viewFullHistory": "Vizualizați istoricul complet pe GitHub",
-    "title": "Noutăți și jurnal de modificări",
-    "description": "Anunțuri din partea echipei OmniRoute și cele mai recente note de lansare",
-    "viewLabel": "Vizualizează",
-    "loadingNews": "Se încarcă anunțurile..."
+    "viewFullHistory": "Vizualizați istoricul complet pe GitHub"
   },
   "reasoningRouting": {
     "editor": {
@@ -14651,9 +14557,7 @@
       "circuitBreakerState": "Starea Circuit Breaker a Furnizorului",
       "lastUpdate": "Ultima actualizare: {timestamp}",
       "uptimeMinutes": "{minutes} min",
-      "uptimeHoursMinutes": "{hours} h {minutes} min",
-      "breakerClosed": "Închis",
-      "breakerNotClosed": "Deschis sau semi-deschis"
+      "uptimeHoursMinutes": "{hours} h {minutes} min"
     },
     "statusPages": {
       "400": {
@@ -14728,9 +14632,6 @@
         "primaryAction": "Detalii de întreținere",
         "secondaryAction": "Starea Sistemului"
       }
-    },
-    "miniapp": {
-      "askAnything": "Întreabă orice…"
     }
   },
   "kiroAuthModal": {
@@ -14921,20 +14822,7 @@
     "mcp": "MCP",
     "mcpTool": "MCP tool",
     "scope": "Scope",
-    "apiKey": "API key",
-    "visibleCount": "{visible} vizibile / {total} în total",
-    "modeLabel": "Mod de vizualizare",
-    "jumpToNow": "Salt la ora curentă; linia ACUM se resetează la poziția {position}%",
-    "laneReuse": "Reutilizarea rândurilor",
-    "laneReuseLabel": "Interval de reutilizare a rândurilor (minute)",
-    "laneReuseHint": "Solicitările care au același ID de conversație rămân pe același rând al cronologiei atât timp cât intervalul dintre ele este mai mic decât acest număr de minute.",
-    "laneReuseUnit": "min.",
-    "autoRefresh": "Reîmprospătare automată",
-    "autoRefreshLabel": "Interval de reîmprospătare automată (secunde)",
-    "autoRefreshHint": "Frecvența cu care cronologia preia din nou lista de solicitări de la server.",
-    "autoRefreshUnit": "s",
-    "zoomOut": "Micșorează",
-    "zoomIn": "Mărește"
+    "apiKey": "API key"
   },
   "metadata": {
     "compressionTitle": "Compresie",

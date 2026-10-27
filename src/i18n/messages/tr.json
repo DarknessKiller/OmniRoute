@@ -998,13 +998,7 @@
     "batchFileUsedByCount": "{count, plural, one {# parti} other {# parti}}",
     "batchFilePreview": "Önizleme",
     "batchFilePreviewTruncated": "İlk {shown} satır gösteriliyor ({total} toplam satır)",
-    "batchFileDownloadFull": "Tam Dosyayı İndir",
-    "dialogTitleFallback": "İletişim kutusu",
-    "pagination": "Sayfalama",
-    "clearFilters": "Filtreleri temizle",
-    "tokensPageTitle": "Tokenlar",
-    "tokensPageDescription": "API anahtarları arasında token gönderin, davet kodlarını paylaşın ve topluluk sunucularına bağlanın.",
-    "tokensServerUrlLabel": "Sunucu URL'si"
+    "batchFileDownloadFull": "Tam Dosyayı İndir"
   },
   "disabled": "Devre dışı",
   "featureFlagOmnirouteEmergencyFallbackDescription": "Bütçesi tükenmiş istekleri acil durum ücretsiz yedek sağlayıcıya/modele yönlendirin.",
@@ -1491,11 +1485,7 @@
       "chatIdPlaceholder": "-100123456789 veya @channelname",
       "chatIdHint": "Sohbetin/kanalın benzersiz sayısal tanımlayıcısı veya herkese açık kullanıcı adı.",
       "tutorial": "Telegram webhook'u nasıl yapılandırılır:"
-    },
-    "copy": "Kopyala",
-    "copied": "Kopyalandı!",
-    "expandDetails": "Ayrıntıları göster",
-    "collapseDetails": "Ayrıntıları gizle"
+    }
   },
   "compliance": {
     "auditTitle": "Denetim",
@@ -1607,8 +1597,7 @@
     "mcpMetricCalls24h": "Aramalar (24s)",
     "mcpMetricSuccessRate": "Başarı oranı",
     "mcpMetricAvgDuration": "Ortalama süre",
-    "mcpMetricTopTool": "En iyi araç",
-    "dismissError": "Hatayı kapat"
+    "mcpMetricTopTool": "En iyi araç"
   },
   "themesPage": {
     "title": "Temalar",
@@ -1724,9 +1713,7 @@
     "settingsAdvancedDescription": "Gelişmiş yük kuralları, istek sınırları ve proxy API ayarları",
     "mitmProxyDescription": "Trafik incelemesi ve hata ayıklama için MITM proxy ayarlarını yapılandırın",
     "oneProxyDescription": "Gelişmiş proxy zincirleme için 1Proxy ayarlarını yapılandırın",
-    "omniSkillsDescription": "Otomatik istem ve araç yürütme için korumalı alan becerilerini yükleyin ve yönetin",
-    "openMenu": "Menüyü aç",
-    "products": "Keak ürünleri"
+    "omniSkillsDescription": "Otomatik istem ve araç yürütme için korumalı alan becerilerini yükleyin ve yönetin"
   },
   "cloudSyncStatus": {
     "synced": "Eşitlendi",
@@ -2512,8 +2499,7 @@
     "preferredConnections": "Tercih edilen bağlantılar",
     "preferredConnectionsDesc": "Anahtar başına öncelik sırası. Tercih edilen bir bağlantı kullanılamıyorsa yönlendirme bir sonraki uygun bağlantıya geçer.",
     "preferredConnectionsNone": "Tercih ayarlanmadı — varsayılan yönlendirme stratejisi kullanılır.",
-    "preferredConnectionsClear": "Temizle",
-    "removeSelection": "{name} öğesini kaldır"
+    "preferredConnectionsClear": "Temizle"
   },
   "auditLog": {
     "title": "Denetim Günlüğü",
@@ -2625,9 +2611,7 @@
     "imageToTextBridgeCta": "Modality Bridge ayarlarında Görüntü→Metin köprüsünü yapılandırın",
     "sttBridgeCta": "Modality Bridge ayarlarında Konuşma→Metin köprüsünü yapılandırın",
     "existingConnection": "Mevcut bağlantı",
-    "openrouterSttDescription": "OpenRouter konuşmadan metne modelleri, yapılandırılmış OpenRouter bağlantınızı kullanır. Ayrı bir kimlik bilgisi gereklidir.",
-    "modalityTabsAria": "Medya türü",
-    "serviceKindsAria": "Hizmet türü"
+    "openrouterSttDescription": "OpenRouter konuşmadan metne modelleri, yapılandırılmış OpenRouter bağlantınızı kullanır. Ayrı bir kimlik bilgisi gereklidir."
   },
   "search": {
     "searchQuery": "Arama Sorgusu",
@@ -3298,8 +3282,7 @@
     "cliproxyapiUnknown": "Bilinmiyor",
     "cliproxyapiUpdate": "Güncelle",
     "cliproxyapiUpdateAvailable": "Güncelleme mevcut: v{current} → v{latest}",
-    "cliproxyapiVersion": "Sürüm",
-    "removeMapping": "Eşlemeyi kaldır"
+    "cliproxyapiVersion": "Sürüm"
   },
   "modelCatalog": {
     "title": "Modeller ve Kombolar",
@@ -4036,13 +4019,7 @@
     "duplicateAutoComboSnapshotMsg": "Bu, bu şablona uygun olarak şu anda bağlı olan sağlayıcıları/modelleri düzenlenebilir bir kombinasyonda yakalayacaktır.",
     "duplicateAutoComboFailedPrefix": "Otomatik kombinasyon kopyalanamadı:",
     "duplicateAutoComboUnknownError": "Bilinmeyen hata",
-    "duplicateAutoComboTitle": "{name}-den statik bir kombinasyon oluştur",
-    "weightPercent": "Ağırlık (%)",
-    "clearSearch": "Aramayı temizle",
-    "responseValidationRemoveCheck": "Kontrolü kaldır",
-    "responseValidationPath": "JSON yolu",
-    "responseValidationCondition": "Koşul",
-    "responseValidationValue": "Beklenen değer"
+    "duplicateAutoComboTitle": "{name}-den statik bir kombinasyon oluştur"
   },
   "costs": {
     "title": "Maliyetler",
@@ -5316,8 +5293,7 @@
         "skipped": "zaten yapılandırılmış",
         "failed": "başarısız"
       }
-    },
-    "stepProgress": "Kurulum ilerlemesi"
+    }
   },
   "providers": {
     "tosAvoidNoticeTitle": "Bu sağlayıcı varsayılan olarak auto'dan hariç tutulur",
@@ -8981,7 +8957,7 @@
       "statsEmpty": "Henüz tespit yok.",
       "statsRequest": "İstekler"
     },
-    "modelOverrideKey": "Geçersiz kılma anahtarı"
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection."
   },
   "contextRtk": {
     "title": "RTK Motoru",
@@ -9065,8 +9041,7 @@
     "tomlTestPassed": "Geçti",
     "tomlTestFailed": "Başarısız",
     "tomlImportError": "RTK TOML dosyası işlenemedi.",
-    "tomlFileReadError": "Seçilen TOML dosyası okunamadı.",
-    "viewMode": "Görünüm modu"
+    "tomlFileReadError": "Seçilen TOML dosyası okunamadı."
   },
   "compressionEngineConfig": {
     "loading": "Yükleniyor…",
@@ -9288,8 +9263,7 @@
     "languagePacksList": "Dil paketleri: {packs}",
     "dragToReorder": "Adımı yeniden sıralamak için sürükleyin",
     "engine": "Motor",
-    "intensity": "Yoğunluk",
-    "compressionOverride": "Sıkıştırmayı geçersiz kılma"
+    "intensity": "Yoğunluk"
   },
   "compressionStudio": {
     "noRun": "Kullanılabilir sıkıştırma çalışması yok.",
@@ -9349,8 +9323,7 @@
     "encoderWinner": "kazanan: {winner}",
     "encoder": "kodlayıcı",
     "bytes": "bayt",
-    "tokensCl100k": "token (cl100k)",
-    "studioViews": "Studio görünümleri"
+    "tokensCl100k": "token (cl100k)"
   },
   "omniglyph": {
     "preview": "Önizleme",
@@ -9556,9 +9529,7 @@
     "tooltipMinLength": "Bundan daha kısa mesajlar sıkıştırılmaz. Daha düşük = daha fazla sıkıştırma.",
     "tooltipMinSavings": "Yalnızca en az bu kadar jeton tasarrufu sağlıyorsa sıkıştırın.",
     "ultraSettings": "Ultra Ayarlar",
-    "ultraSettingsDesc": "SLM destekli anlamsal sıkıştırma",
-    "defaultLanguage": "Varsayılan dil",
-    "viewMode": "Görünüm modu"
+    "ultraSettingsDesc": "SLM destekli anlamsal sıkıştırma"
   },
   "translator": {
     "title": "Çeviri",
@@ -11117,8 +11088,7 @@
       "message": "Mesaj",
       "error": "Hata",
       "completion": "Tamamlama"
-    },
-    "statusFilter": "Durum"
+    }
   },
   "templateNames": {
     "simple-chat": "Basit Sohbet",
@@ -11299,8 +11269,7 @@
     "minutesAgo": "{minutes} dk önce",
     "hoursAgo": "{hours} sa önce",
     "daysAgo": "{days} gün önce",
-    "entries": "Kayıtlar",
-    "viewSwitcherAria": "Önbellek görünümü"
+    "entries": "Kayıtlar"
   },
   "proxyConfigModal": {
     "levelGlobal": "Küresel",
@@ -11645,8 +11614,7 @@
     "notMeasured": "Ölçülmedi",
     "upstream4xx": "{count} upstream istemci hatası",
     "upstream5xx": "{count} upstream sunucu hatası",
-    "uniformEgressLine": "{exits} çıkışın {affected} tanesi {provider} üzerinde birlikte başarısız oluyor (son {hours} sa) — çıkış sorunu değil",
-    "moreActions": "Diğer işlemler"
+    "uniformEgressLine": "{exits} çıkışın {affected} tanesi {provider} üzerinde birlikte başarısız oluyor (son {hours} sa) — çıkış sorunu değil"
   },
   "playground": {
     "title": "Title",
@@ -11852,8 +11820,7 @@
       "nextButton": "Sonraki",
       "runButton": "Çalıştır",
       "promptPlaceholder": "Mesajınızı girin… (Göndermek için Enter, yeni satır için Shift+Enter)"
-    },
-    "playgroundTabs": "Playground modları"
+    }
   },
   "miniPlayground": {
     "endpoint": "Uç Nokta",
@@ -11924,8 +11891,7 @@
     "assistant": "Asistan",
     "errorLabel": "Hata",
     "requestFailed": "İstek başarısız oldu",
-    "stop": "Durdur",
-    "messageInputAria": "Mesaj"
+    "stop": "Durdur"
   },
   "requestLogger": {
     "recording": "Kayıt yapılıyor",
@@ -12112,18 +12078,8 @@
       "resilienceRotations": "{count} hesap rotasyonu",
       "resilienceRetried": "Boş tur yeniden denendi",
       "resilienceContinued": "Akış ortasında devam edildi",
-      "resilienceRecovered": "Dayanıklılık eylemiyle kurtarıldı",
-      "conversationContext": "Konuşma Bağlamı",
-      "goToBottom": "En alta git",
-      "liveRefreshOn": "Canlı yenileme: açık",
-      "liveRefreshOff": "Canlı yenileme: kapalı",
-      "liveRefresh": "Canlı yenileme",
-      "continuesFromParent": "üst öğeden devam eder",
-      "continuesFrom": "{id} üzerinden devam eder",
-      "viewConversation": "konuşmayı görüntüle",
-      "openConversation": "{id} konuşmasını aç"
-    },
-    "tableLabel": "İstek günlükleri"
+      "resilienceRecovered": "Dayanıklılık eylemiyle kurtarıldı"
+    }
   },
   "proxyLogger": {
     "filterAll": "Tümü",
@@ -12168,9 +12124,7 @@
     "colServedBy": "Tarafından Sunuldu",
     "filterTraffic": "Trafik",
     "filterTests": "Testler",
-    "filterSource": "Kaynak",
-    "tableLabel": "Proxy günlükleri",
-    "sortLogs": "Günlükleri sırala"
+    "filterSource": "Kaynak"
   },
   "endpointOptions": {
     "speech": "Konuşma",
@@ -12255,8 +12209,7 @@
     "statusExhausted": "TÜKENDİ",
     "statusAlerting": "UYARI VERİLİYOR",
     "statusError": "HATA",
-    "moreSuffix": "+{count} tane daha",
-    "feedFilterLabel": "Olayları filtrele"
+    "moreSuffix": "+{count} tane daha"
   },
   "quotaShare": {
     "weightPercent": "Ağırlık %",
@@ -12423,10 +12376,7 @@
     "ungroupedTitle": "Gruplanmamış",
     "ungroupedHint": "Bu havuzlar bilinen bir gruba atanmamış. Gerçek bir gruba taşımak için bir havuzu düzenleyin.",
     "removeFailed": "Bu havuz kaldırılamadı.",
-    "dismiss": "Kapat",
-    "allocationsHeading": "Tahsisler",
-    "wizardRemoveDimension": "Boyutu kaldır",
-    "wizardRemoveKey": "Anahtarı kaldır"
+    "dismiss": "Kapat"
   },
   "plugins": {
     "title": "Eklentiler",
@@ -12584,8 +12534,7 @@
       "settingsUpdateFailed": "Ayar güncellemesi başarısız oldu",
       "serviceRevealApiKey": "{actor} {target} için API anahtarını görüntüledi",
       "genericEvent": "{actor} {target}"
-    },
-    "dismissError": "Hatayı kapat"
+    }
   },
   "agentBridge": {
     "title": "AgentBridge",
@@ -12718,21 +12667,7 @@
       "goNow": "Şimdi git",
       "message": "MITM Proxy artık AgentBridge altında yer alıyor.",
       "title": "Bu sayfa taşındı"
-    },
-    "dnsOn": "DNS açık",
-    "dnsOff": "DNS kapalı",
-    "showServerSettings": "Sunucu ayarlarını göster",
-    "hideServerSettings": "Sunucu ayarlarını gizle",
-    "upstreamCaTesting": "Test ediliyor…",
-    "removeMapping": "Eşlemeyi kaldır",
-    "mappingSourcePlaceholder": "ör. gemini-3.6-flash-medium veya eşlenmemiş tüm modeller için *",
-    "mappingWildcardHint": "Açık bir eşlemesi olmayan her modeli OmniRoute üzerinden seçilen hedefe yönlendirmek için kaynak olarak * kullanın. Tam kaynak eşleşmeleri her zaman * işaretine göre önceliklidir.",
-    "wizardDetectingModels": "Yönlendirilen trafikteki modeller algılanıyor...",
-    "wizardDetectedModels": "Yönlendirilen trafikte {count, plural, one {# model} other {# model}} bulundu. Eklemek istediklerinizi seçin:",
-    "wizardSelectedModels": "{count, plural, one {# model} other {# model}} seçildi. Bunları bir sonraki ekranda OmniRoute modelleriyle eşleyeceksiniz.",
-    "wizardAddModels": "{count, plural, one {# model} other {# model}} ekle",
-    "wizardNoModelsDetected": "Henüz model algılanmadı. Bir istekte bulunmak için {agent} kullanın, ardından trafikteki modelleri otomatik olarak algılamak için bu sihirbazı tekrar çalıştırın.",
-    "wizardNoModelsHint": "Veya bu sihirbazı kapatıp aracı kartında eşlemeleri manuel olarak ekleyin."
+    }
   },
   "providerStats": {
     "unknownError": "Bilinmeyen hata",
@@ -12762,11 +12697,7 @@
     "avgTtft": "Ort. TTFT",
     "avgTotal": "Ort. Toplam",
     "requestTelemetry": "İstek Telemetrisi",
-    "requestTelemetryDescription": "7 aşamalı işlem hattı dağılımı (son 5 dakika)",
-    "title": "Sağlayıcı istatistikleri",
-    "description": "Sağlayıcı ve model bazında trafik, gecikme ve başarı oranları",
-    "combo": "Kombinasyon",
-    "toggleModels": "{provider} modellerini göster"
+    "requestTelemetryDescription": "7 aşamalı işlem hattı dağılımı (son 5 dakika)"
   },
   "relay": {
     "title": "Serverless Relay Proxy'leri",
@@ -12927,18 +12858,7 @@
     "noRequestBody": "İstek gövdesi yok.",
     "noResponseBody": "Yanıt gövdesi yok.",
     "formatted": "Biçimlendirilmiş",
-    "raw": "Ham",
-    "requestCount": "{count, plural, one {# istek} other {# istek}}",
-    "expandList": "Listeyi genişlet",
-    "collapseList": "Listeyi daralt",
-    "snippetLanguage": "Kod parçacığı dili",
-    "headersTable": "Üstbilgiler",
-    "showSecrets": "Gizli bilgileri göster",
-    "maskSecrets": "Gizli bilgileri maskele",
-    "llmNotAvailable": "Bu istek için LLM meta verileri mevcut değil.",
-    "llmStreamYes": "evet (SSE)",
-    "llmStreamNo": "hayır",
-    "llmTotalTokens": "Toplam: {count} token"
+    "raw": "Ham"
   },
   "cliCommon": {
     "companion": {
@@ -13397,8 +13317,7 @@
     "colReliabilityHelp": "Bu sağlayıcının son 24 saat içinde gerçekten yanıtladığı çağrıların oranı. Kısa çizgi, oran belirtmek için çok az trafik işlediği anlamına gelir.",
     "reliabilitySample": "Son {hours} saatte {requests} çağrıdan {successes} tanesi başarılı oldu",
     "reliabilityTooFew": "Son {hours} saatte yalnızca {requests} çağrı — oran belirtmek için çok az",
-    "reliabilityNoTraffic": "Son 24 saatte kaydedilmiş çağrı yok",
-    "categoryFilter": "Görev kategorisi"
+    "reliabilityNoTraffic": "Son 24 saatte kaydedilmiş çağrı yok"
   },
   "discovery": {
     "title": "Sağlayıcı Keşfi",
@@ -13423,11 +13342,7 @@
     "method": "Yöntem",
     "auth": "Kimlik Doğrulama",
     "feasibility": "Uygulanabilirlik",
-    "models": "Modeller",
-    "provider": "Sağlayıcı",
-    "status": "Durum",
-    "endpoint": "Uç nokta",
-    "actions": "İşlemler"
+    "models": "Modeller"
   },
   "noAuthProvider": {
     "title": "Kimlik doğrulama gerekmiyor",
@@ -13476,8 +13391,7 @@
     "ownProxy": "Kendi proxy'n",
     "freeTierPause": "{model} modeli duraklatıldı (429), dönüş: {time}",
     "freeTierPauseProvider": "Duraklatıldı (429), dönüş: {time}",
-    "freeTierPauseNote": "Bu örnekte süreç içi duraklatma",
-    "proxyType": "Proxy türü"
+    "freeTierPauseNote": "Bu örnekte süreç içi duraklatma"
   },
   "gamification": {
     "leaderboardScopes": {
@@ -13650,10 +13564,7 @@
         "description": "Gizli bir başarı bekliyor...",
         "criteria": "Bu rozeti açmak için gizli başarıyı tamamlayın."
       }
-    },
-    "leaderboardTitle": "Liderlik tablosu",
-    "leaderboardDescription": "API anahtarlarınızdaki sıralamalar ve başarılar",
-    "badgeLocked": "Kilitli"
+    }
   },
   "featureFlags": {
     "title": "Özellik Bayrakları",
@@ -13948,8 +13859,7 @@
     "unknown": "bilinmeyen",
     "unknownProvider": "bilinmeyen sağlayıcı",
     "unknownModel": "bilinmeyen model",
-    "resolvedTargetMetrics": "{requests} istek · {success} başarılı · {latency} · kota {quota}",
-    "timeRange": "Zaman aralığı"
+    "resolvedTargetMetrics": "{requests} istek · {success} başarılı · {latency} · kota {quota}"
   },
   "usageLimits": {
     "usdUsageQuota": "USD kullanım kotası",
@@ -14096,11 +14006,7 @@
     "learnMore": "Daha fazla bilgi edinin",
     "changelogLoadFailed": "Değişiklik günlüğü yüklenemedi. Lütfen daha sonra tekrar deneyin.",
     "retry": "Yeniden Dene",
-    "viewFullHistory": "Tüm geçmişi GitHub'da görüntüleyin",
-    "title": "Haberler ve değişiklik günlüğü",
-    "description": "OmniRoute ekibinden duyurular ve en son sürüm notları",
-    "viewLabel": "Görüntüle",
-    "loadingNews": "Duyurular yükleniyor..."
+    "viewFullHistory": "Tüm geçmişi GitHub'da görüntüleyin"
   },
   "reasoningRouting": {
     "editor": {
@@ -14651,9 +14557,7 @@
       "circuitBreakerState": "Sağlayıcı Devre Kesici Durumu",
       "lastUpdate": "Son güncelleme: {timestamp}",
       "uptimeMinutes": "{minutes}d",
-      "uptimeHoursMinutes": "{hours}s {minutes}d",
-      "breakerClosed": "Kapalı",
-      "breakerNotClosed": "Açık veya yarı açık"
+      "uptimeHoursMinutes": "{hours}s {minutes}d"
     },
     "statusPages": {
       "400": {
@@ -14728,9 +14632,6 @@
         "primaryAction": "Bakım Detayları",
         "secondaryAction": "Sistem Durumu"
       }
-    },
-    "miniapp": {
-      "askAnything": "İstediğiniz her şeyi sorun…"
     }
   },
   "kiroAuthModal": {
@@ -14921,20 +14822,7 @@
     "mcp": "MCP",
     "mcpTool": "MCP aracı",
     "scope": "Kapsam",
-    "apiKey": "API anahtarı",
-    "visibleCount": "{visible} görünür / toplam {total}",
-    "modeLabel": "Görünüm modu",
-    "jumpToNow": "Geçerli zamana git; ŞİMDİ çizgisi %{position} konumuna sıfırlanır",
-    "laneReuse": "Satır yeniden kullanımı",
-    "laneReuseLabel": "Satır yeniden kullanım aralığı (dakika)",
-    "laneReuseHint": "Aynı konuşma kimliğini paylaşan istekler, aralarındaki süre bu dakika değerinin altında olduğu sürece aynı zaman çizelgesi satırında kalır.",
-    "laneReuseUnit": "dk.",
-    "autoRefresh": "Otomatik yenileme",
-    "autoRefreshLabel": "Otomatik yenileme aralığı (saniye)",
-    "autoRefreshHint": "Zaman çizelgesinin istek listesini sunucudan ne sıklıkta yeniden aldığını belirler.",
-    "autoRefreshUnit": "sn.",
-    "zoomOut": "Uzaklaştır",
-    "zoomIn": "Yakınlaştır"
+    "apiKey": "API anahtarı"
   },
   "metadata": {
     "compressionTitle": "Sıkıştırma",

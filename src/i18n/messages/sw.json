@@ -998,13 +998,7 @@
     "batchFileUsedByCount": "Inatumika na {count, plural, one {# kundi} other {# makundi}}",
     "batchFilePreview": "Muonekano",
     "batchFilePreviewTruncated": "Kuonyesha mistari ya kwanza {shown} ({total} jumla ya mistari)",
-    "batchFileDownloadFull": "Pakua Faili Kamili",
-    "dialogTitleFallback": "Kisanduku cha mazungumzo",
-    "pagination": "Ugawaji wa kurasa",
-    "clearFilters": "Futa vichujio",
-    "tokensPageTitle": "Tokeni",
-    "tokensPageDescription": "Tuma tokeni kati ya funguo za API, shiriki misimbo ya mwaliko na uunganishe seva za jumuiya.",
-    "tokensServerUrlLabel": "URL ya seva"
+    "batchFileDownloadFull": "Pakua Faili Kamili"
   },
   "disabled": "Imezimwa",
   "featureFlagOmnirouteEmergencyFallbackDescription": "Elekeza maombi yaliyomaliza bajeti kwenye mtoa huduma/muundo wa dharura wa akiba usiolipiwa.",
@@ -1491,11 +1485,7 @@
       "chatIdPlaceholder": "-100123456789 au @channelname",
       "chatIdHint": "Kitambulisho cha kipekee cha nambari au jina la mtumiaji la umma la soga/chaneli.",
       "tutorial": "Jinsi ya kusanidi webhook ya Telegram:"
-    },
-    "copy": "Nakili",
-    "copied": "Imenakiliwa!",
-    "expandDetails": "Onyesha maelezo",
-    "collapseDetails": "Ficha maelezo"
+    }
   },
   "compliance": {
     "auditTitle": "Ukaguzi",
@@ -1607,8 +1597,7 @@
     "mcpMetricCalls24h": "Mawasiliano (24h)",
     "mcpMetricSuccessRate": "Kiwango cha mafanikio",
     "mcpMetricAvgDuration": "Muda wa wastani",
-    "mcpMetricTopTool": "Zana Bora",
-    "dismissError": "Ondoa hitilafu"
+    "mcpMetricTopTool": "Zana Bora"
   },
   "themesPage": {
     "title": "Mandhari",
@@ -1724,9 +1713,7 @@
     "settingsAdvancedDescription": "Kanuni za kina za payload, vikomo vya maombi, na mipangilio ya API ya proksi",
     "mitmProxyDescription": "Sanidi mipangilio ya proksi ya MITM kwa ukaguzi wa trafiki na utatuzi wa hitilafu",
     "oneProxyDescription": "Sanidi mipangilio ya 1Proxy kwa uunganishaji wa kina wa proksi",
-    "omniSkillsDescription": "Sakinisha na udhibiti ujuzi wa sandbox kwa ajili ya utekelezaji wa kiotomatiki wa vidokezo na zana",
-    "openMenu": "Fungua menyu",
-    "products": "Bidhaa za Keak"
+    "omniSkillsDescription": "Sakinisha na udhibiti ujuzi wa sandbox kwa ajili ya utekelezaji wa kiotomatiki wa vidokezo na zana"
   },
   "cloudSyncStatus": {
     "synced": "Imesawazishwa",
@@ -2512,8 +2499,7 @@
     "preferredConnections": "Miunganisho inayopendelewa",
     "preferredConnectionsDesc": "Mpangilio wa kipaumbele kwa kila ufunguo. Ikiwa muunganisho unaopendelewa haupatikani, uelekezaji huhamia kwenye unaofuata unaostahiki.",
     "preferredConnectionsNone": "Hakuna mapendeleo yaliyowekwa — mkakati chaguomsingi wa uelekezaji unatumika.",
-    "preferredConnectionsClear": "Futa",
-    "removeSelection": "Ondoa {name}"
+    "preferredConnectionsClear": "Futa"
   },
   "auditLog": {
     "title": "Kumbukumbu ya Ukaguzi",
@@ -2625,9 +2611,7 @@
     "imageToTextBridgeCta": "Sanitize daraja la Picha→Maandishi katika mipangilio ya Daraja la Modality",
     "sttBridgeCta": "Sanidi daraja la Hotuba→Maandishi katika mipangilio ya Daraja la Modality",
     "existingConnection": "Muunganisho uliopo",
-    "openrouterSttDescription": "Moduli ya sauti hadi maandiko ya OpenRouter yanatumia muunganisho wako wa OpenRouter ulio sanidiwa. Hakuna hati tofauti inayohitajika.",
-    "modalityTabsAria": "Aina ya midia",
-    "serviceKindsAria": "Aina ya huduma"
+    "openrouterSttDescription": "Moduli ya sauti hadi maandiko ya OpenRouter yanatumia muunganisho wako wa OpenRouter ulio sanidiwa. Hakuna hati tofauti inayohitajika."
   },
   "search": {
     "searchQuery": "Hoja ya Utafutaji",
@@ -3298,8 +3282,7 @@
     "cliproxyapiUnknown": "Haijulikani",
     "cliproxyapiUpdate": "Sasisha",
     "cliproxyapiUpdateAvailable": "Sasisho linapatikana: v{current} → v{latest}",
-    "cliproxyapiVersion": "Toleo",
-    "removeMapping": "Ondoa uunganishaji"
+    "cliproxyapiVersion": "Toleo"
   },
   "modelCatalog": {
     "title": "Miundo na Michanganyiko",
@@ -4036,13 +4019,7 @@
     "duplicateAutoComboSnapshotMsg": "Hii itachukua picha ya watoa huduma/watolei sambazwa sasa yanayolingana na kioo hiki katika combo inayoedit.",
     "duplicateAutoComboFailedPrefix": "Imeshindwa kuiga combo ya otomatiki:",
     "duplicateAutoComboUnknownError": "Hitilafai isiyojulikana",
-    "duplicateAutoComboTitle": "Tengeneza combo thabiti kutoka {name}",
-    "weightPercent": "Uzito (%)",
-    "clearSearch": "Futa utafutaji",
-    "responseValidationRemoveCheck": "Ondoa ukaguzi",
-    "responseValidationPath": "Njia ya JSON",
-    "responseValidationCondition": "Sharti",
-    "responseValidationValue": "Thamani inayotarajiwa"
+    "duplicateAutoComboTitle": "Tengeneza combo thabiti kutoka {name}"
   },
   "costs": {
     "title": "Gharama",
@@ -5316,8 +5293,7 @@
         "skipped": "tayari imewekwa",
         "failed": "imefeli"
       }
-    },
-    "stepProgress": "Maendeleo ya usanidi"
+    }
   },
   "providers": {
     "tosAvoidNoticeTitle": "Mtoa huduma huyu ameondolewa kwenye auto kwa chaguo-msingi",
@@ -8981,7 +8957,7 @@
       "statsEmpty": "Bado hakuna ugunduzi.",
       "statsRequest": "Maombi"
     },
-    "modelOverrideKey": "Ufunguo wa kubatilisha"
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection."
   },
   "contextRtk": {
     "title": "Injini ya RTK",
@@ -9065,8 +9041,7 @@
     "tomlTestPassed": "Imefaulu",
     "tomlTestFailed": "Imefeli",
     "tomlImportError": "Imeshindwa kuchakata faili la RTK TOML.",
-    "tomlFileReadError": "Imeshindwa kusoma faili la TOML lililochaguliwa.",
-    "viewMode": "Hali ya mwonekano"
+    "tomlFileReadError": "Imeshindwa kusoma faili la TOML lililochaguliwa."
   },
   "compressionEngineConfig": {
     "loading": "Inapakia…",
@@ -9288,8 +9263,7 @@
     "languagePacksList": "Vifurushi vya lugha: {packs}",
     "dragToReorder": "Buruta ili kupanga upya hatua",
     "engine": "Injini",
-    "intensity": "Ukali",
-    "compressionOverride": "Ubatilishaji wa ubanaji"
+    "intensity": "Ukali"
   },
   "compressionStudio": {
     "noRun": "Hakuna uendeshaji wa mbano unaopatikana.",
@@ -9349,8 +9323,7 @@
     "encoderWinner": "mshindi: {winner}",
     "encoder": "enkoda",
     "bytes": "baiti",
-    "tokensCl100k": "tokeni (cl100k)",
-    "studioViews": "Mionekano ya Studio"
+    "tokensCl100k": "tokeni (cl100k)"
   },
   "omniglyph": {
     "preview": "Hakiki",
@@ -9556,9 +9529,7 @@
     "tooltipMinLength": "Ujumbe mfupi kuliko huu haujabanwa. Chini = compression zaidi.",
     "tooltipMinSavings": "Finyaza tu ikiwa itaokoa angalau ishara hizi nyingi.",
     "ultraSettings": "Mipangilio ya Juu",
-    "ultraSettingsDesc": "Mfinyazo wa kisemantiki unaoendeshwa na SLM",
-    "defaultLanguage": "Lugha chaguomsingi",
-    "viewMode": "Hali ya mwonekano"
+    "ultraSettingsDesc": "Mfinyazo wa kisemantiki unaoendeshwa na SLM"
   },
   "translator": {
     "title": "Mtafsiri",
@@ -11117,8 +11088,7 @@
       "message": "Ujumbe",
       "error": "Hitilafu",
       "completion": "Ukamilishaji"
-    },
-    "statusFilter": "Hali"
+    }
   },
   "templateNames": {
     "simple-chat": "Gumzo Rahisi",
@@ -11299,8 +11269,7 @@
     "minutesAgo": "{minutes}m zilizopita",
     "hoursAgo": "{hours}h zilizopita",
     "daysAgo": "{days}d zilizopita",
-    "entries": "Maingizo",
-    "viewSwitcherAria": "Mwonekano wa kache"
+    "entries": "Maingizo"
   },
   "proxyConfigModal": {
     "levelGlobal": "Ya Jumla",
@@ -11645,8 +11614,7 @@
     "notMeasured": "Haijapimwa",
     "upstream4xx": "{count} makosa ya mteja kaskazini",
     "upstream5xx": "{count} makosa ya server kaskazini",
-    "uniformEgressLine": "{affected} kati ya {exits} milango yanashindwa pamoja kwenye {provider} (masaa {hours} yaliyopita) — si shida la kilango",
-    "moreActions": "Vitendo zaidi"
+    "uniformEgressLine": "{affected} kati ya {exits} milango yanashindwa pamoja kwenye {provider} (masaa {hours} yaliyopita) — si shida la kilango"
   },
   "playground": {
     "title": "Mazingira ya Majaribio ya Modeli",
@@ -11852,8 +11820,7 @@
       "nextButton": "Inayofuata",
       "runButton": "Endesha",
       "promptPlaceholder": "Ingiza ujumbe wako… (Enter kutuma, Shift+Enter kwa mstari mpya)"
-    },
-    "playgroundTabs": "Hali za Playground"
+    }
   },
   "miniPlayground": {
     "endpoint": "Kituo cha mwisho",
@@ -11924,8 +11891,7 @@
     "assistant": "Msaidizi",
     "errorLabel": "Hitilafu",
     "requestFailed": "Ombi limeshindwa",
-    "stop": "Sitisha",
-    "messageInputAria": "Ujumbe"
+    "stop": "Sitisha"
   },
   "requestLogger": {
     "recording": "Inarekodi",
@@ -12112,18 +12078,8 @@
       "resilienceRotations": "Mizunguko {count} ya akaunti",
       "resilienceRetried": "Zamu tupu imejaribiwa tena",
       "resilienceContinued": "Imeendelea katikati ya mtiririko",
-      "resilienceRecovered": "Imerejeshwa na hatua ya ustahimilivu",
-      "conversationContext": "Muktadha wa Mazungumzo",
-      "goToBottom": "Nenda chini kabisa",
-      "liveRefreshOn": "Uonyeshaji upya wa moja kwa moja: umewashwa",
-      "liveRefreshOff": "Uonyeshaji upya wa moja kwa moja: umezimwa",
-      "liveRefresh": "Uonyeshaji upya wa moja kwa moja",
-      "continuesFromParent": "inaendelea kutoka kwa mzazi",
-      "continuesFrom": "Inaendelea kutoka {id}",
-      "viewConversation": "tazama mazungumzo",
-      "openConversation": "Fungua mazungumzo {id}"
-    },
-    "tableLabel": "Kumbukumbu za maombi"
+      "resilienceRecovered": "Imerejeshwa na hatua ya ustahimilivu"
+    }
   },
   "proxyLogger": {
     "filterAll": "Zote",
@@ -12168,9 +12124,7 @@
     "colServedBy": "Inatolewa na",
     "filterTraffic": "Mzunguko",
     "filterTests": "Majaribio",
-    "filterSource": "Chanzo",
-    "tableLabel": "Kumbukumbu za proksi",
-    "sortLogs": "Panga kumbukumbu"
+    "filterSource": "Chanzo"
   },
   "endpointOptions": {
     "speech": "Usemi",
@@ -12255,8 +12209,7 @@
     "statusExhausted": "KIMEISHA",
     "statusAlerting": "INATOA TAHADHARI",
     "statusError": "HITILAFU",
-    "moreSuffix": "+{count} zaidi",
-    "feedFilterLabel": "Chuja matukio"
+    "moreSuffix": "+{count} zaidi"
   },
   "quotaShare": {
     "weightPercent": "Uzito %",
@@ -12423,10 +12376,7 @@
     "ungroupedTitle": "Bila kikundi",
     "ungroupedHint": "Madimbwi haya hayajagawiwa kwa kikundi kinachojulikana. Hariri dimbwi ili kulihamishia kwenye kikundi halisi.",
     "removeFailed": "Haikuwezekana kuondoa hifadhi hii.",
-    "dismiss": "Funga",
-    "allocationsHeading": "Ugawaji",
-    "wizardRemoveDimension": "Ondoa kipimo",
-    "wizardRemoveKey": "Ondoa ufunguo"
+    "dismiss": "Funga"
   },
   "plugins": {
     "title": "Programu-jalizi",
@@ -12584,8 +12534,7 @@
       "settingsUpdateFailed": "Usasishaji wa mipangilio umeshindwa",
       "serviceRevealApiKey": "{actor} amefichua ufunguo wa API wa {target}",
       "genericEvent": "{actor} {target}"
-    },
-    "dismissError": "Funga hitilafu"
+    }
   },
   "agentBridge": {
     "title": "AgentBridge",
@@ -12718,21 +12667,7 @@
       "goNow": "Nenda sasa",
       "message": "MITM Proxy sasa inapatikana chini ya AgentBridge.",
       "title": "Ukurasa huu umehamishwa"
-    },
-    "dnsOn": "DNS imewashwa",
-    "dnsOff": "DNS imezimwa",
-    "showServerSettings": "Onyesha mipangilio ya seva",
-    "hideServerSettings": "Ficha mipangilio ya seva",
-    "upstreamCaTesting": "Inajaribiwa…",
-    "removeMapping": "Ondoa ulinganishaji",
-    "mappingSourcePlaceholder": "k.m., gemini-3.6-flash-medium, au * kwa zote ambazo hazijalinganishwa",
-    "mappingWildcardHint": "Tumia * kama chanzo ili kuelekeza kila modeli isiyo na ulinganishaji bayana kupitia OmniRoute hadi kwenye lengo lililochaguliwa. Ulinganifu kamili wa chanzo daima una kipaumbele kuliko *.",
-    "wizardDetectingModels": "Inatambua modeli kutoka kwenye trafiki iliyonaswa...",
-    "wizardDetectedModels": "Imepata {count, plural, one {modeli #} other {modeli #}} kwenye trafiki iliyonaswa. Chagua unazotaka kuongeza:",
-    "wizardSelectedModels": "{count, plural, one {modeli #} other {modeli #}} zimechaguliwa. Utazilinganisha na modeli za OmniRoute kwenye skrini inayofuata.",
-    "wizardAddModels": "Ongeza {count, plural, one {modeli #} other {modeli #}}",
-    "wizardNoModelsDetected": "Bado hakuna modeli zilizotambuliwa. Tumia {agent} kutuma ombi, kisha endesha mchawi huu tena ili kutambua modeli kiotomatiki kutoka kwenye trafiki.",
-    "wizardNoModelsHint": "Au funga mchawi huu na uongeze ulinganishaji wewe mwenyewe kwenye kadi ya ajenti."
+    }
   },
   "providerStats": {
     "unknownError": "Hitilafu isiyojulikana",
@@ -12762,11 +12697,7 @@
     "avgTtft": "Wastani wa TTFT",
     "avgTotal": "Wastani wa Jumla",
     "requestTelemetry": "Telemetri ya Maombi",
-    "requestTelemetryDescription": "Mchanganuo wa mchakato wa awamu 7 (dakika 5 zilizopita)",
-    "title": "Takwimu za mtoa huduma",
-    "description": "Trafiki, muda wa kusubiri na viwango vya mafanikio kwa kila mtoa huduma na kila modeli",
-    "combo": "Mchanganyiko",
-    "toggleModels": "Onyesha modeli za {provider}"
+    "requestTelemetryDescription": "Mchanganuo wa mchakato wa awamu 7 (dakika 5 zilizopita)"
   },
   "relay": {
     "title": "Proksi za Relay Zisizo na Seva",
@@ -12927,18 +12858,7 @@
     "noRequestBody": "Hakuna kiwiliwili cha ombi.",
     "noResponseBody": "Hakuna kiwiliwili cha jibu.",
     "formatted": "Iliyofomatiwa",
-    "raw": "Ghafi",
-    "requestCount": "{count, plural, one {ombi #} other {maombi #}}",
-    "expandList": "Panua orodha",
-    "collapseList": "Kunja orodha",
-    "snippetLanguage": "Lugha ya kipande cha msimbo",
-    "headersTable": "Vichwa",
-    "showSecrets": "Onyesha siri",
-    "maskSecrets": "Ficha siri",
-    "llmNotAvailable": "Metadata ya LLM haipatikani kwa ombi hili.",
-    "llmStreamYes": "ndiyo (SSE)",
-    "llmStreamNo": "hapana",
-    "llmTotalTokens": "Jumla: tokeni {count}"
+    "raw": "Ghafi"
   },
   "cliCommon": {
     "companion": {
@@ -13397,8 +13317,7 @@
     "colReliabilityHelp": "Sehemu ya miito ambayo mtoa huduma huyu alijibu katika saa 24 zilizopita. Kistari kinamaanisha kuwa alihudumia trafiki ndogo mno kiasi cha kutoweza kubainisha kiwango.",
     "reliabilitySample": "Miito {successes} kati ya {requests} ilifanikiwa katika saa {hours} zilizopita",
     "reliabilityTooFew": "Miito {requests} pekee katika saa {hours} zilizopita — ni michache mno kiasi cha kutoweza kubainisha kiwango",
-    "reliabilityNoTraffic": "Hakuna miito iliyorekodiwa katika saa 24 zilizopita",
-    "categoryFilter": "Aina ya kazi"
+    "reliabilityNoTraffic": "Hakuna miito iliyorekodiwa katika saa 24 zilizopita"
   },
   "discovery": {
     "title": "Ugunduzi wa Mtoa Huduma",
@@ -13423,11 +13342,7 @@
     "method": "Mbinu",
     "auth": "Uthibitishaji",
     "feasibility": "Uwezekano",
-    "models": "Miundo",
-    "provider": "Mtoa huduma",
-    "status": "Hali",
-    "endpoint": "Endpointi",
-    "actions": "Vitendo"
+    "models": "Miundo"
   },
   "noAuthProvider": {
     "title": "Hakuna uthibitishaji unaohitajika",
@@ -13476,8 +13391,7 @@
     "ownProxy": "Proksi yako",
     "freeTierPause": "Modeli {model} imesimamishwa (429), itarudi {time}",
     "freeTierPauseProvider": "Imesisitishwa (429), itarudi saa {time}",
-    "freeTierPauseNote": "Susamisho la mchakato katika mfano huu",
-    "proxyType": "Aina ya proksi"
+    "freeTierPauseNote": "Susamisho la mchakato katika mfano huu"
   },
   "gamification": {
     "leaderboardScopes": {
@@ -13650,10 +13564,7 @@
         "description": "Mafanikio yaliyofichwa yanakungoja...",
         "criteria": "Kamilisha mafanikio yaliyofichwa ili kufichua beji hii."
       }
-    },
-    "leaderboardTitle": "Ubao wa vinara",
-    "leaderboardDescription": "Viwango na mafanikio katika funguo zako za API",
-    "badgeLocked": "Imefungwa"
+    }
   },
   "featureFlags": {
     "title": "Bendera za Vipengele",
@@ -13948,8 +13859,7 @@
     "unknown": "isiyojulikana",
     "unknownProvider": "mtoa huduma asiyejulikana",
     "unknownModel": "modeli isiyojulikana",
-    "resolvedTargetMetrics": "{requests} req · {success} mafanikio · {latency} · kiwango {quota}",
-    "timeRange": "Kipindi cha muda"
+    "resolvedTargetMetrics": "{requests} req · {success} mafanikio · {latency} · kiwango {quota}"
   },
   "usageLimits": {
     "usdUsageQuota": "Kiwango cha matumizi cha USD",
@@ -14096,11 +14006,7 @@
     "learnMore": "Jifunze zaidi",
     "changelogLoadFailed": "Imeshindwa kupakia kumbukumbu ya mabadiliko. Tafadhali jaribu tena baadaye.",
     "retry": "Jaribu tena",
-    "viewFullHistory": "Angalia historia kamili kwenye GitHub",
-    "title": "Habari na kumbukumbu ya mabadiliko",
-    "description": "Matangazo kutoka kwa timu ya OmniRoute na vidokezo vya matoleo ya hivi karibuni",
-    "viewLabel": "Tazama",
-    "loadingNews": "Inapakia matangazo..."
+    "viewFullHistory": "Angalia historia kamili kwenye GitHub"
   },
   "reasoningRouting": {
     "editor": {
@@ -14651,9 +14557,7 @@
       "circuitBreakerState": "Hali ya Kivunja Mzunguko wa Mtoa Huduma",
       "lastUpdate": "Sasisho la mwisho: {timestamp}",
       "uptimeMinutes": "dak {minutes}",
-      "uptimeHoursMinutes": "saa {hours} dak {minutes}",
-      "breakerClosed": "Imefungwa",
-      "breakerNotClosed": "Wazi au nusu wazi"
+      "uptimeHoursMinutes": "saa {hours} dak {minutes}"
     },
     "statusPages": {
       "400": {
@@ -14728,9 +14632,6 @@
         "primaryAction": "Maelezo ya Matengenezo",
         "secondaryAction": "Hali ya Mfumo"
       }
-    },
-    "miniapp": {
-      "askAnything": "Uliza chochote…"
     }
   },
   "kiroAuthModal": {
@@ -14921,20 +14822,7 @@
     "mcp": "MCP",
     "mcpTool": "MCP tool",
     "scope": "Scope",
-    "apiKey": "API key",
-    "visibleCount": "{visible} zinaonekana / jumla {total}",
-    "modeLabel": "Hali ya mwonekano",
-    "jumpToNow": "Rukia wakati wa sasa, mstari wa SASA utawekwa upya kwenye nafasi ya {position}%",
-    "laneReuse": "Kutumia tena mstari",
-    "laneReuseLabel": "Kipindi cha kutumia tena mstari (dakika)",
-    "laneReuseHint": "Maombi yanayotumia kitambulisho sawa cha mazungumzo hubaki kwenye safu mlalo sawa ya rekodi ya matukio mradi pengo kati yake liwe chini ya idadi hii ya dakika.",
-    "laneReuseUnit": "dak",
-    "autoRefresh": "Onyesha upya kiotomatiki",
-    "autoRefreshLabel": "Muda wa kuonyesha upya kiotomatiki (sekunde)",
-    "autoRefreshHint": "Mara ambazo rekodi ya matukio huchukua tena orodha ya maombi kutoka kwenye seva.",
-    "autoRefreshUnit": "s",
-    "zoomOut": "Punguza ukuzaji",
-    "zoomIn": "Ongeza ukuzaji"
+    "apiKey": "API key"
   },
   "metadata": {
     "compressionTitle": "Kufinya",
