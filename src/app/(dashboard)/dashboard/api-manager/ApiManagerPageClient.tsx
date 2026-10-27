@@ -93,6 +93,7 @@ interface ApiKey {
   streamDefaultMode?: StreamDefaultMode;
   compressionEnabled?: boolean;
   allowAutoCombos?: boolean;
+  allowCcDiscoveryAliases?: boolean;
   catalogScope?: string;
   disableNonPublicModels?: boolean;
   allowUsageCommand?: boolean;
