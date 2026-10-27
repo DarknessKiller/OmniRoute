@@ -630,6 +630,11 @@ function isSchemaAlreadyApplied(
         hasColumn(db, "usage_history", "provider_credits") &&
         hasColumn(db, "usage_history", "provider_cost_usd")
       );
+    case "215":
+      // Per-combo output styles (#18097, renumbered 214 -> 215: the 214 slot went to
+      // call_logs_client_session_id). A DB that already applied the old 214 file has
+      // the column, and a bare ADD COLUMN would throw on the re-run.
+      return hasColumn(db, "compression_combos", "output_styles");
     default:
       return false;
   }
