@@ -2,15 +2,10 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import Input from "@/shared/components/Input";
-import Select from "@/shared/components/Select";
 import { useApiKey } from "../../providers/hooks/useApiKey";
 import { useProviderModels } from "../../providers/hooks/useProviderModels";
 import { buildCurl } from "../../providers/utils/buildCurl";
-import {
-  PLAYGROUND_KEY_ID_HEADER,
-  resolvePlaygroundKeyId,
-} from "../../providers/utils/playgroundAuth";
+import { PLAYGROUND_KEY_ID_HEADER, resolvePlaygroundKeyId } from "../../providers/utils/playgroundAuth";
 import { PlaygroundCard } from "./PlaygroundCard";
 
 interface Props {
@@ -107,20 +102,31 @@ export function OcrExampleCard({ providerId }: Props) {
       error={error}
     >
       {/* Model select */}
-      <Select
-        label={t("model")}
-        value={model || firstModel}
-        onChange={(e) => setModel(e.target.value)}
-        options={modelOptions.map((m) => ({ value: m.id, label: m.id }))}
-      />
+      <div>
+        <label className="block text-xs text-text-muted mb-1">{t("model")}</label>
+        <select
+          value={model || firstModel}
+          onChange={(e) => setModel(e.target.value)}
+          className="w-full rounded-md border border-border bg-bg-subtle text-sm px-2 py-1.5 text-text-main focus:outline-none focus:ring-1 focus:ring-primary"
+        >
+          {modelOptions.map((m) => (
+            <option key={m.id} value={m.id}>
+              {m.id}
+            </option>
+          ))}
+        </select>
+      </div>
       {/* Document URL */}
-      <Input
-        label={t("documentUrl")}
-        type="text"
-        value={documentUrl}
-        onChange={(e) => setDocumentUrl(e.target.value)}
-        placeholder={SAMPLE_DOCUMENT_URL}
-      />
+      <div>
+        <label className="block text-xs text-text-muted mb-1">{t("documentUrl")}</label>
+        <input
+          type="text"
+          value={documentUrl}
+          onChange={(e) => setDocumentUrl(e.target.value)}
+          placeholder={SAMPLE_DOCUMENT_URL}
+          className="w-full rounded-md border border-border bg-bg-subtle text-sm px-2 py-1.5 text-text-main focus:outline-none focus:ring-1 focus:ring-primary"
+        />
+      </div>
     </PlaygroundCard>
   );
 }

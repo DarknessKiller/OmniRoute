@@ -1,7 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import Button from "@/shared/components/Button";
 import ProviderConnectionPermissionList, {
   type ProviderConnection,
 } from "@/app/(dashboard)/dashboard/api-manager/components/ProviderConnectionPermissionList";
@@ -49,27 +48,31 @@ export default function ConnectionsTab({
             </p>
           </div>
           <div className="flex gap-1 p-0.5 bg-surface rounded-md shrink-0">
-            <Button
-              size="sm"
-              variant={formState.allowAllConnections ? "primary" : "ghost"}
-              aria-pressed={formState.allowAllConnections}
+            <button
+              type="button"
               onClick={() => {
                 setAllowAllConnections(true);
                 setSelectedConnections([]);
               }}
-              className="gap-1.5 text-xs"
+              className={`px-3 py-1.5 rounded text-xs font-medium transition-all ${
+                formState.allowAllConnections
+                  ? "bg-primary text-white"
+                  : "text-text-muted hover:bg-black/5 dark:hover:bg-white/5"
+              }`}
             >
               {t("allConnections")}
-            </Button>
-            <Button
-              size="sm"
-              variant={!formState.allowAllConnections ? "primary" : "ghost"}
-              aria-pressed={!formState.allowAllConnections}
+            </button>
+            <button
+              type="button"
               onClick={() => setAllowAllConnections(false)}
-              className="gap-1.5 text-xs"
+              className={`px-3 py-1.5 rounded text-xs font-medium transition-all ${
+                !formState.allowAllConnections
+                  ? "bg-primary text-white"
+                  : "text-text-muted hover:bg-black/5 dark:hover:bg-white/5"
+              }`}
             >
               {t("onlySelectedConnections")}
-            </Button>
+            </button>
           </div>
         </div>
 

@@ -2,8 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import Button from "@/shared/components/Button";
-import Icon from "@/shared/components/Icon";
 import { buildGrokBillingCardRows } from "@/shared/utils/grokBilling";
 import { buildKimiBillingCardRows } from "@/shared/utils/kimiBilling";
 import {
@@ -68,7 +66,7 @@ function ProviderBillingDetails({ billing }: { billing: ProviderBillingStatus })
             className="inline-flex w-fit items-center gap-1 font-medium text-primary hover:underline"
           >
             {row.label}
-            <Icon name="open_in_new" size={12} />
+            <span className="material-symbols-outlined text-[12px]">open_in_new</span>
           </a>
         ) : (
           <div
@@ -204,32 +202,36 @@ function QuotaDetailRow({
       <div className="flex min-h-[34px] items-center justify-between gap-2 py-1">
         <span className="flex min-w-0 flex-1 items-center gap-1.5 text-[12px] font-medium leading-none text-text-main">
           <span className="inline-flex size-6 shrink-0 items-center justify-center">
-            <span style={{ color: colors.text }}>
-              <Icon name="restart_alt" size={15} />
+            <span
+              className="material-symbols-outlined text-[15px] leading-none"
+              style={{ color: colors.text }}
+            >
+              restart_alt
             </span>
           </span>
           <span className="truncate leading-none">
             {translateUsageOrFallback(t, "resetCreditsLabel", "Reset credits")}
           </span>
         </span>
-        <Button
-          variant="ghost"
-          size="sm"
+        <button
+          type="button"
           disabled={!onOpenResetCredits || loadingResetCredits}
           onClick={(event) => {
             event.stopPropagation();
             onOpenResetCredits?.();
           }}
           aria-label={translateUsageOrFallback(t, "viewResetCredits", "View reset credits")}
-          className="h-6 min-h-6 shrink-0 gap-1 px-1.5 text-[12px] font-bold leading-none tabular-nums"
+          className="inline-flex h-6 shrink-0 items-center gap-1 rounded-md px-1.5 text-[12px] font-bold leading-none tabular-nums hover:bg-black/[0.05] disabled:cursor-default dark:hover:bg-white/[0.05]"
           style={{ color: colors.text }}
         >
           {loadingResetCredits && (
-            <Icon name="progress_activity" size={12} className="animate-spin" />
+            <span className="material-symbols-outlined animate-spin text-[12px]">
+              progress_activity
+            </span>
           )}
           {count.toLocaleString(undefined, { maximumFractionDigits: 0 })}
-          <Icon name="chevron_right" size={13} />
-        </Button>
+          <span className="material-symbols-outlined text-[13px]">chevron_right</span>
+        </button>
       </div>
     );
   }
@@ -245,8 +247,11 @@ function QuotaDetailRow({
       <div className="flex min-h-[34px] items-center justify-between gap-2 py-1">
         <span className="flex min-w-0 flex-1 items-center gap-1.5 text-[12px] font-medium leading-none text-text-main">
           <span className="inline-flex size-6 shrink-0 items-center justify-center">
-            <span style={{ color: colors.text }}>
-              <Icon name="paid" size={15} />
+            <span
+              className="material-symbols-outlined text-[15px] leading-none"
+              style={{ color: colors.text }}
+            >
+              paid
             </span>
           </span>
           <span className="truncate leading-none">
@@ -284,19 +289,20 @@ function QuotaDetailRow({
           {q.unlimited ? "∞" : translateUsageOrFallback(t, "percentLeft", `${pct}% left`, { pct })}
         </span>
         {canHide && (
-          <Button
-            variant="ghost"
-            size="icon-sm"
+          <button
+            type="button"
             onClick={(e) => {
               e.stopPropagation();
               onHideQuota?.(q);
             }}
-            className="size-5 min-h-5 shrink-0 text-text-muted"
+            className="inline-flex size-5 shrink-0 items-center justify-center rounded text-text-muted transition-colors hover:bg-black/5 hover:text-text-main dark:hover:bg-white/5"
             title={translateUsageOrFallback(t, "hideQuotaRow", "Hide this quota row")}
             aria-label={translateUsageOrFallback(t, "hideQuotaRow", "Hide this quota row")}
           >
-            <Icon name="visibility_off" size={13} className="leading-none" />
-          </Button>
+            <span className="material-symbols-outlined text-[13px] leading-none">
+              visibility_off
+            </span>
+          </button>
         )}
       </div>
       {!q.unlimited && <QuotaMiniBar percent={pct} size="sm" />}
@@ -384,12 +390,14 @@ export default function QuotaCardExpanded({
     <div className="border-t border-border bg-bg-subtle/30 px-3 py-2.5 flex flex-col gap-1.5">
       {shouldShowLoadingPlaceholder(loading, sortedQuotas.length, message) ? (
         <div className="text-[11px] text-text-muted flex items-center gap-1.5">
-          <Icon name="progress_activity" size={13} className="animate-spin" />
+          <span className="material-symbols-outlined animate-spin text-[13px]">
+            progress_activity
+          </span>
           {t("loadingQuotas")}
         </div>
       ) : error ? (
-        <div className="text-[11px] text-error flex items-start gap-1.5">
-          <Icon name="error" size={13} />
+        <div className="text-[11px] text-red-500 flex items-start gap-1.5">
+          <span className="material-symbols-outlined text-[13px]">error</span>
           <span>{error}</span>
         </div>
       ) : (providerId === "antigravity" || providerId === "agy") &&
@@ -438,42 +446,41 @@ export default function QuotaCardExpanded({
 
       {hiddenQuotaRows.length > 0 && (
         <div className="flex flex-wrap items-center gap-1 border-t border-border/40 pt-1.5 text-[10px] text-text-muted">
-          <Icon name="visibility_off" size={12} />
+          <span className="material-symbols-outlined text-[12px]">visibility_off</span>
           <span>{tr("hiddenQuotaRowsLabel", "Hidden:")}</span>
           {hiddenQuotaRows.map((q) => (
-            <Button
+            <button
               key={getQuotaVisibilityKey(q)}
-              variant="outline"
-              size="sm"
+              type="button"
               onClick={(e) => {
                 e.stopPropagation();
                 onShowQuota?.(q);
               }}
-              className="h-auto min-h-0 px-1.5 py-0.5 text-[10px] font-normal"
+              className="rounded-md border border-border px-1.5 py-0.5 transition-colors hover:bg-black/5 hover:text-text-main dark:hover:bg-white/5"
               title={translateUsageOrFallback(t, "showQuotaRow", "Show this quota row")}
             >
               {q.displayName || formatQuotaLabel(q.name)}
-            </Button>
+            </button>
           ))}
         </div>
       )}
 
       {!error && sortedQuotas.length > DEFAULT_VISIBLE_ROWS && (
-        <Button
-          variant="outline"
-          size="sm"
-          aria-expanded={expanded}
+        <button
+          type="button"
           onClick={(e) => {
             e.stopPropagation();
             setExpanded((prev) => !prev);
           }}
-          className="h-7 min-h-7 gap-1 px-2 text-[11px]"
+          className="inline-flex items-center justify-center gap-1 text-[11px] font-medium px-2 py-1 rounded-md border border-border bg-bg-subtle hover:bg-black/[0.04] dark:hover:bg-white/[0.04] cursor-pointer"
         >
-          <Icon name={expanded ? "expand_less" : "expand_more"} size={12} />
+          <span className="material-symbols-outlined text-[12px]">
+            {expanded ? "expand_less" : "expand_more"}
+          </span>
           {expanded
             ? tr("showLessQuotas", "Show less")
             : tr("showMoreQuotas", `Show ${hiddenCount} more`, { count: hiddenCount })}
-        </Button>
+        </button>
       )}
 
       <div className="min-w-0 space-y-1.5 pt-1.5 border-t border-border/40">
@@ -481,7 +488,7 @@ export default function QuotaCardExpanded({
           {refreshedLabel && (
             <span
               className={`text-[10px] tabular-nums ${
-                hasStaleData ? "text-warning" : "text-text-muted"
+                hasStaleData ? "text-amber-500" : "text-text-muted"
               }`}
               title={
                 hasStaleData
@@ -492,9 +499,8 @@ export default function QuotaCardExpanded({
               {tr("updatedShort", "Updated")} {refreshedLabel}
             </span>
           )}
-          <Button
-            variant="outline"
-            size="icon-sm"
+          <button
+            type="button"
             disabled={loading}
             title={tr("forceRefresh", "Refresh now")}
             aria-label={tr("forceRefresh", "Refresh now")}
@@ -502,60 +508,61 @@ export default function QuotaCardExpanded({
               e.stopPropagation();
               onRefresh();
             }}
-            className="ml-auto inline-flex size-7 shrink-0 min-h-7"
+            className="ml-auto inline-flex size-7 shrink-0 items-center justify-center rounded-md border border-border bg-bg-subtle hover:bg-black/[0.04] dark:hover:bg-white/[0.04] disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
           >
-            <Icon name="refresh" size={12} className={loading ? "animate-spin" : undefined} />
-          </Button>
+            <span
+              className={`material-symbols-outlined text-[12px] ${loading ? "animate-spin" : ""}`}
+            >
+              refresh
+            </span>
+          </button>
         </div>
         <div className="grid min-w-0 grid-cols-[repeat(auto-fit,minmax(min(100%,5rem),1fr))] gap-1.5">
           {canRedeemResetCredit && (
-            <Button
-              variant="outline"
-              size="sm"
+            <button
+              type="button"
               disabled={loading || redeemingResetCredit || loadingResetCredits}
               onClick={(e) => {
                 e.stopPropagation();
                 onOpenResetCredits?.();
               }}
-              className="h-auto min-h-0 min-w-0 gap-1 whitespace-normal break-words border-primary/40 px-1.5 py-1.5 text-[11px] text-primary"
+              className="inline-flex min-w-0 items-center justify-center gap-1 break-words text-[11px] font-medium px-1.5 py-1.5 rounded-md border border-primary/40 text-primary bg-bg-subtle hover:bg-black/[0.04] dark:hover:bg-white/[0.04] disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
             >
-              <Icon
-                name={
-                  redeemingResetCredit || loadingResetCredits ? "progress_activity" : "restart_alt"
-                }
-                size={12}
-                className={redeemingResetCredit || loadingResetCredits ? "animate-spin" : undefined}
-              />
+              <span
+                className={`material-symbols-outlined text-[12px] ${
+                  redeemingResetCredit || loadingResetCredits ? "animate-spin" : ""
+                }`}
+              >
+                {redeemingResetCredit || loadingResetCredits ? "progress_activity" : "restart_alt"}
+              </span>
               <span className="min-w-0">{tr("manageResetCredits", "View credits")}</span>
-            </Button>
+            </button>
           )}
-          <Button
-            variant="outline"
-            size="sm"
+          <button
+            type="button"
             disabled={!canEditCutoff}
             onClick={(e) => {
               e.stopPropagation();
               onOpenCutoff();
             }}
-            className={`h-auto min-h-0 min-w-0 gap-1 whitespace-normal break-words px-1.5 py-1.5 text-[11px] ${
-              hasCutoffOverrides ? "border-primary/40 text-primary" : ""
+            className={`inline-flex min-w-0 items-center justify-center gap-1 break-words text-[11px] font-medium px-1.5 py-1.5 rounded-md border bg-bg-subtle hover:bg-black/[0.04] dark:hover:bg-white/[0.04] disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer ${
+              hasCutoffOverrides ? "border-primary/40 text-primary" : "border-border"
             }`}
           >
-            <Icon name="tune" size={12} />
+            <span className="material-symbols-outlined text-[12px]">tune</span>
             <span className="min-w-0">{tr("editCutoffs", "Edit cutoffs")}</span>
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
+          </button>
+          <button
+            type="button"
             onClick={(e) => {
               e.stopPropagation();
               onOpenCost();
             }}
-            className="h-auto min-h-0 min-w-0 gap-1 whitespace-normal break-words px-1.5 py-1.5 text-[11px]"
+            className="inline-flex min-w-0 items-center justify-center gap-1 break-words text-[11px] font-medium px-1.5 py-1.5 rounded-md border border-border bg-bg-subtle hover:bg-black/[0.04] dark:hover:bg-white/[0.04] cursor-pointer"
           >
-            <Icon name="bar_chart" size={12} />
+            <span className="material-symbols-outlined text-[12px]">bar_chart</span>
             <span className="min-w-0">{t("usdCost")}</span>
-          </Button>
+          </button>
         </div>
       </div>
     </div>

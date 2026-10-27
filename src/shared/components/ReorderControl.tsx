@@ -1,8 +1,6 @@
 "use client";
 
 import { cn } from "@/shared/utils/cn";
-import Button from "./Button";
-import Icon from "./Icon";
 
 interface ReorderControlProps {
   onMoveUp?: () => void;
@@ -24,31 +22,37 @@ export default function ReorderControl({
   downLabel = "Move down",
   className,
 }: ReorderControlProps) {
-  // Compact (20px) kit ghost icon buttons: the kit's min-height is reset so the pair stays
-  // the height of one list row.
-  const btn = "size-5 min-h-5 min-w-5 rounded text-text-muted hover:text-primary";
+  const btn = (disabled: boolean) =>
+    cn(
+      "flex size-5 items-center justify-center rounded",
+      disabled
+        ? "cursor-not-allowed text-text-muted/30"
+        : "text-text-muted hover:bg-sidebar hover:text-primary"
+    );
   return (
     <div className={cn("flex shrink-0 flex-col", className)}>
-      <Button
-        variant="ghost"
-        size="icon-sm"
+      <button
+        type="button"
         onClick={onMoveUp}
         disabled={isFirst}
         aria-label={upLabel}
-        className={btn}
+        className={btn(isFirst)}
       >
-        <Icon name="keyboard_arrow_up" size={18} />
-      </Button>
-      <Button
-        variant="ghost"
-        size="icon-sm"
+        <span className="material-symbols-outlined text-[18px] leading-none">
+          keyboard_arrow_up
+        </span>
+      </button>
+      <button
+        type="button"
         onClick={onMoveDown}
         disabled={isLast}
         aria-label={downLabel}
-        className={btn}
+        className={btn(isLast)}
       >
-        <Icon name="keyboard_arrow_down" size={18} />
-      </Button>
+        <span className="material-symbols-outlined text-[18px] leading-none">
+          keyboard_arrow_down
+        </span>
+      </button>
     </div>
   );
 }

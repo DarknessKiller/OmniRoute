@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { Card } from "@/shared/components";
 import { useTranslations } from "next-intl";
-import { Button, Card, Select } from "@/shared/components";
-import Icon from "@/shared/components/Icon";
 import type {
   TokenRefreshBreakerScope,
   TokenRefreshBreakerSettings,
@@ -30,19 +29,32 @@ function ActionButtons({
   if (editing) {
     return (
       <div className="flex flex-wrap gap-2">
-        <Button variant="outline" size="sm" onClick={onCancel}>
+        <button
+          type="button"
+          className="rounded-lg border border-border px-3 py-1.5 text-sm"
+          onClick={onCancel}
+        >
           {tc("cancel")}
-        </Button>
-        <Button variant="primary" size="sm" onClick={onSave} disabled={saving}>
+        </button>
+        <button
+          type="button"
+          className="rounded-lg bg-primary px-3 py-1.5 text-sm text-white"
+          onClick={onSave}
+          disabled={saving}
+        >
           {tc("save")}
-        </Button>
+        </button>
       </div>
     );
   }
   return (
-    <Button variant="outline" size="sm" onClick={onEdit}>
+    <button
+      type="button"
+      className="rounded-lg border border-border px-3 py-1.5 text-sm"
+      onClick={onEdit}
+    >
       {tc("edit")}
-    </Button>
+    </button>
   );
 }
 
@@ -51,7 +63,7 @@ function CardHeader() {
   return (
     <div className="space-y-2">
       <div className="flex items-center gap-2">
-        <Icon name="refresh" size={20} className="text-primary" />
+        <span className="material-symbols-outlined text-xl text-primary">refresh</span>
         <h2 className="text-lg font-bold">{t("resilienceTokenRefreshTitle")}</h2>
       </div>
       <div className="grid grid-cols-1 gap-2 text-xs text-text-muted sm:grid-cols-3">
@@ -87,15 +99,17 @@ function EditFields({
   };
   return (
     <>
-      <Select
-        label={t("resilienceTokenRefreshScopeLabel")}
-        value={editing.scope}
-        onChange={(event) => handleScopeChange(event.target.value)}
-        options={[
-          { value: "provider", label: t("resilienceTokenRefreshScopeProvider") },
-          { value: "connection", label: t("resilienceTokenRefreshScopeConnection") },
-        ]}
-      />
+      <label className="flex flex-col gap-1">
+        <span className="text-xs text-text-muted">{t("resilienceTokenRefreshScopeLabel")}</span>
+        <select
+          className="rounded-lg border border-border bg-bg-subtle px-3 py-2 text-sm"
+          value={editing.scope}
+          onChange={(event) => handleScopeChange(event.target.value)}
+        >
+          <option value="provider">{t("resilienceTokenRefreshScopeProvider")}</option>
+          <option value="connection">{t("resilienceTokenRefreshScopeConnection")}</option>
+        </select>
+      </label>
       <NumberField
         label={t("resilienceTokenRefreshThreshold")}
         value={editing.failureThreshold}

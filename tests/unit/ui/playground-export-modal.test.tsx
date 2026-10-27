@@ -19,8 +19,9 @@ vi.mock("next-intl", () => ({
 
 import { API_KEY_PLACEHOLDER } from "../../../src/lib/playground/codeExport";
 
-const { default: ExportCodeModal } =
-  await import("../../../src/app/(dashboard)/dashboard/playground/components/ExportCodeModal");
+const { default: ExportCodeModal } = await import(
+  "../../../src/app/(dashboard)/dashboard/playground/components/ExportCodeModal"
+);
 
 const BASE_STATE = {
   endpoint: "chat.completions" as const,
@@ -33,9 +34,7 @@ const BASE_STATE = {
 
 const containers: Array<{ root: ReturnType<typeof createRoot>; el: HTMLDivElement }> = [];
 
-// KEA-7886: the modal is the kit Dialog (Modal adapter), portaled to document.body — queries
-// go to the body, not to the render container.
-function renderModal(state = BASE_STATE, onClose = vi.fn()): HTMLElement {
+function renderModal(state = BASE_STATE, onClose = vi.fn()): HTMLDivElement {
   const el = document.createElement("div");
   document.body.appendChild(el);
   const root = createRoot(el);
@@ -43,7 +42,7 @@ function renderModal(state = BASE_STATE, onClose = vi.fn()): HTMLElement {
     root.render(<ExportCodeModal state={state} onClose={onClose} />);
   });
   containers.push({ root, el });
-  return document.body;
+  return el;
 }
 
 afterEach(() => {
@@ -83,9 +82,7 @@ describe("ExportCodeModal", () => {
     const tabs = el.querySelectorAll("[role='tab']") as NodeListOf<HTMLButtonElement>;
 
     for (const tab of Array.from(tabs)) {
-      await act(async () => {
-        tab.click();
-      });
+      await act(async () => { tab.click(); });
       const pre = el.querySelector("pre");
       const code = pre?.textContent ?? "";
       // Real key regex — must not match
@@ -102,15 +99,10 @@ describe("ExportCodeModal", () => {
     });
 
     const el = renderModal();
-    // The copy action is the CodePreview's own button inside the labelled code region.
-    const copyBtn = el.querySelector(
-      "[aria-label='copyLangCode'] .ci-code-preview__copy"
-    ) as HTMLButtonElement;
+    const copyBtn = el.querySelector("[aria-label='copyLangCode']") as HTMLButtonElement;
     expect(copyBtn).not.toBeNull();
 
-    await act(async () => {
-      copyBtn.click();
-    });
+    await act(async () => { copyBtn.click(); });
 
     expect(writeTextMock).toHaveBeenCalledTimes(1);
     const copiedText = writeTextMock.mock.calls[0][0] as string;
@@ -131,9 +123,7 @@ describe("ExportCodeModal", () => {
     const pythonTab = Array.from(tabs).find((t) => t.textContent?.trim() === "Python");
     expect(pythonTab).not.toBeNull();
 
-    await act(async () => {
-      pythonTab!.click();
-    });
+    await act(async () => { pythonTab!.click(); });
 
     const newPre = el.querySelector("pre");
     const pythonCode = newPre?.textContent ?? "";
@@ -149,9 +139,7 @@ describe("ExportCodeModal", () => {
 
     const tabs = el.querySelectorAll("[role='tab']") as NodeListOf<HTMLButtonElement>;
     const tsTab = Array.from(tabs).find((t) => t.textContent?.trim() === "TypeScript");
-    await act(async () => {
-      tsTab!.click();
-    });
+    await act(async () => { tsTab!.click(); });
 
     const pre = el.querySelector("pre");
     const code = pre?.textContent ?? "";
@@ -160,25 +148,18 @@ describe("ExportCodeModal", () => {
     expect(code).not.toMatch(/sk-[A-Za-z0-9_-]{16,}/);
   });
 
-  it("calls onClose when backdrop is clicked", async () => {
+  it("calls onClose when backdrop is clicked", () => {
     const onClose = vi.fn();
-    renderModal(BASE_STATE, onClose);
-    expect(document.querySelector("[role='dialog']")).not.toBeNull();
-    // Radix arms its outside-pointer listener on a setTimeout(0); a real outside click is
-    // pointerdown + click on something outside the dialog content (the backdrop).
-    await act(() => new Promise<void>((resolve) => setTimeout(resolve, 0)));
-    act(() => {
-      document.body.dispatchEvent(new MouseEvent("pointerdown", { bubbles: true }));
-      document.body.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-    });
+    const el = renderModal(BASE_STATE, onClose);
+    const backdrop = el.querySelector("[role='dialog']") as HTMLDivElement;
+    act(() => backdrop.click());
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
   it("calls onClose when Close button is clicked", () => {
     const onClose = vi.fn();
     const el = renderModal(BASE_STATE, onClose);
-    // The dialog's close (X) button comes from the Modal adapter (common "close" label).
-    const closeBtn = el.querySelector("[role='dialog'] [aria-label='close']") as HTMLButtonElement;
+    const closeBtn = el.querySelector("[aria-label='closeExportModal']") as HTMLButtonElement;
     act(() => closeBtn.click());
     expect(onClose).toHaveBeenCalledTimes(1);
   });

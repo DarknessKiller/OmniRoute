@@ -2,9 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import { EmptyState } from "@omniroute/ui-kit/empty-state";
-import { Badge, Card, Button, Input, Select } from "@/shared/components";
-import Icon from "@/shared/components/Icon";
+import { Card, Button } from "@/shared/components";
 import {
   filterModelOverrideTargets,
   toModelOverrideTargets,
@@ -30,9 +28,9 @@ interface StatusMessage {
 }
 
 function statusClassName(tone: StatusTone) {
-  if (tone === "success") return "bg-success/10 border-success/20 text-success";
-  if (tone === "error") return "bg-error/10 border-error/20 text-error";
-  return "bg-info/10 border-info/20 text-info";
+  if (tone === "success") return "bg-emerald-500/10 border-emerald-500/20 text-emerald-400";
+  if (tone === "error") return "bg-red-500/10 border-red-500/20 text-red-400";
+  return "bg-sky-500/10 border-sky-500/20 text-sky-400";
 }
 
 function useModelCapabilityOverridesData() {
@@ -199,14 +197,14 @@ function ModelOverridesHeader({ count }: { count: number }) {
     <div className="flex items-start justify-between gap-3 mb-3">
       <div>
         <h3 className="text-sm font-bold flex items-center gap-2">
-          <Icon name="tune" size={18} className="text-primary" />
+          <span className="material-symbols-outlined text-[18px] text-primary">tune</span>
           {t("modelOverridesTitle")}
         </h3>
         <p className="text-xs text-text-muted mt-1">{t("modelOverridesDesc")}</p>
       </div>
-      <Badge size="sm">
+      <span className="text-[10px] px-2 py-1 rounded-md border border-border bg-bg-subtle text-text-muted">
         {count} {t("configured")}
-      </Badge>
+      </span>
     </div>
   );
 }
@@ -230,13 +228,12 @@ function ModelOverrideTargetList({
   return (
     <div className="rounded-lg border border-border/50 overflow-hidden">
       <div className="p-2 border-b border-border/50 bg-bg-subtle/40">
-        <Input
-          type="search"
-          icon="search"
-          aria-label={t("searchModelOverrideTargets")}
+        <input
+          type="text"
           value={search}
           onChange={(event) => setSearch(event.target.value)}
           placeholder={t("searchModelOverrideTargets")}
+          className="w-full px-3 py-2 text-xs bg-bg-base border border-border rounded-md focus:outline-none focus:border-primary"
         />
       </div>
       <div className="max-h-56 overflow-y-auto divide-y divide-border/40">
@@ -266,22 +263,20 @@ function ModelOverrideTargetButton({
   onSelect: (target: string) => void;
 }) {
   return (
-    <Button
-      variant="ghost"
-      size="sm"
-      aria-pressed={active}
+    <button
+      type="button"
       onClick={() => onSelect(entry.target)}
-      className={`h-auto w-full justify-between gap-2 rounded-none px-3 py-2 text-left text-xs font-normal ${
+      className={`w-full px-3 py-2 text-left text-xs flex items-center justify-between gap-2 hover:bg-bg-hover/50 ${
         active ? "bg-primary/10 text-primary" : "text-text-main"
       }`}
     >
       <span className="truncate font-mono">{entry.label}</span>
       {count > 0 && (
-        <Badge size="sm" variant="warning" className="shrink-0">
+        <span className="shrink-0 text-[10px] px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-400">
           {count}
-        </Badge>
+        </span>
       )}
-    </Button>
+    </button>
   );
 }
 
@@ -331,23 +326,17 @@ function ModelOverrideForm({
 
   return (
     <div className="flex flex-col sm:flex-row gap-2">
-      <Select
-        aria-label={t("modelOverrideKey")}
+      <select
         value={key}
         onChange={(event) => setKey(event.target.value as ModelOverrideKey)}
-        className="sm:w-44"
+        className="sm:w-40 px-2 py-2 text-xs bg-bg-base border border-border rounded-md focus:outline-none focus:border-primary"
       >
         <option value="context_length">context_length</option>
         <option value="max_input_tokens">max_input_tokens</option>
         <option value="max_output_tokens">max_output_tokens</option>
         <option value="reasoning_efforts">reasoning_efforts</option>
-      </Select>
-      <Input
-        aria-label={t(
-          isReasoningEfforts
-            ? "modelOverrideReasoningEffortsPlaceholder"
-            : "modelOverrideValuePlaceholder"
-        )}
+      </select>
+      <input
         type={isReasoningEfforts ? "text" : "number"}
         min={isReasoningEfforts ? undefined : "1"}
         step={isReasoningEfforts ? undefined : "1"}
@@ -358,7 +347,7 @@ function ModelOverrideForm({
             ? "modelOverrideReasoningEffortsPlaceholder"
             : "modelOverrideValuePlaceholder"
         )}
-        className="flex-1"
+        className="flex-1 px-3 py-2 text-xs bg-bg-base border border-border rounded-md focus:outline-none focus:border-primary"
       />
       <Button
         variant="primary"
@@ -386,7 +375,7 @@ function ModelOverrideRows({
   return (
     <div className="rounded-md border border-border/40 overflow-hidden">
       {activeOverrides.length === 0 ? (
-        <EmptyState compact icon={<Icon name="tune" size={20} />} title={t("noModelOverrides")} />
+        <div className="px-3 py-4 text-xs text-text-muted text-center">{t("noModelOverrides")}</div>
       ) : (
         <div className="divide-y divide-border/40">
           {activeOverrides.map((override) => (
@@ -418,14 +407,13 @@ function ModelOverrideRow({
           {Array.isArray(override.value) ? override.value.join(", ") : override.value}
         </span>
       </div>
-      <Button
-        variant="ghost"
-        size="sm"
+      <button
+        type="button"
         onClick={() => onRemove(override.target, override.key)}
-        className="text-error"
+        className="text-red-400 hover:bg-red-500/10 rounded px-2 py-1"
       >
         {t("remove")}
-      </Button>
+      </button>
     </div>
   );
 }

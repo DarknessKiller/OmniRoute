@@ -11,8 +11,16 @@ type WeightTotalBarProps = {
   models: ModelEntry[];
 };
 
-// Data colours (one per target) come from the kit chart palette (--ci-chart-1..5).
-const WEIGHT_COLORS = ["bg-chart-1", "bg-chart-2", "bg-chart-3", "bg-chart-4", "bg-chart-5"];
+const WEIGHT_COLORS = [
+  "bg-blue-500",
+  "bg-emerald-500",
+  "bg-amber-500",
+  "bg-purple-500",
+  "bg-rose-500",
+  "bg-cyan-500",
+  "bg-orange-500",
+  "bg-indigo-500",
+];
 
 /**
  * #6147 — effective routing share of a weighted target.
@@ -36,7 +44,7 @@ export default function WeightTotalBar({ models }: WeightTotalBarProps) {
   return (
     <div className="mt-1.5">
       {/* Visual bar */}
-      <div className="h-1.5 rounded-full bg-bg-subtle overflow-hidden flex">
+      <div className="h-1.5 rounded-full bg-black/5 dark:bg-white/5 overflow-hidden flex">
         {models.map((m, i) => {
           if (!m.weight) return null;
           return (
@@ -71,7 +79,7 @@ export default function WeightTotalBar({ models }: WeightTotalBarProps) {
         </div>
         <span
           className={`text-[10px] font-medium ${
-            isValid ? "text-success" : total > 100 ? "text-error" : "text-warning"
+            isValid ? "text-emerald-500" : total > 100 ? "text-red-500" : "text-amber-500"
           }`}
         >
           {total}%{!isValid && total > 0 && " ≠ 100%"}

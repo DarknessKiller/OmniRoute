@@ -4,11 +4,12 @@ import { createRoot } from "react-dom/client";
 import { afterEach, expect, it, vi } from "vitest";
 
 vi.mock("next-intl", () => ({ useTranslations: () => (key: string) => key }));
-vi.mock("@/shared/components", async () => ({
-  // KEA-7886: form adapters (Button/Input/Checkbox/Select/FilterPills) as DOM-faithful stubs
-  ...(await import("../../helpers/sharedComponentStubs")).formStubs,
+vi.mock("@/shared/components", () => ({
   Badge: ({ children, title }: { children: React.ReactNode; title?: string }) => (
     <span title={title}>{children}</span>
+  ),
+  Button: ({ children, onClick }: { children: React.ReactNode; onClick?: () => void }) => (
+    <button onClick={onClick}>{children}</button>
   ),
 }));
 vi.mock(

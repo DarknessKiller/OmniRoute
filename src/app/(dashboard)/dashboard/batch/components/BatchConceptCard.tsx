@@ -2,10 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import Icon from "@/shared/components/Icon";
-import Button from "@/shared/components/Button";
-import Card from "@/shared/components/Card";
-import { cn } from "@/shared/utils/cn";
 
 const LS_KEY = "omniroute:concept-batch-collapsed";
 
@@ -42,49 +38,63 @@ export default function BatchConceptCard({ className = "" }: Props) {
   };
 
   return (
-    <Card padding="sm" className={cn("flex flex-col gap-3", className)}>
+    <div
+      className={`rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] p-4 flex flex-col gap-3 ${className}`}
+    >
       {/* Header */}
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <Icon name="info" size={20} className="text-accent" />
-          <span className="font-semibold text-sm text-text-main">{t("batchConceptTitle")}</span>
+          <span className="material-symbols-outlined text-[20px] text-[var(--color-accent)]">
+            info
+          </span>
+          <span className="font-semibold text-sm text-[var(--color-text-main)]">
+            {t("batchConceptTitle")}
+          </span>
         </div>
-        <Button
-          variant="ghost"
-          size="sm"
+        <button
           onClick={toggle}
-          className="gap-1 text-xs text-text-muted hover:text-text-main"
+          className="flex items-center gap-1 text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text-main)] transition-colors"
           aria-expanded={!collapsed}
         >
           {t("batchConceptHowItWorks")}
-          <Icon name={collapsed ? "expand_more" : "expand_less"} size={14} />
-        </Button>
+          <span className="material-symbols-outlined text-[14px]">
+            {collapsed ? "expand_more" : "expand_less"}
+          </span>
+        </button>
       </div>
 
       {/* Subtitle — always visible */}
-      <p className="text-sm text-text-muted">{t("batchConceptSubtitle")}</p>
+      <p className="text-sm text-[var(--color-text-muted)]">{t("batchConceptSubtitle")}</p>
 
       {/* Expandable bullets — keys from §3.5 */}
       {!collapsed && (
         <ul className="flex flex-col gap-2 pl-1">
-          <li className="flex items-start gap-2 text-sm text-text-muted">
-            <Icon name="savings" size={16} className="text-success mt-0.5" />
+          <li className="flex items-start gap-2 text-sm text-[var(--color-text-muted)]">
+            <span className="material-symbols-outlined text-[16px] text-emerald-400 mt-0.5 shrink-0">
+              savings
+            </span>
             <span>{t("batchConceptBenefit50pct")}</span>
           </li>
-          <li className="flex items-start gap-2 text-sm text-text-muted">
-            <Icon name="schedule" size={16} className="text-info mt-0.5" />
+          <li className="flex items-start gap-2 text-sm text-[var(--color-text-muted)]">
+            <span className="material-symbols-outlined text-[16px] text-blue-400 mt-0.5 shrink-0">
+              schedule
+            </span>
             <span>{t("batchConceptAsync24h")}</span>
           </li>
-          <li className="flex items-start gap-2 text-sm text-text-muted">
-            <Icon name="task_alt" size={16} className="text-primary mt-0.5" />
+          <li className="flex items-start gap-2 text-sm text-[var(--color-text-muted)]">
+            <span className="material-symbols-outlined text-[16px] text-violet-400 mt-0.5 shrink-0">
+              task_alt
+            </span>
             <span>{t("batchConceptUseCases")}</span>
           </li>
-          <li className="flex items-start gap-2 text-sm text-text-muted">
-            <Icon name="timer" size={16} className="text-warning mt-0.5" />
+          <li className="flex items-start gap-2 text-sm text-[var(--color-text-muted)]">
+            <span className="material-symbols-outlined text-[16px] text-yellow-400 mt-0.5 shrink-0">
+              timer
+            </span>
             <span>{t("batchConceptRetentionNote")}</span>
           </li>
         </ul>
       )}
-    </Card>
+    </div>
   );
 }

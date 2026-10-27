@@ -1,8 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import Button from "@/shared/components/Button";
-import Icon from "@/shared/components/Icon";
 import ConnectionTestButton from "@/shared/components/ConnectionTestButton";
 import Badge from "@/shared/components/Badge";
 import ProviderIcon from "@/shared/components/ProviderIcon";
@@ -12,11 +10,10 @@ import { formatCountdown, type CardStatus } from "../utils";
 import { translateUsageOrFallback } from "../i18nFallback";
 
 const STATUS_DOT_CLASS: Record<CardStatus, string> = {
-  critical: "bg-error shadow-[0_0_0_2px_color-mix(in_srgb,var(--color-error)_16%,transparent)]",
-  alert: "bg-warning shadow-[0_0_0_2px_color-mix(in_srgb,var(--color-warning)_20%,transparent)]",
-  ok: "bg-success shadow-[0_0_0_2px_color-mix(in_srgb,var(--color-success)_18%,transparent)]",
-  empty:
-    "bg-text-muted/30 shadow-[0_0_0_2px_color-mix(in_srgb,var(--color-text-muted)_18%,transparent)]",
+  critical: "bg-rose-500 shadow-[0_0_0_2px_rgba(244,63,94,0.16)]",
+  alert: "bg-amber-400 shadow-[0_0_0_2px_rgba(251,191,36,0.2)]",
+  ok: "bg-emerald-500 shadow-[0_0_0_2px_rgba(16,185,129,0.18)]",
+  empty: "bg-slate-300 shadow-[0_0_0_2px_rgba(148,163,184,0.18)]",
 };
 
 interface Props {
@@ -112,8 +109,11 @@ export default function QuotaCardHeader({
               </Badge>
             </span>
             {hasStaleData && (
-              <span className="shrink-0 leading-4 text-warning" title={t("staleQuotaTooltip")}>
-                <Icon name="schedule" size={12} ariaLabel={t("staleQuotaTooltip")} />
+              <span
+                className="material-symbols-outlined shrink-0 text-[12px] leading-4 text-amber-500"
+                title={t("staleQuotaTooltip")}
+              >
+                schedule
               </span>
             )}
           </div>
@@ -122,7 +122,7 @@ export default function QuotaCardHeader({
           </span>
           {tokenExpiryLabel && (
             <span
-              className={`text-[10px] whitespace-normal [overflow-wrap:anywhere] leading-[1.4] ${tokenCountdown ? "text-info" : "text-error"}`}
+              className={`text-[10px] whitespace-normal [overflow-wrap:anywhere] leading-[1.4] ${tokenCountdown ? "text-sky-500" : "text-rose-500"}`}
               title={tokenExpiryTitle}
             >
               {tokenExpiryLabel}
@@ -137,9 +137,8 @@ export default function QuotaCardHeader({
           compact
           onSent={onTestSent}
         />
-        <Button
-          variant="ghost"
-          size="icon-sm"
+        <button
+          type="button"
           disabled={togglingActive}
           onClick={(e) => {
             e.stopPropagation();
@@ -148,10 +147,14 @@ export default function QuotaCardHeader({
           }}
           title={toggleActiveLabel}
           aria-label={toggleActiveLabel}
-          className={`size-6 min-h-6 ${isActive ? "text-text-muted" : "text-error"}`}
+          className={`p-1 rounded-md cursor-pointer transition-colors hover:bg-black/[0.04] dark:hover:bg-white/[0.04] disabled:opacity-40 disabled:cursor-not-allowed ${
+            isActive ? "text-text-muted" : "text-rose-500"
+          }`}
         >
-          <Icon name={isActive ? "toggle_on" : "toggle_off"} size={14} />
-        </Button>
+          <span className="material-symbols-outlined text-[14px]">
+            {isActive ? "toggle_on" : "toggle_off"}
+          </span>
+        </button>
       </div>
     </div>
   );

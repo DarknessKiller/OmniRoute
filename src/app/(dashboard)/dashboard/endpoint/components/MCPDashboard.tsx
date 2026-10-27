@@ -1,18 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@omniroute/ui-kit/table";
-import Button from "@/shared/components/Button";
-import Card from "@/shared/components/Card";
-import Input from "@/shared/components/Input";
-import Select from "@/shared/components/Select";
+import { Card, Button } from "@/shared/components";
 import { useTranslations } from "next-intl";
 
 type McpTransport = "stdio" | "sse" | "streamable-http";
@@ -470,8 +459,8 @@ export default function McpDashboardPage() {
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
           <div className="rounded-lg border border-border p-3 space-y-3">
             <p className="text-sm font-semibold">{t("switchCombo")}</p>
-            <Select
-              aria-label={t("switchCombo")}
+            <select
+              className="w-full rounded-lg border border-border bg-bg px-3 py-2 text-sm"
               value={selectedComboId}
               onChange={(event) => setSelectedComboId(event.target.value)}
             >
@@ -480,7 +469,7 @@ export default function McpDashboardPage() {
                   {combo.name} ({combo.isActive === false ? t("inactive") : t("active")})
                 </option>
               ))}
-            </Select>
+            </select>
             <Button
               size="sm"
               variant="secondary"
@@ -493,8 +482,8 @@ export default function McpDashboardPage() {
 
           <div className="rounded-lg border border-border p-3 space-y-3">
             <p className="text-sm font-semibold">{t("applyResilienceProfile")}</p>
-            <Select
-              aria-label={t("applyResilienceProfile")}
+            <select
+              className="w-full rounded-lg border border-border bg-bg px-3 py-2 text-sm"
               value={selectedProfile}
               onChange={(event) =>
                 setSelectedProfile(event.target.value as keyof typeof RESILIENCE_PRESETS)
@@ -503,7 +492,7 @@ export default function McpDashboardPage() {
               <option value="aggressive">{t("profileAggressive")}</option>
               <option value="balanced">{t("profileBalanced")}</option>
               <option value="conservative">{t("profileConservative")}</option>
-            </Select>
+            </select>
             <Button
               size="sm"
               variant="secondary"
@@ -520,7 +509,7 @@ export default function McpDashboardPage() {
             <Button
               size="sm"
               onClick={handleResetCircuitBreakers}
-              variant="danger"
+              className="bg-red-500! hover:bg-red-600! text-white!"
               disabled={actionBusy === "reset"}
             >
               {t("resetAllBreakers")}
@@ -533,26 +522,26 @@ export default function McpDashboardPage() {
       <Card className="p-5">
         <h2 className="text-lg font-semibold mb-4">{t("toolsAndScopes")}</h2>
         <div className="overflow-x-auto">
-          <Table scrollbarLabel={t("toolsAndScopes")}>
-            <TableHeader>
-              <TableRow>
-                <TableHead>{t("tableTool")}</TableHead>
-                <TableHead>{t("tableScopes")}</TableHead>
-                <TableHead>{t("tablePhase")}</TableHead>
-                <TableHead>{t("tableAudit")}</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-border">
+                <th className="text-left py-2 pr-2">{t("tableTool")}</th>
+                <th className="text-left py-2 pr-2">{t("tableScopes")}</th>
+                <th className="text-left py-2 pr-2">{t("tablePhase")}</th>
+                <th className="text-left py-2">{t("tableAudit")}</th>
+              </tr>
+            </thead>
+            <tbody>
               {tools.map((tool) => (
-                <TableRow key={tool.name}>
-                  <TableCell className="font-mono">{tool.name}</TableCell>
-                  <TableCell>{tool.scopes.join(", ") || "—"}</TableCell>
-                  <TableCell>{tool.phase}</TableCell>
-                  <TableCell>{tool.auditLevel}</TableCell>
-                </TableRow>
+                <tr key={tool.name} className="border-b border-border/40">
+                  <td className="py-2 pr-2 font-mono text-xs">{tool.name}</td>
+                  <td className="py-2 pr-2 text-xs">{tool.scopes.join(", ") || "—"}</td>
+                  <td className="py-2 pr-2">{tool.phase}</td>
+                  <td className="py-2">{tool.auditLevel}</td>
+                </tr>
               ))}
-            </TableBody>
-          </Table>
+            </tbody>
+          </table>
         </div>
       </Card>
 
@@ -565,8 +554,8 @@ export default function McpDashboardPage() {
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
-            <Select
-              aria-label={t("tableTool")}
+            <select
+              className="rounded-lg border border-border bg-bg px-3 py-2 text-sm"
               value={toolFilter}
               onChange={(event) => {
                 setAuditOffset(0);
@@ -579,9 +568,9 @@ export default function McpDashboardPage() {
                   {tool.name}
                 </option>
               ))}
-            </Select>
-            <Select
-              aria-label={t("tableResult")}
+            </select>
+            <select
+              className="rounded-lg border border-border bg-bg px-3 py-2 text-sm"
               value={successFilter}
               onChange={(event) => {
                 setAuditOffset(0);
@@ -591,9 +580,9 @@ export default function McpDashboardPage() {
               <option value="all">{t("allResults")}</option>
               <option value="true">{t("success")}</option>
               <option value="false">{t("failure")}</option>
-            </Select>
-            <Input
-              aria-label={t("apiKeyIdPlaceholder")}
+            </select>
+            <input
+              className="rounded-lg border border-border bg-bg px-3 py-2 text-sm"
               placeholder={t("apiKeyIdPlaceholder")}
               value={apiKeyFilter}
               onChange={(event) => {
@@ -610,32 +599,34 @@ export default function McpDashboardPage() {
           <p className="text-sm text-text-muted">{t("noAuditEntriesForFilters")}</p>
         ) : (
           <div className="overflow-x-auto">
-            <Table scrollbarLabel={t("auditLog")}>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>{t("tableTimestamp")}</TableHead>
-                  <TableHead>{t("tableTool")}</TableHead>
-                  <TableHead>{t("tableDuration")}</TableHead>
-                  <TableHead>{t("tableResult")}</TableHead>
-                  <TableHead>{t("tableApiKey")}</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-border">
+                  <th className="text-left py-2 pr-2">{t("tableTimestamp")}</th>
+                  <th className="text-left py-2 pr-2">{t("tableTool")}</th>
+                  <th className="text-left py-2 pr-2">{t("tableDuration")}</th>
+                  <th className="text-left py-2 pr-2">{t("tableResult")}</th>
+                  <th className="text-left py-2">{t("tableApiKey")}</th>
+                </tr>
+              </thead>
+              <tbody>
                 {auditData.entries.map((entry) => (
-                  <TableRow key={entry.id}>
-                    <TableCell>{new Date(entry.createdAt).toLocaleString()}</TableCell>
-                    <TableCell className="font-mono">{entry.toolName}</TableCell>
-                    <TableCell>{entry.durationMs}ms</TableCell>
-                    <TableCell>
-                      <span className={entry.success ? "text-success" : "text-error"}>
+                  <tr key={entry.id} className="border-b border-border/40">
+                    <td className="py-2 pr-2 text-xs">
+                      {new Date(entry.createdAt).toLocaleString()}
+                    </td>
+                    <td className="py-2 pr-2 font-mono text-xs">{entry.toolName}</td>
+                    <td className="py-2 pr-2">{entry.durationMs}ms</td>
+                    <td className="py-2 pr-2">
+                      <span className={entry.success ? "text-green-500" : "text-red-500"}>
                         {entry.success ? t("success") : entry.errorCode || t("failed")}
                       </span>
-                    </TableCell>
-                    <TableCell>{entry.apiKeyId || "—"}</TableCell>
-                  </TableRow>
+                    </td>
+                    <td className="py-2">{entry.apiKeyId || "—"}</td>
+                  </tr>
                 ))}
-              </TableBody>
-            </Table>
+              </tbody>
+            </table>
           </div>
         )}
 

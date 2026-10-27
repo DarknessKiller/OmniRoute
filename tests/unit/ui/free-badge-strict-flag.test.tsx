@@ -27,11 +27,12 @@ vi.mock("@/store/notificationStore", () => ({
   }),
 }));
 
-vi.mock("@/shared/components", async () => ({
-  // KEA-7886: form adapters (Button/Input/Checkbox/Select/FilterPills) as DOM-faithful stubs
-  ...(await import("../../helpers/sharedComponentStubs")).formStubs,
+vi.mock("@/shared/components", () => ({
   Badge: ({ children }: { children: React.ReactNode }) => (
     <span data-testid="badge">{children}</span>
+  ),
+  Button: ({ children, onClick }: { children: React.ReactNode; onClick?: () => void }) => (
+    <button onClick={onClick}>{children}</button>
   ),
 }));
 

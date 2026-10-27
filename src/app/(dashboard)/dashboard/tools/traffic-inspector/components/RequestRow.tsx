@@ -1,8 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import Button from "@/shared/components/Button";
-import Icon from "@/shared/components/Icon";
 import { cn } from "@/shared/utils/cn";
 import type { InterceptedRequest } from "@/mitm/inspector/types";
 import { ContextColorBar } from "./shared/ContextColorBar";
@@ -17,12 +15,13 @@ interface RequestRowProps {
 }
 
 function statusColor(status: InterceptedRequest["status"]): string {
-  if (status === "in-flight") return "text-text-muted";
-  if (status === "error") return "text-error";
+  if (status === "in-flight") return "text-gray-400";
+  if (status === "error") return "text-red-400";
   if (typeof status === "number") {
-    if (status < 300) return "text-success";
-    if (status < 500) return "text-warning";
-    return "text-error";
+    if (status < 300) return "text-green-400";
+    if (status < 400) return "text-yellow-400";
+    if (status < 500) return "text-orange-400";
+    return "text-red-400";
   }
   return "text-text-muted";
 }
@@ -51,14 +50,12 @@ export function RequestRow({ request, selected, onClick, onSameContext, style }:
     <div
       role="button"
       tabIndex={0}
-      data-testid="request-row"
-      aria-pressed={selected}
       onClick={onClick}
       onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onClick()}
       style={style}
       className={cn(
         "flex items-stretch gap-1 border-b border-border/40 cursor-pointer hover:bg-bg-subtle",
-        "focus-ring",
+        "focus:outline-none focus-visible:ring-1 focus-visible:ring-blue-500",
         selected && "bg-surface"
       )}
     >
@@ -79,7 +76,13 @@ export function RequestRow({ request, selected, onClick, onSameContext, style }:
               className="text-text-muted shrink-0 font-mono opacity-70 truncate max-w-[120px]"
               title={request.pid ? `PID ${request.pid}` : undefined}
             >
-              <Icon name="settings" size={14} className="leading-none" /> {request.processName}
+              <span
+                className="material-symbols-outlined text-[14px] leading-none"
+                aria-hidden="true"
+              >
+                settings
+              </span>{" "}
+              {request.processName}
             </span>
           )}
         </div>
@@ -88,19 +91,17 @@ export function RequestRow({ request, selected, onClick, onSameContext, style }:
           <span className="text-text-main">{pathShort}</span>
         </div>
         {request.contextKey && (
-          <Button
-            variant="ghost"
-            size="sm"
-            className="h-auto min-h-0 px-1 py-0 font-mono text-[10px] text-text-muted"
+          <button
+            type="button"
+            className="text-[10px] text-text-muted font-mono opacity-60 hover:opacity-100 hover:text-blue-400 focus:outline-none focus-visible:ring-1 focus-visible:ring-blue-500 rounded"
             title={t("filterByContext")}
-            aria-label={`${t("filterByContext")} #${request.contextKey.slice(0, 6)}`}
             onClick={(e) => {
               e.stopPropagation();
               onSameContext?.(request.contextKey as string);
             }}
           >
             ctx #{request.contextKey.slice(0, 6)}
-          </Button>
+          </button>
         )}
       </div>
     </div>

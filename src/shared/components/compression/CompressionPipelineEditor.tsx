@@ -33,9 +33,6 @@ import {
   type EngineIntensities,
   type PipelineStep,
 } from "./compressionPipelineModel";
-import Button from "../Button";
-import Icon from "../Icon";
-import Select from "../Select";
 
 export type { PipelineStep } from "./compressionPipelineModel";
 
@@ -44,6 +41,9 @@ type Props = {
   onChange: (steps: PipelineStep[]) => void;
   engineIntensities: EngineIntensities;
 };
+
+const SELECT_CLASS =
+  "rounded-lg border border-border bg-bg px-3 py-2 text-sm text-text-main w-full";
 
 function SortableRow(props: {
   id: string;
@@ -71,48 +71,49 @@ function SortableRow(props: {
       data-testid={`pipeline-row-${props.index}`}
       className="grid grid-cols-[auto_1fr_1fr_auto] items-center gap-2"
     >
-      {/* dnd-kit drag handle: its listeners/attributes ride on the kit Button. */}
-      <Button
-        variant="outline"
-        size="icon"
+      <button
+        type="button"
         aria-label={t("dragToReorder")}
         data-testid={`pipeline-drag-${props.index}`}
-        className="cursor-grab text-text-muted"
+        className="cursor-grab rounded-lg border border-border px-2 py-2 text-sm text-text-muted"
         {...attributes}
         {...listeners}
       >
-        <Icon name="drag_indicator" size={16} />
-      </Button>
-      <Select
+        ⠿
+      </button>
+      <select
         aria-label={t("engine")}
         value={props.step.engine}
         onChange={(event) => props.onPatch({ engine: event.target.value })}
+        className={SELECT_CLASS}
       >
         {props.engines.map((engine) => (
           <option key={engine} value={engine}>
             {engine}
           </option>
         ))}
-      </Select>
-      <Select
+      </select>
+      <select
         aria-label={t("intensity")}
         value={props.step.intensity ?? ""}
         onChange={(event) => props.onPatch({ intensity: event.target.value })}
+        className={SELECT_CLASS}
       >
         {allowedIntensities(props.step.engine, props.engineIntensities).map((intensity) => (
           <option key={intensity} value={intensity}>
             {intensity}
           </option>
         ))}
-      </Select>
-      <Button
-        variant="outline"
+      </select>
+      <button
+        type="button"
         onClick={props.onRemove}
         disabled={!props.canRemove}
         data-testid={`pipeline-remove-${props.index}`}
+        className="rounded-lg border border-border px-3 py-2 text-sm text-text-main disabled:opacity-50"
       >
         {t("removeStep")}
-      </Button>
+      </button>
     </div>
   );
 }
@@ -143,15 +144,14 @@ export function CompressionPipelineEditor({ steps, onChange, engineIntensities }
     <div className="space-y-3" data-testid="compression-pipeline-editor">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-semibold text-text-main">{t("pipeline")}</h3>
-        <Button
-          variant="outline"
-          size="sm"
-          icon="add"
+        <button
+          type="button"
           data-testid="pipeline-add-step"
           onClick={() => onChange(addLayer(steps, { engine: firstEngine }, engineIntensities))}
+          className="rounded-lg border border-border px-3 py-1.5 text-xs text-text-main"
         >
           {t("addStep")}
-        </Button>
+        </button>
       </div>
       <DndContext
         id={dndContextId}

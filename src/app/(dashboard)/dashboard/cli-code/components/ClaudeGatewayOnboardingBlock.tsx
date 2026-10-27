@@ -2,9 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import Icon from "@/shared/components/Icon";
 import { buildClaudeDiscoverySettingsSnippet } from "@/shared/services/claudeCliConfig";
-import Button from "@/shared/components/Button";
 
 /**
  * ClaudeGatewayOnboardingBlock — the copy-paste `settings.json` fragment that points
@@ -36,16 +34,22 @@ export default function ClaudeGatewayOnboardingBlock({ baseUrl }: { baseUrl: str
   };
 
   return (
-    <div className="rounded-lg border border-border bg-bg-subtle p-3">
+    <div className="rounded-lg border border-border bg-sidebar/40 p-3">
       <div className="mb-2 flex items-center justify-between gap-2">
         <span className="text-[12px] font-medium text-text-main">{t("ccOnboardingTitle")}</span>
-        <Button variant="outline" size="sm" onClick={handleCopy} className="gap-1 text-[11px]">
-          <Icon name={copied ? "check" : "content_copy"} size={14} />
+        <button
+          type="button"
+          onClick={handleCopy}
+          className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-[11px] text-text-main hover:border-primary/40 transition-colors"
+        >
+          <span className="material-symbols-outlined text-[14px]">
+            {copied ? "check" : "content_copy"}
+          </span>
           {copied ? t("ccOnboardingCopied") : t("ccOnboardingCopy")}
-        </Button>
+        </button>
       </div>
 
-      <pre className="overflow-x-auto rounded-md bg-bg-subtle p-2 font-mono text-[11px] leading-relaxed text-text-main">
+      <pre className="overflow-x-auto rounded-md bg-black/5 p-2 font-mono text-[11px] leading-relaxed text-text-main dark:bg-white/5">
         {snippet}
       </pre>
 

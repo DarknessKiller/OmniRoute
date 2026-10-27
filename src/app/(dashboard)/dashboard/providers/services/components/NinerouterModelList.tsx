@@ -5,11 +5,9 @@
  */
 "use client";
 
-import Icon from "@/shared/components/Icon";
-
 import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
-import { Badge, Button, Card } from "@/shared/components";
+import { Card, Button } from "@/shared/components";
 
 const NAME = "9router";
 const PAGE_SIZE = 20;
@@ -110,8 +108,8 @@ export function NinerouterModelList() {
     <Card padding="md">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-3">
-          <div className="size-8 rounded-lg flex items-center justify-center border border-border bg-bg-subtle text-text-main">
-            <Icon name="list" size={20} />
+          <div className="size-8 rounded-lg flex items-center justify-center bg-cyan-500/10">
+            <span className="material-symbols-outlined text-cyan-500 text-xl">list</span>
           </div>
           <div>
             <h3 className="font-medium text-sm">{t("availableModels")}</h3>
@@ -125,16 +123,24 @@ export function NinerouterModelList() {
           size="sm"
           onClick={handleRefresh}
           disabled={loading || refreshing}
-          loading={refreshing}
           className="shrink-0"
         >
-          {refreshing ? t("refreshing") : t("refreshNow")}
+          {refreshing ? (
+            <span className="flex items-center gap-1">
+              <span className="material-symbols-outlined animate-spin text-[12px]">
+                progress_activity
+              </span>
+              {t("refreshing")}
+            </span>
+          ) : (
+            t("refreshNow")
+          )}
         </Button>
       </div>
 
       {error && (
-        <div className="flex items-center gap-1.5 mb-3 px-2 py-1.5 rounded text-xs bg-error/10 text-error">
-          <Icon name="error" size={12} />
+        <div className="flex items-center gap-1.5 mb-3 px-2 py-1.5 rounded text-xs bg-red-500/10 text-red-600 dark:text-red-400">
+          <span className="material-symbols-outlined text-[12px]">error</span>
           {error}
         </div>
       )}
@@ -150,11 +156,11 @@ export function NinerouterModelList() {
               key={model.id}
               className="flex items-center justify-between px-2 py-1.5 rounded hover:bg-bg-subtle transition-colors"
             >
-              <code className="text-xs font-mono text-text-main truncate">{model.id}</code>
+              <code className="text-xs font-mono text-text truncate">{model.id}</code>
               {model.available === false && (
-                <Badge size="sm" className="ml-2 shrink-0">
+                <span className="ml-2 text-[10px] font-medium text-text-muted bg-bg-subtle px-1.5 py-0.5 rounded shrink-0">
                   {t("unavailable")}
-                </Badge>
+                </span>
               )}
             </div>
           ))}
@@ -168,22 +174,20 @@ export function NinerouterModelList() {
             {t("pageOf", { page, total: totalPages })}
           </span>
           <div className="flex gap-1.5">
-            <Button
-              variant="outline"
-              size="sm"
+            <button
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page <= 1}
+              className="px-2 py-1 text-xs rounded border border-border disabled:opacity-40 hover:bg-bg-subtle transition-colors"
             >
               {t("previous")}
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
+            </button>
+            <button
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
               disabled={page >= totalPages}
+              className="px-2 py-1 text-xs rounded border border-border disabled:opacity-40 hover:bg-bg-subtle transition-colors"
             >
               {t("next")}
-            </Button>
+            </button>
           </div>
         </div>
       )}

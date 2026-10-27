@@ -3,7 +3,6 @@
 import { useTranslations } from "next-intl";
 import { translateUsageOrFallback } from "../i18nFallback";
 import { buildSpeedLines } from "../formatters";
-import Icon from "@/shared/components/Icon";
 
 /** Compact per-model decode-speed lines (tok/s, TTFT) under a quota card's rows. */
 export default function QuotaCardSpeed({ speed }: { speed: unknown }) {
@@ -22,7 +21,9 @@ export default function QuotaCardSpeed({ speed }: { speed: unknown }) {
         { count }
       )}
     >
-      <Icon name="speed" size={12} />
+      <span className="material-symbols-outlined text-[12px]" aria-hidden="true">
+        speed
+      </span>
       <div className="min-w-0">
         {lines.map((line) => {
           const values = {

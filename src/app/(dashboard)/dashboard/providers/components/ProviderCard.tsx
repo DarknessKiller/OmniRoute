@@ -1,7 +1,5 @@
 "use client";
 
-import Icon from "@/shared/components/Icon";
-
 import type { KeyboardEvent, MouseEvent, ReactNode } from "react";
 import { forwardRef, useCallback, useImperativeHandle, useRef, useState } from "react";
 import Image from "next/image";
@@ -9,7 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
-import { Badge, Button, Card, Modal, Toggle } from "@/shared/components";
+import { Badge, Card, Modal, Toggle } from "@/shared/components";
 import ProviderTestSlideOver from "@/shared/components/ProviderTestSlideOver";
 import ProviderIcon from "@/shared/components/ProviderIcon";
 import {
@@ -92,9 +90,6 @@ interface ProviderCardProps {
   onCardClick?: (id: string) => void;
 }
 
-// Category identity dots (a legend shared with ProviderSummaryCard and the page's section
-// headers): categorical hues, not status colours, and more categories than the kit's five
-// chart tokens — kept as the one sanctioned raw palette on this screen (KEA-7886).
 const DOT_COLORS: Record<string, string> = {
   free: "bg-green-500",
   "no-auth": "bg-stone-500",
@@ -348,17 +343,17 @@ const ProviderCard = forwardRef<ProviderCardHandle, ProviderCardProps>(function 
       <span
         key="codex-service-tier"
         className={`inline-flex items-center gap-0.5 rounded-full px-1.5 py-0 text-[9px] font-semibold uppercase tracking-wide ${
-          stats.codexServiceTier === "flex" ? "bg-chart-2/10 text-chart-2" : "bg-info/10 text-info"
+          stats.codexServiceTier === "flex"
+            ? "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400"
+            : "bg-sky-500/10 text-sky-600 dark:text-sky-400"
         }`}
         title={providerText(t, "codexServiceTierActive", "Codex {tier} service tier is active", {
           tier: codexServiceTierLabel,
         })}
       >
-        <Icon
-          name={stats.codexServiceTier === "flex" ? "speed" : "bolt"}
-          size={10}
-          className="leading-none"
-        />
+        <span className="material-symbols-outlined text-[10px] leading-none">
+          {stats.codexServiceTier === "flex" ? "speed" : "bolt"}
+        </span>
         {codexServiceTierLabel}
       </span>
     ) : null;
@@ -375,7 +370,7 @@ const ProviderCard = forwardRef<ProviderCardHandle, ProviderCardProps>(function 
         "Kimi (Moonshot AI) is OmniRoute's founding Open Source Friend"
       )}
     >
-      <Icon name="verified" size={10} className="leading-none" />
+      <span className="material-symbols-outlined text-[10px] leading-none">verified</span>
       {providerText(t, "kimiOfficialSupporterBadge", "Founding Friend")}
     </span>
   ) : null;
@@ -393,7 +388,7 @@ const ProviderCard = forwardRef<ProviderCardHandle, ProviderCardProps>(function 
         "Cheaper Inference backs OmniRoute as an Open Source Friend"
       )}
     >
-      <Icon name="verified" size={10} className="leading-none" />
+      <span className="material-symbols-outlined text-[10px] leading-none">verified</span>
       {providerText(t, "cheaperInferenceSupporterBadge", "Open Source Friend")}
     </span>
   ) : null;
@@ -424,7 +419,7 @@ const ProviderCard = forwardRef<ProviderCardHandle, ProviderCardProps>(function 
       className="inline-flex items-center gap-0.5 rounded-full border border-border bg-bg-subtle px-1.5 py-0 text-[9px] font-semibold leading-none text-text-muted"
       title={openRouterTooltip}
     >
-      <Icon name="trending_up" size={10} className="leading-none" />
+      <span className="material-symbols-outlined text-[10px] leading-none">trending_up</span>
       {providerText(t, "openRouterPopularityBadge", "OR #{rank}", {
         rank: openRouterStat.popularityRank,
       })}
@@ -472,7 +467,7 @@ const ProviderCard = forwardRef<ProviderCardHandle, ProviderCardProps>(function 
       >
         <Card
           padding="xs"
-          className={`h-full flex flex-col hover:bg-bg-subtle transition-colors cursor-pointer ${
+          className={`h-full flex flex-col hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer ${
             isKimiPartner
               ? // Kimi (Moonshot AI) official-partnership accent — official Kimi blue
                 // (#1783FF) border (2px, clearly legible) + a subtle whole-card tint
@@ -530,18 +525,17 @@ const ProviderCard = forwardRef<ProviderCardHandle, ProviderCardProps>(function 
               <div className="flex items-center gap-1 shrink-0 pt-0.5">
                 {provider.deprecated && (
                   <span
-                    className="inline-flex text-text-muted"
+                    className="material-symbols-outlined text-[16px] leading-none text-text-muted"
                     title={provider.deprecationReason || t("deprecatedProvider")}
+                    aria-label={t("deprecated")}
                   >
-                    <Icon name="block" size={16} ariaLabel={t("deprecated")} />
+                    block
                   </span>
                 )}
                 {provider.subscriptionRisk === true && (
-                  <Button
-                    variant="ghost"
-                    size="icon-sm"
-                    icon="info"
-                    className="size-5 text-warning"
+                  <button
+                    type="button"
+                    className="material-symbols-outlined text-[16px] leading-none text-amber-500 underline decoration-dotted decoration-1 underline-offset-2 hover:text-amber-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/60 transition-colors"
                     title={t("riskNotice.tooltip")}
                     aria-label={t("riskNotice.tooltip")}
                     aria-haspopup="dialog"
@@ -549,7 +543,9 @@ const ProviderCard = forwardRef<ProviderCardHandle, ProviderCardProps>(function 
                     onKeyDown={(e) => {
                       if (e.key === "Enter" || e.key === " ") handleRiskIndicatorActivate(e);
                     }}
-                  />
+                  >
+                    info
+                  </button>
                 )}
                 <CategoryDot
                   color={DOT_COLORS[authType] || DOT_COLORS.apikey}
@@ -572,9 +568,12 @@ const ProviderCard = forwardRef<ProviderCardHandle, ProviderCardProps>(function 
                 {cheaperInferenceSupporterChip}
                 {openRouterPopularityChip}
                 {provider.serviceKinds?.map((k) => (
-                  <Badge key={k} size="sm">
+                  <span
+                    key={k}
+                    className="text-[10px] px-1.5 py-0.5 rounded bg-bg-subtle border border-border text-text-muted leading-none"
+                  >
                     {kindLabel(k)}
-                  </Badge>
+                  </span>
                 ))}
                 {isCompatible && (
                   <Badge variant="default" size="sm">
@@ -603,7 +602,7 @@ const ProviderCard = forwardRef<ProviderCardHandle, ProviderCardProps>(function 
                 {allDisabled ? (
                   <Badge variant="default" size="sm">
                     <span className="flex items-center gap-1">
-                      <Icon name="pause_circle" size={12} />
+                      <span className="material-symbols-outlined text-[12px]">pause_circle</span>
                       {t("disabled")}
                     </span>
                   </Badge>
@@ -653,22 +652,22 @@ const ProviderCard = forwardRef<ProviderCardHandle, ProviderCardProps>(function 
                   </div>
                 )}
                 {isLlmProvider && (
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    icon="play_arrow"
+                  <button
+                    type="button"
                     onClick={handleTestClick}
                     title={tp("expandTest")}
-                    className="h-6 gap-0.5 px-2 text-[11px]"
+                    className="inline-flex items-center gap-0.5 rounded-md border border-border bg-bg-subtle px-2 py-0.5 text-[11px] text-text-muted hover:text-text-primary hover:border-primary/30 transition-colors"
                   >
+                    <span className="material-symbols-outlined text-[11px] leading-none">
+                      play_arrow
+                    </span>
                     {tp("testLabel")}
-                  </Button>
+                  </button>
                 )}
                 {!isLlmProvider && (
-                  <Icon
-                    name="chevron_right"
-                    className="text-text-muted opacity-0 group-hover:opacity-100 transition-opacity"
-                  />
+                  <span className="material-symbols-outlined text-text-muted opacity-0 group-hover:opacity-100 transition-opacity">
+                    chevron_right
+                  </span>
                 )}
               </div>
             </div>
@@ -691,8 +690,13 @@ const ProviderCard = forwardRef<ProviderCardHandle, ProviderCardProps>(function 
           title={providerText(t, "riskNotice.detailsTitle", "Usage caveats")}
           size="sm"
         >
-          <div className="flex items-start gap-3 rounded-lg border border-warning/25 bg-warning/10 p-4">
-            <Icon name="info" size={22} className="mt-0.5 leading-none text-warning" />
+          <div className="flex items-start gap-3 rounded-lg border border-amber-500/25 bg-amber-500/10 p-4">
+            <span
+              className="material-symbols-outlined mt-0.5 text-[22px] leading-none text-amber-500"
+              aria-hidden="true"
+            >
+              info
+            </span>
             <p className="min-w-0 whitespace-pre-line text-sm leading-6 text-text-muted">
               {t(`riskNotice.${provider.riskNoticeVariant ?? "oauth"}`)}
             </p>

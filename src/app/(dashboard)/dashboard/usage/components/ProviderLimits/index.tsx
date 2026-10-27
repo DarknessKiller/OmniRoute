@@ -15,10 +15,7 @@ import {
   compareQuotaConnections,
   quotaStatusLevel,
 } from "./utils";
-import Button from "@/shared/components/Button";
-import Icon from "@/shared/components/Icon";
 import Card from "@/shared/components/Card";
-import Select from "@/shared/components/Select";
 import { CardSkeleton } from "@/shared/components/Loading";
 import { pickDisplayValue } from "@/shared/utils/maskEmail";
 import {
@@ -128,9 +125,9 @@ const getQuotaBarWidthClass = (pct: number) => {
 };
 
 const QUOTA_TONE_CLASSES = {
-  critical: "bg-error text-error",
-  alert: "bg-warning text-warning",
-  ok: "bg-success text-success",
+  critical: "bg-red-500 text-red-500",
+  alert: "bg-yellow-500 text-yellow-500",
+  ok: "bg-green-500 text-green-500",
 } as const;
 
 const getQuotaToneClasses = (pct: number) => QUOTA_TONE_CLASSES[quotaStatusLevel(pct)];
@@ -147,25 +144,25 @@ const STATUS_TONE: Record<
     dot: "var(--color-text-muted)",
   },
   critical: {
-    bar: "var(--color-error)",
-    text: "var(--color-error)",
-    bg: "color-mix(in srgb, var(--color-error) 10%, transparent)",
-    ring: "color-mix(in srgb, var(--color-error) 40%, transparent)",
-    dot: "var(--color-error)",
+    bar: "#ef4444",
+    text: "#ef4444",
+    bg: "rgba(239,68,68,0.10)",
+    ring: "rgba(239,68,68,0.40)",
+    dot: "#ef4444",
   },
   alert: {
-    bar: "var(--color-warning)",
-    text: "var(--color-warning)",
-    bg: "color-mix(in srgb, var(--color-warning) 10%, transparent)",
-    ring: "color-mix(in srgb, var(--color-warning) 40%, transparent)",
-    dot: "var(--color-warning)",
+    bar: "#eab308",
+    text: "#eab308",
+    bg: "rgba(234,179,8,0.10)",
+    ring: "rgba(234,179,8,0.40)",
+    dot: "#eab308",
   },
   ok: {
-    bar: "var(--color-success)",
-    text: "var(--color-success)",
-    bg: "color-mix(in srgb, var(--color-success) 10%, transparent)",
-    ring: "color-mix(in srgb, var(--color-success) 40%, transparent)",
-    dot: "var(--color-success)",
+    bar: "#22c55e",
+    text: "#22c55e",
+    bg: "rgba(34,197,94,0.10)",
+    ring: "rgba(34,197,94,0.40)",
+    dot: "#22c55e",
   },
   empty: {
     bar: "var(--color-text-muted)",
@@ -190,31 +187,6 @@ function aggregateWorst(statuses: StatusKey[]): "critical" | "alert" | "ok" | "e
 interface ProviderLimitsProps {
   showFilters?: boolean;
   autoRefreshInterval?: number;
-}
-
-/** Toggle chip for the quota filters (purchase type / tier / env) on the kit Button. */
-function FilterChip({
-  active,
-  onClick,
-  children,
-}: {
-  active: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <Button
-      variant={active ? "secondary" : "outline"}
-      size="sm"
-      aria-pressed={active}
-      onClick={onClick}
-      className={`h-7 min-h-7 gap-1.5 rounded-full px-2.5 text-xs ${
-        active ? "border-primary text-text-main" : "text-text-muted"
-      }`}
-    >
-      {children}
-    </Button>
-  );
 }
 
 export default function ProviderLimits({
@@ -853,7 +825,7 @@ export default function ProviderLimits({
     return (
       <Card padding="lg">
         <div className="text-center py-12">
-          <Icon name="cloud_off" size={64} className="opacity-15" />
+          <span className="material-symbols-outlined text-[64px] opacity-15">cloud_off</span>
           <h3 className="mt-4 text-lg font-semibold text-text-main">{t("noProviders")}</h3>
           <p className="mt-2 text-sm text-text-muted max-w-[400px] mx-auto">
             {t("connectProvidersForQuota")}
@@ -877,9 +849,8 @@ export default function ProviderLimits({
         </div>
 
         <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
+          <button
+            type="button"
             onClick={toggleLayoutMode}
             aria-pressed={layoutMode === "compact"}
             aria-label={
@@ -892,28 +863,28 @@ export default function ProviderLimits({
                 ? "Switch to full quota layout"
                 : "Switch to compact quota layout"
             }
-            className="gap-1.5 text-[13px]"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-bg-subtle border border-border text-text-main text-[13px] cursor-pointer"
           >
-            <Icon name={layoutMode === "compact" ? "view_agenda" : "grid_view"} size={16} />
+            <span className="material-symbols-outlined text-[16px]" aria-hidden>
+              {layoutMode === "compact" ? "view_agenda" : "grid_view"}
+            </span>
             <span className="hidden sm:inline">
               {layoutMode === "compact" ? "Compact" : "Full"}
             </span>
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
+          </button>
+          <button
             onClick={refreshAll}
             disabled={refreshingAll}
-            className="gap-1.5 text-[13px]"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-bg-subtle border border-border text-text-main text-[13px] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             title={
               autoRefreshIntervalMs > 0 ? tr("autoRefreshing", "Auto-refreshing") : t("refreshAll")
             }
           >
-            <Icon
-              name={autoRefreshIntervalMs > 0 ? "schedule" : "refresh"}
-              size={16}
-              className={refreshingAll ? "animate-spin" : undefined}
-            />
+            <span
+              className={`material-symbols-outlined text-[16px] ${refreshingAll ? "animate-spin" : ""}`}
+            >
+              {autoRefreshIntervalMs > 0 ? "schedule" : "refresh"}
+            </span>
             {refreshingAll
               ? tr("refreshing", "Refreshing")
               : autoRefreshIntervalMs > 0
@@ -924,7 +895,7 @@ export default function ProviderLimits({
                     )
                   )}`
                 : t("refreshAll")}
-          </Button>
+          </button>
         </div>
       </div>
 
@@ -943,12 +914,11 @@ export default function ProviderLimits({
               const active = statusFilter === key;
               const count = statusCounts[key] || 0;
               return (
-                <Button
+                <button
                   key={key}
-                  variant="outline"
-                  aria-pressed={active}
+                  type="button"
                   onClick={() => handleSetStatusFilter(key)}
-                  className="block h-auto min-h-0 px-3 py-2.5 text-left font-normal"
+                  className="text-left rounded-lg px-3 py-2.5 border transition-colors cursor-pointer"
                   style={{
                     background: active ? tone.bg : "var(--color-surface)",
                     borderColor: active ? tone.ring : "var(--color-border)",
@@ -972,7 +942,7 @@ export default function ProviderLimits({
                   >
                     {count}
                   </div>
-                </Button>
+                </button>
               );
             })}
           </div>
@@ -987,14 +957,21 @@ export default function ProviderLimits({
               if (type.key !== "all" && count === 0) return null;
               const active = purchaseTypeFilter === type.key;
               return (
-                <FilterChip
+                <button
                   key={type.key}
-                  active={active}
                   onClick={() => handleSetPurchaseFilter(type.key)}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold cursor-pointer"
+                  style={{
+                    border: active
+                      ? "1px solid var(--color-primary, #E54D5E)"
+                      : "1px solid var(--color-border)",
+                    background: active ? "rgba(229,77,94,0.1)" : "transparent",
+                    color: active ? "var(--color-primary, #E54D5E)" : "var(--color-text-muted)",
+                  }}
                 >
                   <span>{tr(type.labelKey, type.fallback)}</span>
                   <span className="opacity-85">{count}</span>
-                </FilterChip>
+                </button>
               );
             })}
           </div>
@@ -1008,10 +985,21 @@ export default function ProviderLimits({
               if (tier.key !== "all" && !tierCounts[tier.key]) return null;
               const active = tierFilter === tier.key;
               return (
-                <FilterChip key={tier.key} active={active} onClick={() => setTierFilter(tier.key)}>
+                <button
+                  key={tier.key}
+                  onClick={() => setTierFilter(tier.key)}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold cursor-pointer"
+                  style={{
+                    border: active
+                      ? "1px solid var(--color-primary, #E54D5E)"
+                      : "1px solid var(--color-border)",
+                    background: active ? "rgba(229,77,94,0.1)" : "transparent",
+                    color: active ? "var(--color-primary, #E54D5E)" : "var(--color-text-muted)",
+                  }}
+                >
                   <span>{tier.label || t(tier.labelKey!)}</span>
                   <span className="opacity-85">{tierCounts[tier.key] || 0}</span>
-                </FilterChip>
+                </button>
               );
             })}
           </div>
@@ -1024,9 +1012,7 @@ export default function ProviderLimits({
               <span className="text-[11px] uppercase tracking-wider text-text-muted font-semibold mr-1">
                 {tr("filterProviderLabel", "Provider")}
               </span>
-              <Select
-                compact
-                className="w-auto"
+              <select
                 value={
                   providerFilter === "all" || providerOptions.includes(providerFilter)
                     ? providerFilter
@@ -1034,6 +1020,7 @@ export default function ProviderLimits({
                 }
                 onChange={(event) => handleSetProviderFilter(event.target.value)}
                 aria-label={tr("filterProviderAriaLabel", "Filter quota providers")}
+                className="h-8 rounded-full border border-border bg-transparent px-3 text-xs font-semibold text-text-muted cursor-pointer"
               >
                 <option value="all">{tr("filterProviderAll", "All providers")}</option>
                 {providerOptions.map((provider) => (
@@ -1041,7 +1028,7 @@ export default function ProviderLimits({
                     {PROVIDER_LABEL[provider] || provider}
                   </option>
                 ))}
-              </Select>
+              </select>
             </div>
           )}
 
@@ -1056,10 +1043,21 @@ export default function ProviderLimits({
                 const active = envFilter === tag;
                 const label = tag === "all" ? tr("filterEnvAll", "All") : tag;
                 return (
-                  <FilterChip key={tag} active={active} onClick={() => handleSetEnvFilter(tag)}>
+                  <button
+                    key={tag}
+                    onClick={() => handleSetEnvFilter(tag)}
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold cursor-pointer"
+                    style={{
+                      border: active
+                        ? "1px solid var(--color-primary, #E54D5E)"
+                        : "1px solid var(--color-border)",
+                      background: active ? "rgba(229,77,94,0.1)" : "transparent",
+                      color: active ? "var(--color-primary, #E54D5E)" : "var(--color-text-muted)",
+                    }}
+                  >
                     <span>{label}</span>
                     <span className="opacity-85">{count}</span>
-                  </FilterChip>
+                  </button>
                 );
               })}
             </div>

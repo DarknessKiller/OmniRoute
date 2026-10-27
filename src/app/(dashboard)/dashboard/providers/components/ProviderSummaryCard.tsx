@@ -190,14 +190,13 @@ export default function ProviderSummaryCard({
               inputClassName={searchQuery ? "pr-9" : ""}
             />
             {searchQuery && (
-              <Button
-                variant="ghost"
-                size="icon-sm"
-                icon="close"
+              <button
                 onClick={() => setSearchQuery("")}
-                className="absolute right-1 top-1/2 -translate-y-1/2 text-text-muted"
+                className="absolute inset-y-0 right-0 flex items-center pr-2.5 text-text-muted hover:text-text-primary transition-colors"
                 aria-label={tc("clear")}
-              />
+              >
+                <span className="material-symbols-outlined text-[18px]">close</span>
+              </button>
             )}
           </div>
           <div className="relative flex-1 min-w-[160px]">
@@ -210,14 +209,13 @@ export default function ProviderSummaryCard({
               inputClassName={modelSearchQuery ? "pr-9" : ""}
             />
             {modelSearchQuery && (
-              <Button
-                variant="ghost"
-                size="icon-sm"
-                icon="close"
+              <button
                 onClick={() => setModelSearchQuery("")}
-                className="absolute right-1 top-1/2 -translate-y-1/2 text-text-muted"
+                className="absolute inset-y-0 right-0 flex items-center pr-2.5 text-text-muted hover:text-text-primary transition-colors"
                 aria-label={tc("clear")}
-              />
+              >
+                <span className="material-symbols-outlined text-[18px]">close</span>
+              </button>
             )}
           </div>
           <ProviderDisplayModeControl
@@ -232,17 +230,21 @@ export default function ProviderSummaryCard({
           <Button size="sm" variant="secondary" icon="upload_file" onClick={onImportFromFile}>
             {providerText(t, "importFromFile", "Import from file")}
           </Button>
-          <Button
-            size="sm"
-            variant="outline"
-            icon="play_arrow"
-            loading={testingMode === "all"}
+          <button
             onClick={() => onBatchTest("all")}
             disabled={!!testingMode}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
+              testingMode === "all"
+                ? "bg-primary/20 border-primary/40 text-primary animate-pulse"
+                : "bg-bg-subtle border-border text-text-muted hover:text-text-primary hover:border-primary/40"
+            }`}
             title={t("testAll")}
           >
+            <span className="material-symbols-outlined text-[14px]">
+              {testingMode === "all" ? "sync" : "play_arrow"}
+            </span>
             {testingMode === "all" ? t("testing") : t("testAll")}
-          </Button>
+          </button>
         </div>
 
         <div className="border-t border-border pt-3 flex flex-wrap items-center gap-2 [&>button]:grow [&>button]:justify-center sm:[&>button]:grow-0">
@@ -255,24 +257,23 @@ export default function ProviderSummaryCard({
                 !showFreeOnly &&
                 activeCategory === cat.key);
             return (
-              <Button
+              <button
                 key={cat.key ?? "all"}
-                size="sm"
-                variant={isActive ? "secondary" : "ghost"}
-                aria-pressed={isActive}
                 onClick={() => onCategoryChange(cat.key, cat.key === "free")}
-                className="gap-1.5"
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-medium transition-colors ${
+                  isActive
+                    ? "bg-primary text-white border-primary"
+                    : "bg-bg-subtle border-border text-text-muted hover:text-text-primary hover:border-primary/30"
+                }`}
                 title={cat.title || cat.label}
               >
                 {cat.color && <CategoryDot color={cat.color} label={cat.label} />}
                 <span>{cat.label}</span>
-                {/* Full-opacity muted ink: the old opacity-70 "/total" fell to 3.28:1 on the kit
-                    button (axe color-contrast, F4). */}
-                <span className="text-[11px] text-text-muted">
+                <span className={`text-[11px] ${isActive ? "text-white/80" : "text-text-muted"}`}>
                   {cat.stat.configured}
-                  <span>/{cat.stat.total}</span>
+                  <span className="opacity-70">/{cat.stat.total}</span>
                 </span>
-              </Button>
+              </button>
             );
           })}
         </div>
@@ -284,28 +285,28 @@ export default function ProviderSummaryCard({
           {SERVICE_KIND_CHIPS.map((chip) => {
             const isActive = activeServiceKind === chip.key;
             return (
-              <Button
+              <button
                 key={chip.key}
-                size="sm"
-                variant={isActive ? "secondary" : "ghost"}
-                icon={chip.icon}
                 onClick={() => onServiceKindChange(isActive ? null : chip.key)}
                 aria-pressed={isActive}
-                className="gap-1.5"
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-medium transition-colors ${
+                  isActive
+                    ? "bg-primary text-white border-primary"
+                    : "bg-bg-subtle border-border text-text-muted hover:text-text-primary hover:border-primary/30"
+                }`}
               >
+                <span className="material-symbols-outlined text-[14px]">{chip.icon}</span>
                 <span>{providerText(t, chip.labelKey, chip.fallback)}</span>
-              </Button>
+              </button>
             );
           })}
           {activeServiceKind && (
-            <Button
-              size="sm"
-              variant="ghost"
+            <button
               onClick={() => onServiceKindChange(null)}
-              className="text-text-muted underline-offset-2 hover:underline"
+              className="text-[11px] text-text-muted hover:text-text-primary underline-offset-2 hover:underline"
             >
               {providerText(t, "clearMediaFilter", "Clear")}
-            </Button>
+            </button>
           )}
         </div>
       </div>

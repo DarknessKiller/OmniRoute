@@ -23,11 +23,9 @@ vi.mock("next-intl", () => ({
   useTranslations: () => (key: string) => key,
 }));
 
-const { default: AddApiKeyModal } =
-  await import("../../../src/app/(dashboard)/dashboard/providers/[id]/components/modals/AddApiKeyModal");
-
-// The shared Modal is a kit Dialog (Radix) since KEA-7886: its content is portaled to
-// document.body, so queries start there (the container is a child of body).
+const { default: AddApiKeyModal } = await import(
+  "../../../src/app/(dashboard)/dashboard/providers/[id]/components/modals/AddApiKeyModal"
+);
 
 const DEFAULT_MODEL_INPUT_SELECTOR = 'input[data-testid="compat-default-model-input"]';
 
@@ -48,14 +46,14 @@ function render(props: Record<string, unknown>) {
     );
   });
   containers.push({ root, el });
-  // The dialog is portaled to document.body (KEA-7886); several modals are mounted per
-  // test, so scope queries to the dialog this render just opened (the newest one).
-  const dialogs = document.body.querySelectorAll<HTMLElement>('[role="dialog"]');
-  return dialogs[dialogs.length - 1];
+  return el;
 }
 
 function setInputValue(input: HTMLInputElement, value: string) {
-  const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value")!.set!;
+  const setter = Object.getOwnPropertyDescriptor(
+    window.HTMLInputElement.prototype,
+    "value"
+  )!.set!;
   act(() => {
     setter.call(input, value);
     input.dispatchEvent(new Event("input", { bubbles: true }));

@@ -2,11 +2,15 @@
 
 import type { ReactNode } from "react";
 import { useTranslations } from "next-intl";
-import { Button, Input, Select } from "@/shared/components";
+import { Button, Input } from "@/shared/components";
 import { parseNonNegativeInt } from "./catalogUrlState";
 
-// Shared building blocks of the model and combo filter panels (kit Field + Input/Select
-// adapters: the label is a <label htmlFor> above the control).
+// Shared building blocks of the model and combo filter panels; the markup matches what each
+// panel rendered inline, so both keep the same DOM, labels and classes.
+
+const FIELD_LABEL_CLASS = "flex flex-col gap-1 text-xs font-medium text-text-main";
+const FIELD_CONTROL_CLASS =
+  "h-9 w-full rounded-control border border-black/10 bg-white px-2.5 text-xs text-text-main focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:border-white/10 dark:bg-white/5";
 
 function humanize(value: string): string {
   return value
@@ -74,9 +78,16 @@ export function FilterSelect({
   children: ReactNode;
 }) {
   return (
-    <Select label={label} value={value} onChange={(e) => onChange(e.target.value)}>
-      {children}
-    </Select>
+    <label className={FIELD_LABEL_CLASS}>
+      {label}
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className={FIELD_CONTROL_CLASS}
+      >
+        {children}
+      </select>
+    </label>
   );
 }
 
@@ -125,14 +136,17 @@ export function FilterNumberInput({
   onChange: (value: number | undefined) => void;
 }) {
   return (
-    <Input
-      type="number"
-      label={label}
-      min={min}
-      step={step}
-      placeholder={placeholder}
-      value={value ?? ""}
-      onChange={(e) => onChange(parseNonNegativeInt(e.target.value))}
-    />
+    <label className={FIELD_LABEL_CLASS}>
+      {label}
+      <input
+        type="number"
+        min={min}
+        step={step}
+        placeholder={placeholder}
+        value={value ?? ""}
+        onChange={(e) => onChange(parseNonNegativeInt(e.target.value))}
+        className={FIELD_CONTROL_CLASS}
+      />
+    </label>
   );
 }

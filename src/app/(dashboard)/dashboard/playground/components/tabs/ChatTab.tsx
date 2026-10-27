@@ -1,9 +1,5 @@
 "use client";
 
-import Textarea from "@/shared/components/Textarea";
-import Button from "@/shared/components/Button";
-import Icon from "@/shared/components/Icon";
-
 // src/app/(dashboard)/dashboard/playground/components/tabs/ChatTab.tsx
 
 import { useState, useRef, useEffect } from "react";
@@ -375,12 +371,14 @@ export default function ChatTab({ configState, onMetricsUpdate }: ChatTabProps) 
       {/* Status bar */}
       <div className="flex items-center justify-between px-4 py-2 border-b border-border bg-bg-alt text-xs text-text-muted">
         <div className="flex items-center gap-2">
-          <Icon name="chat" size={16} />
+          <span className="material-symbols-outlined text-[16px]">chat</span>
           <span className="font-medium">{t("tabChat")}</span>
           {responseStatus !== null && (
             <span
               className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${
-                responseStatus < 400 ? "bg-success-bg text-success" : "bg-error-bg text-error"
+                responseStatus < 400
+                  ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                  : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
               }`}
             >
               {responseStatus}
@@ -390,26 +388,22 @@ export default function ChatTab({ configState, onMetricsUpdate }: ChatTabProps) 
         </div>
         <div className="flex items-center gap-2">
           {hasAssistantMessage && !loading && (
-            <Button
-              variant="ghost"
-              size="sm"
-              icon="refresh"
+            <button
               onClick={() => void handleRegenerate()}
-              className="text-xs text-text-muted"
+              className="flex items-center gap-1 text-xs text-text-muted hover:text-text-main transition-colors"
               title={t("regenerateLastResponse")}
             >
+              <span className="material-symbols-outlined text-[14px]">refresh</span>
               {t("regenerate")}
-            </Button>
+            </button>
           )}
-          <Button
-            variant="ghost"
-            size="icon-sm"
+          <button
             onClick={handleClear}
-            className="text-text-muted hover:text-error"
+            className="p-1 rounded hover:bg-red-500/10 text-text-muted hover:text-red-500 transition-colors"
             title={t("clearChat")}
-            aria-label={t("clearChat")}
-            icon="delete"
-          />
+          >
+            <span className="material-symbols-outlined text-[16px]">delete</span>
+          </button>
         </div>
       </div>
 
@@ -418,10 +412,10 @@ export default function ChatTab({ configState, onMetricsUpdate }: ChatTabProps) 
         {messages.length === 0 && !loading && (
           <div className="flex items-center justify-center h-full text-text-muted text-sm">
             <div className="text-center space-y-2">
-              <Icon name="chat" size={48} className="text-text-muted/30" />
+              <span className="material-symbols-outlined text-[48px] text-text-muted/30">chat</span>
               <p>{t("startConversation")}</p>
               {!configState.model && (
-                <p className="text-warning text-xs">{t("setModelInConfigFirst")}</p>
+                <p className="text-amber-500 text-xs">{t("setModelInConfigFirst")}</p>
               )}
             </div>
           </div>
@@ -442,7 +436,7 @@ export default function ChatTab({ configState, onMetricsUpdate }: ChatTabProps) 
               <div
                 className={`px-4 py-2.5 rounded-2xl text-sm ${
                   msg.role === "user"
-                    ? "bg-primary text-accent-foreground rounded-tr-sm"
+                    ? "bg-primary text-primary-foreground rounded-tr-sm"
                     : "bg-bg-alt border border-border text-text-main rounded-tl-sm"
                 }`}
               >
@@ -475,14 +469,16 @@ export default function ChatTab({ configState, onMetricsUpdate }: ChatTabProps) 
               {t("role.assistant")}
             </span>
             <div className="px-4 py-2 rounded-2xl text-sm bg-bg-alt border border-border rounded-tl-sm text-text-muted flex items-center gap-2">
-              <Icon name="progress_activity" size={16} className="animate-spin" />
+              <span className="material-symbols-outlined text-[16px] animate-spin">
+                progress_activity
+              </span>
               {t("generating")}
             </div>
           </div>
         )}
 
         {error && (
-          <div className="text-center p-2 text-sm text-error bg-error/10 rounded border border-error/20">
+          <div className="text-center p-2 text-sm text-red-500 bg-red-500/10 rounded border border-red-500/20">
             {error}
           </div>
         )}
@@ -492,34 +488,32 @@ export default function ChatTab({ configState, onMetricsUpdate }: ChatTabProps) 
 
       {/* Input area */}
       <div className="p-3 border-t border-border bg-bg-alt flex gap-2 shrink-0">
-        <Textarea
+        <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={t("typeMessageWithShortcut")}
+          className="flex-1 min-h-[44px] max-h-[120px] bg-surface border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary resize-y"
           rows={1}
           disabled={loading}
-          aria-label={t("typeMessageWithShortcut")}
-          className="text-sm resize-y flex-1"
         />
         {loading ? (
-          <Button
-            variant="outline"
-            icon="stop"
+          <button
             onClick={handleCancel}
-            className="shrink-0 self-end"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-border text-sm text-text-muted hover:text-text-main hover:bg-black/5 transition-colors shrink-0"
           >
+            <span className="material-symbols-outlined text-[16px]">stop</span>
             {t("stop")}
-          </Button>
+          </button>
         ) : (
-          <Button
-            icon="send"
+          <button
             onClick={() => void handleSend()}
             disabled={!input.trim()}
-            className="shrink-0 self-end"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-primary/90 transition-colors shrink-0"
           >
+            <span className="material-symbols-outlined text-[16px]">send</span>
             {t("send")}
-          </Button>
+          </button>
         )}
       </div>
     </div>

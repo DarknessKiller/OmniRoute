@@ -29,9 +29,7 @@ function renderModal(node: React.ReactElement) {
     act(() => root.unmount());
     container.remove();
   });
-  // The shared Modal is a kit Dialog (Radix) since KEA-7886: its content is portaled to
-  // document.body, so queries start there (the container is a child of body).
-  return document.body;
+  return container;
 }
 
 function nameInputValue(container: HTMLElement): string | null {

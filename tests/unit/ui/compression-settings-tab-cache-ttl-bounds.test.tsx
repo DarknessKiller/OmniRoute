@@ -85,14 +85,10 @@ async function renderTab() {
 }
 
 function cacheTtlInput(): HTMLInputElement {
-  // Kit Field: the <label for> names the input (no longer a <label> wrapping it).
   const label = Array.from(container.querySelectorAll("label")).find((candidate) =>
     candidate.textContent?.includes("compressionCacheTTL")
   );
-  const forId = label?.getAttribute("for");
-  const input = forId
-    ? container.querySelector<HTMLInputElement>(`input[type="number"][id="${forId}"]`)
-    : null;
+  const input = label?.querySelector<HTMLInputElement>('input[type="number"]');
   expect(input).toBeTruthy();
   return input!;
 }

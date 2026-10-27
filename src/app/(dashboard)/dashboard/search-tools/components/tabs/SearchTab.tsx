@@ -50,7 +50,6 @@ interface SearchTabProps {
 
 import { useState, useRef } from "react";
 import { useTranslations } from "next-intl";
-import Button from "@/shared/components/Button";
 
 export default function SearchTab({
   configState,
@@ -170,15 +169,15 @@ export default function SearchTab({
 
         {response && (
           <div className="px-4 py-2 flex gap-2">
-            <Button
-              variant="outline"
-              fullWidth
-              icon="swap_vert"
-              aria-expanded={showRerank}
+            <button
+              className="flex-1 bg-surface border border-border rounded-lg p-2 text-center hover:border-primary/30 transition-colors flex items-center justify-center gap-2"
               onClick={() => setShowRerank(!showRerank)}
             >
-              {t("rerank")}
-            </Button>
+              <span className="text-primary text-sm" aria-hidden="true">
+                &#8645;
+              </span>
+              <span className="text-xs text-text-muted">{t("rerank")}</span>
+            </button>
           </div>
         )}
 

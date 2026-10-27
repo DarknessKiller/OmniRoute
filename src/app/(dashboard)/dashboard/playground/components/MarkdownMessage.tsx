@@ -1,14 +1,6 @@
 "use client";
 
 // src/app/(dashboard)/dashboard/playground/components/MarkdownMessage.tsx
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@omniroute/ui-kit/table";
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -41,7 +33,7 @@ export default function MarkdownMessage({ content, className }: MarkdownMessageP
       if (isBlock) {
         return (
           <pre
-            className="overflow-x-auto rounded bg-surface-2 p-3 text-sm text-text-muted my-2"
+            className="overflow-x-auto rounded bg-neutral-900 p-3 text-sm text-neutral-100 my-2"
             data-language={language}
           >
             <code className={codeClassName ?? ""} {...props}>
@@ -54,7 +46,7 @@ export default function MarkdownMessage({ content, className }: MarkdownMessageP
       // Inline code
       return (
         <code
-          className="rounded bg-bg-subtle px-1 py-0.5 text-sm font-mono text-text-muted"
+          className="rounded bg-neutral-200 dark:bg-neutral-800 px-1 py-0.5 text-sm font-mono text-neutral-800 dark:text-neutral-200"
           {...props}
         >
           {children}
@@ -62,29 +54,30 @@ export default function MarkdownMessage({ content, className }: MarkdownMessageP
       );
     },
 
-    // Tables (GFM) — kit Table primitives (persistent horizontal scrollbar from the kit)
+    // Tables (GFM)
     table({ children }) {
       return (
-        // Native scrollbar only: chat bubbles stay light (no persistent-scrollbar observer).
-        <Table containerClassName="my-2" className="text-sm" persistentScrollbars={false}>
-          {children}
-        </Table>
+        <div className="overflow-x-auto my-2">
+          <table className="min-w-full border-collapse text-sm">{children}</table>
+        </div>
       );
     },
     thead({ children }) {
-      return <TableHeader>{children}</TableHeader>;
-    },
-    tbody({ children }) {
-      return <TableBody>{children}</TableBody>;
-    },
-    tr({ children }) {
-      return <TableRow>{children}</TableRow>;
+      return <thead className="bg-neutral-100 dark:bg-neutral-800">{children}</thead>;
     },
     th({ children }) {
-      return <TableHead>{children}</TableHead>;
+      return (
+        <th className="border border-neutral-300 dark:border-neutral-600 px-3 py-1.5 text-left font-semibold">
+          {children}
+        </th>
+      );
     },
     td({ children }) {
-      return <TableCell>{children}</TableCell>;
+      return (
+        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-1.5">
+          {children}
+        </td>
+      );
     },
 
     // Links — open in new tab with rel noopener for security
@@ -94,7 +87,7 @@ export default function MarkdownMessage({ content, className }: MarkdownMessageP
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-info underline hover:no-underline"
+          className="text-blue-600 dark:text-blue-400 underline hover:no-underline"
         >
           {children}
         </a>
@@ -134,7 +127,7 @@ export default function MarkdownMessage({ content, className }: MarkdownMessageP
     // Blockquotes
     blockquote({ children }) {
       return (
-        <blockquote className="border-l-4 border-border pl-3 italic text-text-muted my-2">
+        <blockquote className="border-l-4 border-neutral-400 pl-3 italic text-neutral-600 dark:text-neutral-400 my-2">
           {children}
         </blockquote>
       );
@@ -142,7 +135,7 @@ export default function MarkdownMessage({ content, className }: MarkdownMessageP
 
     // Horizontal rule
     hr() {
-      return <hr className="my-3 border-border" />;
+      return <hr className="my-3 border-neutral-300 dark:border-neutral-600" />;
     },
 
     // Strong / emphasis

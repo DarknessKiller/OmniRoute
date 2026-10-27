@@ -336,13 +336,13 @@ describe("AgentSkillsPageClient", () => {
     // assercao do CLI ficaria verde medindo a barra errada.
     expect(progressBars.length).toBe(3);
 
-    // API bar — 22/22 = 100%, should have the success tone (token)
+    // API bar — 22/22 = 100%, should have emerald color class
     const apiBar = progressBars[0] as HTMLElement;
-    expect(apiBar.className).toMatch(/\bbg-success\b/);
+    expect(apiBar.className).toContain("bg-emerald-500");
 
-    // CLI bar — 20/20 = 100%, should have the success tone (token)
+    // CLI bar — 20/20 = 100%, should have emerald color class
     const cliBar = progressBars[2] as HTMLElement;
-    expect(cliBar.className).toMatch(/\bbg-success\b/);
+    expect(cliBar.className).toContain("bg-emerald-500");
   });
 
   it("generate button is hidden when coverage is 100%", async () => {
@@ -480,7 +480,7 @@ describe("CoverageBar", () => {
 
     const bars = container.querySelectorAll("[role='progressbar']");
     const apiBar = bars[0] as HTMLElement;
-    expect(apiBar.className).toMatch(/\bbg-error\b/);
+    expect(apiBar.className).toContain("bg-red-500");
 
     await act(async () => localRoot.unmount());
   });
@@ -504,7 +504,7 @@ describe("CoverageBar", () => {
 
     const bars = container.querySelectorAll("[role='progressbar']");
     const apiBar = bars[0] as HTMLElement;
-    expect(apiBar.className).toMatch(/\bbg-warning\b/);
+    expect(apiBar.className).toContain("bg-amber-400");
 
     await act(async () => localRoot.unmount());
   });

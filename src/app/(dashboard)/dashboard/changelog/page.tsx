@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { PageHeader } from "@omniroute/ui-kit/page-header";
-import { SegmentedControl } from "@/shared/components";
+import { Card, SegmentedControl } from "@/shared/components";
 import ChangelogViewer from "./components/ChangelogViewer";
 import NewsViewer from "./components/NewsViewer";
 
@@ -13,13 +12,9 @@ export default function ChangelogPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <PageHeader
-        compact
-        title={t("title")}
-        description={t("description")}
-        actions={
+      <div className="flex justify-end">
+        <div className="w-full sm:w-[240px]">
           <SegmentedControl
-            aria-label={t("viewLabel")}
             options={[
               { label: t("newsTab"), value: "news" },
               { label: t("changelogTab"), value: "changelog" },
@@ -27,13 +22,12 @@ export default function ChangelogPage() {
             value={activeTab}
             onChange={(val) => setActiveTab(val as "news" | "changelog")}
           />
-        }
-      />
-
-      {/* Each viewer renders its own kit Cards (one per announcement / release). */}
-      <div className="min-h-[500px]">
-        {activeTab === "news" ? <NewsViewer /> : <ChangelogViewer />}
+        </div>
       </div>
+
+      <Card className="min-h-[500px] overflow-hidden" padding="none">
+        {activeTab === "news" ? <NewsViewer /> : <ChangelogViewer />}
+      </Card>
     </div>
   );
 }

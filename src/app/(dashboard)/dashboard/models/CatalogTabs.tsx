@@ -1,6 +1,6 @@
 "use client";
 
-import { Tabs, TabsList, TabsTrigger } from "@omniroute/ui-kit/tabs";
+import { useRef, type KeyboardEvent } from "react";
 import type { CatalogTab } from "./catalogUrlState";
 
 const TAB_ORDER: CatalogTab[] = ["models", "combos"];
@@ -13,11 +13,7 @@ export function catalogPanelId(tab: CatalogTab): string {
   return `panel-${tab}`;
 }
 
-/**
- * Kit underline Tabs (WAI-ARIA tablist; the kit owns roving tabindex and Arrow/Home/End).
- * The tab/panel ids stay the page's own (`tab-*` / `panel-*`) because the panels are
- * rendered by the page, outside this component.
- */
+/** WAI-ARIA tabs: roving tabindex, Arrow/Home/End move selection and focus together. */
 export default function CatalogTabs({
   activeTab,
   onSelect,
@@ -29,25 +25,60 @@ export default function CatalogTabs({
   labels: Record<CatalogTab, string>;
   ariaLabel: string;
 }) {
+  const tabRefs = useRef<Partial<Record<CatalogTab, HTMLButtonElement | null>>>({});
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    let next: number;
+    switch (event.key) {
+      case "ArrowRight":
+        next = (index + 1) % TAB_ORDER.length;
+        break;
+      case "ArrowLeft":
+        next = (index - 1 + TAB_ORDER.length) % TAB_ORDER.length;
+        break;
+      case "Home":
+        next = 0;
+        break;
+      case "End":
+        next = TAB_ORDER.length - 1;
+        break;
+      default:
+        return;
+    }
+    event.preventDefault();
+    const tab = TAB_ORDER[next];
+    onSelect(tab);
+    tabRefs.current[tab]?.focus();
+  };
+
   return (
-    <Tabs
-      variant="underline"
-      value={activeTab}
-      onValueChange={(next) => onSelect(next as CatalogTab)}
-      className="mt-2"
-    >
-      <TabsList aria-label={ariaLabel}>
-        {TAB_ORDER.map((tab) => (
-          <TabsTrigger
+    <div role="tablist" aria-label={ariaLabel} className="mt-2 flex border-b border-border">
+      {TAB_ORDER.map((tab, index) => {
+        const selected = tab === activeTab;
+        return (
+          <button
             key={tab}
-            value={tab}
+            ref={(element) => {
+              tabRefs.current[tab] = element;
+            }}
+            type="button"
+            role="tab"
             id={catalogTabId(tab)}
-            aria-controls={tab === activeTab ? catalogPanelId(tab) : undefined}
+            aria-selected={selected}
+            aria-controls={selected ? catalogPanelId(tab) : undefined}
+            tabIndex={selected ? 0 : -1}
+            onClick={() => onSelect(tab)}
+            onKeyDown={(event) => handleKeyDown(event, index)}
+            className={`border-b-2 px-4 py-2.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
+              selected
+                ? "border-primary text-primary"
+                : "border-transparent text-text-muted hover:text-text-main"
+            }`}
           >
             {labels[tab]}
-          </TabsTrigger>
-        ))}
-      </TabsList>
-    </Tabs>
+          </button>
+        );
+      })}
+    </div>
   );
 }

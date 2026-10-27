@@ -2,19 +2,21 @@
 
 import type { HTMLAttributes } from "react";
 import { useTranslations } from "next-intl";
-import { Card, CardContent } from "@omniroute/ui-kit/card";
-import { LoadingState } from "@omniroute/ui-kit/loading-state";
-import { Skeleton as KitSkeleton } from "@omniroute/ui-kit/skeleton";
 import { cn } from "@/shared/utils/cn";
-import Icon from "./Icon";
 
 type SpinnerSize = "sm" | "md" | "lg" | "xl";
 type LoadingType = "spinner" | "page" | "skeleton" | "card";
 
-// Box and glyph share one size so the icon spins around its own centre.
-const SPINNER_PX: Record<SpinnerSize, number> = { sm: 16, md: 24, lg: 32, xl: 48 };
+// Box and glyph share one size so the icon spins around its own centre (a 24px glyph in a
+// 16px box rotated around the box centre and wobbled).
+const spinnerSizes: Record<SpinnerSize, string> = {
+  sm: "size-4 text-[16px]",
+  md: "size-6 text-[24px]",
+  lg: "size-8 text-[32px]",
+  xl: "size-12 text-[48px]",
+};
 
-interface SpinnerProps extends HTMLAttributes<HTMLSpanElement> {
+interface SpinnerProps {
   size?: SpinnerSize;
   className?: string;
   label?: string;
@@ -37,8 +39,8 @@ interface LoadingProps extends HTMLAttributes<HTMLDivElement> {
   label?: string;
 }
 
-// Spinner loading — a labelled status with a decorative Lucide spinner.
-export function Spinner({ size = "md", className, label, ...props }: SpinnerProps) {
+// Spinner loading
+export function Spinner({ size = "md", className, label }: SpinnerProps) {
   const t = useTranslations("common");
   const ariaLabel = label ?? t("loading");
   return (
@@ -46,20 +48,23 @@ export function Spinner({ size = "md", className, label, ...props }: SpinnerProp
       role="status"
       aria-live="polite"
       aria-label={ariaLabel}
-      className={cn("inline-flex items-center justify-center", className)}
-      {...props}
+      className={cn("inline-flex", className)}
     >
       <span className="sr-only">{ariaLabel}</span>
-      <Icon
-        name="progress_activity"
-        size={SPINNER_PX[size]}
-        className="text-primary animate-spin motion-reduce:animate-none"
-      />
+      <span
+        aria-hidden="true"
+        className={cn(
+          "material-symbols-outlined inline-flex items-center justify-center leading-none text-primary animate-spin motion-reduce:animate-none",
+          spinnerSizes[size]
+        )}
+      >
+        progress_activity
+      </span>
     </span>
   );
 }
 
-// Full page loading — the kit panel loader, centred over the viewport (route-level fallback).
+// Full page loading
 export function PageLoading({ message, className }: PageLoadingProps) {
   const t = useTranslations("common");
   return (
@@ -68,30 +73,38 @@ export function PageLoading({ message, className }: PageLoadingProps) {
         "fixed inset-0 z-50 flex flex-col items-center justify-center bg-bg px-6",
         className
       )}
+      role="status"
+      aria-live="polite"
+      aria-busy="true"
     >
-      <LoadingState variant="panel" label={message ?? t("loading")} aria-busy="true" />
+      <Spinner size="xl" />
+      <p className="mt-4 text-text-muted text-center">{message ?? t("loading")}</p>
     </div>
   );
 }
 
-// Skeleton loading — the kit skeleton is aria-hidden and carries `ci-skeleton`.
+// Skeleton loading
 export function Skeleton({ className, ...props }: SkeletonProps) {
-  return <KitSkeleton aria-hidden="true" className={className} {...props} />;
+  return (
+    <div
+      aria-hidden="true"
+      className={cn("animate-pulse motion-reduce:animate-none rounded-lg bg-border", className)}
+      {...props}
+    />
+  );
 }
 
 // Card skeleton
 export function CardSkeleton() {
   return (
-    <Card aria-hidden="true">
-      <CardContent className="space-y-3">
-        <div className="flex items-center justify-between gap-4">
-          <KitSkeleton variant="text" width="40%" />
-          <KitSkeleton width={40} height={40} />
-        </div>
-        <KitSkeleton variant="text" width="30%" />
-        <KitSkeleton variant="text" width="50%" />
-      </CardContent>
-    </Card>
+    <div className="p-6 rounded-xl border border-border bg-surface" aria-hidden="true">
+      <div className="flex items-center justify-between mb-4 gap-4">
+        <Skeleton className="h-4 w-24" />
+        <Skeleton className="size-10 rounded-lg" />
+      </div>
+      <Skeleton className="h-8 w-16 mb-2" />
+      <Skeleton className="h-3 w-20" />
+    </div>
   );
 }
 

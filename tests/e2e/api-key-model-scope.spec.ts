@@ -235,10 +235,9 @@ test.describe("API key model scope", () => {
     const permissionsEditor = await openKeyAccessEditor(page, "Provider Scope Key");
     await permissionsEditor.getByRole("tab", { name: "Models", exact: true }).click();
 
-    // Enter Restrict mode via the primary Access Mode toggle (KEA-7886: the lock icon is an
-    // aria-hidden Lucide svg, so the accessible name is just "Restrict").
+    // Enter Restrict mode via the primary Access Mode toggle (accessible name includes the lock icon text).
     const accessModeRestrict = permissionsEditor.getByRole("button", {
-      name: /^restrict$/i,
+      name: /^lock\s+restrict$/i,
     });
     await expect(accessModeRestrict).toBeVisible({ timeout: UI_STABILITY_TIMEOUT_MS });
     await accessModeRestrict.click();
@@ -258,10 +257,8 @@ test.describe("API key model scope", () => {
 
     // Exact OpenAI model selection coexists with the provider scope.
     await modelSearch.fill("openai/gpt-4.1");
-    // exact: the selected-models summary chip has its own "Remove openai/gpt-4.1" button (KEA-7886).
     const openaiModelButton = permissionsEditor.getByRole("button", {
       name: "openai/gpt-4.1",
-      exact: true,
     });
     await expect(openaiModelButton).toBeVisible({ timeout: UI_STABILITY_TIMEOUT_MS });
     await openaiModelButton.click();
@@ -291,9 +288,8 @@ test.describe("API key model scope", () => {
     await reopened.getByRole("tab", { name: "Models", exact: true }).click();
 
     // Restrict mode should remain selected after reopen.
-    await expect(reopened.getByRole("button", { name: /^restrict$/i })).toHaveAttribute(
-      "aria-pressed",
-      "true"
+    await expect(reopened.getByRole("button", { name: /^lock\s+restrict$/i })).toHaveClass(
+      /bg-primary/
     );
 
     const reopenedProviderCheckbox = reopened.getByRole("checkbox", {
@@ -303,16 +299,13 @@ test.describe("API key model scope", () => {
 
     // Child models under the provider scope are inherited and not individually toggleable.
     for (const childId of ["ollamacloud/llama3", "ollamacloud/qwen"]) {
-      const child = reopened.getByRole("button", { name: childId, exact: true });
+      const child = reopened.getByRole("button", { name: childId });
       await expect(child).toBeVisible({ timeout: UI_STABILITY_TIMEOUT_MS });
       await expect(child).toBeDisabled();
     }
 
     // Exact OpenAI selection remains individually selected/toggleable.
-    const reopenedOpenAiModel = reopened.getByRole("button", {
-      name: "openai/gpt-4.1",
-      exact: true,
-    });
+    const reopenedOpenAiModel = reopened.getByRole("button", { name: "openai/gpt-4.1" });
     await expect(reopenedOpenAiModel).toBeEnabled();
 
     // Explicit Restrict with no provider/model selections is a persistent deny-all state.
@@ -327,9 +320,8 @@ test.describe("API key model scope", () => {
     await returnToKeyList(page);
     const denyAllReopened = await openKeyAccessEditor(page, "Provider Scope Key");
     await denyAllReopened.getByRole("tab", { name: "Models", exact: true }).click();
-    await expect(denyAllReopened.getByRole("button", { name: /^restrict$/i })).toHaveAttribute(
-      "aria-pressed",
-      "true"
+    await expect(denyAllReopened.getByRole("button", { name: /^lock\s+restrict$/i })).toHaveClass(
+      /bg-primary/
     );
     await expect(
       denyAllReopened.getByRole("checkbox", { name: /ollama[- ]?cloud/i })

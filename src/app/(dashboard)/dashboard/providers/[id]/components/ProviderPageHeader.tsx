@@ -1,11 +1,7 @@
 "use client";
 
-import Icon from "@/shared/components/Icon";
-
 // Phase 1t.1 extraction — Issue #3501
 import Link from "next/link";
-import { PageHeader } from "@omniroute/ui-kit/page-header";
-import { Button } from "@/shared/components";
 import ProviderIcon from "@/shared/components/ProviderIcon";
 import { getHeaderIconProviderId, providerText } from "../providerPageHelpers";
 import type { ProviderMessageTranslator } from "../providerPageHelpers";
@@ -81,50 +77,47 @@ export default function ProviderPageHeader({
       className="text-sm font-medium underline underline-offset-2 opacity-70 hover:opacity-100 transition-opacity inline-flex items-center gap-1"
       style={{ color: providerInfo.color }}
     >
-      <Icon name="open_in_new" size={16} />
+      <span className="material-symbols-outlined text-base">open_in_new</span>
       {t("getApiKey")}
     </a>
   ) : null;
 
   return (
-    <PageHeader
-      compact
-      breadcrumbs={
-        <Link
-          href="/dashboard/providers"
-          className="inline-flex items-center gap-1 text-sm text-text-muted hover:text-primary transition-colors"
+    <div>
+      <Link
+        href="/dashboard/providers"
+        className="inline-flex items-center gap-1 text-sm text-text-muted hover:text-primary transition-colors mb-4"
+      >
+        <span className="material-symbols-outlined text-lg">arrow_back</span>
+        {t("backToProviders")}
+      </Link>
+      <div className="flex items-center gap-4">
+        <div
+          className="rounded-lg flex items-center justify-center"
+          style={{ backgroundColor: `${providerInfo.color}15` }}
         >
-          <Icon name="arrow_back" size={18} />
-          {t("backToProviders")}
-        </Link>
-      }
-      title={
-        <span className="inline-flex items-center gap-4">
-          <span
-            className="inline-flex items-center justify-center rounded-lg"
-            style={{ backgroundColor: `${providerInfo.color}15` }}
-          >
-            <ProviderIcon
-              providerId={getHeaderIconProviderId(
-                isOpenAICompatible,
-                isAnthropicProtocolCompatible,
-                providerInfo.id,
-                providerInfo.apiType
-              )}
-              size={48}
-              type="color"
-              src={providerInfo.iconUrl}
-              alt={providerInfo.name}
-              fallbackText={providerInfo.textIcon}
-              fallbackColor={providerInfo.color}
-            />
-          </span>
+          <ProviderIcon
+            providerId={getHeaderIconProviderId(
+              isOpenAICompatible,
+              isAnthropicProtocolCompatible,
+              providerInfo.id,
+              providerInfo.apiType
+            )}
+            size={48}
+            type="color"
+            src={providerInfo.iconUrl}
+            alt={providerInfo.name}
+            fallbackText={providerInfo.textIcon}
+            fallbackColor={providerInfo.color}
+          />
+        </div>
+        <div>
           {providerInfo.website ? (
             <a
               href={providerInfo.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline inline-flex items-center gap-2"
+              className="text-3xl font-semibold tracking-tight hover:underline inline-flex items-center gap-2"
               style={{ color: providerInfo.color }}
               title={showPartnerNote ? kimiPartnerLinkNote : undefined}
               aria-label={
@@ -132,35 +125,33 @@ export default function ProviderPageHeader({
               }
             >
               {providerInfo.name}
-              <Icon name="open_in_new" size={18} className="opacity-60" />
+              <span className="material-symbols-outlined text-lg opacity-60">open_in_new</span>
             </a>
           ) : (
-            providerInfo.name
+            <h1 className="text-3xl font-semibold tracking-tight">{providerInfo.name}</h1>
           )}
-        </span>
-      }
-      description={
-        <span className="flex flex-wrap items-center gap-2">
-          <span>{t("connectionCountLabel", { count: connectionsCount })}</span>
-          {showPartnerNote && providerInfo.website && (
-            <span className="text-[10px] font-medium uppercase tracking-wide text-text-muted/70">
-              {kimiPartnerLinkNote}
-            </span>
-          )}
-          {apiKeyLink}
-          {providerId === "adapta-web" && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onOpenTutorial}
-              className="h-auto min-h-0 px-0 text-sm font-medium underline underline-offset-2 opacity-70 hover:bg-transparent hover:opacity-100"
-              style={{ color: providerInfo.color }}
-            >
-              Tutorial
-            </Button>
-          )}
-        </span>
-      }
-    />
+          <div className="flex items-center gap-2">
+            <p className="text-text-muted">
+              {t("connectionCountLabel", { count: connectionsCount })}
+            </p>
+            {showPartnerNote && providerInfo.website && (
+              <span className="text-[10px] font-medium uppercase tracking-wide text-text-muted/70">
+                {kimiPartnerLinkNote}
+              </span>
+            )}
+            {apiKeyLink}
+            {providerId === "adapta-web" && (
+              <button
+                onClick={onOpenTutorial}
+                className="text-sm font-medium underline underline-offset-2 opacity-70 hover:opacity-100 transition-opacity"
+                style={{ color: providerInfo.color }}
+              >
+                Tutorial
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

@@ -2,9 +2,6 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import Icon from "@/shared/components/Icon";
-import Button from "@/shared/components/Button";
-import Select from "@/shared/components/Select";
 import { csvToJsonl, parseCsvHeaders } from "@/lib/batches/csvToJsonl";
 import type { WizardCsvMapping, WizardDestination } from "@/lib/batches/types";
 
@@ -96,19 +93,21 @@ export default function CsvMappingStep({
 
   return (
     <div className="flex flex-col gap-4">
-      <p className="text-sm font-medium text-text-main">{t("wizardCsvMappingTitle")}</p>
+      <p className="text-sm font-medium text-[var(--color-text)]">{t("wizardCsvMappingTitle")}</p>
 
-      {columns.length === 0 && <p className="text-xs text-text-muted">{t("wizardCsvNoColumns")}</p>}
+      {columns.length === 0 && (
+        <p className="text-xs text-[var(--color-text-muted)]">{t("wizardCsvNoColumns")}</p>
+      )}
 
       <div className="flex flex-col gap-3">
         {columns.map((col) => (
           <div key={col} className="flex items-center gap-3">
-            <span className="text-xs text-text-muted font-mono min-w-[120px] truncate">{col}</span>
-            <span className="text-xs text-text-muted">→</span>
-            <Select
-              aria-label={col}
-              className="flex-1"
-              selectClassName="text-xs"
+            <span className="text-xs text-[var(--color-text-muted)] font-mono min-w-[120px] truncate">
+              {col}
+            </span>
+            <span className="text-xs text-[var(--color-text-muted)]">→</span>
+            <select
+              className="flex-1 rounded border border-[var(--color-border)] bg-[var(--color-bg-alt)] px-2 py-1 text-xs text-[var(--color-text)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)]"
               value={mapping[col] ?? ""}
               onChange={(e) => handleColumnMap(col, e.target.value)}
             >
@@ -117,7 +116,7 @@ export default function CsvMappingStep({
                   {opt.value === "" ? t("wizardCsvIgnoreColumn") : opt.label}
                 </option>
               ))}
-            </Select>
+            </select>
           </div>
         ))}
       </div>
@@ -125,45 +124,50 @@ export default function CsvMappingStep({
       {/* Validation hints */}
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-2 text-xs">
-          <Icon
-            name={hasCustomId ? "check_circle" : "radio_button_unchecked"}
-            size={14}
-            className={hasCustomId ? "text-success" : "text-text-muted"}
-          />
-          <span className={hasCustomId ? "text-success" : "text-text-muted"}>
+          <span
+            className={`material-symbols-outlined text-sm ${hasCustomId ? "text-emerald-400" : "text-[var(--color-text-muted)]"}`}
+          >
+            {hasCustomId ? "check_circle" : "radio_button_unchecked"}
+          </span>
+          <span className={hasCustomId ? "text-emerald-400" : "text-[var(--color-text-muted)]"}>
             {t("wizardCsvCustomIdMapped")}
           </span>
         </div>
         <div className="flex items-center gap-2 text-xs">
-          <Icon
-            name={hasContent ? "check_circle" : "radio_button_unchecked"}
-            size={14}
-            className={hasContent ? "text-success" : "text-text-muted"}
-          />
-          <span className={hasContent ? "text-success" : "text-text-muted"}>
+          <span
+            className={`material-symbols-outlined text-sm ${hasContent ? "text-emerald-400" : "text-[var(--color-text-muted)]"}`}
+          >
+            {hasContent ? "check_circle" : "radio_button_unchecked"}
+          </span>
+          <span className={hasContent ? "text-emerald-400" : "text-[var(--color-text-muted)]"}>
             {t("wizardCsvContentMapped")}
           </span>
         </div>
       </div>
 
       {/* Apply button */}
-      <Button disabled={!isValid || !destination} onClick={handleApply} className="self-start">
+      <button
+        type="button"
+        disabled={!isValid || !destination}
+        onClick={handleApply}
+        className="self-start rounded-lg px-4 py-2 text-sm font-medium bg-[var(--color-accent)] text-white disabled:opacity-40 hover:opacity-90 transition-opacity"
+      >
         {t("wizardCsvApplyMapping")}
-      </Button>
+      </button>
 
       {/* Conversion feedback */}
       {conversionResult && (
         <div className="flex flex-col gap-1 text-xs">
-          <span className="text-success">
+          <span className="text-emerald-400">
             {t("wizardCsvRowsParsed", { count: conversionResult.rowsParsed })}
           </span>
           {conversionResult.rowsSkipped > 0 && (
-            <span className="text-warning">
+            <span className="text-yellow-400">
               {t("wizardCsvRowsSkipped", { count: conversionResult.rowsSkipped })}
             </span>
           )}
           {conversionResult.errors.slice(0, 5).map((e) => (
-            <span key={e.row} className="text-error">
+            <span key={e.row} className="text-red-400">
               {t("wizardCsvRowError", { row: e.row, reason: e.reason })}
             </span>
           ))}

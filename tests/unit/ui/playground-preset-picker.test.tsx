@@ -180,8 +180,7 @@ describe("PresetPicker", () => {
     });
 
     // Modal should appear
-    // KEA-7886: the save modal is the kit Dialog, portaled to document.body.
-    const modal = document.querySelector("[role='dialog']");
+    const modal = el.querySelector("[role='dialog']");
     expect(modal).not.toBeNull();
     expect(modal?.textContent).toContain("savePreset");
   });
@@ -198,15 +197,11 @@ describe("PresetPicker", () => {
     });
 
     // Enter name
-    const nameInput = document.querySelector(
-      "[role='dialog'] input[type='text']"
-    ) as HTMLInputElement;
+    const nameInput = el.querySelector("input[type='text']") as HTMLInputElement;
     act(() => setInputValue(nameInput, "Test preset"));
 
     // Submit
-    const submitBtn = document.querySelector(
-      "[role='dialog'] [data-slot='dialog-footer'] button:last-child"
-    ) as HTMLButtonElement;
+    const submitBtn = el.querySelector("[role='dialog'] button:last-child") as HTMLButtonElement;
     await act(async () => {
       submitBtn.click();
     });
@@ -234,13 +229,11 @@ describe("PresetPicker", () => {
     });
 
     // Submit without entering a name
-    const submitBtn = document.querySelector(
-      "[role='dialog'] [data-slot='dialog-footer'] button:last-child"
-    ) as HTMLButtonElement;
+    const submitBtn = el.querySelector("[role='dialog'] button:last-child") as HTMLButtonElement;
     await act(async () => {
       submitBtn.click();
     });
 
-    expect(document.querySelector("[role='dialog']")?.textContent).toContain("nameRequired");
+    expect(el.textContent).toContain("nameRequired");
   });
 });

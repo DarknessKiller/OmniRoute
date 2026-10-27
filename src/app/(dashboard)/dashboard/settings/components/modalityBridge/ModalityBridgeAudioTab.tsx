@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 
-import { Card, Collapsible, Input, ModelSelectField, Toggle } from "@/shared/components";
+import { Card, ModelSelectField, Toggle } from "@/shared/components";
 import type { ApiModel } from "@/shared/components/ModelSelectField";
 import {
   MODALITY_BRIDGE_DEFAULTS,
@@ -119,8 +119,11 @@ export default function ModalityBridgeAudioTab() {
           className="text-sm"
         />
 
-        <Collapsible title={t("modalityBridgeAdvanced")} icon="tune">
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <details className="rounded-control border border-border p-3">
+          <summary className="cursor-pointer text-sm font-medium">
+            {t("modalityBridgeAdvanced")}
+          </summary>
+          <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
             <NumberField
               testId="modality-bridge-audio-timeout"
               label={t("modalityBridgeTimeoutMs")}
@@ -156,7 +159,7 @@ export default function ModalityBridgeAudioTab() {
               }
             />
           </div>
-        </Collapsible>
+        </details>
 
         <ModalityBridgeStatsRow kind="audio" />
         <ModalityBridgeAudioTestButton />
@@ -177,15 +180,18 @@ interface NumberFieldProps {
 
 function NumberField({ testId, label, min, max, value, onChange, onBlur }: NumberFieldProps) {
   return (
-    <Input
-      type="number"
-      label={label}
-      data-testid={testId}
-      min={min}
-      max={max}
-      value={value}
-      onChange={(event) => onChange(Number.parseInt(event.currentTarget.value, 10) || 0)}
-      onBlur={(event) => onBlur(event.currentTarget.value)}
-    />
+    <label className="block text-sm font-medium">
+      {label}
+      <input
+        type="number"
+        data-testid={testId}
+        min={min}
+        max={max}
+        value={value}
+        onChange={(event) => onChange(Number.parseInt(event.currentTarget.value, 10) || 0)}
+        onBlur={(event) => onBlur(event.currentTarget.value)}
+        className="mt-1 w-full rounded-control border border-border bg-surface px-3 py-2 text-sm"
+      />
+    </label>
   );
 }

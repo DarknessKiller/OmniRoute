@@ -1,7 +1,5 @@
 "use client";
 
-import { Card } from "@/shared/components";
-
 /**
  * ProviderInterceptionSection — provider-level toggles for OmniRoute web
  * search/fetch tool interception (#3384 Phases 1-2 shipped the DB schema +
@@ -124,10 +122,10 @@ function useProviderInterceptionToggles(providerId: string, t: Translate) {
 
 function InterceptionSectionSkeleton() {
   return (
-    <Card padding="sm" className="p-5">
-      <div className="h-5 w-56 animate-pulse rounded bg-bg-subtle" />
-      <div className="mt-4 h-16 animate-pulse rounded bg-bg-subtle" />
-    </Card>
+    <div className="rounded-xl border border-border bg-white p-5 dark:bg-zinc-950">
+      <div className="h-5 w-56 animate-pulse rounded bg-zinc-200 dark:bg-zinc-800" />
+      <div className="mt-4 h-16 animate-pulse rounded bg-zinc-100 dark:bg-zinc-900" />
+    </div>
   );
 }
 
@@ -145,7 +143,7 @@ export default function ProviderInterceptionSection({
   }
 
   return (
-    <Card padding="sm" className="p-5">
+    <div className="rounded-xl border border-border bg-white p-5 dark:bg-zinc-950">
       <h2 className="text-base font-semibold text-text-main mb-1">
         {t("interceptionSectionTitle")}
       </h2>
@@ -168,6 +166,6 @@ export default function ProviderInterceptionSection({
           description={t("interceptFetchHint")}
         />
       </div>
-    </Card>
+    </div>
   );
 }

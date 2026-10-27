@@ -31,11 +31,7 @@ export default function AccountEmailVisibilitySetting() {
             )}
           </p>
         </div>
-        <Toggle
-          checked={emailsVisible}
-          onChange={setEmailsVisible}
-          ariaLabel={label("accountEmailVisibility", "Account email visibility")}
-        />
+        <Toggle checked={emailsVisible} onChange={setEmailsVisible} />
       </div>
     </div>
   );

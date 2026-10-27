@@ -2,9 +2,6 @@
 
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { useTranslations } from "next-intl";
-import { PageHeader } from "@omniroute/ui-kit/page-header";
-import { Button, EmptyState, Input, SegmentedControl, Select, Skeleton } from "@/shared/components";
-import Icon from "@/shared/components/Icon";
 import { matchesSearch } from "@/shared/utils/turkishText";
 import FeatureFlagCard from "./FeatureFlagCard";
 
@@ -294,103 +291,134 @@ export default function FeatureFlagsGrid() {
 
   return (
     <div className="space-y-6">
-      <PageHeader
-        compact
-        title={t("title")}
-        description={
-          summary ? (
-            <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
-              <span className="font-medium text-success">
+      {/* Header */}
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <h1 className="text-2xl font-semibold text-text-primary">{t("title")}</h1>
+          {summary && (
+            <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+              <span className="font-medium text-emerald-700 dark:text-emerald-300">
                 {t("activeCount", { count: summary.active })}
               </span>
-              <span aria-hidden="true">·</span>
-              <span>{t("inactiveCount", { count: summary.inactive })}</span>
-              <span aria-hidden="true">·</span>
-              <span className="font-medium text-info">
+              <span className="text-text-muted/60">·</span>
+              <span className="text-text-muted">
+                {t("inactiveCount", { count: summary.inactive })}
+              </span>
+              <span className="text-text-muted/60">·</span>
+              <span className="font-medium text-sky-700 dark:text-sky-300">
                 {t("dbOverrideCount", { count: summary.overriddenByDb })}
               </span>
-            </span>
-          ) : undefined
-        }
-        actions={
-          <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
-            {/* Description view: compact with hover tooltip vs always full text */}
-            <div title={t("descriptionModeHint")}>
-              <SegmentedControl
-                size="sm"
-                aria-label={t("descriptionModeLabel")}
-                value={descriptionMode}
-                onChange={(next) => setDescriptionMode(next as DescriptionMode)}
-                options={[
-                  { value: "clamp", label: t("descriptionModeHover") },
-                  { value: "full", label: t("descriptionModeFull") },
-                ]}
-              />
             </div>
+          )}
+        </div>
 
-            <Input
-              type="search"
-              icon="search"
-              aria-label={t("searchPlaceholder")}
+        {/* Search + Filter */}
+        <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
+          {/* Description view: compact with hover tooltip vs always full text */}
+          <div
+            role="radiogroup"
+            aria-label={t("descriptionModeLabel")}
+            title={t("descriptionModeHint")}
+            className="flex items-center gap-1 rounded-lg border border-border bg-bg-subtle p-0.5"
+          >
+            <button
+              type="button"
+              role="radio"
+              aria-checked={descriptionMode === "clamp"}
+              onClick={() => setDescriptionMode("clamp")}
+              className={`rounded-md px-2 py-1 text-xs font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
+                descriptionMode === "clamp"
+                  ? "bg-surface text-text-primary shadow-sm"
+                  : "text-text-muted hover:text-text-primary"
+              }`}
+            >
+              {t("descriptionModeHover")}
+            </button>
+            <button
+              type="button"
+              role="radio"
+              aria-checked={descriptionMode === "full"}
+              onClick={() => setDescriptionMode("full")}
+              className={`rounded-md px-2 py-1 text-xs font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
+                descriptionMode === "full"
+                  ? "bg-surface text-text-primary shadow-sm"
+                  : "text-text-muted hover:text-text-primary"
+              }`}
+            >
+              {t("descriptionModeFull")}
+            </button>
+          </div>
+
+          {/* Search input with search icon */}
+          <div className="relative">
+            <span className="material-symbols-outlined absolute left-2.5 top-2 text-sm text-text-muted">
+              search
+            </span>
+            <input
+              type="text"
               placeholder={t("searchPlaceholder")}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full sm:w-64"
-            />
-
-            <Select
-              compact
-              aria-label={t("categoryLabel", {
-                category: t(
-                  `categories.${CATEGORIES.find((cat) => cat.value === category)?.labelKey ?? "all"}`
-                ),
-              })}
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              options={CATEGORIES.map((cat) => ({
-                value: cat.value,
-                label: t(`categories.${cat.labelKey}`),
-              }))}
-              className="w-full sm:w-auto"
+              className="w-full rounded-lg border border-border bg-bg-subtle py-1.5 pl-8 pr-4 text-sm text-text-primary placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15 sm:w-64"
             />
           </div>
-        }
-      />
+
+          {/* Category filter */}
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="w-full rounded-lg border border-border bg-bg-subtle px-3 py-1.5 text-sm text-text-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15 sm:w-auto"
+          >
+            {CATEGORIES.map((cat) => (
+              <option key={cat.value} value={cat.value} className="bg-card text-text-primary">
+                {t(`categories.${cat.labelKey}`)}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
 
       {/* Pending-restart banner — shown when at least one requiresRestart flag
           was toggled in this session. */}
       {pendingRestartKeys.size > 0 && (
-        <div className="rounded-card border border-warning/40 bg-warning-bg p-4">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+        <div className="rounded-xl border border-amber-300 bg-amber-50 p-4 dark:border-amber-500/40 dark:bg-amber-500/10">
+          <div className="flex items-center justify-between gap-4">
             <div className="flex items-start gap-3">
-              <Icon name="restart_alt" className="text-warning" />
+              <span className="material-symbols-outlined text-amber-600 dark:text-amber-300">
+                restart_alt
+              </span>
               <div>
-                <p className="text-sm font-medium text-text-main">
+                <p className="text-sm font-medium text-amber-900 dark:text-amber-200">
                   {t("restartRequiredCount", { count: pendingRestartKeys.size })}
                 </p>
-                <p className="mt-0.5 text-xs text-text-muted">{t("restartRequiredDescription")}</p>
+                <p className="mt-0.5 text-xs text-amber-800/80 dark:text-amber-200/80">
+                  {t("restartRequiredDescription")}
+                </p>
               </div>
             </div>
             {!showRestartConfirm ? (
-              <Button
-                variant="warning"
-                className="shrink-0"
+              <button
                 onClick={() => setShowRestartConfirm(true)}
+                className="shrink-0 rounded-lg border border-amber-300 bg-white/70 px-4 py-2 text-sm font-medium text-amber-800 transition-colors hover:bg-amber-100 dark:border-amber-400/40 dark:bg-transparent dark:text-amber-300 dark:hover:bg-amber-500/20"
               >
                 {t("restartServer")}
-              </Button>
+              </button>
             ) : (
               <div className="flex items-center gap-3">
-                <Button
-                  variant="ghost"
+                <button
                   onClick={() => setShowRestartConfirm(false)}
+                  className="text-sm text-amber-800/80 hover:text-amber-950 dark:text-amber-300/80 dark:hover:text-amber-200"
                   disabled={restarting}
                 >
                   {t("cancel")}
-                </Button>
-                <Button variant="warning" onClick={handleRestart} disabled={restarting}>
+                </button>
+                <button
+                  onClick={handleRestart}
+                  disabled={restarting}
+                  className="rounded-lg bg-amber-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-amber-700 disabled:opacity-50 dark:bg-amber-500/30 dark:text-amber-200 dark:hover:bg-amber-500/40"
+                >
                   {restarting ? t("restarting") : t("confirmRestart")}
-                </Button>
+                </button>
               </div>
             )}
           </div>
@@ -399,9 +427,9 @@ export default function FeatureFlagsGrid() {
 
       {/* Explanation banner for the synthetic "Requires Restart" view */}
       {category === "__restart" && (
-        <div className="rounded-card border border-info/30 bg-info-bg p-3 text-sm text-text-main">
+        <div className="rounded-xl border border-sky-200 bg-sky-50 p-3 text-sm text-sky-800 dark:border-blue-500/30 dark:bg-blue-500/10 dark:text-blue-200">
           <div className="flex items-start gap-2">
-            <Icon name="info" className="text-info" />
+            <span className="material-symbols-outlined text-sky-600 dark:text-blue-300">info</span>
             <p>
               {t.rich("restartViewDescription", { strong: (chunks) => <strong>{chunks}</strong> })}
             </p>
@@ -416,21 +444,24 @@ export default function FeatureFlagsGrid() {
           style={{ gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 320px), 1fr))" }}
         >
           {Array.from({ length: 9 }).map((_, i) => (
-            <Skeleton key={i} className="h-36 w-full rounded-card" />
+            <div
+              key={i}
+              className="h-36 animate-pulse rounded-xl bg-black/[0.04] dark:bg-white/5"
+            />
           ))}
         </div>
       )}
 
       {/* Error state */}
       {!loading && error && (
-        <div
-          role="alert"
-          className="flex items-center justify-between gap-3 rounded-card border border-error/30 bg-error-bg p-4"
-        >
-          <p className="text-sm text-error">{error}</p>
-          <Button variant="outline" size="sm" icon="refresh" onClick={loadFlags}>
+        <div className="flex items-center justify-between rounded-xl border border-red-200 bg-red-50 p-4 dark:border-red-500/30 dark:bg-red-500/10">
+          <p className="text-sm text-red-700 dark:text-red-300">{error}</p>
+          <button
+            onClick={loadFlags}
+            className="text-sm font-medium text-red-700 underline hover:no-underline dark:text-red-300"
+          >
             {t("retry")}
-          </Button>
+          </button>
         </div>
       )}
 
@@ -438,7 +469,10 @@ export default function FeatureFlagsGrid() {
       {!loading && !error && (
         <>
           {filteredFlags.length === 0 ? (
-            <EmptyState icon="search_off" title={t("noSearchResults")} />
+            <div className="py-16 text-center text-text-muted">
+              <span className="material-symbols-outlined text-4xl">search_off</span>
+              <p className="mt-2 text-sm">{t("noSearchResults")}</p>
+            </div>
           ) : (
             <div
               className="grid gap-4"
@@ -469,20 +503,30 @@ export default function FeatureFlagsGrid() {
           {summary && summary.overriddenByDb > 0 && (
             <div className="flex justify-end border-t border-border pt-4">
               {!showResetConfirm ? (
-                <Button variant="danger" onClick={() => setShowResetConfirm(true)}>
+                <button
+                  onClick={() => setShowResetConfirm(true)}
+                  className="rounded-lg border border-red-200 bg-red-50/60 px-4 py-2 text-sm font-medium text-red-700 transition-colors hover:bg-red-100 dark:border-red-500/40 dark:bg-transparent dark:text-red-300 dark:hover:bg-red-500/10"
+                >
                   {t("resetAllOverrides")}
-                </Button>
+                </button>
               ) : (
-                <div className="flex flex-wrap items-center justify-end gap-3">
+                <div className="flex items-center gap-3">
                   <p className="text-sm text-text-muted">
                     {t("confirmResetOverrides", { count: summary.overriddenByDb })}
                   </p>
-                  <Button variant="ghost" onClick={() => setShowResetConfirm(false)}>
+                  <button
+                    onClick={() => setShowResetConfirm(false)}
+                    className="text-sm text-text-muted hover:text-text-primary"
+                  >
                     {t("cancel")}
-                  </Button>
-                  <Button variant="danger" onClick={handleResetAll} loading={resettingAll}>
+                  </button>
+                  <button
+                    onClick={handleResetAll}
+                    disabled={resettingAll}
+                    className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700 disabled:opacity-50 dark:bg-red-500/20 dark:text-red-300 dark:hover:bg-red-500/30"
+                  >
                     {resettingAll ? t("resetting") : t("confirmReset")}
-                  </Button>
+                  </button>
                 </div>
               )}
             </div>

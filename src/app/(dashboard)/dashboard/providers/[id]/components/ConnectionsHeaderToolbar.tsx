@@ -1,8 +1,6 @@
 "use client";
 
-import Icon from "@/shared/components/Icon";
-
-import { ActionBar, Button, DistributeProxiesButton, Select, Toggle } from "@/shared/components";
+import { ActionBar, Button, DistributeProxiesButton, Toggle } from "@/shared/components";
 import { providerText, type ProviderMessageTranslator } from "../providerPageHelpers";
 import type { CodexGlobalServiceMode } from "@/lib/providers/codexFastTier";
 import AccountProxyResetButton from "./AccountProxyResetButton";
@@ -116,14 +114,14 @@ export default function ConnectionsHeaderToolbar({
         <h2 className="text-lg font-semibold">{t("connections")}</h2>
         {providerId === "claude" && (
           <div
-            className="inline-flex items-center gap-2 rounded-lg border border-border bg-bg-subtle px-2 py-1 text-xs font-medium text-text-muted"
+            className="inline-flex items-center gap-2 rounded-lg border border-orange-500/20 bg-orange-500/5 px-2 py-1 text-xs font-medium text-text-muted"
             title={providerText(
               t,
               "preferClaudeCodeForUnprefixedClaudeModelsTooltip",
               "Route bare claude-* model IDs from Claude Code clients through the Claude Code account instead of asking for a provider prefix."
             )}
           >
-            <Icon name="alt_route" size={14} className="text-primary" />
+            <span className="material-symbols-outlined text-[14px] text-orange-500">alt_route</span>
             <span>
               {providerText(
                 t,
@@ -161,15 +159,14 @@ export default function ConnectionsHeaderToolbar({
                 : providerText(t, "toggleOffShort", "Off")}
             </span>
             {claudeRoutingSettingsLoadError ? (
-              <Button
-                variant="outline"
-                size="sm"
+              <button
+                type="button"
                 onClick={() => void loadClaudeRoutingSettings()}
-                className="h-6 min-h-0 px-2 text-[11px]"
+                className="rounded border border-orange-500/30 px-2 py-0.5 text-[11px] font-medium text-orange-600 hover:bg-orange-500/10 dark:text-orange-300"
                 title={claudeRoutingSettingsLoadError}
               >
                 {providerText(t, "retry", "Retry")}
-              </Button>
+              </button>
             ) : null}
           </div>
         )}
@@ -183,41 +180,35 @@ export default function ConnectionsHeaderToolbar({
             )}
           >
             <span>{providerText(t, "providerDetailServiceModeLabel", "Global service mode:")}</span>
-            <Select
-              compact
+            <select
               value={codexGlobalServiceMode}
               onChange={(event) =>
                 handleChangeCodexGlobalServiceMode(event.target.value as CodexGlobalServiceMode)
               }
               disabled={savingCodexGlobalServiceMode || !codexSettingsLoaded}
               aria-label={providerText(t, "globalCodexServiceMode", "Global Codex service mode")}
-              className="min-w-0 max-w-full"
-              selectClassName="text-xs"
+              className="min-w-0 max-w-full rounded-md border border-border bg-bg px-2 py-1 text-xs text-text-main outline-none transition-colors focus:border-primary disabled:opacity-60"
             >
               {codexGlobalServiceModeOptions.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
                 </option>
               ))}
-            </Select>
+            </select>
             {codexSettingsLoadError ? (
-              <Button
-                variant="outline"
-                size="sm"
+              <button
+                type="button"
                 onClick={() => void loadCodexSettings()}
-                className="h-6 min-h-0 px-2 text-[11px]"
+                className="rounded border border-sky-500/30 px-2 py-0.5 text-[11px] font-medium text-sky-600 hover:bg-sky-500/10 dark:text-sky-300"
                 title={codexSettingsLoadError}
               >
                 {providerText(t, "retry", "Retry")}
-              </Button>
+              </button>
             ) : null}
           </div>
         )}
         {/* Provider-level proxy indicator/button */}
-        <Button
-          variant="ghost"
-          size="sm"
-          icon="vpn_lock"
+        <button
           onClick={() =>
             onSetProxyTarget({
               level: "provider",
@@ -225,10 +216,10 @@ export default function ConnectionsHeaderToolbar({
               label: providerInfo?.name || providerId,
             })
           }
-          className={`h-auto min-h-0 gap-1 rounded px-2 py-1 text-xs font-medium ${
+          className={`inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium transition-all ${
             proxyConfig?.providers?.[providerId]
-              ? "bg-warning/15 text-warning hover:bg-warning/25"
-              : "bg-bg-subtle text-text-muted/50 hover:text-text-muted hover:bg-bg-subtle"
+              ? "bg-amber-500/15 text-amber-500 hover:bg-amber-500/25"
+              : "bg-black/[0.03] dark:bg-white/[0.03] text-text-muted/50 hover:text-text-muted hover:bg-black/[0.06] dark:hover:bg-white/[0.06]"
           }`}
           title={
             proxyConfig?.providers?.[providerId]
@@ -238,10 +229,11 @@ export default function ConnectionsHeaderToolbar({
               : t("providerProxyConfigureHint")
           }
         >
+          <span className="material-symbols-outlined text-[14px]">vpn_lock</span>
           {proxyConfig?.providers?.[providerId]
             ? proxyConfig.providers[providerId].host || t("providerProxy")
             : t("providerProxy")}
-        </Button>
+        </button>
       </div>
       <ActionBar align={providerId === "codex" ? "start" : "end"}>
         {connections.length > 0 && (
@@ -260,18 +252,22 @@ export default function ConnectionsHeaderToolbar({
           />
         )}
         {connections.length > 1 && (
-          <Button
-            size="sm"
-            variant="outline"
-            icon="play_arrow"
-            loading={batchTesting}
+          <button
             onClick={handleBatchTestAll}
             disabled={batchTesting || batchRetesting || !!retestingId}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
+              batchTesting
+                ? "bg-primary/20 border-primary/40 text-primary animate-pulse"
+                : "bg-bg-subtle border-border text-text-muted hover:text-text-primary hover:border-primary/40"
+            }`}
             title={t("testAll")}
             aria-label={t("testAll")}
           >
+            <span className="material-symbols-outlined text-[14px]">
+              {batchTesting ? "sync" : "play_arrow"}
+            </span>
             {batchTesting ? t("testing") : t("testAll")}
-          </Button>
+          </button>
         )}
         {connections.length > 1 && (
           <Button

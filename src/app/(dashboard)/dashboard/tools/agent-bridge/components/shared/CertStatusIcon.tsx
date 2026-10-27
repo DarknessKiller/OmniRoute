@@ -1,7 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import Icon from "@/shared/components/Icon";
 
 interface CertStatusIconProps {
   trusted: boolean;
@@ -10,15 +9,21 @@ interface CertStatusIconProps {
 
 export function CertStatusIcon({ trusted, size = 16 }: CertStatusIconProps) {
   const t = useTranslations("agentBridge");
-  const label = trusted ? t("certTrusted") : t("certNotTrusted");
-  return (
-    <span className="inline-flex" title={label}>
-      <Icon
-        name={trusted ? "verified_user" : "lock_open"}
-        size={size}
-        ariaLabel={label}
-        className={trusted ? "text-success" : "text-text-muted"}
-      />
+  return trusted ? (
+    <span
+      className="material-symbols-outlined text-emerald-500"
+      style={{ fontSize: size }}
+      title={t("certTrusted")}
+    >
+      verified_user
+    </span>
+  ) : (
+    <span
+      className="material-symbols-outlined text-zinc-400"
+      style={{ fontSize: size }}
+      title={t("certNotTrusted")}
+    >
+      lock_open
     </span>
   );
 }

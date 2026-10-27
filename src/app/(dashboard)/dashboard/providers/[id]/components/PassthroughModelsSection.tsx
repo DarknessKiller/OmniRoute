@@ -14,7 +14,7 @@ import { filterUnavailableModelRows } from "@/lib/providers/mergeProviderModelLi
  * Never imports from ProviderDetailPageClient.
  */
 import React, { useState, useMemo } from "react";
-import { Button, Input } from "@/shared/components";
+import { Button } from "@/shared/components";
 import { generateUniqueModelAlias } from "./passthroughAlias.ts";
 import {
   matchesModelCatalogQuery,
@@ -395,15 +395,20 @@ export default function PassthroughModelsSection({
 
       {/* Add new model */}
       <div className="flex items-end gap-2">
-        <Input
-          id="new-model-input"
-          label={inputLabel}
-          value={newModel}
-          onChange={(e) => setNewModel(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && handleAdd()}
-          placeholder={inputPlaceholder}
-          className="flex-1"
-        />
+        <div className="flex-1">
+          <label htmlFor="new-model-input" className="text-xs text-text-muted mb-1 block">
+            {inputLabel}
+          </label>
+          <input
+            id="new-model-input"
+            type="text"
+            value={newModel}
+            onChange={(e) => setNewModel(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleAdd()}
+            placeholder={inputPlaceholder}
+            className="w-full px-3 py-2 text-sm border border-border rounded-lg bg-background focus:outline-none focus:border-primary"
+          />
+        </div>
         <Button size="sm" icon="add" onClick={handleAdd} disabled={!newModel.trim() || adding}>
           {adding ? t("adding") : t("add")}
         </Button>

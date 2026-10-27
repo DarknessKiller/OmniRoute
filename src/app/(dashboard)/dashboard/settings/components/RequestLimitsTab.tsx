@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Button, Card, Input } from "@/shared/components";
+import { Button, Card } from "@/shared/components";
 import {
   DEFAULT_REQUEST_BODY_LIMIT_MB,
   MAX_REQUEST_BODY_LIMIT_MB,
@@ -107,13 +107,19 @@ export default function RequestLimitsTab() {
   }, [dirty, t, validationError, value]);
 
   return (
-    <Card title={t("requestBodyLimitTitle")} subtitle={t("requestBodyLimitDescription")}>
+    <Card className="p-6 mt-4">
       <div className="flex flex-col gap-3">
-        <div className="flex flex-wrap items-end gap-3">
-          <Input
+        <div>
+          <p className="font-medium">{t("requestBodyLimitTitle")}</p>
+          <p className="text-sm text-text-muted mt-1">{t("requestBodyLimitDescription")}</p>
+        </div>
+        <div className="flex items-center gap-3">
+          <label htmlFor="request-body-limit-mb" className="sr-only">
+            {t("requestBodyLimitInputLabel")}
+          </label>
+          <input
             id="request-body-limit-mb"
             type="number"
-            label={t("requestBodyLimitInputLabel")}
             min={MIN_REQUEST_BODY_LIMIT_MB}
             max={MAX_REQUEST_BODY_LIMIT_MB}
             step={1}
@@ -125,30 +131,32 @@ export default function RequestLimitsTab() {
             onKeyDown={(event) => {
               if (event.key === "Enter" && dirty) void saveLimit();
             }}
-            error={validationError || undefined}
-            className="w-40"
+            className="w-32 px-3 py-1.5 rounded bg-surface-2 border border-border text-sm text-text-primary"
             disabled={loading || saving}
           />
-          <span className="pb-2.5 text-xs text-text-muted">MB</span>
+          <span className="text-xs text-text-muted">MB</span>
           <Button
             size="sm"
             variant="primary"
-            className="mb-1"
             disabled={loading || Boolean(validationError) || !dirty}
             onClick={saveLimit}
           >
             {saving ? t("requestBodyLimitSaving") : t("requestBodyLimitSave")}
           </Button>
           {dirty && (
-            <span className="pb-2.5 text-xs text-text-muted">
+            <span className="text-xs text-text-muted">
               {t("requestBodyLimitCurrent", { value: savedValue })}
             </span>
           )}
         </div>
+        {validationError && <p className="text-xs text-red-500">{validationError}</p>}
         {message && (
           <p
-            role={message.type === "success" ? "status" : "alert"}
-            className={`text-xs ${message.type === "success" ? "text-success" : "text-error"}`}
+            className={`text-xs ${
+              message.type === "success"
+                ? "text-green-600 dark:text-green-400"
+                : "text-red-600 dark:text-red-400"
+            }`}
           >
             {message.text}
           </p>

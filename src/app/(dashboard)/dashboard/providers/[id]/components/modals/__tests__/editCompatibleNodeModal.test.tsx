@@ -24,9 +24,7 @@ function renderModal(node: React.ReactElement) {
     act(() => root.unmount());
     container.remove();
   });
-  // The shared Modal is a kit Dialog (Radix) since KEA-7886: its content is portaled to
-  // document.body, so queries start there (the container is a child of body).
-  return document.body;
+  return container;
 }
 
 describe("EditCompatibleNodeModal (Phase 1b extraction)", () => {
@@ -51,18 +49,13 @@ describe("EditCompatibleNodeModal (Phase 1b extraction)", () => {
         isCcCompatible
       />
     );
-    expect(c.querySelector('[role="dialog"]')).not.toBeNull();
+    expect(c.querySelector("*")).not.toBeNull();
   });
 
   it("renders nothing harmful when closed", () => {
     expect(() =>
       renderModal(
-        <EditCompatibleNodeModal
-          isOpen={false}
-          node={null}
-          onSave={async () => {}}
-          onClose={() => {}}
-        />
+        <EditCompatibleNodeModal isOpen={false} node={null} onSave={async () => {}} onClose={() => {}} />
       )
     ).not.toThrow();
   });

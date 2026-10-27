@@ -11,11 +11,10 @@ export function ChaosStatusMessage({ message }: { message: ChaosPageMessage }) {
   if (!message) return null;
   return (
     <div
-      role={message.type === "success" ? "status" : "alert"}
-      className={`p-3 rounded-lg text-sm font-medium border ${
+      className={`p-3 rounded-lg text-sm font-medium ${
         message.type === "success"
-          ? "bg-success-bg text-success border-success/30"
-          : "bg-error-bg text-error border-error/30"
+          ? "bg-green-500/10 text-green-700 dark:text-green-300 border border-green-500/20"
+          : "bg-red-500/10 text-red-700 dark:text-red-300 border border-red-500/20"
       }`}
     >
       {message.text}

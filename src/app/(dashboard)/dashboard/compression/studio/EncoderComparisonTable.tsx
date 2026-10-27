@@ -1,13 +1,5 @@
 "use client";
 import { useTranslations } from "next-intl";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@omniroute/ui-kit/table";
 import type { EncoderComparison } from "./compressionFlowModel";
 
 const fmt = (n: number) => n.toLocaleString("en-US");
@@ -26,42 +18,42 @@ export function EncoderComparisonTable({ comparison }: { comparison: EncoderComp
   ].sort((a, b) => (a.size?.tokens ?? Infinity) - (b.size?.tokens ?? Infinity));
 
   return (
-    <section data-testid="encoder-comparison" className="rounded border border-border p-2 text-xs">
+    <section data-testid="encoder-comparison" className="rounded border p-2 text-xs">
       <header className="mb-1 font-semibold">
         {t("encoderComparison", { count: comparison.arraysCompared })}{" "}
         <span data-testid="encoder-winner" className="font-mono">
           {t("encoderWinner", { winner: comparison.winner })}
         </span>
       </header>
-      <Table persistentScrollbars={false} className="min-w-0 font-mono text-xs">
-        <TableHeader>
-          <TableRow>
-            <TableHead className="h-8">{t("encoder")}</TableHead>
-            <TableHead className="h-8">{t("bytes")}</TableHead>
-            <TableHead className="h-8">{t("tokensCl100k")}</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
+      <table className="w-full font-mono">
+        <thead>
+          <tr className="text-left text-muted-foreground">
+            <th>{t("encoder")}</th>
+            <th>{t("bytes")}</th>
+            <th>{t("tokensCl100k")}</th>
+          </tr>
+        </thead>
+        <tbody>
           {rows.map((r) => (
-            <TableRow key={r.key} className={r.key === comparison.winner ? "font-bold" : ""}>
-              <TableCell className="h-8">
+            <tr key={r.key} className={r.key === comparison.winner ? "font-bold" : ""}>
+              <td>
                 {r.label}
                 {r.key === comparison.winner ? " ✓" : ""}
-              </TableCell>
+              </td>
               {r.size ? (
                 <>
-                  <TableCell className="h-8">{fmt(r.size.bytes)}</TableCell>
-                  <TableCell className="h-8">{fmt(r.size.tokens)}</TableCell>
+                  <td>{fmt(r.size.bytes)}</td>
+                  <td>{fmt(r.size.tokens)}</td>
                 </>
               ) : (
-                <TableCell colSpan={2} className="h-8" data-testid="encoder-toon-na">
+                <td colSpan={2} data-testid="encoder-toon-na">
                   n/a
-                </TableCell>
+                </td>
               )}
-            </TableRow>
+            </tr>
           ))}
-        </TableBody>
-      </Table>
+        </tbody>
+      </table>
     </section>
   );
 }

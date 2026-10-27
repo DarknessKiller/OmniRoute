@@ -2,8 +2,6 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import Button from "@/shared/components/Button";
-import Icon from "@/shared/components/Icon";
 import Card from "@/shared/components/Card";
 import ProviderIcon from "@/shared/components/ProviderIcon";
 import { supportsProviderQuota } from "@/shared/utils/providerQuotaVisibility";
@@ -132,18 +130,18 @@ function ConnectionQuotas({ connection, cache }: { connection: Connection; cache
         </div>
       )}
       {optionalQuotas.length > 0 && (
-        <Button
-          variant="outline"
-          size="sm"
-          icon={showOptional ? "expand_less" : "expand_more"}
-          aria-expanded={showOptional}
+        <button
+          type="button"
           onClick={() => setShowOptional((current) => !current)}
-          className="mt-2 h-7 min-h-7 px-2 text-[11px]"
+          className="mt-2 inline-flex items-center gap-1 rounded-md border border-border bg-bg-subtle px-2 py-1 text-[11px] font-medium text-text-main hover:bg-surface transition-colors"
         >
+          <span className="material-symbols-outlined text-[12px]" aria-hidden="true">
+            {showOptional ? "expand_less" : "expand_more"}
+          </span>
           {showOptional
             ? t("showLessQuotas")
             : t("showMoreQuotas", { count: optionalQuotas.length })}
-        </Button>
+        </button>
       )}
     </div>
   );
@@ -265,7 +263,9 @@ export default function ProviderQuotaWidget({
     <Card className="w-full overflow-hidden">
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border bg-surface/60 px-4 py-3">
         <div className="flex items-center gap-2">
-          <Icon name="account_balance" size={20} className="text-primary" />
+          <span className="material-symbols-outlined text-[20px] text-primary" aria-hidden="true">
+            account_balance
+          </span>
           <div>
             <h2 className="text-base font-semibold text-text-main">
               {tr("providerQuota", "Provider Quota")}
@@ -277,18 +277,18 @@ export default function ProviderQuotaWidget({
             )}
           </div>
         </div>
-        <Button
-          variant="outline"
-          size="sm"
+        <button
+          type="button"
           onClick={refreshAll}
           disabled={loading || refreshingAll}
-          className="gap-1.5 text-xs"
+          className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-bg-subtle px-3 py-1.5 text-xs font-medium text-text-main transition-colors hover:bg-surface disabled:cursor-not-allowed disabled:opacity-50"
         >
-          <Icon
-            name={autoRefreshIntervalMs > 0 ? "schedule" : "refresh"}
-            size={16}
-            className={refreshingAll ? "animate-spin" : undefined}
-          />
+          <span
+            className={`material-symbols-outlined text-[16px] ${refreshingAll ? "animate-spin" : ""}`}
+            aria-hidden="true"
+          >
+            {autoRefreshIntervalMs > 0 ? "schedule" : "refresh"}
+          </span>
           {refreshingAll
             ? tr("refreshing", "Refreshing")
             : autoRefreshIntervalMs > 0
@@ -296,12 +296,14 @@ export default function ProviderQuotaWidget({
                   Math.max(0, autoRefreshIntervalMs - (autoRefreshClock - lastRefreshAllAt))
                 )}`
               : tr("forceRefresh", "Refresh now")}
-        </Button>
+        </button>
       </div>
 
       {loading ? (
         <div className="flex items-center gap-2 px-4 py-8 text-sm text-text-muted">
-          <Icon name="progress_activity" size={16} className="animate-spin" />
+          <span className="material-symbols-outlined animate-spin text-[16px]" aria-hidden="true">
+            progress_activity
+          </span>
           {tr("loadingQuotas", "Loading...")}
         </div>
       ) : providerGroups.length === 0 ? (

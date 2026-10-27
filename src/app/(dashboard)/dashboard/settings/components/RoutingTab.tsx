@@ -1,13 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
-import { Checkbox, CheckboxGroup } from "@omniroute/ui-kit/checkbox";
-import { Field } from "@omniroute/ui-kit/field";
-import { RadioGroup, RadioGroupItem } from "@omniroute/ui-kit/radio-group";
-import { Button, Card, Collapsible, Input, Select, Textarea, Toggle } from "@/shared/components";
-import Icon from "@/shared/components/Icon";
+import { Button, Card, Collapsible, Input, Select, Toggle } from "@/shared/components";
 import ModelSelectField from "@/shared/components/ModelSelectField";
+import { useTranslations } from "next-intl";
 import { useNotificationStore } from "@/store/notificationStore";
 import {
   CLI_COMPAT_PROVIDER_DISPLAY,
@@ -308,7 +304,6 @@ function StringListEditor({
         <div key={idx} className="flex items-center gap-2">
           <Input
             className="flex-1"
-            aria-label={`${label} ${idx + 1}`}
             value={item}
             disabled={disabled}
             onChange={(e) => {
@@ -362,7 +357,7 @@ function OpEditor({
   const wrap = (body: React.ReactNode) => (
     <div className="flex flex-col gap-3">
       {opDescription && (
-        <p className="text-[11px] leading-relaxed text-text-muted border-l-2 border-primary/30 pl-2 italic">
+        <p className="text-[11px] leading-relaxed text-text-muted border-l-2 border-purple-500/30 pl-2 italic">
           {opDescription}
         </p>
       )}
@@ -478,20 +473,17 @@ function OpEditor({
     case "append_system_block":
       return wrap(
         <div className="flex flex-col gap-2">
-          <Field
-            label={t("routingBlockText")}
-            hint={t(FIELD_HINTS.blockText)}
-            htmlFor={`routing-block-text-${op.kind}`}
-          >
-            <Textarea
-              id={`routing-block-text-${op.kind}`}
+          <div className="flex flex-col gap-1.5">
+            <label className="text-sm font-medium text-text-main">{t("routingBlockText")}</label>
+            <textarea
               rows={3}
               value={op.text || ""}
               disabled={disabled}
               onChange={(e) => updateField("text", e.target.value)}
-              className="font-mono"
+              className="w-full rounded-md border border-black/10 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-sm text-text-main font-mono focus:ring-1 focus:ring-primary/30 focus:border-primary/50 focus:outline-none transition-all shadow-inner disabled:opacity-50 disabled:cursor-not-allowed"
             />
-          </Field>
+            <p className="text-xs text-text-muted">{t(FIELD_HINTS.blockText)}</p>
+          </div>
           <Input
             label={t("routingIdempotencyKey")}
             hint={t(FIELD_HINTS.idempotencyKey)}
@@ -911,8 +903,10 @@ export default function RoutingTab() {
       <Card>
         <div className="flex items-start justify-between gap-4">
           <div className="flex gap-3">
-            <div className="p-2 rounded-lg bg-bg-subtle text-text-muted h-fit">
-              <Icon name="auto_awesome" size={20} />
+            <div className="p-2 rounded-lg bg-indigo-500/10 text-indigo-500 h-fit">
+              <span className="material-symbols-outlined text-[20px]" aria-hidden="true">
+                auto_awesome
+              </span>
             </div>
             <div>
               <h3 className="text-lg font-semibold">{t("routingZeroConfigTitle")}</h3>
@@ -929,13 +923,8 @@ export default function RoutingTab() {
           </div>
         </div>
         <div className="mt-4 pt-4 border-t border-border/30">
-          <RadioGroup
-            label={t("routingDefaultAutoVariant")}
-            orientation="horizontal"
-            value={settings.autoRoutingDefaultVariant}
-            onValueChange={(next) => updateSetting({ autoRoutingDefaultVariant: next })}
-            disabled={loading}
-          >
+          <label className="block text-sm font-medium mb-2">{t("routingDefaultAutoVariant")}</label>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {[
               {
                 value: "lkgp",
@@ -968,22 +957,46 @@ export default function RoutingTab() {
                 desc: t("routingDefaultAutoVariantSmartDesc"),
               },
             ].map((option) => (
-              <RadioGroupItem
+              <button
                 key={option.value}
-                card
-                value={option.value}
-                label={option.label}
-                description={option.desc}
-              />
+                onClick={() => updateSetting({ autoRoutingDefaultVariant: option.value })}
+                disabled={loading}
+                className={`p-2 rounded-lg border text-left transition-all ${
+                  settings.autoRoutingDefaultVariant === option.value
+                    ? "border-indigo-500/50 bg-indigo-500/5 ring-1 ring-indigo-500/20"
+                    : "border-border/50 hover:border-border hover:bg-surface/30"
+                }`}
+              >
+                <div className="flex items-center gap-1">
+                  <span
+                    className={`material-symbols-outlined text-[14px] ${
+                      settings.autoRoutingDefaultVariant === option.value
+                        ? "text-indigo-400"
+                        : "text-text-muted"
+                    }`}
+                  >
+                    {settings.autoRoutingDefaultVariant === option.value
+                      ? "check_circle"
+                      : "radio_button_unchecked"}
+                  </span>
+                  <span
+                    className={`text-xs font-medium ${settings.autoRoutingDefaultVariant === option.value ? "text-indigo-400" : ""}`}
+                  >
+                    {option.label}
+                  </span>
+                </div>
+              </button>
             ))}
-          </RadioGroup>
+          </div>
         </div>
       </Card>
 
       <Card>
         <div className="flex items-start gap-3 mb-4">
-          <div className="p-2 rounded-lg bg-bg-subtle text-text-muted h-fit">
-            <Icon name="tune" size={20} />
+          <div className="p-2 rounded-lg bg-purple-500/10 text-purple-500 h-fit">
+            <span className="material-symbols-outlined text-[20px]" aria-hidden="true">
+              tune
+            </span>
           </div>
           <div>
             <h3 className="text-lg font-semibold">{t("systemTransforms")}</h3>
@@ -1091,11 +1104,11 @@ export default function RoutingTab() {
                 {providerSaveErrors[providerId] && (
                   <div
                     role="alert"
-                    className="mb-3 rounded border border-error/40 bg-error/10 p-2 text-xs text-error"
+                    className="mb-3 rounded border border-red-500/40 bg-red-500/10 p-2 text-xs text-red-300"
                   >
                     <span className="font-medium">{t("routingServerRejectedSave")}</span>{" "}
                     <span className="break-words font-mono">{providerSaveErrors[providerId]}</span>
-                    <p className="mt-1 text-[11px] text-error">{tCommon("error")}</p>
+                    <p className="mt-1 text-[11px] text-red-200/80">{tCommon("error")}</p>
                   </div>
                 )}
 
@@ -1109,10 +1122,10 @@ export default function RoutingTab() {
                           defaultOpen={false}
                           title={
                             <div className="flex items-center gap-2">
-                              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-[10px] font-semibold text-primary">
+                              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-purple-500/10 text-[10px] font-semibold text-purple-400">
                                 {index + 1}
                               </span>
-                              <span className="font-mono text-primary text-xs">
+                              <span className="font-mono text-purple-300 text-xs">
                                 {t(OP_KIND_LABELS[op?.kind as TransformOpKind] || op?.kind)}
                               </span>
                             </div>
@@ -1192,51 +1205,35 @@ export default function RoutingTab() {
 
                 {/* JSON import section (collapsible) */}
                 <div className="border-t border-border/20 pt-2 mt-2">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    icon={isJsonOpen ? "expand_more" : "chevron_right"}
-                    aria-expanded={isJsonOpen}
+                  <button
+                    type="button"
                     onClick={() =>
                       setShowJsonEditor((prev) => ({ ...prev, [providerId]: !isJsonOpen }))
                     }
-                    className="text-primary"
+                    className="text-[11px] text-primary hover:underline"
                   >
-                    {isJsonOpen ? t("routingJsonEditorHide") : t("routingJsonEditorImportExport")}
-                  </Button>
+                    {isJsonOpen
+                      ? `▾ ${t("routingJsonEditorHide")}`
+                      : `▸ ${t("routingJsonEditorImportExport")}`}
+                  </button>
                   {isJsonOpen && (
                     <div className="mt-2">
-                      <Field
-                        label={t("routingJsonEditorLabel")}
-                        htmlFor={`routing-json-editor-${providerId}`}
-                        error={
-                          errorMsg ? (
-                            <span
-                              id={`routing-json-editor-${providerId}-error`}
-                              role="alert"
-                              className="break-words"
-                            >
-                              ⚠ {errorMsg}
-                            </span>
-                          ) : undefined
+                      <label className="text-[11px] font-medium text-text-muted block mb-1">
+                        {t("routingJsonEditorLabel")}
+                      </label>
+                      <textarea
+                        value={draft}
+                        onChange={(e) =>
+                          setJsonDrafts((prev) => ({ ...prev, [providerId]: e.target.value }))
                         }
-                      >
-                        <Textarea
-                          id={`routing-json-editor-${providerId}`}
-                          value={draft}
-                          onChange={(e) =>
-                            setJsonDrafts((prev) => ({ ...prev, [providerId]: e.target.value }))
-                          }
-                          rows={Math.min(40, Math.max(6, draft.split("\n").length))}
-                          disabled={loading}
-                          spellCheck={false}
-                          error={Boolean(errorMsg)}
-                          aria-describedby={
-                            errorMsg ? `routing-json-editor-${providerId}-error` : undefined
-                          }
-                          className="resize-y font-mono text-[11px]"
-                        />
-                      </Field>
+                        rows={Math.min(40, Math.max(6, draft.split("\n").length))}
+                        disabled={loading}
+                        spellCheck={false}
+                        className="w-full rounded border border-border/50 bg-background/40 p-2 font-mono text-[11px] text-text resize-y"
+                      />
+                      {errorMsg && (
+                        <p className="mt-1 text-xs text-red-400 break-words">⚠ {errorMsg}</p>
+                      )}
                       <div className="flex flex-wrap items-center gap-2 mt-2">
                         <Button
                           onClick={() => applyProviderJson(providerId)}
@@ -1272,8 +1269,10 @@ export default function RoutingTab() {
 
       <Card>
         <div className="flex items-start gap-3 mb-4">
-          <div className="p-2 rounded-lg bg-bg-subtle text-text-muted h-fit">
-            <Icon name="security" size={20} />
+          <div className="p-2 rounded-lg bg-indigo-500/10 text-indigo-500 h-fit">
+            <span className="material-symbols-outlined text-[20px]" aria-hidden="true">
+              security
+            </span>
           </div>
           <div>
             <h3 className="text-lg font-semibold">{t("cliFingerprint")}</h3>
@@ -1286,7 +1285,7 @@ export default function RoutingTab() {
           <p className="text-xs text-text-muted mb-2">
             {t("cliFingerprintEnabled", { count: cliCompatProviderSet.size })}
           </p>
-          <CheckboxGroup aria-label={t("routingHeaderFingerprintTitle")}>
+          <div className="grid gap-3 md:grid-cols-2">
             {CLI_COMPAT_TOGGLE_IDS.map((providerId) => {
               const normalizedProviderId = normalizeCliCompatProviderId(providerId);
               const providerDisplay = CLI_COMPAT_PROVIDER_DISPLAY[providerId];
@@ -1298,26 +1297,46 @@ export default function RoutingTab() {
                 : t("enableFingerprintTitle", { provider: label });
 
               return (
-                <Checkbox
+                <button
                   key={providerId}
-                  card
-                  checked={checked}
-                  onChange={() => toggleCliCompatProvider(providerId, !checked)}
+                  type="button"
+                  onClick={() => toggleCliCompatProvider(providerId, !checked)}
                   disabled={loading}
+                  aria-pressed={checked}
                   title={titleText}
-                  label={label}
-                  description={description}
-                />
+                  className={`flex items-start gap-3 rounded-lg border p-3 text-left transition-all ${
+                    checked
+                      ? "border-indigo-500/50 bg-indigo-500/5 ring-1 ring-indigo-500/20"
+                      : "border-border/50 hover:border-border hover:bg-surface/30"
+                  } ${loading ? "cursor-not-allowed opacity-60" : ""}`}
+                >
+                  <span
+                    className={`material-symbols-outlined mt-0.5 text-[18px] ${checked ? "text-indigo-400" : "text-text-muted"}`}
+                    aria-hidden="true"
+                  >
+                    {checked ? "check_circle" : "radio_button_unchecked"}
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span
+                      className={`block text-sm font-medium ${checked ? "text-indigo-400" : ""}`}
+                    >
+                      {label}
+                    </span>
+                    <span className="mt-1 block text-xs text-text-muted">{description}</span>
+                  </span>
+                </button>
               );
             })}
-          </CheckboxGroup>
+          </div>
         </div>
       </Card>
 
       <Card>
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 rounded-lg bg-bg-subtle text-text-muted">
-            <Icon name="cached" size={20} />
+          <div className="p-2 rounded-lg bg-green-500/10 text-green-500">
+            <span className="material-symbols-outlined text-[20px]" aria-hidden="true">
+              cached
+            </span>
           </div>
           <div>
             <h3 className="text-lg font-semibold">{t("routingClientCacheControlTitle")}</h3>
@@ -1325,12 +1344,7 @@ export default function RoutingTab() {
           </div>
         </div>
 
-        <RadioGroup
-          aria-label={t("routingClientCacheControlTitle")}
-          value={settings.alwaysPreserveClientCache}
-          onValueChange={(next) => updateSetting({ alwaysPreserveClientCache: next })}
-          disabled={loading}
-        >
+        <div className="space-y-3">
           {[
             {
               value: "auto",
@@ -1348,21 +1362,46 @@ export default function RoutingTab() {
               desc: t("routingClientCacheControlNeverDesc"),
             },
           ].map((option) => (
-            <RadioGroupItem
+            <button
               key={option.value}
-              card
-              value={option.value}
-              label={option.label}
-              description={option.desc}
-            />
+              onClick={() => updateSetting({ alwaysPreserveClientCache: option.value })}
+              disabled={loading}
+              className={`w-full flex flex-col items-start gap-1 p-3 rounded-lg border text-left transition-all ${
+                settings.alwaysPreserveClientCache === option.value
+                  ? "border-green-500/50 bg-green-500/5 ring-1 ring-green-500/20"
+                  : "border-border/50 hover:border-border hover:bg-surface/30"
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                <span
+                  className={`material-symbols-outlined text-[16px] ${
+                    settings.alwaysPreserveClientCache === option.value
+                      ? "text-green-400"
+                      : "text-text-muted"
+                  }`}
+                >
+                  {settings.alwaysPreserveClientCache === option.value
+                    ? "check_circle"
+                    : "radio_button_unchecked"}
+                </span>
+                <span
+                  className={`text-sm font-medium ${settings.alwaysPreserveClientCache === option.value ? "text-green-400" : ""}`}
+                >
+                  {option.label}
+                </span>
+              </div>
+              <p className="text-xs text-text-muted ml-7">{option.desc}</p>
+            </button>
           ))}
-        </RadioGroup>
+        </div>
       </Card>
 
       <Card>
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 rounded-lg bg-bg-subtle text-text-muted">
-            <Icon name="fingerprint" size={20} />
+          <div className="p-2 rounded-lg bg-sky-500/10 text-sky-500">
+            <span className="material-symbols-outlined text-[20px]" aria-hidden="true">
+              fingerprint
+            </span>
           </div>
           <div>
             <h3 className="text-lg font-semibold">{t("routingAntigravitySignatureTitle")}</h3>
@@ -1370,12 +1409,7 @@ export default function RoutingTab() {
           </div>
         </div>
 
-        <RadioGroup
-          aria-label={t("routingAntigravitySignatureTitle")}
-          value={settings.antigravitySignatureCacheMode}
-          onValueChange={(next) => updateSetting({ antigravitySignatureCacheMode: next })}
-          disabled={loading}
-        >
+        <div className="space-y-3">
           {[
             {
               value: "enabled",
@@ -1393,22 +1427,47 @@ export default function RoutingTab() {
               desc: t("routingAntigravitySignatureBypassStrictDesc"),
             },
           ].map((option) => (
-            <RadioGroupItem
+            <button
               key={option.value}
-              card
-              value={option.value}
-              label={option.label}
-              description={option.desc}
-            />
+              onClick={() => updateSetting({ antigravitySignatureCacheMode: option.value })}
+              disabled={loading}
+              className={`w-full flex flex-col items-start gap-1 p-3 rounded-lg border text-left transition-all ${
+                settings.antigravitySignatureCacheMode === option.value
+                  ? "border-sky-500/50 bg-sky-500/5 ring-1 ring-sky-500/20"
+                  : "border-border/50 hover:border-border hover:bg-surface/30"
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                <span
+                  className={`material-symbols-outlined text-[16px] ${
+                    settings.antigravitySignatureCacheMode === option.value
+                      ? "text-sky-400"
+                      : "text-text-muted"
+                  }`}
+                >
+                  {settings.antigravitySignatureCacheMode === option.value
+                    ? "check_circle"
+                    : "radio_button_unchecked"}
+                </span>
+                <span
+                  className={`text-sm font-medium ${settings.antigravitySignatureCacheMode === option.value ? "text-sky-400" : ""}`}
+                >
+                  {option.label}
+                </span>
+              </div>
+              <p className="text-xs text-text-muted ml-7">{option.desc}</p>
+            </button>
           ))}
-        </RadioGroup>
+        </div>
       </Card>
 
       <Card>
         <div className="flex items-start justify-between gap-4">
           <div className="flex gap-3">
-            <div className="p-2 rounded-lg bg-bg-subtle text-text-muted h-fit">
-              <Icon name="badge" size={20} />
+            <div className="p-2 rounded-lg bg-sky-500/10 text-sky-500 h-fit">
+              <span className="material-symbols-outlined text-[20px]" aria-hidden="true">
+                badge
+              </span>
             </div>
             <div>
               <h3 className="text-lg font-semibold">{t("echoRequestedModelTitle")}</h3>
@@ -1429,8 +1488,10 @@ export default function RoutingTab() {
       {/* #4481 layer 2 — Web-Search Routing (CCR-style Router.webSearch) */}
       <Card>
         <div className="flex gap-3">
-          <div className="p-2 rounded-lg bg-bg-subtle text-text-muted h-fit">
-            <Icon name="travel_explore" size={20} />
+          <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-500 h-fit">
+            <span className="material-symbols-outlined text-[20px]" aria-hidden="true">
+              travel_explore
+            </span>
           </div>
           <div className="flex-1">
             <h3 className="text-lg font-semibold">{t("webSearchRouteTitle")}</h3>
@@ -1461,8 +1522,10 @@ export default function RoutingTab() {
 
       <Card>
         <div className="flex gap-3">
-          <div className="p-2 rounded-lg bg-bg-subtle text-text-muted h-fit">
-            <Icon name="timer" size={20} />
+          <div className="p-2 rounded-lg bg-sky-500/10 text-sky-500 h-fit">
+            <span className="material-symbols-outlined text-[20px]" aria-hidden="true">
+              timer
+            </span>
           </div>
           <div className="flex-1">
             <h3 className="text-lg font-semibold">Search timeouts</h3>
@@ -1471,41 +1534,44 @@ export default function RoutingTab() {
               15 seconds overall, and each provider&apos;s own limit.
             </p>
             <div className="mt-3 flex flex-wrap gap-3">
-              <Input
-                label="Overall budget (ms)"
-                type="number"
-                min={1000}
-                max={120000}
-                defaultValue={settings.searchTimeoutMs ?? ""}
-                placeholder="15000"
-                onBlur={(e) => {
-                  const raw = e.target.value.trim();
-                  const parsed = raw === "" ? undefined : Number.parseInt(raw, 10);
-                  if (parsed !== undefined && Number.isNaN(parsed)) return;
-                  updateSetting({ searchTimeoutMs: parsed });
-                }}
-                className="w-32 shrink-0"
-              />
-              {["exa-search", "tavily-search", "firecrawl", "context7", "jina-search"].map((id) => (
-                <Input
-                  key={id}
-                  label={`${id} (ms)`}
+              <label className="flex flex-col gap-1 text-xs text-text-muted">
+                Overall budget (ms)
+                <input
                   type="number"
-                  min={1}
+                  min={1000}
                   max={120000}
-                  defaultValue={settings.searchProviderTimeoutsMs?.[id] ?? ""}
-                  placeholder="default"
+                  defaultValue={settings.searchTimeoutMs ?? ""}
+                  placeholder="15000"
                   onBlur={(e) => {
                     const raw = e.target.value.trim();
                     const parsed = raw === "" ? undefined : Number.parseInt(raw, 10);
                     if (parsed !== undefined && Number.isNaN(parsed)) return;
-                    const next = { ...(settings.searchProviderTimeoutsMs ?? {}) };
-                    if (parsed === undefined) delete next[id];
-                    else next[id] = parsed;
-                    updateSetting({ searchProviderTimeoutsMs: next });
+                    updateSetting({ searchTimeoutMs: parsed });
                   }}
-                  className="w-32 shrink-0"
+                  className="h-9 w-32 rounded-lg border border-border bg-background px-3 text-sm text-text-main"
                 />
+              </label>
+              {["exa-search", "tavily-search", "firecrawl", "context7", "jina-search"].map((id) => (
+                <label key={id} className="flex flex-col gap-1 text-xs text-text-muted">
+                  {id} (ms)
+                  <input
+                    type="number"
+                    min={1}
+                    max={120000}
+                    defaultValue={settings.searchProviderTimeoutsMs?.[id] ?? ""}
+                    placeholder="default"
+                    onBlur={(e) => {
+                      const raw = e.target.value.trim();
+                      const parsed = raw === "" ? undefined : Number.parseInt(raw, 10);
+                      if (parsed !== undefined && Number.isNaN(parsed)) return;
+                      const next = { ...(settings.searchProviderTimeoutsMs ?? {}) };
+                      if (parsed === undefined) delete next[id];
+                      else next[id] = parsed;
+                      updateSetting({ searchProviderTimeoutsMs: next });
+                    }}
+                    className="h-9 w-32 rounded-lg border border-border bg-background px-3 text-sm text-text-main"
+                  />
+                </label>
               ))}
             </div>
           </div>
@@ -1515,8 +1581,10 @@ export default function RoutingTab() {
       <Card>
         <div className="flex items-start justify-between gap-4">
           <div className="flex gap-3">
-            <div className="p-2 rounded-lg bg-bg-subtle text-text-muted h-fit">
-              <Icon name="verified" size={20} />
+            <div className="p-2 rounded-lg bg-amber-500/10 text-amber-500 h-fit">
+              <span className="material-symbols-outlined text-[20px]" aria-hidden="true">
+                verified
+              </span>
             </div>
             <div>
               <h3 className="text-lg font-semibold">{t("lkgpToggleTitle")}</h3>
@@ -1534,7 +1602,6 @@ export default function RoutingTab() {
         </div>
         <div className="mt-3 pt-3 border-t border-border/30 flex items-center gap-2">
           <Button
-            icon="delete_sweep"
             variant="outline"
             size="sm"
             loading={lkgpCacheLoading}
@@ -1565,11 +1632,14 @@ export default function RoutingTab() {
               }
             }}
           >
+            <span className="material-symbols-outlined text-[14px] mr-1" aria-hidden="true">
+              delete_sweep
+            </span>
             {t("clearLkgpCache")}
           </Button>
           {lkgpCacheStatus.message && (
             <span
-              className={`text-xs ${lkgpCacheStatus.type === "success" ? "text-success" : "text-error"}`}
+              className={`text-xs ${lkgpCacheStatus.type === "success" ? "text-green-500" : "text-red-500"}`}
             >
               {lkgpCacheStatus.message}
             </span>
@@ -1580,8 +1650,10 @@ export default function RoutingTab() {
       <Card>
         <div className="flex items-start justify-between gap-4">
           <div className="flex gap-3">
-            <div className="p-2 rounded-lg bg-bg-subtle text-text-muted h-fit">
-              <Icon name="network_ping" size={20} />
+            <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-500 h-fit">
+              <span className="material-symbols-outlined text-[20px]" aria-hidden="true">
+                network_ping
+              </span>
             </div>
             <div>
               <h3 className="text-lg font-semibold">{t("adaptiveVolumeRouting")}</h3>

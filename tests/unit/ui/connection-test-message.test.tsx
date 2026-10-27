@@ -3,9 +3,6 @@ import React, { act } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
 
-// The shared Modal is a kit Dialog (Radix) since KEA-7886: its content is portaled to
-// document.body, so queries start there (the container is a child of body).
-
 const translate = vi.hoisted(() => (key: string) => `translated:${key}`);
 vi.mock("next-intl", () => ({ useTranslations: () => translate }));
 const { default: ConnectionTestButton } =
@@ -52,7 +49,7 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 function button(label: string) {
-  const found = [...document.body.querySelectorAll<HTMLButtonElement>("button")].find((b) => {
+  const found = [...container.querySelectorAll<HTMLButtonElement>("button")].find((b) => {
     const clone = b.cloneNode(true) as HTMLElement;
     clone.querySelectorAll(".material-symbols-outlined").forEach((icon) => icon.remove());
     return (
@@ -76,7 +73,7 @@ async function open(disabled = false, onSent = vi.fn()) {
 it("opening and saving a model never sends; send targets the same account and displays escaped answer", async () => {
   const onSent = await open();
   expect(calls.map((c) => c.method)).toEqual(["GET", "GET"]);
-  const select = document.body.querySelector("select")!;
+  const select = container.querySelector("select")!;
   act(() => {
     select.value = "large";
     select.dispatchEvent(new Event("change", { bubbles: true }));
@@ -92,14 +89,14 @@ it("opening and saving a model never sends; send targets the same account and di
   expect(calls.filter((c) => c.method === "POST")).toEqual([
     { url: "/api/providers/account-a/test-message", method: "POST", body: undefined },
   ]);
-  expect(document.body.querySelector("pre")?.textContent).toBe("<b>Hello back</b>");
-  expect(document.body.querySelector("pre b")).toBeNull();
+  expect(container.querySelector("pre")?.textContent).toBe("<b>Hello back</b>");
+  expect(container.querySelector("pre b")).toBeNull();
   expect(onSent).toHaveBeenCalledOnce();
 });
 it("inactive accounts can configure a model but cannot send", async () => {
   await open(true);
   expect(button("send").disabled).toBe(true);
-  expect(document.body.textContent).toContain("activateFirst");
+  expect(container.textContent).toContain("activateFirst");
   expect(calls.every((c) => c.method === "GET")).toBe(true);
 });
 it("unavailable saved models cannot be sent", async () => {
@@ -112,12 +109,12 @@ it("unavailable saved models cannot be sent", async () => {
     )
   );
   await open();
-  expect(document.body.querySelector("select")?.value).toBe("retired");
+  expect(container.querySelector("select")?.value).toBe("retired");
   expect(button("send").disabled).toBe(true);
 });
 it("settings save only the global message without issuing an inference", async () => {
   await act(async () => root.render(<ConnectionTestSettings />));
-  const input = document.body.querySelector("textarea")!;
+  const input = container.querySelector("textarea")!;
   act(() => {
     Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, "value")!.set!.call(
       input,
@@ -191,7 +188,7 @@ it.runIf(process.env.RUN_QUOTA_LAYOUT === "1")(
     );
     const dir = mkdtempSync(join(tmpdir(), "quota-layout-"));
     try {
-      writeFileSync(join(dir, "fixture.html"), document.body.innerHTML);
+      writeFileSync(join(dir, "fixture.html"), container.innerHTML);
       execFileSync(
         process.execPath,
         ["tests/helpers/assertQuotaCardLayout.cjs", join(dir, "fixture.html")],
@@ -227,7 +224,7 @@ it.each(["oauth", "apikey"])(
         />
       )
     );
-    const label = [...document.body.querySelectorAll("label")].find(
+    const label = [...container.querySelectorAll("label")].find(
       (l) => l.textContent === "translated:defaultModel"
     )!;
     const select = document.getElementById(label.htmlFor) as HTMLSelectElement;
@@ -266,7 +263,7 @@ it("saving unrelated connection settings preserves newer server-side test model 
   await act(async () => render(true));
   await act(async () => button("save").click());
   expect(onSave.mock.calls[0][0].providerSpecificData).not.toHaveProperty("connectionTestModel");
-  const label = [...document.body.querySelectorAll("label")].find(
+  const label = [...container.querySelectorAll("label")].find(
     (l) => l.textContent === "translated:defaultModel"
   )!;
   const select = document.getElementById(label.htmlFor) as HTMLSelectElement;
@@ -278,7 +275,7 @@ it("saving unrelated connection settings preserves newer server-side test model 
   expect(onSave).toHaveBeenCalledOnce();
   await act(async () => render(false));
   await act(async () => render(true));
-  const freshLabel = [...document.body.querySelectorAll("label")].find(
+  const freshLabel = [...container.querySelectorAll("label")].find(
     (l) => l.textContent === "translated:defaultModel"
   )!;
   expect((document.getElementById(freshLabel.htmlFor) as HTMLSelectElement).value).toBe("small");
@@ -298,7 +295,7 @@ it("connection settings can clear the default with an explicit null", async () =
       />
     )
   );
-  const label = [...document.body.querySelectorAll("label")].find(
+  const label = [...container.querySelectorAll("label")].find(
     (l) => l.textContent === "translated:defaultModel"
   )!;
   const select = document.getElementById(label.htmlFor) as HTMLSelectElement;

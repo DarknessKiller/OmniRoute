@@ -119,7 +119,7 @@ export default function ProviderAccountRoutingCard({ providerKey, connectionCoun
   if (connectionCount < 2) return null;
 
   return (
-    <div className="mb-4 rounded-lg border border-border bg-bg-subtle p-3">
+    <div className="mb-4 rounded-lg border border-border/60 bg-black/[0.02] dark:bg-white/[0.02] p-3">
       <p className="text-sm font-medium">{t("providerAccountRoutingTitle")}</p>
       <p className="text-xs text-text-muted mb-3">{t("providerAccountRoutingDesc")}</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -133,11 +133,14 @@ export default function ProviderAccountRoutingCard({ providerKey, connectionCoun
             setStrategy(v);
             save(v, stickyLimit).catch(console.error);
           }}
-          options={[
-            { value: "", label: t("providerRoutingInheritGlobal") },
-            ...STRATEGY_OPTIONS.map((opt) => ({ value: opt, label: opt })),
-          ]}
-        />
+        >
+          <option value="">{t("providerRoutingInheritGlobal")}</option>
+          {STRATEGY_OPTIONS.map((opt) => (
+            <option key={opt} value={opt}>
+              {opt}
+            </option>
+          ))}
+        </Select>
         {strategy === "round-robin" && (
           <Input
             label={t("stickyLimit")}

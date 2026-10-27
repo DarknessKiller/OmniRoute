@@ -14,9 +14,6 @@ import { act } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import ProviderCard from "../../../../../src/app/(dashboard)/dashboard/providers/components/ProviderCard";
 
-// The shared Modal is a kit Dialog (Radix) since KEA-7886: its content is portaled to
-// document.body, so queries start there (the container is a child of body).
-
 vi.mock("@/shared/components/ProviderTestSlideOver", () => ({ default: () => null }));
 vi.mock("@/shared/components/ProviderIcon", () => ({ default: () => null }));
 vi.mock("next/navigation", () => ({ useRouter: () => ({ push: () => {} }) }));
@@ -59,11 +56,11 @@ describe("ProviderCard — #10261 warning indicator consistency", () => {
     const { container: el } = renderCard();
     const riskEl = el.querySelector('[aria-label*="click for details"]');
     expect(riskEl).toBeTruthy();
-    expect(document.body.querySelector('[role="dialog"]')).toBeFalsy();
+    expect(el.querySelector('[role="dialog"]')).toBeFalsy();
     act(() => {
       riskEl!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     });
-    const dialog = document.body.querySelector('[role="dialog"]');
+    const dialog = el.querySelector('[role="dialog"]');
     expect(dialog).toBeTruthy();
     // The dialog must not leak raw credential values.
     expect(dialog!.textContent || "").not.toMatch(/sk-[a-zA-Z0-9]/);
@@ -85,7 +82,7 @@ describe("ProviderCard — #10261 warning indicator consistency", () => {
         new KeyboardEvent("keydown", { key: "Enter", bubbles: true, cancelable: true })
       );
     });
-    expect(document.body.querySelector('[role="dialog"]')).toBeTruthy();
+    expect(el.querySelector('[role="dialog"]')).toBeTruthy();
   });
 
   it("warning-count badge exposes sanitized reasons and a distinct click/keyboard affordance", () => {
@@ -114,11 +111,9 @@ describe("ProviderCard — #10261 warning indicator consistency", () => {
     );
     expect(riskEl).toBeTruthy();
     expect(badge).toBeTruthy();
-    // The risk indicator is a bare icon glyph (kit ghost icon button + Lucide <svg>); the
-    // warning badge is rendered through the pill-shaped kit Badge — distinct visual language.
-    expect(riskEl!.querySelector("svg.oi-icon")).toBeTruthy();
-    expect(riskEl!.closest(".ci-badge")).toBeNull();
-    expect(badge!.querySelector(".ci-badge")).toBeTruthy();
-    expect(badge!.querySelector("svg.oi-icon")?.closest(".ci-badge")).toBeTruthy();
+    // The risk indicator keeps the bare material-symbols glyph; the warning badge is
+    // rendered through the pill-shaped Badge component — distinct visual language.
+    expect(riskEl!.className).toContain("material-symbols-outlined");
+    expect(badge!.className).not.toContain("material-symbols-outlined");
   });
 });

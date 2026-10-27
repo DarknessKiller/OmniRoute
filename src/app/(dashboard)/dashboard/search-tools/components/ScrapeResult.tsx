@@ -2,9 +2,6 @@
 
 import { useState, lazy, Suspense } from "react";
 import { useTranslations } from "next-intl";
-import Button from "@/shared/components/Button";
-import Modal from "@/shared/components/Modal";
-import Textarea from "@/shared/components/Textarea";
 import type { ScrapeResult as ScrapeResultType } from "@/shared/schemas/searchTools";
 
 /** D21 — cap at 256 KB to avoid freezing the renderer */
@@ -28,7 +25,6 @@ function formatBytes(bytes: number): string {
 
 export default function ScrapeResult({ result, latencyMs }: ScrapeResultProps) {
   const t = useTranslations("search");
-  const tc = useTranslations("common");
   const [mode, setMode] = useState<"markdown" | "raw">("markdown");
   const [rawModalOpen, setRawModalOpen] = useState(false);
 
@@ -67,24 +63,30 @@ export default function ScrapeResult({ result, latencyMs }: ScrapeResultProps) {
 
         {/* View toggle */}
         <div className="flex gap-1">
-          <Button
-            size="sm"
-            variant={mode === "markdown" ? "secondary" : "ghost"}
-            aria-pressed={mode === "markdown"}
+          <button
+            className={[
+              "px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors",
+              mode === "markdown"
+                ? "bg-primary/15 text-primary"
+                : "bg-black/5 dark:bg-white/5 text-text-muted hover:text-text-main",
+            ].join(" ")}
             onClick={() => setMode("markdown")}
             data-testid="toggle-markdown"
           >
             {t("scrapePreview")}
-          </Button>
-          <Button
-            size="sm"
-            variant={mode === "raw" ? "secondary" : "ghost"}
-            aria-pressed={mode === "raw"}
+          </button>
+          <button
+            className={[
+              "px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors",
+              mode === "raw"
+                ? "bg-primary/15 text-primary"
+                : "bg-black/5 dark:bg-white/5 text-text-muted hover:text-text-main",
+            ].join(" ")}
             onClick={() => setMode("raw")}
             data-testid="toggle-raw"
           >
             {t("scrapeRaw")}
-          </Button>
+          </button>
         </div>
       </div>
 
@@ -115,22 +117,20 @@ export default function ScrapeResult({ result, latencyMs }: ScrapeResultProps) {
           data-testid="truncation-warning"
         >
           <span>{t("contentTruncated", { size: formatBytes(contentSize) })}</span>
-          <Button
-            variant="warning"
-            size="sm"
-            className="ml-3"
+          <button
+            className="ml-3 text-xs px-2 py-1 rounded bg-warning/20 text-warning hover:bg-warning/30 transition-colors"
             onClick={() => setRawModalOpen(true)}
             data-testid="view-raw-button"
           >
             {t("viewFullRaw")}
-          </Button>
+          </button>
         </div>
       )}
 
       {/* Content area */}
       {mode === "markdown" ? (
         <div
-          className="prose prose-sm max-w-none p-4 bg-surface border border-border rounded-lg overflow-auto"
+          className="prose prose-sm dark:prose-invert max-w-none p-4 bg-surface border border-border rounded-lg overflow-auto"
           data-testid="markdown-preview"
         >
           <Suspense
@@ -142,42 +142,43 @@ export default function ScrapeResult({ result, latencyMs }: ScrapeResultProps) {
           </Suspense>
         </div>
       ) : (
-        <Textarea
+        <textarea
           readOnly
           value={displayContent}
-          className="h-64 font-mono text-xs resize-none"
+          className="w-full h-64 bg-surface border border-border rounded-lg p-3 text-xs text-text-main font-mono resize-none focus:outline-none"
           data-testid="raw-content"
           aria-label={t("rawScrapedContent")}
         />
       )}
 
       {/* Raw full-content modal (for truncated content) */}
-      <Modal
-        isOpen={rawModalOpen}
-        onClose={() => setRawModalOpen(false)}
-        title={t("rawContent", { size: formatBytes(contentSize) })}
-        size="full"
-        showCloseButton={false}
-      >
-        <div className="flex h-[65vh] flex-col gap-3" data-testid="raw-modal">
-          <Textarea
-            readOnly
-            value={result.content}
-            aria-label={t("rawScrapedContent")}
-            className="flex-1 font-mono text-xs resize-none"
-            data-testid="raw-modal-content"
-          />
-          <div className="flex justify-end">
-            <Button
-              variant="outline"
-              onClick={() => setRawModalOpen(false)}
-              aria-label={t("closeRawModal")}
-            >
-              {tc("close")}
-            </Button>
+      {rawModalOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
+          data-testid="raw-modal"
+        >
+          <div className="bg-surface border border-border rounded-xl shadow-2xl w-[90vw] max-w-4xl h-[80vh] flex flex-col">
+            <div className="flex justify-between items-center px-4 py-3 border-b border-border">
+              <span className="text-sm font-semibold text-text-main">
+                {t("rawContent", { size: formatBytes(contentSize) })}
+              </span>
+              <button
+                className="text-text-muted hover:text-text-main"
+                onClick={() => setRawModalOpen(false)}
+                aria-label={t("closeRawModal")}
+              >
+                ✕
+              </button>
+            </div>
+            <textarea
+              readOnly
+              value={result.content}
+              className="flex-1 bg-bg-alt p-4 text-xs text-text-main font-mono resize-none focus:outline-none rounded-b-xl"
+              data-testid="raw-modal-content"
+            />
           </div>
         </div>
-      </Modal>
+      )}
     </div>
   );
 }

@@ -1,10 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
-import { Alert } from "@omniroute/ui-kit/alert";
-import Button from "@/shared/components/Button";
-import Modal from "@/shared/components/Modal";
+import { Modal } from "@/shared/components";
 import { Step1ChooseIntegration } from "./steps/Step1ChooseIntegration";
 import {
   Step2ConfigureIntegration,
@@ -90,7 +87,6 @@ export function AddWebhookWizard({
   const [step, setStep] = useState(1);
   const [state, setState] = useState<WizardState>(INITIAL);
   const [saving, setSaving] = useState(false);
-  const tc = useTranslations("common");
   const [error, setError] = useState<string | null>(null);
   const [createdId, setCreatedId] = useState<string | null>(null);
 
@@ -207,7 +203,7 @@ export function AddWebhookWizard({
       size="xl"
       footer={
         <div className="flex w-full items-center justify-between">
-          <div className="flex gap-1" aria-hidden="true">
+          <div className="flex gap-1">
             {STEPS.map((s) => (
               <span
                 key={s}
@@ -218,32 +214,48 @@ export function AddWebhookWizard({
             ))}
           </div>
           <div className="flex gap-2">
-            <Button variant="ghost" onClick={handleClose} disabled={saving}>
+            <button
+              type="button"
+              onClick={handleClose}
+              disabled={saving}
+              className="rounded-lg px-4 py-2 text-sm font-medium text-text-muted transition-colors hover:bg-sidebar hover:text-text-main disabled:opacity-40"
+            >
               {t("wizard.cancel")}
-            </Button>
+            </button>
             {step > 1 && (
-              <Button variant="outline" onClick={() => setStep((s) => s - 1)} disabled={saving}>
+              <button
+                type="button"
+                onClick={() => setStep((s) => s - 1)}
+                disabled={saving}
+                className="rounded-lg border border-border px-4 py-2 text-sm font-medium text-text-main transition-colors hover:bg-sidebar disabled:opacity-40"
+              >
                 {t("wizard.back")}
-              </Button>
+              </button>
             )}
             {step < 3 ? (
-              <Button
-                variant="primary"
+              <button
+                type="button"
                 onClick={() => (step === 2 ? void handleNextFromStep2() : setStep((s) => s + 1))}
                 disabled={!canGoNext || saving}
-                loading={saving && step === 2}
+                className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary/90 disabled:opacity-40"
               >
+                {saving && step === 2 && (
+                  <span className="material-symbols-outlined animate-spin text-[16px]">sync</span>
+                )}
                 {t("wizard.next")}
-              </Button>
+              </button>
             ) : (
-              <Button
-                variant="primary"
+              <button
+                type="button"
                 onClick={() => void finish()}
                 disabled={saving}
-                loading={saving}
+                className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary/90 disabled:opacity-40"
               >
+                {saving && (
+                  <span className="material-symbols-outlined animate-spin text-[16px]">sync</span>
+                )}
                 {t("wizard.finish")}
-              </Button>
+              </button>
             )}
           </div>
         </div>
@@ -252,13 +264,9 @@ export function AddWebhookWizard({
       <div className="flex gap-6">
         <div className="min-w-0 flex-1">
           {error && (
-            <Alert
-              variant="critical"
-              className="mb-4"
-              description={error}
-              dismissLabel={tc("dismissNotification")}
-              onDismiss={() => setError(null)}
-            />
+            <div className="mb-4 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-600 dark:text-red-300">
+              {error}
+            </div>
           )}
           {step === 1 && (
             <Step1ChooseIntegration

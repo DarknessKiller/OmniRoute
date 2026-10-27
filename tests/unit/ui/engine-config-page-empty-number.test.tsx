@@ -122,13 +122,8 @@ async function settle() {
   }
 }
 
-// Kit fields (KEA-7886): a Checkbox's <label> wraps its input; an Input's <label htmlFor>
-// points at it.
 function inputFor(label: string): HTMLInputElement {
-  const labelEl = screen.getByText(label).closest("label");
-  const input =
-    labelEl?.querySelector("input") ??
-    (labelEl?.htmlFor ? (document.getElementById(labelEl.htmlFor) as HTMLInputElement) : null);
+  const input = screen.getByText(label).closest("label")?.querySelector("input");
   if (!input) throw new Error(`no input for ${label}`);
   return input;
 }

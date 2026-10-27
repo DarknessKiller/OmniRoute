@@ -1,6 +1,4 @@
 "use client";
-
-import Icon from "@/shared/components/Icon";
 /**
  * PassthroughModelRow — Issue #3501 Phase 1e
  *
@@ -11,8 +9,7 @@ import Icon from "@/shared/components/Icon";
  * Never imports from ProviderDetailPageClient.
  */
 import React, { useState, useRef, useEffect } from "react";
-import { Input as KitInput } from "@omniroute/ui-kit/input";
-import { Badge, Button, CapabilityBadge } from "@/shared/components";
+import { Badge, CapabilityBadge } from "@/shared/components";
 import { parseContextWindowOverrideInput, providerText } from "../providerPageHelpers";
 import ModelCompatPopover from "./ModelCompatPopover";
 import ModelEndpointTagsEditor, { type ModelEndpointEditorInfo } from "./ModelEndpointTagsEditor";
@@ -190,7 +187,12 @@ export default function PassthroughModelRow({
       }`}
     >
       <div className="flex min-w-0 items-center gap-2">
-        <Icon name="smart_toy" size={16} className="text-text-muted" />
+        <span
+          className="material-symbols-outlined shrink-0 text-base text-text-muted"
+          style={{ color: isHidden ? "var(--color-text-muted)" : undefined }}
+        >
+          smart_toy
+        </span>
         <code
           className="min-w-0 truncate rounded bg-sidebar px-1.5 py-0.5 font-mono text-xs text-text-muted"
           title={fullModel}
@@ -200,17 +202,15 @@ export default function PassthroughModelRow({
         {onSetAlias && (
           <span className="flex min-w-0 items-center text-[9px] gap-1">
             {editing ? (
-              <KitInput
+              <input
                 ref={inputRef}
                 type="text"
-                size="sm"
                 value={aliasValue}
                 onChange={(e) => setAliasValue(e.target.value)}
                 onBlur={handleAliasSubmit}
                 onKeyDown={handleKeyDown}
                 placeholder={providerText(t, "aliasInputPlaceholder", "alias name")}
-                aria-label={providerText(t, "aliasInputPlaceholder", "alias name")}
-                className="h-5 min-h-0 w-24 px-1 text-[9px]"
+                className="bg-surface border border-primary/50 rounded px-1 py-0.5 text-[9px] text-text-main outline-none w-24"
               />
             ) : (
               <span
@@ -265,7 +265,7 @@ export default function PassthroughModelRow({
           {typeof contextWindowOverride === "number" && !editingContext && (
             <CapabilityBadge
               icon="width_normal"
-              className="shrink-0 bg-warning/15 text-warning"
+              className="shrink-0 bg-orange-500/15 text-orange-400"
               title={t("contextWindowOverrideHint")}
             >
               {contextWindowOverride.toLocaleString()}
@@ -273,10 +273,9 @@ export default function PassthroughModelRow({
           )}
           {editingContext && (
             <span className="flex items-center gap-1">
-              <KitInput
+              <input
                 ref={contextInputRef}
                 type="text"
-                size="sm"
                 inputMode="numeric"
                 value={contextValue}
                 onChange={(e) => setContextValue(e.target.value)}
@@ -285,93 +284,73 @@ export default function PassthroughModelRow({
                 placeholder={t("contextWindowOverridePlaceholder")}
                 title={t("contextWindowOverrideHint")}
                 aria-label={t("contextWindowOverrideLabel")}
-                className="h-6 min-h-0 w-28 px-1.5 text-[11px]"
+                className="w-28 rounded border border-border bg-background px-1.5 py-0.5 text-[11px]"
               />
-              <Button
-                variant="ghost"
-                size="icon-sm"
-                icon="check"
+              <button
                 onClick={() => void submitContextOverride()}
                 disabled={savingContextOverride}
-                className="size-6 min-h-6 rounded text-text-muted disabled:opacity-40"
+                className="rounded p-0.5 text-text-muted hover:bg-sidebar hover:text-primary disabled:opacity-40"
                 title={providerText(t, "save", "Save")}
-                aria-label={providerText(t, "save", "Save")}
-              />
-              <Button
-                variant="ghost"
-                size="icon-sm"
-                icon="close"
+              >
+                <span className="material-symbols-outlined text-sm">check</span>
+              </button>
+              <button
                 onClick={() => setEditingContext(false)}
                 disabled={savingContextOverride}
-                className="size-6 min-h-6 rounded text-text-muted disabled:opacity-40"
+                className="rounded p-0.5 text-text-muted hover:bg-sidebar hover:text-primary disabled:opacity-40"
                 title={providerText(t, "cancel", "Cancel")}
-                aria-label={providerText(t, "cancel", "Cancel")}
-              />
+              >
+                <span className="material-symbols-outlined text-sm">close</span>
+              </button>
             </span>
           )}
         </div>
         <div className="flex shrink-0 items-center gap-1">
           {onToggleHidden && testStatus === "error" && (
-            <Button
-              variant="ghost"
-              size="sm"
-              icon="block"
-              loading={!!togglingHidden}
+            <button
               onClick={() => onToggleHidden(modelId, true)}
               disabled={togglingHidden}
-              className="h-6 min-h-0 gap-1 rounded px-1 text-[11px] text-error"
+              className={`flex items-center gap-1 rounded p-0.5 text-[11px] text-red-500 hover:bg-sidebar transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${togglingHidden ? "animate-pulse" : ""}`}
               title={providerText(
                 t,
                 "blacklistModelTooltip",
                 "Blacklist this model — hide it from the catalog"
               )}
             >
+              <span className="material-symbols-outlined text-sm">
+                {togglingHidden ? "progress_activity" : "block"}
+              </span>
               <span>{providerText(t, "blacklistModel", "Blacklist")}</span>
-            </Button>
+            </button>
           )}
           {/* #14337: the affordance itself. Rendered only when the section
               supplies a handler, so rows that cannot take an override are
               unchanged. */}
           {onSaveContextWindowOverride && !editingContext && (
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              icon="edit"
+            <button
               onClick={startEditingContext}
-              className="size-6 min-h-6 rounded text-text-muted"
+              className="rounded p-0.5 text-text-muted hover:bg-sidebar hover:text-primary"
               title={t("contextWindowOverrideLabel")}
               aria-label={t("contextWindowOverrideLabel")}
-            />
+            >
+              <span className="material-symbols-outlined text-sm">edit</span>
+            </button>
           )}
-          <Button
-            variant="ghost"
-            size="icon-sm"
+          <button
             onClick={() => onCopy(fullModel, `model-${modelId}`)}
-            className="size-6 min-h-6 rounded text-text-muted"
+            className="rounded p-0.5 text-text-muted hover:bg-sidebar hover:text-primary"
             title={t("copyModel")}
-            aria-label={t("copyModel")}
           >
-            <Icon name={copied === `model-${modelId}` ? "check" : "content_copy"} size={14} />
-          </Button>
+            <span className="material-symbols-outlined text-sm">
+              {copied === `model-${modelId}` ? "check" : "content_copy"}
+            </span>
+          </button>
           {onTestModel && (
-            <Button
-              variant="ghost"
-              size="icon-sm"
+            <button
               onClick={() => onTestModel(modelId, fullModel)}
               disabled={testingModel}
-              className={`size-6 min-h-6 rounded ${testStatus === "ok" ? "text-success" : testStatus === "quota" ? "text-warning" : testStatus === "error" ? "text-error" : "text-text-muted"}`}
+              className={`rounded p-0.5 hover:bg-sidebar transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${testStatus === "ok" ? "text-green-500" : testStatus === "quota" ? "text-amber-500" : testStatus === "error" ? "text-red-500" : "text-text-muted hover:text-primary"}`}
               title={
-                testingModel
-                  ? t("testingModel")
-                  : testStatus === "ok"
-                    ? "OK"
-                    : testStatus === "quota"
-                      ? t("modelTestQuotaTooltip")
-                      : testStatus === "error"
-                        ? providerText(t, "errorShort", "Error")
-                        : t("testModel")
-              }
-              aria-label={
                 testingModel
                   ? t("testingModel")
                   : testStatus === "ok"
@@ -384,37 +363,35 @@ export default function PassthroughModelRow({
               }
             >
               {testingModel ? (
-                <Icon name="progress_activity" size={14} className="animate-spin" />
+                <span className="material-symbols-outlined text-sm animate-spin">
+                  progress_activity
+                </span>
               ) : testStatus === "ok" ? (
-                <Icon name="check_circle" size={14} />
+                <span className="material-symbols-outlined text-sm">check_circle</span>
               ) : testStatus === "quota" ? (
-                <Icon name="warning" size={14} />
+                <span className="material-symbols-outlined text-sm">warning</span>
               ) : testStatus === "error" ? (
-                <Icon name="error" size={14} />
+                <span className="material-symbols-outlined text-sm">error</span>
               ) : (
-                <Icon name="play_circle" size={14} />
+                <span className="material-symbols-outlined text-sm">play_circle</span>
               )}
-            </Button>
+            </button>
           )}
           {onToggleHidden && (
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              icon={isHidden ? "visibility_off" : "visibility"}
+            <button
               onClick={() => onToggleHidden(modelId, !isHidden)}
               disabled={togglingHidden}
-              className="size-6 min-h-6 rounded text-text-muted disabled:cursor-not-allowed disabled:opacity-40"
+              className="rounded p-0.5 text-text-muted hover:bg-sidebar hover:text-primary disabled:cursor-not-allowed disabled:opacity-40"
               title={
                 isHidden
                   ? providerText(t, "showModel", "Show model")
                   : providerText(t, "hideModel", "Hide model")
               }
-              aria-label={
-                isHidden
-                  ? providerText(t, "showModel", "Show model")
-                  : providerText(t, "hideModel", "Hide model")
-              }
-            />
+            >
+              <span className="material-symbols-outlined text-sm">
+                {isHidden ? "visibility_off" : "visibility"}
+              </span>
+            </button>
           )}
           <ModelCompatPopover
             t={t}
@@ -431,15 +408,13 @@ export default function PassthroughModelRow({
             disabled={compatDisabled}
           />
           {onDeleteAlias && (
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              icon="delete"
+            <button
               onClick={onDeleteAlias}
-              className="size-6 min-h-6 rounded text-error hover:bg-error-bg"
+              className="rounded p-1 text-red-500 hover:bg-red-50"
               title={t("removeModel")}
-              aria-label={t("removeModel")}
-            />
+            >
+              <span className="material-symbols-outlined text-sm">delete</span>
+            </button>
           )}
         </div>
       </div>

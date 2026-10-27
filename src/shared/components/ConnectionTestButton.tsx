@@ -4,7 +4,6 @@ import { useEffect, useId, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import Button from "./Button";
 import Modal, { TALL_MODAL_PROPS } from "./Modal";
-import Select from "./Select";
 
 type Model = { id: string; name?: string };
 type Props = {
@@ -138,11 +137,14 @@ export default function ConnectionTestButton({ connectionId, disabled, compact, 
               <p role="status">{t("loading")}</p>
             ) : (
               <>
-                <Select
+                <label htmlFor={inputId} className="block text-sm font-medium">
+                  {t("model")}
+                </label>
+                <select
                   id={inputId}
-                  label={t("model")}
                   value={modelId}
                   disabled={busy}
+                  className="w-full rounded-lg border border-border bg-bg-main p-2 text-sm"
                   onChange={(event) => {
                     setModelId(event.target.value);
                     setSaved(false);
@@ -160,18 +162,18 @@ export default function ConnectionTestButton({ connectionId, disabled, compact, 
                       {model.name || model.id}
                     </option>
                   ))}
-                </Select>
+                </select>
                 {!models.length && <p className="text-sm text-text-muted">{t("noModels")}</p>}
                 <div>
                   <p className="text-sm font-medium">{t("message")}</p>
-                  <p className="mt-1 whitespace-pre-wrap break-words rounded-lg bg-bg-subtle p-3 text-sm">
+                  <p className="mt-1 whitespace-pre-wrap break-words rounded-lg bg-black/5 p-3 text-sm dark:bg-white/5">
                     {prompt}
                   </p>
                   <a href="/dashboard/settings/ai" className="text-xs text-primary hover:underline">
                     {t("settingsLink")}
                   </a>
                 </div>
-                {disabled && <p className="text-sm text-warning">{t("activateFirst")}</p>}
+                {disabled && <p className="text-sm text-amber-500">{t("activateFirst")}</p>}
                 <div className="flex flex-wrap gap-2">
                   <Button
                     variant="secondary"
@@ -190,21 +192,21 @@ export default function ConnectionTestButton({ connectionId, disabled, compact, 
                   </Button>
                 </div>
                 {saved && (
-                  <p role="status" className="text-xs text-success">
+                  <p role="status" className="text-xs text-green-600">
                     {t("saved")}
                   </p>
                 )}
               </>
             )}
             {error && (
-              <p role="alert" className="whitespace-pre-wrap break-words text-sm text-error">
+              <p role="alert" className="whitespace-pre-wrap break-words text-sm text-red-500">
                 {error}
               </p>
             )}
             {answer && (
               <div role="status">
                 <p className="text-sm font-medium">{t("answer")}</p>
-                <pre className="mt-1 max-h-64 overflow-auto whitespace-pre-wrap break-words rounded-lg bg-bg-subtle p-3 text-sm">
+                <pre className="mt-1 max-h-64 overflow-auto whitespace-pre-wrap break-words rounded-lg bg-black/5 p-3 text-sm dark:bg-white/5">
                   {answer}
                 </pre>
               </div>

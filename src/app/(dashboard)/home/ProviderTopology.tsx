@@ -4,7 +4,6 @@ import { useMemo, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Handle, Position, type Node, type Edge, type NodeTypes } from "@xyflow/react";
-import Icon from "@/shared/components/Icon";
 import { AI_PROVIDERS } from "@/shared/constants/providers";
 import ProviderIcon from "@/shared/components/ProviderIcon";
 import { FlowCanvas } from "@/shared/components/flow/FlowCanvas";
@@ -66,7 +65,7 @@ function ProviderNode({ data }: { data: ProviderNodeData }) {
         boxShadow: error
           ? `0 0 12px ${flowColorAlpha(RED, 19)}`
           : active
-            ? `0 0 12px ${flowColorAlpha(color, 19)}`
+            ? `0 0 12px ${color}30`
             : healthy
               ? `0 0 10px ${flowColorAlpha(GREEN, 13)}`
               : "none",
@@ -100,7 +99,7 @@ function ProviderNode({ data }: { data: ProviderNodeData }) {
 
       <div
         className="size-6 rounded flex items-center justify-center shrink-0"
-        style={{ backgroundColor: flowColorAlpha(color, 9) }}
+        style={{ backgroundColor: `${color}18` }}
       >
         <ProviderIcon providerId={providerId} size={16} type="color" />
       </div>
@@ -152,11 +151,11 @@ function RouterNode({ data }: { data: RouterNodeData }) {
       />
 
       <div className="flex items-center justify-center size-7 rounded-md bg-primary/15 shrink-0">
-        <Icon name="route" size={16} className="text-primary" />
+        <span className="material-symbols-outlined text-primary text-[16px]">route</span>
       </div>
       <span className="text-sm font-bold text-primary">OmniRoute</span>
       {data.activeCount > 0 && (
-        <span className="ml-1 px-1.5 py-0.5 rounded-full bg-primary text-accent-foreground text-[10px] font-bold leading-none">
+        <span className="ml-1 px-1.5 py-0.5 rounded-full bg-primary text-white text-[10px] font-bold leading-none">
           {data.activeCount}
         </span>
       )}
@@ -257,7 +256,7 @@ function buildLayout(
         position: { x: cx - nodeW / 2, y: cy - nodeH / 2 },
         data: {
           label: resolveTopologyNodeLabel(p.name, config.name, p.provider),
-          color: config.color || FLOW_EDGE_COLORS.idle,
+          color: config.color || "#6b7280",
           providerId: p.provider,
           active,
           error,
@@ -353,7 +352,7 @@ export default function ProviderTopology({
       <div
         className={`${containerClass} flex flex-col items-center justify-center gap-2 text-text-muted`}
       >
-        <Icon name="device_hub" size={32} />
+        <span className="material-symbols-outlined text-[32px]">device_hub</span>
         <p className="text-sm">{t("providerTopologyEmpty")}</p>
       </div>
     );

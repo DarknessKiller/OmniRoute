@@ -1,10 +1,8 @@
 "use client";
 
-import Icon from "@/shared/components/Icon";
-
 import { useState, useCallback } from "react";
 import { useTranslations } from "next-intl";
-import { Button, Card, Input, Select } from "@/shared/components";
+import { Button, Card } from "@/shared/components";
 
 type ZedImportCardProps = {
   fetchConnections: () => Promise<void>;
@@ -87,7 +85,7 @@ export default function ZedImportCard({ fetchConnections, notify }: ZedImportCar
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex-1 min-w-0">
             <h2 className="text-lg font-semibold flex items-center gap-2">
-              <Icon name="download" size={20} />
+              <span className="material-symbols-outlined text-[20px]">download</span>
               {t("zedImportTitle")}
             </h2>
             <p className="text-sm text-text-muted mt-1">{t("zedImportDescription")}</p>
@@ -105,22 +103,18 @@ export default function ZedImportCard({ fetchConnections, notify }: ZedImportCar
       </Card>
       <Card>
         <div className="flex flex-col gap-3">
-          <Button
-            variant="ghost"
-            className="h-auto w-full justify-between px-0 text-left hover:bg-transparent"
+          <button
+            className="flex items-center justify-between w-full text-left"
             onClick={() => setShowZedManual((v) => !v)}
-            aria-expanded={showZedManual}
           >
             <h2 className="text-lg font-semibold flex items-center gap-2">
-              <Icon name="edit" size={20} />
+              <span className="material-symbols-outlined text-[20px]">edit</span>
               {t("zedManualTitle")}
             </h2>
-            <Icon
-              name={showZedManual ? "expand_less" : "expand_more"}
-              size={18}
-              className="text-text-muted"
-            />
-          </Button>
+            <span className="material-symbols-outlined text-[18px] text-text-muted">
+              {showZedManual ? "expand_less" : "expand_more"}
+            </span>
+          </button>
           {showZedManual && (
             <div className="flex flex-col gap-3 mt-1">
               <p className="text-sm text-text-muted">
@@ -129,8 +123,8 @@ export default function ZedImportCard({ fetchConnections, notify }: ZedImportCar
                 })}
               </p>
               <div className="flex gap-2 flex-col sm:flex-row">
-                <Select
-                  compact
+                <select
+                  className="input input-sm"
                   value={zedManualProvider}
                   onChange={(e) => setZedManualProvider(e.target.value)}
                 >
@@ -141,12 +135,11 @@ export default function ZedImportCard({ fetchConnections, notify }: ZedImportCar
                   <option value="xai">xAI</option>
                   <option value="openrouter">OpenRouter</option>
                   <option value="deepseek">DeepSeek</option>
-                </Select>
-                <Input
+                </select>
+                <input
                   type="password"
-                  className="flex-1"
+                  className="input input-sm flex-1"
                   placeholder={t("zedPasteApiKey")}
-                  aria-label={t("zedPasteApiKey")}
                   value={zedManualToken}
                   onChange={(e) => setZedManualToken(e.target.value)}
                 />

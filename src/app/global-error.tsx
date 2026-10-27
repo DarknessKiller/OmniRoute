@@ -1,15 +1,8 @@
 "use client";
 
-// global-error replaces the root layout and does not inherit its global styles, fonts or
-// theme (Next.js docs): the kit lockup and button need the stylesheet imported here, and the
-// theme is applied below from the same `theme` store the layout's pre-hydration script reads.
-import "./globals.css";
 import { NextIntlClientProvider, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-// Kit button straight from its module (no <Icon>/iconMap): this chunk ships on every page.
-import { Button, buttonVariants } from "@omniroute/ui-kit/button";
 import { DEFAULT_LOCALE, LOCALES, LOCALE_COOKIE } from "@/i18n/config";
-import { OmniRouteLockup } from "@/shared/components/OmniRouteLogo";
 
 /**
  * Global Error Page — FASE-04 Error Handling
@@ -58,21 +51,6 @@ function getCookieLocale() {
   return LOCALES.includes(locale) ? locale : DEFAULT_LOCALE;
 }
 
-/** Same resolution as the pre-hydration script in layout.tsx (persisted store → system). */
-function getStoredDark() {
-  try {
-    const stored = localStorage.getItem("theme");
-    const parsed = stored ? JSON.parse(stored) : null;
-    const theme = parsed?.state?.theme || "system";
-    return (
-      theme === "dark" ||
-      (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)
-    );
-  } catch {
-    return false;
-  }
-}
-
 function buildGlobalErrorMessages(localeMessages: Record<string, unknown>) {
   const publicSystem = localeMessages.publicSystem;
   const globalError =
@@ -102,36 +80,33 @@ function GlobalErrorContent({ error, reset }: GlobalErrorProps) {
   const t = useTranslations("publicSystem");
 
   return (
-    <main
-      role="alert"
-      aria-live="assertive"
-      className="flex w-full max-w-lg flex-col items-center"
-      aria-labelledby="global-error-title"
-    >
-      <div className="mb-6 flex justify-center">
-        <OmniRouteLockup />
+    <main role="alert" aria-live="assertive" className="flex flex-col items-center">
+      <div className="text-[64px] mb-4" aria-hidden="true">
+        ⚠️
       </div>
-      <h1 id="global-error-title" className="ci-heading mb-2 text-2xl">
-        {t("globalError.title")}
-      </h1>
-      <p className="mb-6 max-w-[400px] text-[15px] leading-relaxed text-text-muted">
+      <h1 className="text-[28px] font-bold mb-2">{t("globalError.title")}</h1>
+      <p className="text-[15px] text-text-muted max-w-[400px] leading-relaxed mb-6">
         {t("globalError.description")}
       </p>
       {process.env.NODE_ENV === "development" && error?.message && (
         <pre
-          className="mb-6 max-w-[600px] overflow-auto rounded-lg border border-error/30 bg-error-bg p-4 text-left text-xs text-error"
+          className="p-4 rounded-lg bg-red-500/10 border border-red-500/30 text-red-500 text-xs max-w-[600px] overflow-auto text-left mb-6"
           aria-label={t("globalError.detailsAriaLabel")}
         >
           {error.message}
         </pre>
       )}
-      <div className="flex flex-col gap-3 sm:flex-row">
-        <Button size="lg" onClick={reset} aria-label={t("globalError.retryAriaLabel")}>
+      <div className="flex flex-col sm:flex-row gap-3">
+        <button
+          onClick={reset}
+          aria-label={t("globalError.retryAriaLabel")}
+          className="px-8 py-3 rounded-[10px] text-white border-none text-sm font-semibold cursor-pointer transition-transform duration-200 motion-reduce:transition-none motion-reduce:transform-none shadow-warm hover:-translate-y-0.5 bg-gradient-to-br from-primary to-primary-hover focus:outline-2 focus:outline-offset-2 focus:outline-primary"
+        >
           {t("globalError.tryAgain")}
-        </Button>
+        </button>
         <a
           href="/status"
-          className={buttonVariants({ variant: "outline", size: "lg" })}
+          className="px-8 py-3 rounded-[10px] text-sm font-semibold border border-[var(--color-border)] hover:bg-[var(--color-bg-alt)] no-underline focus:outline-2 focus:outline-offset-2 focus:outline-primary"
           aria-label={t("globalError.statusAriaLabel")}
         >
           {t("globalError.systemStatus")}
@@ -144,12 +119,10 @@ function GlobalErrorContent({ error, reset }: GlobalErrorProps) {
 export default function GlobalError({ error, reset }: GlobalErrorProps) {
   const [locale, setLocale] = useState<string>(DEFAULT_LOCALE);
   const [messages, setMessages] = useState<Record<string, unknown>>(FALLBACK_EN_MESSAGES);
-  const [dark, setDark] = useState(false);
 
   useEffect(() => {
     void (async () => {
       await Promise.resolve();
-      setDark(getStoredDark());
       const nextLocale = getCookieLocale();
       setLocale(nextLocale);
       if (nextLocale === DEFAULT_LOCALE) return;
@@ -163,14 +136,8 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
   }, []);
 
   return (
-    <html
-      lang={locale}
-      className={dark ? "ci-theme dark" : "ci-theme"}
-      data-theme={dark ? "dark" : "light"}
-      style={{ colorScheme: dark ? "dark" : "light" }}
-      suppressHydrationWarning
-    >
-      <body className="m-0 flex min-h-screen flex-col items-center justify-center bg-bg p-6 text-center font-sans text-text-main antialiased">
+    <html lang={locale}>
+      <body className="flex flex-col items-center justify-center min-h-screen p-6 bg-bg text-text-main font-[system-ui,-apple-system,sans-serif] text-center m-0">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <GlobalErrorContent error={error} reset={reset} />
         </NextIntlClientProvider>

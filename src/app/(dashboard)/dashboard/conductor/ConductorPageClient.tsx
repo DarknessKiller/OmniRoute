@@ -9,16 +9,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 
-import { PageHeader } from "@omniroute/ui-kit/page-header";
-import {
-  Badge,
-  Button,
-  Card,
-  ConfirmModal,
-  DataTable,
-  EmptyState,
-  Modal,
-} from "@/shared/components";
+import { Badge, Card, ConfirmModal, DataTable, EmptyState, Modal } from "@/shared/components";
 
 import FaroChat from "./FaroChat";
 
@@ -127,7 +118,10 @@ export default function ConductorPageClient() {
 
   return (
     <div className="space-y-6">
-      <PageHeader compact title={t("title")} description={t("subtitle")} />
+      <div>
+        <h1 className="text-xl font-semibold">{t("title")}</h1>
+        <p className="text-sm text-text-muted">{t("subtitle")}</p>
+      </div>
 
       {err && <Badge variant="error">{err}</Badge>}
 
@@ -221,7 +215,7 @@ export default function ConductorPageClient() {
             {detail.prompt && (
               <div>
                 <div className="font-medium">{t("prompt")}</div>
-                <pre className="whitespace-pre-wrap text-xs bg-bg-subtle rounded p-2">
+                <pre className="whitespace-pre-wrap text-xs bg-black/5 dark:bg-white/5 rounded p-2">
                   {detail.prompt}
                 </pre>
               </div>
@@ -246,9 +240,13 @@ export default function ConductorPageClient() {
               </div>
             )}
             {!TERMINAL.has(detail.status) && (
-              <Button variant="danger" size="sm" onClick={() => setCancelTarget(detail.id)}>
+              <button
+                type="button"
+                className="text-sm text-red-600 dark:text-red-400 underline"
+                onClick={() => setCancelTarget(detail.id)}
+              >
                 {t("cancel")}
-              </Button>
+              </button>
             )}
           </div>
         )}

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import Button from "@/shared/components/Button";
 import { copyToClipboard } from "@/shared/utils/clipboard";
 
 /**
@@ -21,18 +20,19 @@ export default function ManualUpdateCommand({ command }: { command: string }) {
 
   return (
     <div className="mt-2 flex min-w-0 items-center gap-2">
-      <code className="min-w-0 break-all rounded bg-surface-2 px-2 py-1 font-mono text-[11px]">
+      <code className="min-w-0 break-all rounded bg-black/10 px-2 py-1 font-mono text-[11px] dark:bg-white/10">
         {command}
       </code>
-      <Button
-        variant="ghost"
-        size="sm"
-        icon={copied ? "check" : "content_copy"}
+      <button
+        type="button"
         onClick={handleCopy}
-        className="shrink-0 text-xs"
+        className="flex shrink-0 items-center gap-1 rounded px-2 py-1 text-xs font-semibold hover:bg-primary/20"
       >
+        <span className="material-symbols-outlined text-[14px]">
+          {copied ? "check" : "content_copy"}
+        </span>
         {copied ? tc("copied") : tc("copy")}
-      </Button>
+      </button>
     </div>
   );
 }

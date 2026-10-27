@@ -2,16 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
-import Icon from "./Icon";
 import Modal from "./Modal";
 import Button from "./Button";
 import Input from "./Input";
 import Select from "./Select";
-
-// Method choice rows: full-width outline buttons carrying an icon, a heading and a description
-// (card radius, not the kit button pill: the rows wrap to 2-3 lines).
-const METHOD_CARD_CLASS =
-  "h-auto w-full justify-start whitespace-normal rounded-card p-4 text-left font-normal hover:bg-bg-subtle";
 
 type KiroAuthModalProps = {
   isOpen: boolean;
@@ -197,13 +191,12 @@ export default function KiroAuthModal({
             <p className="text-sm text-text-muted mb-4">{t("chooseMethod")}</p>
 
             {/* AWS Builder ID */}
-            <Button
-              variant="outline"
+            <button
               onClick={() => onMethodSelect("builder-id")}
-              className={METHOD_CARD_CLASS}
+              className="w-full p-4 text-left border border-border rounded-lg hover:bg-sidebar transition-colors"
             >
               <div className="flex items-start gap-3">
-                <Icon name="shield" className="text-primary mt-0.5" />
+                <span className="material-symbols-outlined text-primary mt-0.5">shield</span>
                 <div className="flex-1">
                   <h3 className="font-semibold mb-1">{t("builderId")}</h3>
                   <p className="text-sm text-text-muted">
@@ -211,16 +204,15 @@ export default function KiroAuthModal({
                   </p>
                 </div>
               </div>
-            </Button>
+            </button>
 
             {/* AWS IAM Identity Center (IDC) */}
-            <Button
-              variant="outline"
+            <button
               onClick={() => handleMethodSelect("idc")}
-              className={METHOD_CARD_CLASS}
+              className="w-full p-4 text-left border border-border rounded-lg hover:bg-sidebar transition-colors"
             >
               <div className="flex items-start gap-3">
-                <Icon name="business" className="text-primary mt-0.5" />
+                <span className="material-symbols-outlined text-primary mt-0.5">business</span>
                 <div className="flex-1">
                   <h3 className="font-semibold mb-1">{t("organization")}</h3>
                   <p className="text-sm text-text-muted">
@@ -230,46 +222,45 @@ export default function KiroAuthModal({
                   </p>
                 </div>
               </div>
-            </Button>
+            </button>
 
             {/* Google Social Login */}
-            <Button
-              variant="outline"
+            <button
               onClick={() => handleSocialLogin("google")}
-              className={METHOD_CARD_CLASS}
+              className="w-full p-4 text-left border border-border rounded-lg hover:bg-sidebar transition-colors"
             >
               <div className="flex items-start gap-3">
-                <Icon name="account_circle" className="text-primary mt-0.5" />
+                <span className="material-symbols-outlined text-primary mt-0.5">
+                  account_circle
+                </span>
                 <div className="flex-1">
                   <h3 className="font-semibold mb-1">{t("googleAccount")}</h3>
                   <p className="text-sm text-text-muted">{t("googleDescription")}</p>
                 </div>
               </div>
-            </Button>
+            </button>
 
             {/* GitHub Social Login */}
-            <Button
-              variant="outline"
+            <button
               onClick={() => handleSocialLogin("github")}
-              className={METHOD_CARD_CLASS}
+              className="w-full p-4 text-left border border-border rounded-lg hover:bg-sidebar transition-colors"
             >
               <div className="flex items-start gap-3">
-                <Icon name="code" className="text-primary mt-0.5" />
+                <span className="material-symbols-outlined text-primary mt-0.5">code</span>
                 <div className="flex-1">
                   <h3 className="font-semibold mb-1">{t("githubAccount")}</h3>
                   <p className="text-sm text-text-muted">{t("githubDescription")}</p>
                 </div>
               </div>
-            </Button>
+            </button>
 
             {/* Import Token */}
-            <Button
-              variant="outline"
+            <button
               onClick={() => handleMethodSelect("import")}
-              className={METHOD_CARD_CLASS}
+              className="w-full p-4 text-left border border-border rounded-lg hover:bg-sidebar transition-colors"
             >
               <div className="flex items-start gap-3">
-                <Icon name="file_upload" className="text-primary mt-0.5" />
+                <span className="material-symbols-outlined text-primary mt-0.5">file_upload</span>
                 <div className="flex-1">
                   <h3 className="font-semibold mb-1">{t("importToken")}</h3>
                   <p className="text-sm text-text-muted">
@@ -277,16 +268,15 @@ export default function KiroAuthModal({
                   </p>
                 </div>
               </div>
-            </Button>
+            </button>
 
             {/* API Key */}
-            <Button
-              variant="outline"
+            <button
               onClick={() => handleMethodSelect("api-key")}
-              className={METHOD_CARD_CLASS}
+              className="w-full p-4 text-left border border-border rounded-lg hover:bg-sidebar transition-colors"
             >
               <div className="flex items-start gap-3">
-                <Icon name="key" className="text-primary mt-0.5" />
+                <span className="material-symbols-outlined text-primary mt-0.5">key</span>
                 <div className="flex-1">
                   <h3 className="font-semibold mb-1">{t("apiKey")}</h3>
                   <p className="text-sm text-text-muted">
@@ -294,33 +284,38 @@ export default function KiroAuthModal({
                   </p>
                 </div>
               </div>
-            </Button>
+            </button>
           </div>
         )}
 
         {/* IDC Configuration */}
         {selectedMethod === "idc" && (
           <div className="space-y-4">
-            <Input
-              label={t("idcStartUrl")}
-              required
-              value={idcStartUrl}
-              onChange={(e) => setIdcStartUrl(e.target.value)}
-              placeholder={t("idcStartUrlPlaceholder")}
-              inputClassName="font-mono text-sm"
-              hint={t("idcStartUrlDescription")}
-            />
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                {t("idcStartUrl")} <span className="text-red-500">*</span>
+              </label>
+              <Input
+                value={idcStartUrl}
+                onChange={(e) => setIdcStartUrl(e.target.value)}
+                placeholder={t("idcStartUrlPlaceholder")}
+                className="font-mono text-sm"
+              />
+              <p className="text-xs text-text-muted mt-1">{t("idcStartUrlDescription")}</p>
+            </div>
 
-            <Input
-              label={t("awsRegion")}
-              value={idcRegion}
-              onChange={(e) => setIdcRegion(e.target.value)}
-              placeholder={t("regionPlaceholder")}
-              inputClassName="font-mono text-sm"
-              hint={t("idcRegionDescription")}
-            />
+            <div>
+              <label className="block text-sm font-medium mb-2">{t("awsRegion")}</label>
+              <Input
+                value={idcRegion}
+                onChange={(e) => setIdcRegion(e.target.value)}
+                placeholder={t("regionPlaceholder")}
+                className="font-mono text-sm"
+              />
+              <p className="text-xs text-text-muted mt-1">{t("idcRegionDescription")}</p>
+            </div>
 
-            {error && <p className="text-sm text-error">{error}</p>}
+            {error && <p className="text-sm text-red-600">{error}</p>}
 
             <div className="flex gap-2">
               <Button onClick={handleIdcContinue} fullWidth>
@@ -340,7 +335,9 @@ export default function KiroAuthModal({
             {autoDetecting && (
               <div className="text-center py-6">
                 <div className="size-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Icon name="progress_activity" size={30} className="text-primary animate-spin" />
+                  <span className="material-symbols-outlined text-3xl text-primary animate-spin">
+                    progress_activity
+                  </span>
                 </div>
                 <h3 className="text-lg font-semibold mb-2">{t("autoDetecting")}</h3>
                 <p className="text-sm text-text-muted">
@@ -354,29 +351,34 @@ export default function KiroAuthModal({
               <>
                 {/* Info message if not auto-detected */}
                 {!error && (
-                  <div className="bg-info/10 p-3 rounded-lg border border-info/30">
+                  <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg border border-blue-200 dark:border-blue-800">
                     <div className="flex gap-2">
-                      <Icon name="info" className="text-info" />
-                      <p className="text-sm text-info">
+                      <span className="material-symbols-outlined text-blue-600 dark:text-blue-400">
+                        info
+                      </span>
+                      <p className="text-sm text-blue-800 dark:text-blue-200">
                         {t("tokenNotDetected", { providerLabel })}
                       </p>
                     </div>
                   </div>
                 )}
 
-                <Input
-                  label={t("refreshToken")}
-                  required
-                  type="password"
-                  value={refreshToken}
-                  onChange={(e) => setRefreshToken(e.target.value)}
-                  placeholder={t("tokenPlaceholder")}
-                  inputClassName="font-mono text-sm"
-                />
+                <div>
+                  <label className="block text-sm font-medium mb-2">
+                    {t("refreshToken")} <span className="text-red-500">*</span>
+                  </label>
+                  <Input
+                    type="password"
+                    value={refreshToken}
+                    onChange={(e) => setRefreshToken(e.target.value)}
+                    placeholder={t("tokenPlaceholder")}
+                    className="font-mono text-sm"
+                  />
+                </div>
 
                 {error && (
-                  <div className="bg-error/10 p-3 rounded-lg border border-error/30">
-                    <p className="text-sm text-error">{error}</p>
+                  <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg border border-red-200 dark:border-red-800">
+                    <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
                   </div>
                 )}
 
@@ -400,16 +402,19 @@ export default function KiroAuthModal({
         {/* API Key Import */}
         {selectedMethod === "api-key" && (
           <div className="space-y-4">
-            <Input
-              label={t("apiKey")}
-              required
-              type="password"
-              value={apiKey}
-              onChange={(e) => setApiKey(e.target.value)}
-              placeholder={t("apiKeyPlaceholder", { providerLabel })}
-              inputClassName="font-mono text-sm"
-              hint={t("apiKeyStoredDescription")}
-            />
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                {t("apiKey")} <span className="text-red-500">*</span>
+              </label>
+              <Input
+                type="password"
+                value={apiKey}
+                onChange={(e) => setApiKey(e.target.value)}
+                placeholder={t("apiKeyPlaceholder", { providerLabel })}
+                className="font-mono text-sm"
+              />
+              <p className="text-xs text-text-muted mt-1">{t("apiKeyStoredDescription")}</p>
+            </div>
 
             <Select
               label={t("awsRegion")}
@@ -425,8 +430,8 @@ export default function KiroAuthModal({
             />
 
             {error && (
-              <div className="bg-error/10 p-3 rounded-lg border border-error/30">
-                <p className="text-sm text-error">{error}</p>
+              <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg border border-red-200 dark:border-red-800">
+                <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
               </div>
             )}
 

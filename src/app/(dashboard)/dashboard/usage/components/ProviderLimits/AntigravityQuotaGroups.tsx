@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { formatCountdown, getBarColor } from "./utils";
-import Button from "@/shared/components/Button";
 
 export type QuotaWindow = {
   remainingPercentage?: number;
@@ -48,8 +47,12 @@ export function resolveAntigravityQuotaGroups(
     name !== "claude_gpt_session" &&
     name !== "claude_gpt_weekly";
 
-  const geminiModels = quotas.map((q) => q.modelKey || q.name || "").filter(isGeminiModel);
-  const claudeModels = quotas.map((q) => q.modelKey || q.name || "").filter(isClaudeModel);
+  const geminiModels = quotas
+    .map((q) => q.modelKey || q.name || "")
+    .filter(isGeminiModel);
+  const claudeModels = quotas
+    .map((q) => q.modelKey || q.name || "")
+    .filter(isClaudeModel);
 
   const fallbackGeminiSession = !geminiSession
     ? quotas.find((q) => isGeminiModel(q.modelKey || q.name || ""))
@@ -178,25 +181,23 @@ export default function AntigravityQuotaGroups({ groups }: { groups: QuotaGroup[
                 </p>
               ))}
               {models.length > visibleModels.length ? (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="mt-1 h-auto min-h-0 px-0 py-0 text-primary hover:underline"
+                <button
+                  type="button"
+                  className="mt-1 text-primary hover:underline"
                   onClick={() => setExpandedGroups((current) => ({ ...current, [group.id]: true }))}
                 >
                   Show {models.length - visibleModels.length} more
-                </Button>
+                </button>
               ) : expanded && models.length > 4 ? (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="mt-1 h-auto min-h-0 px-0 py-0 text-primary hover:underline"
+                <button
+                  type="button"
+                  className="mt-1 text-primary hover:underline"
                   onClick={() =>
                     setExpandedGroups((current) => ({ ...current, [group.id]: false }))
                   }
                 >
                   Show less
-                </Button>
+                </button>
               ) : null}
             </div>
           </section>

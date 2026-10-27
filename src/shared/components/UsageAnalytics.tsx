@@ -2,9 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo, useRef, useSyncExternalStore } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import Button from "./Button";
 import Card from "./Card";
-import Icon from "./Icon";
 import { CardSkeleton } from "./Loading";
 import { fmtCompact as fmt, fmtFull, fmtCost } from "@/shared/utils/formatting";
 import { readFetchErrorMessage } from "@/shared/utils/fetchError";
@@ -224,7 +222,7 @@ export default function UsageAnalytics() {
   if (loading && !analytics) return <CardSkeleton />;
   if (error)
     return (
-      <Card className="p-6 text-center text-error">
+      <Card className="p-6 text-center text-red-500">
         {tCommon("errorShort")}: {error}
       </Card>
     );
@@ -241,38 +239,44 @@ export default function UsageAnalytics() {
       {/* Header + Filters */}
       <div className="flex items-center justify-between flex-wrap gap-3">
         <h2 className="text-xl font-semibold flex items-center gap-2">
-          <Icon name="analytics" size={22} className="text-primary" />
+          <span className="material-symbols-outlined text-primary text-[22px]">analytics</span>
           {t("usageAnalyticsTitle")}
         </h2>
-        <div className="flex flex-wrap items-center gap-2.5">
+        <div className="flex items-center gap-2.5">
           {/* Token Display Mode Toggle (Compact vs Exact) */}
           <div
             role="radiogroup"
             aria-label={t("tokenDisplayMode")}
-            className="flex items-center gap-0.5 bg-surface-2 rounded-lg p-1 border border-border text-xs"
+            className="flex items-center gap-0.5 bg-black/[0.03] dark:bg-white/[0.03] rounded-lg p-1 border border-black/5 dark:border-white/5 text-xs"
           >
-            <Button
-              size="sm"
-              variant={tokenDisplayMode === "compact" ? "secondary" : "ghost"}
+            <button
+              type="button"
               role="radio"
               aria-checked={tokenDisplayMode === "compact"}
               onClick={() => handleToggleDisplayMode("compact")}
               title={t("tokenDisplayCompact")}
-              className="h-7 min-h-7 px-2.5 text-xs"
+              className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-all cursor-pointer ${
+                tokenDisplayMode === "compact"
+                  ? "bg-surface text-text-main shadow-xs"
+                  : "text-text-muted hover:text-text-main hover:bg-black/5 dark:hover:bg-white/5"
+              }`}
             >
               {t("tokenDisplayCompact")}
-            </Button>
-            <Button
-              size="sm"
-              variant={tokenDisplayMode === "exact" ? "secondary" : "ghost"}
+            </button>
+            <button
+              type="button"
               role="radio"
               aria-checked={tokenDisplayMode === "exact"}
               onClick={() => handleToggleDisplayMode("exact")}
               title={t("tokenDisplayExact")}
-              className="h-7 min-h-7 px-2.5 text-xs"
+              className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-all cursor-pointer ${
+                tokenDisplayMode === "exact"
+                  ? "bg-surface text-text-main shadow-xs"
+                  : "text-text-muted hover:text-text-main hover:bg-black/5 dark:hover:bg-white/5"
+              }`}
             >
               {t("tokenDisplayExact")}
-            </Button>
+            </button>
           </div>
 
           {/* API Key Filter */}
@@ -284,29 +288,31 @@ export default function UsageAnalytics() {
 
           {/* Period Selector + Custom */}
           <div
-            className="relative flex flex-wrap items-center gap-1 bg-surface-2 rounded-lg p-1 border border-border"
+            className="relative flex items-center gap-1 bg-black/[0.03] dark:bg-white/[0.03] rounded-lg p-1 border border-black/5 dark:border-white/5"
             ref={customPickerAnchorRef}
           >
             {ranges.map((r) => (
-              <Button
+              <button
                 key={r.value}
-                size="sm"
-                variant={range === r.value ? "primary" : "ghost"}
-                aria-pressed={range === r.value}
                 onClick={() => handleRangeSelect(r.value)}
-                className="h-7 min-h-7 px-3 text-xs"
+                className={`px-3 py-1 rounded-md text-xs font-semibold transition-all ${
+                  range === r.value
+                    ? "bg-primary text-white shadow-sm"
+                    : "text-text-muted hover:text-text-main hover:bg-black/5 dark:hover:bg-white/5"
+                }`}
               >
                 {r.label}
-              </Button>
+              </button>
             ))}
-            <Button
-              size="sm"
-              variant={range === "custom" ? "primary" : "ghost"}
-              aria-pressed={range === "custom"}
+            <button
               onClick={() => handleRangeSelect("custom")}
-              className="h-7 min-h-7 px-3 text-xs gap-1"
+              className={`px-3 py-1 rounded-md text-xs font-semibold transition-all flex items-center gap-1 ${
+                range === "custom"
+                  ? "bg-primary text-white shadow-sm"
+                  : "text-text-muted hover:text-text-main hover:bg-black/5 dark:hover:bg-white/5"
+              }`}
             >
-              <Icon name="date_range" size={13} />
+              <span className="material-symbols-outlined text-[13px]">date_range</span>
               {customRangeLabel || t("customRange")}
               {range === "custom" && customRangeLabel && (
                 <span
@@ -319,10 +325,10 @@ export default function UsageAnalytics() {
                   }}
                   className="ml-0.5 opacity-70 hover:opacity-100"
                 >
-                  <Icon name="close" size={11} />
+                  <span className="material-symbols-outlined text-[11px]">close</span>
                 </span>
               )}
-            </Button>
+            </button>
 
             {/* Custom Range Picker Popover */}
             {showCustomPicker && (
@@ -366,7 +372,7 @@ export default function UsageAnalytics() {
               ? `~${fmt(s.completionTokens)}`
               : fmtFull(s.completionTokens)
           }
-          color="text-success"
+          color="text-emerald-500"
         />
         <StatCard
           icon="payments"
@@ -377,7 +383,7 @@ export default function UsageAnalytics() {
               ? `$${Number(s.totalCost).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 })}`
               : undefined
           }
-          color="text-warning"
+          color="text-amber-500"
         />
       </div>
 
@@ -392,7 +398,7 @@ export default function UsageAnalytics() {
                 icon: "dns",
                 label: t("infraProviders"),
                 value: providerCount,
-                color: "text-chart-2",
+                color: "text-indigo-500",
               },
               { icon: "vpn_key", label: t("infraApiKeys"), value: s.uniqueApiKeys || 0 },
               { icon: "model_training", label: t("infraModels"), value: s.uniqueModels || 0 },
@@ -410,7 +416,7 @@ export default function UsageAnalytics() {
                   tokenDisplayMode === "exact"
                     ? `tokens : ~${fmt(avgTokensPerReq)} tokens`
                     : `tokens : ${fmtFull(avgTokensPerReq)} tokens`,
-                color: "text-info",
+                color: "text-cyan-500",
               },
               {
                 icon: "request_quote",
@@ -419,13 +425,13 @@ export default function UsageAnalytics() {
                 tooltip: costPerReq
                   ? `cost : $${Number(costPerReq).toLocaleString(undefined, { minimumFractionDigits: 4, maximumFractionDigits: 6 })}`
                   : undefined,
-                color: "text-warning",
+                color: "text-orange-500",
               },
               {
                 icon: "compare_arrows",
                 label: t("perfIoRatio"),
                 value: `${ioRatio}x`,
-                color: "text-chart-3",
+                color: "text-violet-500",
               },
               {
                 icon: "bolt",
@@ -438,7 +444,7 @@ export default function UsageAnalytics() {
                   tokenDisplayMode === "exact"
                     ? `requests : ~${fmt(s.fastRequests || 0)} requests`
                     : `requests : ${fmtFull(s.fastRequests || 0)} requests`,
-                color: "text-info",
+                color: "text-sky-500",
               },
             ],
           },
@@ -450,31 +456,31 @@ export default function UsageAnalytics() {
                 icon: "star",
                 label: t("highlightsTopModel"),
                 value: topModel,
-                color: "text-chart-5",
+                color: "text-pink-500",
               },
               {
                 icon: "cloud",
                 label: t("highlightsTopProvider"),
                 value: topProvider,
-                color: "text-chart-4",
+                color: "text-teal-500",
               },
               {
                 icon: "today",
                 label: t("highlightsBusiestDay"),
                 value: busiestDay,
-                color: "text-error",
+                color: "text-rose-500",
               },
               {
                 icon: "network_node",
                 label: t("highlightsDiversity"),
                 value: `${providerDiversity.toFixed(1)}%`,
-                color: "text-info",
+                color: "text-sky-500",
               },
               {
                 icon: "swap_horiz",
                 label: t("highlightsFallbackRate"),
                 value: `${Number(s.fallbackRatePct || 0).toFixed(1)}%`,
-                color: "text-warning",
+                color: "text-amber-500",
               },
             ],
           },

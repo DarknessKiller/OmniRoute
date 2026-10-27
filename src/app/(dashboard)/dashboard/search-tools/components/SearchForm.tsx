@@ -1,15 +1,9 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { Field } from "@omniroute/ui-kit/field";
-// Button/Select stay on the barrel (the search-tab test mocks it); the newly used adapters are
-// imported from their own modules.
 import { Button, Select } from "@/shared/components";
-import Badge from "@/shared/components/Badge";
-import Input from "@/shared/components/Input";
-import Textarea from "@/shared/components/Textarea";
 import type { SearchProviderCatalogItem } from "@/shared/schemas/searchTools";
 
 interface SearchProvider {
@@ -45,16 +39,9 @@ interface SearchFormProps extends SearchFormExtendedProps {
   providers: SearchProvider[];
 }
 
-export default function SearchForm({
-  onSearch,
-  loading,
-  onCancel,
-  providers,
-  catalogProviders,
-}: SearchFormProps) {
+export default function SearchForm({ onSearch, loading, onCancel, providers, catalogProviders }: SearchFormProps) {
   const t = useTranslations("search");
   const tc = useTranslations("common");
-  const queryId = useId();
   const [query, setQuery] = useState("");
   const [provider, setProvider] = useState("auto");
   const [searchType, setSearchType] = useState("web");
@@ -111,29 +98,31 @@ export default function SearchForm({
     <div className="flex flex-col h-full">
       {/* Query */}
       <div className="p-4 border-b border-border">
-        <Field label={t("searchQuery")} htmlFor={queryId}>
-          <Textarea
-            id={queryId}
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder={t("queryPlaceholder")}
-            className="resize-none h-16"
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault();
-                if (!noProviders && query.trim()) handleSubmit();
-              }
-            }}
-          />
-        </Field>
+        <label className="block text-[10px] font-semibold text-text-muted uppercase tracking-wider mb-2">
+          {t("searchQuery")}
+        </label>
+        <textarea
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder={t("queryPlaceholder")}
+          className="w-full bg-surface border border-border rounded-lg p-2.5 text-sm text-text-main resize-none h-16 focus:outline-none focus:ring-2 focus:ring-primary/30"
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              if (!noProviders && query.trim()) handleSubmit();
+            }
+          }}
+        />
       </div>
 
       {/* Provider + Type + Max Results */}
       <div className="p-4 border-b border-border space-y-2">
         <div className="flex gap-2">
           <div className="flex-1">
+            <label className="block text-[10px] text-text-muted uppercase tracking-wider mb-1">
+              {t("provider")}
+            </label>
             <Select
-              label={t("provider")}
               value={provider}
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setProvider(e.target.value)}
               options={[
@@ -182,7 +171,10 @@ export default function SearchForm({
                       : "● missing"}
                 </span>
                 {catalogInfo.status === "missing" && (
-                  <Link href={catalogInfo.configureHref} className="text-accent hover:underline">
+                  <Link
+                    href={catalogInfo.configureHref}
+                    className="text-accent hover:underline"
+                  >
                     Configure →
                   </Link>
                 )}
@@ -190,8 +182,10 @@ export default function SearchForm({
             )}
           </div>
           <div className="flex-1">
+            <label className="block text-[10px] text-text-muted uppercase tracking-wider mb-1">
+              {t("searchType")}
+            </label>
             <Select
-              label={t("searchType")}
               value={searchType}
               onChange={(e: any) => setSearchType(e.target.value)}
               options={[
@@ -203,24 +197,24 @@ export default function SearchForm({
           </div>
         </div>
         <div className="w-20">
-          <Input
-            label={t("maxResults")}
+          <label className="block text-[10px] text-text-muted uppercase tracking-wider mb-1">
+            {t("maxResults")}
+          </label>
+          <input
             type="number"
             value={maxResults}
             onChange={(e) => setMaxResults(parseInt(e.target.value) || 5)}
             min={1}
             max={100}
+            className="w-full bg-surface border border-border rounded-lg px-2.5 py-1.5 text-sm text-text-main focus:outline-none focus:ring-2 focus:ring-primary/30"
           />
         </div>
       </div>
 
       {/* Filters (collapsible) */}
       <div className="p-4 border-b border-border">
-        {/* kit-exception: Full-width disclosure header: stays a native <button> on kit tokens. */}
         <button
-          type="button"
           className="flex justify-between items-center w-full"
-          aria-expanded={showFilters}
           onClick={() => setShowFilters(!showFilters)}
         >
           <span className="text-[10px] font-semibold text-text-muted uppercase tracking-wider">
@@ -231,24 +225,28 @@ export default function SearchForm({
         {showFilters && (
           <div className="mt-3 space-y-2">
             <div className="flex gap-2">
-              <Input
-                className="flex-1"
-                label={t("country")}
-                value={country}
-                onChange={(e) => setCountry(e.target.value)}
-                placeholder={t("optionAny")}
-              />
-              <Input
-                className="flex-1"
-                label={t("language")}
-                value={language}
-                onChange={(e) => setLanguage(e.target.value)}
-                placeholder={t("optionAny")}
-              />
+              <div className="flex-1">
+                <label className="block text-[10px] text-text-muted mb-1">{t("country")}</label>
+                <input
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                  placeholder={t("optionAny")}
+                  className="w-full bg-surface border border-border rounded-md px-2 py-1.5 text-xs text-text-main focus:outline-none"
+                />
+              </div>
+              <div className="flex-1">
+                <label className="block text-[10px] text-text-muted mb-1">{t("language")}</label>
+                <input
+                  value={language}
+                  onChange={(e) => setLanguage(e.target.value)}
+                  placeholder={t("optionAny")}
+                  className="w-full bg-surface border border-border rounded-md px-2 py-1.5 text-xs text-text-main focus:outline-none"
+                />
+              </div>
             </div>
             <div>
+              <label className="block text-[10px] text-text-muted mb-1">{t("timeRange")}</label>
               <Select
-                label={t("timeRange")}
                 value={timeRange}
                 onChange={(e: any) => setTimeRange(e.target.value)}
                 options={[
@@ -262,82 +260,75 @@ export default function SearchForm({
               />
             </div>
             <div>
-              <div className="flex items-end gap-1">
-                <Input
-                  className="flex-1"
-                  label={t("includeDomains")}
+              <label className="block text-[10px] text-text-muted mb-1">
+                {t("includeDomains")}
+              </label>
+              <div className="flex gap-1">
+                <input
                   value={domainInput}
                   onChange={(e) => setDomainInput(e.target.value)}
                   placeholder={t("domainPlaceholder")}
+                  className="flex-1 bg-surface border border-border rounded-md px-2 py-1.5 text-xs text-text-main focus:outline-none"
                   onKeyDown={(e) => e.key === "Enter" && addDomain("include")}
                 />
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  icon="add"
-                  aria-label={`${tc("add")}: ${t("includeDomains")}`}
-                  title={`${tc("add")}: ${t("includeDomains")}`}
-                  onClick={() => addDomain("include")}
-                />
+                <button onClick={() => addDomain("include")} className="text-primary text-lg px-1">
+                  +
+                </button>
               </div>
               {includeDomains.length > 0 && (
                 <div className="flex flex-wrap gap-1 mt-1">
                   {includeDomains.map((d) => (
-                    <Badge key={d} size="sm" variant="primary">
+                    <span
+                      key={d}
+                      className="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full flex items-center gap-1"
+                    >
                       {d}
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        icon="close"
-                        className="size-4 min-h-4 p-0"
-                        aria-label={`${tc("delete")}: ${d}`}
+                      <button
                         onClick={() => removeDomain(d, "include")}
-                      />
-                    </Badge>
+                        className="text-primary/60"
+                      >
+                        ×
+                      </button>
+                    </span>
                   ))}
                 </div>
               )}
             </div>
             <div>
-              <div className="flex items-end gap-1">
-                <Input
-                  className="flex-1"
-                  label={t("excludeDomains")}
+              <label className="block text-[10px] text-text-muted mb-1">
+                {t("excludeDomains")}
+              </label>
+              <div className="flex gap-1">
+                <input
                   value={excludeDomainInput}
                   onChange={(e) => setExcludeDomainInput(e.target.value)}
                   placeholder={t("domainPlaceholder")}
+                  className="flex-1 bg-surface border border-border rounded-md px-2 py-1.5 text-xs text-text-main focus:outline-none"
                   onKeyDown={(e) => e.key === "Enter" && addDomain("exclude")}
                 />
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  icon="add"
-                  aria-label={`${tc("add")}: ${t("excludeDomains")}`}
-                  title={`${tc("add")}: ${t("excludeDomains")}`}
-                  onClick={() => addDomain("exclude")}
-                />
+                <button onClick={() => addDomain("exclude")} className="text-primary text-lg px-1">
+                  +
+                </button>
               </div>
               {excludeDomains.length > 0 && (
                 <div className="flex flex-wrap gap-1 mt-1">
                   {excludeDomains.map((d) => (
-                    <Badge key={d} size="sm" variant="error">
+                    <span
+                      key={d}
+                      className="text-[10px] bg-error/10 text-error px-2 py-0.5 rounded-full flex items-center gap-1"
+                    >
                       {d}
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        icon="close"
-                        className="size-4 min-h-4 p-0"
-                        aria-label={`${tc("delete")}: ${d}`}
-                        onClick={() => removeDomain(d, "exclude")}
-                      />
-                    </Badge>
+                      <button onClick={() => removeDomain(d, "exclude")} className="text-error/60">
+                        ×
+                      </button>
+                    </span>
                   ))}
                 </div>
               )}
             </div>
             <div>
+              <label className="block text-[10px] text-text-muted mb-1">{t("safeSearch")}</label>
               <Select
-                label={t("safeSearch")}
                 value={safeSearch}
                 onChange={(e: any) => setSafeSearch(e.target.value)}
                 options={[

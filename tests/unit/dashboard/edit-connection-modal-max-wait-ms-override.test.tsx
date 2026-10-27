@@ -3,9 +3,6 @@ import React, { act } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 
-// The shared Modal is a kit Dialog (Radix) since KEA-7886: its content is portaled to
-// document.body, so queries start there (the container is a child of body).
-
 vi.mock("next-intl", () => ({
   useTranslations: () => (key: string) => key,
 }));
@@ -64,7 +61,7 @@ function renderModal(connection: Record<string, unknown>) {
 function expandAdvancedSettings() {
   // The "Rate Limit Overrides" section (like the rest of the advanced fields)
   // is collapsed by default behind the "Advanced settings" disclosure toggle.
-  const toggle = document.body.querySelector(
+  const toggle = container.querySelector(
     'button[aria-controls="edit-connection-advanced-settings"]'
   ) as HTMLButtonElement | null;
   expect(toggle).not.toBeNull();
@@ -74,15 +71,15 @@ function expandAdvancedSettings() {
 }
 
 function findMaxWaitMsInput(): HTMLInputElement | null {
-  const label = Array.from(document.body.querySelectorAll("label")).find(
+  const label = Array.from(container.querySelectorAll("label")).find(
     (el) => el.textContent === "rateLimitOverridesMaxWaitMsLabel"
   );
   const forId = label?.getAttribute("for");
-  return forId ? (document.body.querySelector(`#${forId}`) as HTMLInputElement | null) : null;
+  return forId ? (container.querySelector(`#${forId}`) as HTMLInputElement | null) : null;
 }
 
 function clickSave() {
-  const button = Array.from(document.body.querySelectorAll("button")).find(
+  const button = Array.from(container.querySelectorAll("button")).find(
     (b) => b.textContent === "save"
   );
   expect(button).toBeTruthy();

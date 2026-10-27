@@ -1,18 +1,12 @@
 "use client";
 
-import { useId, useRef, useState } from "react";
+import { useState, useRef } from "react";
 import { useTranslations } from "next-intl";
-import { Field } from "@omniroute/ui-kit/field";
-import Button from "@/shared/components/Button";
-import Select from "@/shared/components/Select";
 import { useApiKey } from "../../providers/hooks/useApiKey";
 import { useProviderModels } from "../../providers/hooks/useProviderModels";
 import { PlaygroundCard } from "./PlaygroundCard";
 import { buildCurl } from "../../providers/utils/buildCurl";
-import {
-  PLAYGROUND_KEY_ID_HEADER,
-  resolvePlaygroundKeyId,
-} from "../../providers/utils/playgroundAuth";
+import { PLAYGROUND_KEY_ID_HEADER, resolvePlaygroundKeyId } from "../../providers/utils/playgroundAuth";
 
 interface Props {
   providerId: string;
@@ -46,7 +40,6 @@ function SttResultRenderer(data: unknown) {
 
 export function SttExampleCard({ providerId }: Props) {
   const t = useTranslations("miniPlayground");
-  const fileInputId = useId();
   const { apiKey, keys } = useApiKey();
   const { models } = useProviderModels(providerId);
 
@@ -153,42 +146,46 @@ export function SttExampleCard({ providerId }: Props) {
       resultRenderer={SttResultRenderer}
     >
       {/* Model */}
-      <Select
-        label={t("model")}
-        value={model || firstModel}
-        onChange={(e) => setModel(e.target.value)}
-        options={modelOptions.map((m) => ({ value: m.id, label: m.id }))}
-      />
+      <div>
+        <label className="block text-xs text-text-muted mb-1">{t("model")}</label>
+        <select
+          value={model || firstModel}
+          onChange={(e) => setModel(e.target.value)}
+          className="w-full rounded-md border border-border bg-bg-subtle text-sm px-2 py-1.5 text-text-main focus:outline-none focus:ring-1 focus:ring-primary"
+        >
+          {modelOptions.map((m) => (
+            <option key={m.id} value={m.id}>
+              {m.id}
+            </option>
+          ))}
+        </select>
+      </div>
       {/* File upload */}
-      <Field
-        label={t("audioFile")}
-        htmlFor={fileInputId}
-        hint={t("audioFormats25Mb")}
-        error={fileError || undefined}
-      >
+      <div>
+        <label className="block text-xs text-text-muted mb-1">{t("audioFile")}</label>
         <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            icon="upload_file"
+          <button
+            type="button"
             onClick={() => inputRef.current?.click()}
+            className="inline-flex items-center gap-1.5 text-xs rounded-md border border-border bg-bg-subtle px-3 py-1.5 text-text-main hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
           >
+            <span className="material-symbols-outlined text-[14px]">upload_file</span>
             {file ? file.name : t("chooseFile")}
-          </Button>
+          </button>
           {file && (
             <span className="text-xs text-text-muted">{Math.round(file.size / 1024)}KB</span>
           )}
         </div>
-        {/* kit-exception: The native picker stays hidden behind the kit Button above (it opens it). */}
         <input
           ref={inputRef}
-          id={fileInputId}
           type="file"
           accept="audio/mp3,audio/wav,audio/m4a,audio/ogg,audio/flac,audio/*"
           className="hidden"
           onChange={handleFileChange}
         />
-      </Field>
+        {fileError && <p className="text-xs text-red-400 mt-1">{fileError}</p>}
+        <p className="text-xs text-text-muted mt-1">{t("audioFormats25Mb")}</p>
+      </div>
     </PlaygroundCard>
   );
 }

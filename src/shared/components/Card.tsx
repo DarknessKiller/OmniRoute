@@ -1,41 +1,19 @@
 "use client";
 
-import {
-  Card as KitCard,
-  CardAction,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@omniroute/ui-kit/card";
 import { cn } from "@/shared/utils/cn";
-import Icon from "./Icon";
 
 interface CardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   children?: React.ReactNode;
   title?: React.ReactNode;
   subtitle?: React.ReactNode;
-  /** Material Symbols name, rendered through <Icon> in the header chip. */
   icon?: string;
   action?: React.ReactNode;
   padding?: "none" | "xs" | "sm" | "md" | "lg";
   hover?: boolean;
-  /** Kit surface: `subtle` is the neutral gradient for grouped secondary actions (spec §3.6). */
-  surface?: "default" | "subtle";
   className?: string;
 }
 
-// Legacy box model: the padding lives on the card root and the children render straight into
-// it, so a caller's `className` (`p-4`, `flex gap-2`, `grid`, `text-center` — ~180 call sites)
-// keeps acting on the element that holds the children. `cn` (tailwind-merge) lets a caller's
-// `p-*` replace the default. The kit's own padding lives on CardHeader/CardContent, so the
-// adapter never wraps the children in CardContent and zeroes the header padding.
-const PADDING = { none: "", xs: "p-3", sm: "p-4", md: "p-6", lg: "p-8" } as const;
-
-/**
- * Card — adapter over the kit Card + CardHeader/CardTitle/CardDescription/CardAction.
- * The title keeps its <h3> (heading semantics) and the subtitle its <p> inside the kit slots.
- */
-function Card({
+export default function Card({
   children,
   title,
   subtitle,
@@ -46,40 +24,44 @@ function Card({
   className,
   ...props
 }: CardProps) {
-  const hasHeader = Boolean(title || subtitle || action);
+  const paddings = {
+    none: "",
+    xs: "p-3",
+    sm: "p-4",
+    md: "p-6",
+    lg: "p-8",
+  };
+
   return (
-    <KitCard
+    <div
       className={cn(
-        PADDING[padding] ?? PADDING.md,
-        hover && "oi-card--hover cursor-pointer transition-shadow hover:shadow-md",
+        "bg-surface",
+        "border border-border",
+        "rounded-card shadow-sm",
+        hover && "hover:shadow-md hover:border-primary/30 transition-all cursor-pointer",
+        paddings[padding],
         className
       )}
       {...props}
     >
-      {hasHeader && (
-        <CardHeader className="mb-4 flex items-center justify-between gap-3 p-0">
-          {icon && (
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-control bg-bg-subtle text-text-muted">
-              <Icon name={icon} size={20} />
-            </span>
-          )}
-          <div className="min-w-0 flex-1">
-            {title && (
-              <CardTitle>
-                <h3>{title}</h3>
-              </CardTitle>
+      {(title || action) && (
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-3">
+            {icon && (
+              <div className="p-2 rounded-lg bg-bg text-text-muted">
+                <span className="material-symbols-outlined text-[20px]">{icon}</span>
+              </div>
             )}
-            {subtitle && (
-              <CardDescription>
-                <p>{subtitle}</p>
-              </CardDescription>
-            )}
+            <div>
+              {title && <h3 className="text-text-main font-semibold">{title}</h3>}
+              {subtitle && <p className="text-sm text-text-muted">{subtitle}</p>}
+            </div>
           </div>
-          {action && <CardAction>{action}</CardAction>}
-        </CardHeader>
+          {action}
+        </div>
       )}
       {children}
-    </KitCard>
+    </div>
   );
 }
 
@@ -88,29 +70,13 @@ interface CardSectionProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 // Sub-component: Bordered section inside Card
-function CardSection({ children, className, ...props }: CardSectionProps) {
-  return (
-    <div
-      className={cn("p-4 rounded-lg", "bg-surface-2", "border border-border", className)}
-      {...props}
-    >
-      {children}
-    </div>
-  );
-}
-
-interface CardRowProps extends React.HTMLAttributes<HTMLDivElement> {
-  children?: React.ReactNode;
-}
-
-// Sub-component: Hoverable row inside Card
-function CardRow({ children, className, ...props }: CardRowProps) {
+Card.Section = function CardSection({ children, className, ...props }: CardSectionProps) {
   return (
     <div
       className={cn(
-        "p-3 -mx-3 px-3 transition-colors",
-        "border-b border-border last:border-b-0",
-        "hover:bg-surface-2",
+        "p-4 rounded-lg",
+        "bg-black/[0.02] dark:bg-white/[0.02]",
+        "border border-border",
         className
       )}
       {...props}
@@ -118,7 +84,28 @@ function CardRow({ children, className, ...props }: CardRowProps) {
       {children}
     </div>
   );
+};
+
+interface CardRowProps extends React.HTMLAttributes<HTMLDivElement> {
+  children?: React.ReactNode;
 }
+
+// Sub-component: Hoverable row inside Card
+Card.Row = function CardRow({ children, className, ...props }: CardRowProps) {
+  return (
+    <div
+      className={cn(
+        "p-3 -mx-3 px-3 transition-colors",
+        "border-b border-border last:border-b-0",
+        "hover:bg-black/[0.02] dark:hover:bg-white/[0.02]",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+};
 
 interface CardListItemProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
@@ -126,13 +113,18 @@ interface CardListItemProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 // Sub-component: List item with hover actions (macOS style)
-function CardListItem({ children, actions, className, ...props }: CardListItemProps) {
+Card.ListItem = function CardListItem({
+  children,
+  actions,
+  className,
+  ...props
+}: CardListItemProps) {
   return (
     <div
       className={cn(
         "group flex items-center justify-between p-3 -mx-3 px-3",
-        "border-b border-border last:border-b-0",
-        "hover:bg-surface-2",
+        "border-b border-black/[0.03] dark:border-white/[0.03] last:border-b-0",
+        "hover:bg-black/[0.02] dark:hover:bg-white/[0.02]",
         "transition-colors",
         className
       )}
@@ -146,11 +138,4 @@ function CardListItem({ children, actions, className, ...props }: CardListItemPr
       )}
     </div>
   );
-}
-
-Card.Section = CardSection;
-Card.Row = CardRow;
-Card.ListItem = CardListItem;
-
-export { CardSection, CardRow, CardListItem };
-export default Card;
+};

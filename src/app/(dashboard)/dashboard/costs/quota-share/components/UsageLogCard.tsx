@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
-import Button from "@/shared/components/Button";
-import Icon from "@/shared/components/Icon";
 import type { ConsumptionEvent } from "@/lib/db/quotaConsumption";
 
 export interface UsageLogCardProps {
@@ -48,7 +46,7 @@ export default function UsageLogCard({ poolId, keyLabels }: UsageLogCardProps) {
       .then((data) => {
         if (!alive) return;
         const raw: unknown = data?.events;
-        setEvents(Array.isArray(raw) ? (raw as ConsumptionEvent[]) : ([] ?? []));
+        setEvents(Array.isArray(raw) ? (raw as ConsumptionEvent[]) : [] ?? []);
         setLoaded(true);
       })
       .catch(() => {
@@ -66,21 +64,19 @@ export default function UsageLogCard({ poolId, keyLabels }: UsageLogCardProps) {
     keyLabels?.[apiKeyId] ?? apiKeyId.slice(0, 10) + "…";
 
   return (
-    <div className="mt-2 pt-2 border-t border-border">
-      <Button
-        variant="ghost"
-        size="sm"
+    <div className="mt-2 pt-2 border-t border-border/30">
+      <button
+        type="button"
         onClick={() => setOpen((prev) => !prev)}
-        aria-expanded={open}
-        className="h-7 min-h-7 w-full justify-start gap-1 px-1 text-[10px] font-bold uppercase tracking-wide text-text-muted"
+        className="flex items-center gap-1 text-[10px] uppercase tracking-wide font-bold text-text-muted hover:text-text-main w-full text-left cursor-pointer"
       >
-        <Icon
-          name="chevron_right"
-          size={13}
-          className={`transition-transform ${open ? "rotate-90" : ""}`}
-        />
+        <span
+          className={`material-symbols-outlined text-[13px] transition-transform ${open ? "rotate-90" : ""}`}
+        >
+          chevron_right
+        </span>
         {t("logTitle")}
-      </Button>
+      </button>
 
       {open && (
         <div className="mt-1.5">

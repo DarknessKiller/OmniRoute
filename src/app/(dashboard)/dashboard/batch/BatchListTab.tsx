@@ -2,27 +2,11 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { buttonVariants } from "@omniroute/ui-kit/button";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@omniroute/ui-kit/table";
-import Icon from "@/shared/components/Icon";
-import Badge from "@/shared/components/Badge";
-import Button from "@/shared/components/Button";
-import Card from "@/shared/components/Card";
-import Input from "@/shared/components/Input";
-import Select from "@/shared/components/Select";
 import { matchesSearch } from "@/shared/utils/turkishText";
 import BatchDetailModal from "./BatchDetailModal";
 import ExpirationBadge from "./components/ExpirationBadge";
 import ProgressBarBicolor from "./components/ProgressBarBicolor";
 import { useBatchActions } from "./components/useBatchActions";
-import { batchStatusTone } from "./components/batchStatusTone";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -95,6 +79,22 @@ interface BatchListTabProps {
 
 // ── Status helpers ────────────────────────────────────────────────────────────
 
+const STATUS_STYLES: Record<string, string> = {
+  completed: "bg-emerald-500/15 text-emerald-400 border-emerald-500/25",
+  completed_with_failures: "bg-red-500/15 text-red-400 border-red-500/25",
+  failed: "bg-red-500/15 text-red-400 border-red-500/25",
+  in_progress: "bg-blue-500/15 text-blue-400 border-blue-500/25",
+  in_progress_with_failures: "bg-orange-500/15 text-orange-400 border-orange-500/25",
+  finalizing: "bg-violet-500/15 text-violet-400 border-violet-500/25",
+  finalizing_with_failures: "bg-orange-500/15 text-orange-400 border-orange-500/25",
+  validating: "bg-yellow-500/15 text-yellow-400 border-yellow-500/25",
+  cancelling: "bg-orange-500/15 text-orange-400 border-orange-500/25",
+  cancelled: "bg-gray-500/15 text-gray-400 border-gray-500/25",
+  cancelled_with_failures: "bg-red-500/15 text-red-400 border-red-500/25",
+  expired: "bg-gray-500/15 text-gray-400 border-gray-500/25",
+  expired_with_failures: "bg-orange-500/15 text-orange-400 border-orange-500/25",
+};
+
 // A-1 / R2 — Derive Provider label from model id (no provider field on BatchRecord).
 // Heuristic-only display; no filter side-effect. Vendor names are proper nouns and
 // stay un-translated; "other" / "unknown" return discriminators so the call-site can
@@ -154,12 +154,13 @@ function effectiveStatus(batch: BatchRecord): string {
 function StatusBadge({ batch }: Readonly<{ batch: BatchRecord }>) {
   const t = useTranslations("common");
   const key = effectiveStatus(batch);
+  const cls = STATUS_STYLES[key] ?? "bg-gray-500/15 text-gray-400 border-gray-500/25";
   const labelKey = STATUS_LABEL_KEYS[key];
   const label = labelKey ? t(labelKey as Parameters<typeof t>[0]) : key.replaceAll("_", " ");
   return (
-    <Badge variant={batchStatusTone(key)} size="sm" className="whitespace-nowrap">
+    <span className={`inline-block px-2 py-0.5 rounded-md text-xs font-medium border ${cls}`}>
       {label}
-    </Badge>
+    </span>
   );
 }
 
@@ -200,9 +201,7 @@ function BatchRowActions({
     <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
       {/* Cancel — only for non-terminal statuses */}
       {canCancel && (
-        <Button
-          variant="ghost"
-          size="icon-sm"
+        <button
           onClick={async () => {
             if (window.confirm(t("batchDetailCancelConfirm"))) {
               await actions.cancel(batch.id);
@@ -210,11 +209,12 @@ function BatchRowActions({
           }}
           disabled={actions.cancelling}
           title={t("batchActionCancel")}
-          aria-label={t("batchActionCancel")}
-          className="size-7 text-text-muted hover:text-warning hover:bg-warning/10"
+          className="flex items-center justify-center p-1 rounded text-[var(--color-text-muted)] hover:text-orange-400 hover:bg-orange-500/10 transition-colors disabled:opacity-50"
         >
-          <Icon name={actions.cancelling ? "hourglass_empty" : "block"} size={13} />
-        </Button>
+          <span className="material-symbols-outlined text-[13px]">
+            {actions.cancelling ? "hourglass_empty" : "block"}
+          </span>
+        </button>
       )}
 
       {/* Download output */}
@@ -224,14 +224,9 @@ function BatchRowActions({
           download={`batch-${batch.id}-output.jsonl`}
           onClick={(e) => e.stopPropagation()}
           title={t("batchActionDownloadOutput")}
-          aria-label={t("batchActionDownloadOutput")}
-          className={buttonVariants({
-            variant: "ghost",
-            size: "icon-sm",
-            className: "size-7 text-text-muted hover:text-success hover:bg-success/10",
-          })}
+          className="flex items-center justify-center p-1 rounded text-[var(--color-text-muted)] hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors"
         >
-          <Icon name="download" size={13} />
+          <span className="material-symbols-outlined text-[13px]">download</span>
         </a>
       )}
 
@@ -242,22 +237,15 @@ function BatchRowActions({
           download={`batch-${batch.id}-errors.jsonl`}
           onClick={(e) => e.stopPropagation()}
           title={t("batchActionDownloadErrors")}
-          aria-label={t("batchActionDownloadErrors")}
-          className={buttonVariants({
-            variant: "ghost",
-            size: "icon-sm",
-            className: "size-7 text-text-muted hover:text-warning hover:bg-warning/10",
-          })}
+          className="flex items-center justify-center p-1 rounded text-[var(--color-text-muted)] hover:text-yellow-400 hover:bg-yellow-500/10 transition-colors"
         >
-          <Icon name="file_download" size={13} />
+          <span className="material-symbols-outlined text-[13px]">file_download</span>
         </a>
       )}
 
       {/* Retry failed — only when terminal + has error file + has failures */}
       {canRetry && (
-        <Button
-          variant="ghost"
-          size="icon-sm"
+        <button
           onClick={async () => {
             if (window.confirm(t("batchActionRetryConfirm", { n: batch.requestCountsFailed }))) {
               await actions.retry({
@@ -270,18 +258,17 @@ function BatchRowActions({
           }}
           disabled={actions.retrying}
           title={t("batchActionRetry")}
-          aria-label={t("batchActionRetry")}
-          className="size-7 text-text-muted hover:text-info hover:bg-info/10"
+          className="flex items-center justify-center p-1 rounded text-[var(--color-text-muted)] hover:text-blue-400 hover:bg-blue-500/10 transition-colors disabled:opacity-50"
         >
-          <Icon name={actions.retrying ? "hourglass_empty" : "replay"} size={13} />
-        </Button>
+          <span className="material-symbols-outlined text-[13px]">
+            {actions.retrying ? "hourglass_empty" : "replay"}
+          </span>
+        </button>
       )}
 
       {/* Delete — only for terminal statuses */}
       {isTerminal && (
-        <Button
-          variant="ghost"
-          size="icon-sm"
+        <button
           onClick={async (e) => {
             e.stopPropagation();
             setDeletingId(batch.id);
@@ -304,11 +291,12 @@ function BatchRowActions({
           }}
           disabled={deletingId === batch.id}
           title={t("batchListDeleteBatchTitle")}
-          aria-label={t("batchListDeleteBatchTitle")}
-          className="size-7 text-text-muted hover:text-error hover:bg-error/10"
+          className="flex items-center justify-center p-1 rounded text-[var(--color-text-muted)] hover:text-red-400 hover:bg-red-500/10 transition-colors disabled:opacity-50"
         >
-          <Icon name={deletingId === batch.id ? "hourglass_empty" : "delete"} size={13} />
-        </Button>
+          <span className="material-symbols-outlined text-[13px]">
+            {deletingId === batch.id ? "hourglass_empty" : "delete"}
+          </span>
+        </button>
       )}
     </div>
   );
@@ -378,24 +366,21 @@ export default function BatchListTab({
   return (
     <>
       {/* Filters */}
-      <Card padding="sm" className="flex flex-wrap items-center gap-3">
-        <span className="text-sm text-text-muted">
+      <div className="flex flex-wrap gap-3 p-4 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)]">
+        <span className="text-sm text-[var(--color-text-muted)] self-center">
           {batchesTotal ? t("batchListCount", { count: batchesTotal }) : t("batchListTitle")}
         </span>
-        <Input
+        <input
           type="text"
-          icon="search"
           placeholder={t("batchListSearchPlaceholder")}
-          aria-label={t("batchListSearchPlaceholder")}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="flex-1 min-w-[200px]"
+          className="flex-1 min-w-[200px] px-3 py-2 rounded-lg text-sm bg-[var(--color-bg)] border border-[var(--color-border)] text-[var(--color-text-main)] placeholder:text-[var(--color-text-muted)] focus:outline-2 focus:outline-[var(--color-accent)]"
         />
-        <Select
+        <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          aria-label={t("batchListTableStatus")}
-          className="w-auto"
+          className="px-3 py-2 rounded-lg text-sm bg-[var(--color-bg)] border border-[var(--color-border)] text-[var(--color-text-main)] focus:outline-2 focus:outline-[var(--color-accent)]"
         >
           {ALL_STATUSES.map((s) => {
             const labelKey = s === "all" ? "batchStatusAll" : STATUS_LABEL_KEYS[s];
@@ -405,59 +390,71 @@ export default function BatchListTab({
               </option>
             );
           })}
-        </Select>
-        <Button
-          variant="danger"
-          size="sm"
+        </select>
+        <button
           onClick={handleRemoveCompleted}
           disabled={removingCompleted}
-          className="gap-1.5 whitespace-nowrap"
+          className="flex items-center gap-1.5 px-3 py-2 text-sm rounded-lg bg-red-500/10 border border-red-500/25 text-red-400 hover:text-red-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
           title={t("batchListDeleteAllCompletedTitle")}
         >
-          <Icon name={removingCompleted ? "hourglass_empty" : "delete_sweep"} size={16} />
+          <span className="material-symbols-outlined text-[16px]">
+            {removingCompleted ? "hourglass_empty" : "delete_sweep"}
+          </span>
           {removingCompleted ? t("batchListRemovingCompleted") : t("batchListRemoveCompleted")}
-        </Button>
-      </Card>
+        </button>
+      </div>
 
       {/* Table — 9 columns: Status | ID | Endpoint | Model | Progress | Cost | Created | Expires | Actions */}
-      <Card padding="none" className="overflow-hidden">
-        <Table
-          className="text-sm"
-          aria-label={t("batchListBatchesTable")}
-          scrollbarLabel={t("batchListBatchesTable")}
-        >
-          <TableHeader>
-            <TableRow>
-              <TableHead>{t("batchListTableStatus")}</TableHead>
-              <TableHead>{t("batchListTableId")}</TableHead>
-              <TableHead>{t("batchListProviderColumn")}</TableHead>
-              <TableHead>{t("batchListTableEndpoint")}</TableHead>
-              <TableHead>{t("batchListTableModel")}</TableHead>
-              <TableHead>{t("batchListTableProgress")}</TableHead>
-              <TableHead>{t("batchListCostColumn")}</TableHead>
-              <TableHead>{t("batchListTableCreated")}</TableHead>
-              <TableHead>{t("batchListTableExpires")}</TableHead>
-              <TableHead>
-                <span className="ci-sr-only">{t("actions")}</span>
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+      <div className="overflow-x-auto overflow-y-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]">
+        <table className="w-full text-sm" role="table" aria-label={t("batchListBatchesTable")}>
+          <thead>
+            <tr className="bg-[var(--color-bg-alt)] border-b border-[var(--color-border)]">
+              <th className="text-left px-4 py-3 font-medium text-[var(--color-text-muted)] uppercase text-xs tracking-wider">
+                {t("batchListTableStatus")}
+              </th>
+              <th className="text-left px-4 py-3 font-medium text-[var(--color-text-muted)] uppercase text-xs tracking-wider">
+                {t("batchListTableId")}
+              </th>
+              <th className="text-left px-4 py-3 font-medium text-[var(--color-text-muted)] uppercase text-xs tracking-wider">
+                {t("batchListProviderColumn")}
+              </th>
+              <th className="text-left px-4 py-3 font-medium text-[var(--color-text-muted)] uppercase text-xs tracking-wider">
+                {t("batchListTableEndpoint")}
+              </th>
+              <th className="text-left px-4 py-3 font-medium text-[var(--color-text-muted)] uppercase text-xs tracking-wider">
+                {t("batchListTableModel")}
+              </th>
+              <th className="text-left px-4 py-3 font-medium text-[var(--color-text-muted)] uppercase text-xs tracking-wider">
+                {t("batchListTableProgress")}
+              </th>
+              <th className="text-left px-4 py-3 font-medium text-[var(--color-text-muted)] uppercase text-xs tracking-wider">
+                {t("batchListCostColumn")}
+              </th>
+              <th className="text-left px-4 py-3 font-medium text-[var(--color-text-muted)] uppercase text-xs tracking-wider">
+                {t("batchListTableCreated")}
+              </th>
+              <th className="text-left px-4 py-3 font-medium text-[var(--color-text-muted)] uppercase text-xs tracking-wider">
+                {t("batchListTableExpires")}
+              </th>
+              <th className="px-4 py-3" />
+            </tr>
+          </thead>
+          <tbody>
             {loading && filtered.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={10} className="py-10 text-center text-text-muted">
-                  <div role="status" className="flex items-center justify-center gap-2">
-                    <Icon name="progress_activity" size={20} className="animate-spin text-accent" />
+              <tr>
+                <td colSpan={10} className="px-4 py-10 text-center text-[var(--color-text-muted)]">
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-[var(--color-accent)]" />
                     {t("batchListLoading")}
                   </div>
-                </TableCell>
-              </TableRow>
+                </td>
+              </tr>
             ) : filtered.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={10} className="py-10 text-center text-text-muted">
+              <tr>
+                <td colSpan={10} className="px-4 py-10 text-center text-[var(--color-text-muted)]">
                   {t("batchListEmpty")}
-                </TableCell>
-              </TableRow>
+                </td>
+              </tr>
             ) : (
               filtered.map((batch) => {
                 const total = batch.requestCountsTotal || 0;
@@ -482,34 +479,40 @@ export default function BatchListTab({
                 })();
 
                 return (
-                  <TableRow
+                  <tr
                     key={batch.id}
                     onClick={() => setSelectedBatch(batch)}
-                    className="cursor-pointer"
+                    className="border-b border-[var(--color-border)] hover:bg-[var(--color-bg-alt)] transition-colors cursor-pointer"
                   >
-                    <TableCell>
+                    <td className="px-4 py-3">
                       <StatusBadge batch={batch} />
-                    </TableCell>
-                    <TableCell className="font-mono text-xs text-text-muted max-w-[180px]">
+                    </td>
+                    <td className="px-4 py-3 font-mono text-xs text-[var(--color-text-muted)] max-w-[180px]">
                       <span className="truncate block" title={batch.id}>
                         {batch.id}
                       </span>
-                    </TableCell>
-                    <TableCell className="text-text-main text-xs whitespace-nowrap">
+                    </td>
+                    <td className="px-4 py-3 text-[var(--color-text-main)] text-xs whitespace-nowrap">
                       {(() => {
                         const p = deriveProvider(batch.model);
                         if (p === "unknown") return t("batchListProviderUnknown");
                         if (p === "other") return t("batchListProviderOther");
                         return p;
                       })()}
-                    </TableCell>
-                    <TableCell className="text-text-main text-xs">{batch.endpoint}</TableCell>
-                    <TableCell className="text-text-muted text-xs">{batch.model ?? "—"}</TableCell>
+                    </td>
+                    <td className="px-4 py-3 text-[var(--color-text-main)] text-xs">
+                      {batch.endpoint}
+                    </td>
+                    <td className="px-4 py-3 text-[var(--color-text-muted)] text-xs">
+                      {batch.model ?? "—"}
+                    </td>
                     {/* Progress — ProgressBarBicolor from F3; spinner when validating (G2); (partial) suffix when expired with failures (G-AUD3) */}
-                    <TableCell className="min-w-[140px]">
+                    <td className="px-4 py-3 min-w-[140px]">
                       {batch.status === "validating" ? (
-                        <div className="flex items-center gap-2 text-xs text-warning">
-                          <Icon name="hourglass_top" size={14} className="animate-spin" />
+                        <div className="flex items-center gap-2 text-xs text-yellow-400">
+                          <span className="material-symbols-outlined text-[14px] animate-spin">
+                            hourglass_top
+                          </span>
                           {t("batchListValidating")}
                         </div>
                       ) : total > 0 ? (
@@ -521,29 +524,29 @@ export default function BatchListTab({
                             showLabels
                           />
                           {effectiveStatus(batch) === "expired_with_failures" && (
-                            <span className="text-[10px] text-warning italic">
+                            <span className="text-[10px] text-orange-400 italic">
                               {t("batchListProgressPartial")}
                             </span>
                           )}
                         </div>
                       ) : (
-                        <span className="text-xs text-text-muted">—</span>
+                        <span className="text-xs text-[var(--color-text-muted)]">—</span>
                       )}
-                    </TableCell>
+                    </td>
                     {/* Cost column — heuristic estimate (D8) with -50% badge per wireframe §3 (G-AUD2) */}
-                    <TableCell className="text-xs whitespace-nowrap">
-                      <span className="text-text-muted">{estimatedCost}</span>
+                    <td className="px-4 py-3 text-xs whitespace-nowrap">
+                      <span className="text-[var(--color-text-muted)]">{estimatedCost}</span>
                       {estimatedCost !== "—" && (
-                        <Badge variant="success" size="sm" className="ml-1 align-middle">
+                        <span className="ml-1 text-[10px] text-emerald-500/90 bg-emerald-500/10 rounded px-1 py-0.5 align-middle">
                           -50%
-                        </Badge>
+                        </span>
                       )}
-                    </TableCell>
-                    <TableCell className="text-xs text-text-muted whitespace-nowrap">
+                    </td>
+                    <td className="px-4 py-3 text-xs text-[var(--color-text-muted)] whitespace-nowrap">
                       {relativeTime(batch.createdAt)}
-                    </TableCell>
+                    </td>
                     {/* Expiration — countdown badge for active batches (D11) */}
-                    <TableCell className="text-xs text-text-muted whitespace-nowrap">
+                    <td className="px-4 py-3 text-xs text-[var(--color-text-muted)] whitespace-nowrap">
                       {["in_progress", "validating", "finalizing"].includes(batch.status) ? (
                         <ExpirationBadge expiresAt={batch.expiresAt ?? null} variant="compact" />
                       ) : batch.expiresAt ? (
@@ -551,23 +554,23 @@ export default function BatchListTab({
                       ) : (
                         "—"
                       )}
-                    </TableCell>
+                    </td>
                     {/* Actions — cancel / download / retry / delete */}
-                    <TableCell>
+                    <td className="px-4 py-3">
                       <BatchRowActions
                         batch={batch}
                         onRefresh={onRefresh}
                         deletingId={deletingId}
                         setDeletingId={setDeletingId}
                       />
-                    </TableCell>
-                  </TableRow>
+                    </td>
+                  </tr>
                 );
               })
             )}
-          </TableBody>
-        </Table>
-      </Card>
+          </tbody>
+        </table>
+      </div>
 
       {/* Detail modal */}
       {selectedBatch && (
