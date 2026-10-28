@@ -1345,7 +1345,20 @@
       "open": "Oscail",
       "close": "Dún"
     },
-    "noResults": "Gan torthaí"
+    "noResults": "Gan torthaí",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Crúcaí gréasáin",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "Ardrialacha pálasta, teorainneacha iarratais agus socruithe API seachfhreastalaí",
     "mitmProxyDescription": "Cumraigh socruithe seachfhreastalaí MITM le haghaidh iniúchadh agus dífhabhtú tráchta",
     "oneProxyDescription": "Cumraigh socruithe 1Proxy le haghaidh ardslabhrú seachfhreastalaithe",
-    "omniSkillsDescription": "Suiteáil agus bainistigh scileanna bosca gainimh chun leideanna agus uirlisí a rith go huathoibríoch"
+    "omniSkillsDescription": "Suiteáil agus bainistigh scileanna bosca gainimh chun leideanna agus uirlisí a rith go huathoibríoch",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "Sioncronaithe",
@@ -8949,7 +8964,19 @@
       "statsTitle": "Brathanna ó atosú",
       "statsEmpty": "Níl aon bhrath fós.",
       "statsRequest": "Iarratais"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "Inneall RTK",
@@ -10350,7 +10377,10 @@
     "healthCdw": "Seachtainiúil · Tréimhse feithimh",
     "healthRecentSuccessBypass": "Ceadaíonn an ródú an cuntas seo mar d’éirigh le hiarratas le déanaí.",
     "healthPurchasedBalanceBypass": "Is féidir an t-iarmhéid ceannaithe a úsáid tar éis don chuóta san áireamh ídiú.",
-    "healthCutoffAtRequest": "Seiceáiltear tairseacha cuóta fíor-ama nuair a dhéantar iarratas a ródú."
+    "healthCutoffAtRequest": "Seiceáiltear tairseacha cuóta fíor-ama nuair a dhéantar iarratas a ródú.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "Ag fanacht le húdarú",
@@ -11872,7 +11902,8 @@
       "runButton": "Rith",
       "promptPlaceholder": "Cuir do theachtaireacht isteach… (Enter lena seoladh, Shift+Enter le haghaidh líne nua)"
     },
-    "playgroundTabs": "Móid Playground"
+    "playgroundTabs": "Móid Playground",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "Críochphointe",
@@ -15216,5 +15247,14 @@
     "importButton": "Iompórtáil",
     "importFailed": "Theip ar an iompórtáil.",
     "importSuccess": "Iompórtáladh {connections} cuntas agus {nodes} nód soláthraí; scipeáladh {skipped}."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

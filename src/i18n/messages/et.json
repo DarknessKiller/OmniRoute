@@ -1345,7 +1345,20 @@
       "open": "ava",
       "close": "sulge"
     },
-    "noResults": "Tulemusi pole"
+    "noResults": "Tulemusi pole",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Veebihaagid",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "Täpsemad andmekoormuse reeglid, päringupiirangud ja puhverserveri API sätted",
     "mitmProxyDescription": "Seadista MITM-puhverserveri sätted liikluse kontrollimiseks ja silumiseks",
     "oneProxyDescription": "Seadista 1Proxy sätted täpsema puhverserveriahela jaoks",
-    "omniSkillsDescription": "Installi ja halda liivakastioskusi viipade ning tööriistade automaatseks käivitamiseks"
+    "omniSkillsDescription": "Installi ja halda liivakastioskusi viipade ning tööriistade automaatseks käivitamiseks",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "Sünkroonitud",
@@ -8949,7 +8964,19 @@
       "statsTitle": "Tuvastused alates taaskäivitusest",
       "statsEmpty": "Tuvastusi veel pole.",
       "statsRequest": "Päringud"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "RTK Engine",
@@ -10350,7 +10377,10 @@
     "healthCdw": "Nädalane · Ooteaeg",
     "healthRecentSuccessBypass": "Marsruutimine lubab seda kontot, sest päring õnnestus hiljuti.",
     "healthPurchasedBalanceBypass": "Ostetud saldo võimaldab jätkata pärast kaasatud kvoodi ammendumist.",
-    "healthCutoffAtRequest": "Reaalajas kvoodilävendeid kontrollitakse päringu marsruutimisel."
+    "healthCutoffAtRequest": "Reaalajas kvoodilävendeid kontrollitakse päringu marsruutimisel.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "Autoriseerimise ootel",
@@ -11872,7 +11902,8 @@
       "runButton": "Käivita",
       "promptPlaceholder": "Sisesta sõnum… (saatmiseks Enter, reavahetuseks Shift+Enter)"
     },
-    "playgroundTabs": "Playground-režiimid"
+    "playgroundTabs": "Playground-režiimid",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "Otspunkt",
@@ -15216,5 +15247,14 @@
     "importButton": "Impordi",
     "importFailed": "Import ebaõnnestus.",
     "importSuccess": "Imporditi {connections} kontot ja {nodes} teenusepakkuja sõlme; vahele jäeti {skipped}."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

@@ -1345,7 +1345,20 @@
       "open": "খুলুন",
       "close": "বন্ধ করুন"
     },
-    "noResults": "কোন ফলাফল নেই"
+    "noResults": "কোন ফলাফল নেই",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "ওয়েবহুক",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "উন্নত পেলোড নিয়ম, অনুরোধ সীমা এবং প্রক্সি API সেটিংস",
     "mitmProxyDescription": "ট্রাফিক পরিদর্শন ও ডিবাগিংয়ের জন্য MITM প্রক্সি সেটিংস কনফিগার করুন",
     "oneProxyDescription": "উন্নত প্রক্সি চেইনিংয়ের জন্য 1Proxy সেটিংস কনফিগার করুন",
-    "omniSkillsDescription": "স্বয়ংক্রিয় প্রম্পট ও টুল এক্সিকিউশনের জন্য স্যান্ডবক্স স্কিল ইনস্টল ও পরিচালনা করুন"
+    "omniSkillsDescription": "স্বয়ংক্রিয় প্রম্পট ও টুল এক্সিকিউশনের জন্য স্যান্ডবক্স স্কিল ইনস্টল ও পরিচালনা করুন",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "সিঙ্ক হয়েছে",
@@ -8949,7 +8964,19 @@
       "statsTitle": "পুনরায় চালুর পর থেকে শনাক্তকরণ",
       "statsEmpty": "এখনও কোনো শনাক্তকরণ নেই।",
       "statsRequest": "অনুরোধ"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "RTK ইঞ্জিন",
@@ -10350,7 +10377,10 @@
     "healthCdw": "সাপ্তাহিক · অপেক্ষার সময়",
     "healthRecentSuccessBypass": "সম্প্রতি একটি অনুরোধ সফল হওয়ায় রাউটিং এই অ্যাকাউন্টকে অনুমতি দেয়।",
     "healthPurchasedBalanceBypass": "অন্তর্ভুক্ত কোটা শেষ হলেও কেনা ব্যালেন্স দিয়ে ব্যবহার চালানো যায়।",
-    "healthCutoffAtRequest": "অনুরোধ রাউট করার সময় লাইভ কোটার সীমা পরীক্ষা করা হয়।"
+    "healthCutoffAtRequest": "অনুরোধ রাউট করার সময় লাইভ কোটার সীমা পরীক্ষা করা হয়।",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "অনুমোদনের জন্য অপেক্ষা করা হচ্ছে",
@@ -11872,7 +11902,8 @@
       "runButton": "চালান",
       "promptPlaceholder": "আপনার বার্তা লিখুন… (পাঠাতে Enter, নতুন লাইনের জন্য Shift+Enter)"
     },
-    "playgroundTabs": "Playground মোডসমূহ"
+    "playgroundTabs": "Playground মোডসমূহ",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "এন্ডপয়েন্ট",
@@ -15216,5 +15247,14 @@
     "importButton": "ইমপোর্ট করুন",
     "importFailed": "ইমপোর্ট ব্যর্থ হয়েছে।",
     "importSuccess": "{connections}টি অ্যাকাউন্ট ও {nodes}টি প্রদানকারী নোড ইমপোর্ট হয়েছে; {skipped}টি এড়ানো হয়েছে।"
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

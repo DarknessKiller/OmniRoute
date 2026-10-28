@@ -1345,7 +1345,20 @@
       "open": "iftaħ",
       "close": "agħlaq"
     },
-    "noResults": "Ebda riżultat"
+    "noResults": "Ebda riżultat",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Webhooks",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "Regoli avvanzati għall-payload, limiti għat-talbiet u settings tal-API tal-proxy",
     "mitmProxyDescription": "Ikkonfigura s-settings tal-proxy MITM għall-ispezzjoni tat-traffiku u d-debugging",
     "oneProxyDescription": "Ikkonfigura s-settings ta' 1Proxy għal katina avvanzata ta' proxies",
-    "omniSkillsDescription": "Installa u mmaniġġja ħiliet f'ambjent iżolat għall-eżekuzzjoni awtomatizzata ta' prompts u għodod"
+    "omniSkillsDescription": "Installa u mmaniġġja ħiliet f'ambjent iżolat għall-eżekuzzjoni awtomatizzata ta' prompts u għodod",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "Sinkronizzata",
@@ -8949,7 +8964,19 @@
       "statsTitle": "Sejbiet mill-bidu mill-ġdid",
       "statsEmpty": "Għad m'hemm l-ebda sejba.",
       "statsRequest": "Talbiet"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "Magna RTK",
@@ -10350,7 +10377,10 @@
     "healthCdw": "Kull ġimgħa · Perjodu ta’ stennija",
     "healthRecentSuccessBypass": "Ir-routing jippermetti dan il-kont għax talba rnexxiet dan l-aħħar.",
     "healthPurchasedBalanceBypass": "Il-bilanċ mixtri jippermetti li tkompli wara li tintuża l-kwota inkluża kollha.",
-    "healthCutoffAtRequest": "Il-limiti tal-kwota f’ħin reali jiġu ċċekkjati meta talba tiġi rotta."
+    "healthCutoffAtRequest": "Il-limiti tal-kwota f’ħin reali jiġu ċċekkjati meta talba tiġi rotta.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "Stennija għall-Awtorizzazzjoni",
@@ -11872,7 +11902,8 @@
       "runButton": "Ħaddem",
       "promptPlaceholder": "Daħħal il-messaġġ tiegħek… (Enter biex tibgħat, Shift+Enter għal linja ġdida)"
     },
-    "playgroundTabs": "Modi tal-Playground"
+    "playgroundTabs": "Modi tal-Playground",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "Punt tat-tmiem",
@@ -15216,5 +15247,14 @@
     "importButton": "Importa",
     "importFailed": "L-importazzjoni falliet.",
     "importSuccess": "Ġew importati {connections} kontijiet u {nodes} nodi tal-fornituri; {skipped} inqabżu."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

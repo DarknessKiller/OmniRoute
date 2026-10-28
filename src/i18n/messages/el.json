@@ -1345,7 +1345,20 @@
       "open": "άνοιγμα",
       "close": "κλείσιμο"
     },
-    "noResults": "Δεν βρέθηκαν αποτελέσματα"
+    "noResults": "Δεν βρέθηκαν αποτελέσματα",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Webhooks",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "Σύνθετοι κανόνες ωφέλιμου φορτίου, όρια αιτημάτων και ρυθμίσεις API διακομιστή μεσολάβησης",
     "mitmProxyDescription": "Διαμόρφωση ρυθμίσεων διακομιστή μεσολάβησης MITM για επιθεώρηση κυκλοφορίας και αποσφαλμάτωση",
     "oneProxyDescription": "Διαμόρφωση ρυθμίσεων 1Proxy για προηγμένη αλυσίδα διακομιστών μεσολάβησης",
-    "omniSkillsDescription": "Εγκατάσταση και διαχείριση δεξιοτήτων sandbox για αυτοματοποιημένη εκτέλεση προτροπών και εργαλείων"
+    "omniSkillsDescription": "Εγκατάσταση και διαχείριση δεξιοτήτων sandbox για αυτοματοποιημένη εκτέλεση προτροπών και εργαλείων",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "Συγχρονίστηκε",
@@ -8949,7 +8964,19 @@
       "statsTitle": "Εντοπισμοί από την επανεκκίνηση",
       "statsEmpty": "Δεν υπάρχουν ακόμη εντοπισμοί.",
       "statsRequest": "Αιτήματα"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "Μηχανή RTK",
@@ -10350,7 +10377,10 @@
     "healthCdw": "Εβδομαδιαία · Περίοδος αναμονής",
     "healthRecentSuccessBypass": "Η δρομολόγηση επιτρέπει αυτόν τον λογαριασμό επειδή ένα αίτημα πέτυχε πρόσφατα.",
     "healthPurchasedBalanceBypass": "Το αγορασμένο υπόλοιπο επιτρέπει τη συνέχιση μετά την εξάντληση του ενσωματωμένου ορίου.",
-    "healthCutoffAtRequest": "Τα όρια ποσόστωσης σε πραγματικό χρόνο ελέγχονται κατά τη δρομολόγηση αιτήματος."
+    "healthCutoffAtRequest": "Τα όρια ποσόστωσης σε πραγματικό χρόνο ελέγχονται κατά τη δρομολόγηση αιτήματος.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "Αναμονή εξουσιοδότησης",
@@ -11872,7 +11902,8 @@
       "runButton": "Εκτέλεση",
       "promptPlaceholder": "Εισάγετε το μήνυμά σας… (Enter για αποστολή, Shift+Enter για νέα γραμμή)"
     },
-    "playgroundTabs": "Λειτουργίες Playground"
+    "playgroundTabs": "Λειτουργίες Playground",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "Τελικό σημείο",
@@ -15216,5 +15247,14 @@
     "importButton": "Εισαγωγή",
     "importFailed": "Η εισαγωγή απέτυχε.",
     "importSuccess": "Εισήχθησαν {connections} λογαριασμοί και {nodes} κόμβοι παρόχων· {skipped} παραλείφθηκαν."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

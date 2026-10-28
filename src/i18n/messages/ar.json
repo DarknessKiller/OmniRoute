@@ -1345,7 +1345,20 @@
       "open": "فتح",
       "close": "إغلاق"
     },
-    "noResults": "لا توجد نتائج"
+    "noResults": "لا توجد نتائج",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "خطافات الويب",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "قواعد الحمولة المتقدمة وحدود الطلب وإعدادات واجهة برمجة تطبيقات الوكيل",
     "mitmProxyDescription": "قم بتكوين إعدادات بروكسي MITM لفحص حركة المرور وتصحيح الأخطاء",
     "oneProxyDescription": "قم بتكوين إعدادات 1Proxy لتسلسل البروكسي المتقدم",
-    "omniSkillsDescription": "تثبيت وإدارة مهارات بيئة التطوير المعزولة (sandbox) لتنفيذ المطالبات والأدوات تلقائيًا"
+    "omniSkillsDescription": "تثبيت وإدارة مهارات بيئة التطوير المعزولة (sandbox) لتنفيذ المطالبات والأدوات تلقائيًا",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "تمت المزامنة",
@@ -8949,7 +8964,19 @@
       "statsTitle": "الاكتشافات منذ إعادة التشغيل",
       "statsEmpty": "لا توجد اكتشافات بعد.",
       "statsRequest": "الطلبات"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "محرك آر تي كيه",
@@ -10350,7 +10377,10 @@
     "healthCdw": "أسبوعيا · فترة الانتظار",
     "healthRecentSuccessBypass": "يسمح التوجيه بهذا الحساب لأن طلبًا نجح مؤخرًا.",
     "healthPurchasedBalanceBypass": "يتيح الرصيد المشترى الاستمرار بعد نفاد الحصة المضمّنة.",
-    "healthCutoffAtRequest": "تُفحص حدود الحصة المباشرة عند توجيه الطلب."
+    "healthCutoffAtRequest": "تُفحص حدود الحصة المباشرة عند توجيه الطلب.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "في انتظار التصريح",
@@ -11872,7 +11902,8 @@
       "runButton": "تشغيل",
       "promptPlaceholder": "أدخل رسالتك… (اضغط Enter للإرسال، وShift+Enter لسطر جديد)"
     },
-    "playgroundTabs": "أوضاع ساحة التجربة"
+    "playgroundTabs": "أوضاع ساحة التجربة",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "نقطة النهاية",
@@ -15216,5 +15247,14 @@
     "importButton": "استيراد",
     "importFailed": "فشل الاستيراد.",
     "importSuccess": "تم استيراد {connections} حسابات و{nodes} عُقد مزوّدين؛ وتخطي {skipped}."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

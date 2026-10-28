@@ -1345,7 +1345,20 @@
       "open": "open",
       "close": "close"
     },
-    "noResults": "No results"
+    "noResults": "No results",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeBlue": "Blue",
+    "themeCoral": "Coral",
+    "themeCreate": "Theme Create",
+    "themeCustom": "Theme Custom",
+    "themeCyan": "Cyan",
+    "themeGreen": "Green",
+    "themeOrange": "Orange",
+    "themeRed": "Red",
+    "themeViolet": "Violet",
+    "themes": "Themes"
   },
   "webhooks": {
     "title": "Webhooks",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "Advanced payload rules, request limits, and proxy API settings",
     "mitmProxyDescription": "Configure MITM proxy settings for traffic inspection and debugging",
     "oneProxyDescription": "Configure 1Proxy settings for advanced proxy chaining",
-    "omniSkillsDescription": "Install and manage sandbox skills for automated prompt and tool execution"
+    "omniSkillsDescription": "Install and manage sandbox skills for automated prompt and tool execution",
+    "themes": "Themes",
+    "themesDescription": "Choose a color theme for the whole dashboard panel"
   },
   "cloudSyncStatus": {
     "synced": "Synced",
@@ -8949,7 +8964,19 @@
       "statsTitle": "Detections since restart",
       "statsEmpty": "No detections yet.",
       "statsRequest": "Requests"
-    }
+    },
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeAccent": "Theme color",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeBlue": "Blue",
+    "themeCoral": "Coral",
+    "themeCreate": "Create theme",
+    "themeCustom": "Custom theme",
+    "themeCyan": "Cyan",
+    "themeGreen": "Green",
+    "themeOrange": "Orange",
+    "themeRed": "Red",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "RTK Engine",
@@ -10350,7 +10377,10 @@
     "healthCdw": "Weekly cooldown",
     "healthRecentSuccessBypass": "Routing permits this account because a request succeeded recently.",
     "healthPurchasedBalanceBypass": "Purchased balance permits use after the included allowance is exhausted.",
-    "healthCutoffAtRequest": "Live quota thresholds are checked when routing a request."
+    "healthCutoffAtRequest": "Live quota thresholds are checked when routing a request.",
+    "statAlert": "Alert",
+    "statCritical": "Critical",
+    "statHealthy": "Healthy"
   },
   "modals": {
     "waitingAuth": "Waiting for Authorization",
@@ -11872,7 +11902,8 @@
       "runButton": "Run",
       "promptPlaceholder": "Enter your message… (Enter to send, Shift+Enter for newline)"
     },
-    "playgroundTabs": "Playground modes"
+    "playgroundTabs": "Playground modes",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "Endpoint",
@@ -15216,5 +15247,14 @@
     "importButton": "Import",
     "importFailed": "Import failed.",
     "importSuccess": "Imported {connections} accounts and {nodes} provider nodes; {skipped} skipped."
+  },
+  "themesPage": {
+    "activePreset": "Active theme",
+    "createTheme": "Create theme",
+    "customTheme": "Custom theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "description": "Choose a preset theme or create your own with a single color",
+    "presetColors": "Popular colors",
+    "title": "Themes"
   }
 }

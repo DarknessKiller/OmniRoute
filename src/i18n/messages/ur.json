@@ -1345,7 +1345,20 @@
       "open": "کھولیں",
       "close": "بند کریں"
     },
-    "noResults": "کوئی نتائج نہیں"
+    "noResults": "کوئی نتائج نہیں",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "ویب ہکس",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "اعلیٰ درجے کے پے لوڈ قواعد، درخواست کی حدود، اور پراکسی API کی ترتیبات",
     "mitmProxyDescription": "ٹریفک کے معائنے اور ڈیبگنگ کے لیے MITM پراکسی کی ترتیبات کنفیگر کریں",
     "oneProxyDescription": "اعلیٰ درجے کی پراکسی چیننگ کے لیے 1Proxy کی ترتیبات کنفیگر کریں",
-    "omniSkillsDescription": "خودکار پرامپٹ اور ٹول کے نفاذ کے لیے سینڈ باکس اسکلز انسٹال اور منظم کریں"
+    "omniSkillsDescription": "خودکار پرامپٹ اور ٹول کے نفاذ کے لیے سینڈ باکس اسکلز انسٹال اور منظم کریں",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "مطابقت پذیر",
@@ -8949,7 +8964,19 @@
       "statsTitle": "دوبارہ شروع ہونے کے بعد سے نشاندہیاں",
       "statsEmpty": "ابھی تک کوئی نشاندہی نہیں۔",
       "statsRequest": "درخواستیں"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "RTK انجن",
@@ -10350,7 +10377,10 @@
     "healthCdw": "ہفتہ وار · انتظار کی مدت",
     "healthRecentSuccessBypass": "حال ہی میں ایک درخواست کامیاب ہونے کی وجہ سے روٹنگ اس اکاؤنٹ کو اجازت دیتی ہے۔",
     "healthPurchasedBalanceBypass": "شامل کوٹا ختم ہونے کے بعد خریدے گئے بیلنس سے استعمال جاری رہ سکتا ہے۔",
-    "healthCutoffAtRequest": "لائیو کوٹا کی حدیں درخواست کو روٹ کرتے وقت جانچی جاتی ہیں۔"
+    "healthCutoffAtRequest": "لائیو کوٹا کی حدیں درخواست کو روٹ کرتے وقت جانچی جاتی ہیں۔",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "اجازت کا انتظار ہے",
@@ -11872,7 +11902,8 @@
       "runButton": "چلائیں",
       "promptPlaceholder": "اپنا پیغام درج کریں… (بھیجنے کے لیے Enter، نئی لائن کے لیے Shift+Enter)"
     },
-    "playgroundTabs": "Playground موڈز"
+    "playgroundTabs": "Playground موڈز",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "اینڈ پوائنٹ",
@@ -15216,5 +15247,14 @@
     "importButton": "درآمد",
     "importFailed": "درآمد ناکام رہی۔",
     "importSuccess": "{connections} اکاؤنٹس اور {nodes} فراہم کنندہ نوڈز درآمد ہوئے؛ {skipped} چھوڑ دیے گئے۔"
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

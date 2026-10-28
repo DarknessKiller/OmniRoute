@@ -1345,7 +1345,20 @@
       "open": "åpne",
       "close": "lukk"
     },
-    "noResults": "Ingen resultater"
+    "noResults": "Ingen resultater",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Webhooker",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "Avanserte nyttelastregler, forespørselsgrenser og API-innstillinger for proxy",
     "mitmProxyDescription": "Konfigurer MITM-proxyinnstillinger for inspeksjon og feilsøking av trafikk",
     "oneProxyDescription": "Konfigurer 1Proxy-innstillinger for avansert proxykjeding",
-    "omniSkillsDescription": "Installer og administrer sandkasseferdigheter for automatisert prompt- og verktøykjøring"
+    "omniSkillsDescription": "Installer og administrer sandkasseferdigheter for automatisert prompt- og verktøykjøring",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "Synkronisert",
@@ -8949,7 +8964,19 @@
       "statsTitle": "Funn siden omstart",
       "statsEmpty": "Ingen funn ennå.",
       "statsRequest": "Forespørsler"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "RTK-motor",
@@ -10350,7 +10377,10 @@
     "healthCdw": "Ukentlig · Ventetid",
     "healthRecentSuccessBypass": "Rutingen tillater kontoen fordi en forespørsel nylig lyktes.",
     "healthPurchasedBalanceBypass": "Kjøpt saldo kan brukes når den inkluderte kvoten er brukt opp.",
-    "healthCutoffAtRequest": "Kvoteterskler i sanntid kontrolleres når en forespørsel rutes."
+    "healthCutoffAtRequest": "Kvoteterskler i sanntid kontrolleres når en forespørsel rutes.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "Venter på autorisasjon",
@@ -11872,7 +11902,8 @@
       "runButton": "Kjør",
       "promptPlaceholder": "Skriv inn meldingen din… (Enter for å sende, Shift+Enter for ny linje)"
     },
-    "playgroundTabs": "Playground-moduser"
+    "playgroundTabs": "Playground-moduser",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "Endepunkt",
@@ -15216,5 +15247,14 @@
     "importButton": "Importer",
     "importFailed": "Importen mislyktes.",
     "importSuccess": "Importerte {connections} kontoer og {nodes} leverandørnoder; {skipped} hoppet over."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

@@ -998,7 +998,13 @@
     "batchFileUsedByCount": "{count, plural, one {# ಬ್ಯಾಚ್ನಲ್ಲಿ ಬಳಸಲಾಗಿದೆ} other {# ಬ್ಯಾಚ್ಗಳಲ್ಲಿ ಬಳಸಲಾಗಿದೆ}}",
     "batchFilePreview": "ಮುನ್ನೋಟ",
     "batchFilePreviewTruncated": "ಮೊದಲ {shown} ಸಾಲುಗಳನ್ನು ತೋರಿಸುತ್ತಿದೆ ({total} ಒಟ್ಟು ಸಾಲುಗಳು)",
-    "batchFileDownloadFull": "ಸಂಪೂರ್ಣ ಫೈಲ್ ಡೌನ್ಲೋಡ್ ಮಾಡಿ"
+    "batchFileDownloadFull": "ಸಂಪೂರ್ಣ ಫೈಲ್ ಡೌನ್ಲೋಡ್ ಮಾಡಿ",
+    "dialogTitleFallback": "Dialog",
+    "tokensServerUrlLabel": "Server URL",
+    "tokensPageTitle": "Tokens",
+    "pagination": "Pagination",
+    "clearFilters": "Clear filters",
+    "tokensPageDescription": "Send tokens between API keys, share invite codes and connect community servers."
   },
   "disabled": "ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ",
   "featureFlagOmnirouteEmergencyFallbackDescription": "ಬಜೆಟ್ ಖಾಲಿಯಾದ ವಿನಂತಿಗಳನ್ನು ತುರ್ತು ಉಚಿತ ಫಾಲ್ಬ್ಯಾಕ್ ಪ್ರೊವೈಡರ್/ಮಾಡೆಲ್ಗೆ ರೂಟ್ ಮಾಡಿ.",
@@ -1485,7 +1491,11 @@
       "chatIdPlaceholder": "-100123456789 ಅಥವಾ @channelname",
       "chatIdHint": "ಚಾಟ್/ಚಾನಲ್ನ ಅನನ್ಯ ಸಂಖ್ಯಾತ್ಮಕ ಗುರುತು ಅಥವಾ ಸಾರ್ವಜನಿಕ ಬಳಕೆದಾರಹೆಸರು.",
       "tutorial": "Telegram ವೆಬ್ಹುಕ್ ಅನ್ನು ಹೇಗೆ ಕಾನ್ಫಿಗರ್ ಮಾಡುವುದು:"
-    }
+    },
+    "copy": "Copy",
+    "copied": "Copied!",
+    "collapseDetails": "Hide details",
+    "expandDetails": "Show details"
   },
   "compliance": {
     "auditTitle": "ತಪಾಸಣೆ",
@@ -1597,7 +1607,8 @@
     "mcpMetricCalls24h": "ಕರೆಗಳು (24 ಗಂ.)",
     "mcpMetricSuccessRate": "ಯಶಸ್ಸಿನ ದರ",
     "mcpMetricAvgDuration": "ಸರಾಸರಿ ಅವಧಿ",
-    "mcpMetricTopTool": "ಅಗ್ರ ಸಾಧನ"
+    "mcpMetricTopTool": "ಅಗ್ರ ಸಾಧನ",
+    "dismissError": "Dismiss error"
   },
   "themesPage": {
     "title": "ಥೀಮ್ಗಳು",
@@ -1713,7 +1724,9 @@
     "settingsAdvancedDescription": "ಸುಧಾರಿತ ಪೇಲೋಡ್ ನಿಯಮಗಳು, ವಿನಂತಿ ಮಿತಿಗಳು, ಮತ್ತು ಪ್ರಾಕ್ಸಿ API ಸೆಟ್ಟಿಂಗ್ಗಳು",
     "mitmProxyDescription": "ಟ್ರಾಫಿಕ್ ಪರಿಶೀಲನೆ ಮತ್ತು ಡೀಬಗ್ಗಿಂಗ್ಗಾಗಿ MITM ಪ್ರಾಕ್ಸಿ ಸೆಟ್ಟಿಂಗ್ಗಳನ್ನು ಕಾನ್ಫಿಗರ್ ಮಾಡಿ",
     "oneProxyDescription": "ಸುಧಾರಿತ ಪ್ರಾಕ್ಸಿ ಚೈನಿಂಗ್ಗಾಗಿ 1Proxy ಸೆಟ್ಟಿಂಗ್ಗಳನ್ನು ಕಾನ್ಫಿಗರ್ ಮಾಡಿ",
-    "omniSkillsDescription": "ಸ್ವಯಂಚಾಲಿತ ಪ್ರಾಂಪ್ಟ್ ಮತ್ತು ಟೂಲ್ ಕಾರ್ಯಗತಗೊಳಿಸುವಿಕೆಗಾಗಿ ಸ್ಯಾಂಡ್ಬಾಕ್ಸ್ ಕೌಶಲ್ಯಗಳನ್ನು ಸ್ಥಾಪಿಸಿ ಮತ್ತು ನಿರ್ವಹಿಸಿ"
+    "omniSkillsDescription": "ಸ್ವಯಂಚಾಲಿತ ಪ್ರಾಂಪ್ಟ್ ಮತ್ತು ಟೂಲ್ ಕಾರ್ಯಗತಗೊಳಿಸುವಿಕೆಗಾಗಿ ಸ್ಯಾಂಡ್ಬಾಕ್ಸ್ ಕೌಶಲ್ಯಗಳನ್ನು ಸ್ಥಾಪಿಸಿ ಮತ್ತು ನಿರ್ವಹಿಸಿ",
+    "openMenu": "Open menu",
+    "products": "Keak products"
   },
   "cloudSyncStatus": {
     "synced": "ಸಿಂಕ್ ಆಗಿದೆ",
@@ -2499,7 +2512,8 @@
     "preferredConnections": "ಆದ್ಯತೆಯ ಸಂಪರ್ಕಗಳು",
     "preferredConnectionsDesc": "ಪ್ರತಿ ಕೀಗೆ ಆದ್ಯತೆಯ ಕ್ರಮ. ಆದ್ಯತೆಯ ಸಂಪರ್ಕ ಲಭ್ಯವಿಲ್ಲದಿದ್ದರೆ, ರೂಟಿಂಗ್ ಮುಂದಿನ ಅರ್ಹ ಸಂಪರ್ಕಕ್ಕೆ ಹೋಗುತ್ತದೆ.",
     "preferredConnectionsNone": "ಯಾವುದೇ ಆದ್ಯತೆ ಹೊಂದಿಸಲಾಗಿಲ್ಲ — ಡೀಫಾಲ್ಟ್ ರೂಟಿಂಗ್ ತಂತ್ರವನ್ನು ಬಳಸಲಾಗುತ್ತದೆ.",
-    "preferredConnectionsClear": "ತೆರವುಗೊಳಿಸಿ"
+    "preferredConnectionsClear": "ತೆರವುಗೊಳಿಸಿ",
+    "removeSelection": "Remove {name}"
   },
   "auditLog": {
     "title": "ಆಡಿಟ್ ಲಾಗ್",
@@ -2611,7 +2625,9 @@
     "imageToTextBridgeCta": "Modality Bridge ಸೆಟ್ಟಿಂಗ್ಗಳಲ್ಲಿ Image→Text ಬ್ರಿಡ್ಜ್ ಅನ್ನು ಕಾನ್ಫಿಗರ್ ಮಾಡಿ",
     "sttBridgeCta": "Modality Bridge ಸೆಟ್ಟಿಂಗ್ಗಳಲ್ಲಿ Speech→Text ಬ್ರಿಡ್ಜ್ ಅನ್ನು ಕಾನ್ಫಿಗರ್ ಮಾಡಿ",
     "existingConnection": "ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಸಂಪರ್ಕ",
-    "openrouterSttDescription": "OpenRouter ಸ್ಪೀಚ್-ಟು-ಟೆಕ್ಸ್ಟ್ ಮಾದರಿಗಳು ನಿಮ್ಮ ಕಾನ್ಫಿಗರ್ ಮಾಡಿದ OpenRouter ಸಂಪರ್ಕವನ್ನು ಬಳಸುತ್ತವೆ. ಪ್ರತ್ಯೇಕ ರುಜುವಾತು ಅಗತ್ಯವಿಲ್ಲ."
+    "openrouterSttDescription": "OpenRouter ಸ್ಪೀಚ್-ಟು-ಟೆಕ್ಸ್ಟ್ ಮಾದರಿಗಳು ನಿಮ್ಮ ಕಾನ್ಫಿಗರ್ ಮಾಡಿದ OpenRouter ಸಂಪರ್ಕವನ್ನು ಬಳಸುತ್ತವೆ. ಪ್ರತ್ಯೇಕ ರುಜುವಾತು ಅಗತ್ಯವಿಲ್ಲ.",
+    "modalityTabsAria": "Media type",
+    "serviceKindsAria": "Service type"
   },
   "search": {
     "searchQuery": "ಹುಡುಕಾಟ ಪ್ರಶ್ನೆ",
@@ -3282,7 +3298,8 @@
     "cliproxyapiUnknown": "ಅಜ್ಞಾತ",
     "cliproxyapiUpdate": "ನವೀಕರಿಸಿ",
     "cliproxyapiUpdateAvailable": "ನವೀಕರಣ ಲಭ್ಯವಿದೆ: v{current} → v{latest}",
-    "cliproxyapiVersion": "ಆವೃತ್ತಿ"
+    "cliproxyapiVersion": "ಆವೃತ್ತಿ",
+    "removeMapping": "Remove mapping"
   },
   "modelCatalog": {
     "title": "ಮಾದರಿಗಳು ಮತ್ತು ಕಾಂಬೊಗಳು",
@@ -4019,7 +4036,13 @@
     "duplicateAutoComboSnapshotMsg": "ಈ ಟೆಂಪ್ಲೇಟ್ಗೆ ಹೊಂದಿಕೆಯಾಗುವ ಪ್ರಸ್ತುತ ಸಂಪರ್ಕಿತ ಪೂರೈಕೆದಾರರು/ಮಾಡೆಲ್ಗಳ ಸ್ನ್ಯಾಪ್ಶಾಟ್ ತೆಗೆದು, ಅದನ್ನು ಸಂಪಾದಿಸಬಹುದಾದ ಕಾಂಬೊ ಆಗಿ ರಚಿಸಲಾಗುತ್ತದೆ.",
     "duplicateAutoComboFailedPrefix": "ಸ್ವಯಂ-ಕಾಂಬೊವನ್ನು ನಕಲಿಸಲು ವಿಫಲವಾಗಿದೆ:",
     "duplicateAutoComboUnknownError": "ಅಜ್ಞಾತ ದೋಷ",
-    "duplicateAutoComboTitle": "{name} ನಿಂದ ಸ್ಥಿರ ಕಾಂಬೊವನ್ನು ರಚಿಸಿ"
+    "duplicateAutoComboTitle": "{name} ನಿಂದ ಸ್ಥಿರ ಕಾಂಬೊವನ್ನು ರಚಿಸಿ",
+    "weightPercent": "Weight (%)",
+    "responseValidationPath": "JSON path",
+    "responseValidationCondition": "Condition",
+    "responseValidationRemoveCheck": "Remove check",
+    "clearSearch": "Clear search",
+    "responseValidationValue": "Expected value"
   },
   "costs": {
     "title": "ವೆಚ್ಚಗಳು",
@@ -5293,7 +5316,8 @@
         "skipped": "ಈಗಾಗಲೇ ಕಾನ್ಫಿಗರ್ ಮಾಡಲಾಗಿದೆ",
         "failed": "ವಿಫಲವಾಗಿದೆ"
       }
-    }
+    },
+    "stepProgress": "Setup progress"
   },
   "providers": {
     "tosAvoidNoticeTitle": "ಈ ಪೂರೈಕೆದಾರರನ್ನು ಪೂರ್ವನಿಯೋಜಿತವಾಗಿ auto ದಿಂದ ಹೊರಗಿಡಲಾಗಿದೆ",
@@ -8960,7 +8984,8 @@
       "statsEmpty": "ಇನ್ನೂ ಯಾವುದೇ ಪತ್ತೆ ಇಲ್ಲ.",
       "statsRequest": "ವಿನಂತಿಗಳು"
     },
-    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection."
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "modelOverrideKey": "Override key"
   },
   "contextRtk": {
     "title": "RTK ಎಂಜಿನ್",
@@ -9044,7 +9069,8 @@
     "tomlTestPassed": "ಯಶಸ್ವಿಯಾಗಿದೆ",
     "tomlTestFailed": "ವಿಫಲವಾಗಿದೆ",
     "tomlImportError": "RTK TOML ಫೈಲ್ ಅನ್ನು ಪ್ರಕ್ರಿಯೆಗೊಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.",
-    "tomlFileReadError": "ಆಯ್ಕೆಮಾಡಿದ TOML ಫೈಲ್ ಅನ್ನು ಓದಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ."
+    "tomlFileReadError": "ಆಯ್ಕೆಮಾಡಿದ TOML ಫೈಲ್ ಅನ್ನು ಓದಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.",
+    "viewMode": "View mode"
   },
   "compressionEngineConfig": {
     "loading": "ಲೋಡ್ ಆಗುತ್ತಿದೆ…",
@@ -9266,7 +9292,8 @@
     "languagePacksList": "ಭಾಷಾ ಪ್ಯಾಕ್ಗಳು: {packs}",
     "dragToReorder": "ಹಂತದ ಕ್ರಮವನ್ನು ಬದಲಾಯಿಸಲು ಎಳೆಯಿರಿ",
     "engine": "ಎಂಜಿನ್",
-    "intensity": "ತೀವ್ರತೆ"
+    "intensity": "ತೀವ್ರತೆ",
+    "compressionOverride": "Compression override"
   },
   "compressionStudio": {
     "noRun": "ಯಾವುದೇ ಸಂಕುಚನ ರನ್ ಲಭ್ಯವಿಲ್ಲ.",
@@ -9326,7 +9353,8 @@
     "encoderWinner": "ವಿಜೇತ: {winner}",
     "encoder": "ಎನ್ಕೋಡರ್",
     "bytes": "ಬೈಟ್ಗಳು",
-    "tokensCl100k": "ಟೋಕನ್ಗಳು (cl100k)"
+    "tokensCl100k": "ಟೋಕನ್ಗಳು (cl100k)",
+    "studioViews": "Studio views"
   },
   "omniglyph": {
     "preview": "ಮುನ್ನೋಟ",
@@ -9532,7 +9560,9 @@
     "tooltipMinLength": "ಇದಕ್ಕಿಂತ ಚಿಕ್ಕ ಸಂದೇಶಗಳನ್ನು ಸಂಕುಚಿಸಲಾಗುವುದಿಲ್ಲ. ಕಡಿಮೆ = ಹೆಚ್ಚು ಸಂಕುಚನ.",
     "tooltipMinSavings": "ಕನಿಷ್ಠ ಇಷ್ಟು ಟೋಕನ್ಗಳನ್ನು ಉಳಿಸಿದರೆ ಮಾತ್ರ ಸಂಕುಚಿಸಿ.",
     "ultraSettings": "ಅಲ್ಟ್ರಾ ಸೆಟ್ಟಿಂಗ್ಗಳು",
-    "ultraSettingsDesc": "SLM-ಚಾಲಿತ ಅರ್ಥಾಧಾರಿತ ಸಂಕುಚನ"
+    "ultraSettingsDesc": "SLM-ಚಾಲಿತ ಅರ್ಥಾಧಾರಿತ ಸಂಕುಚನ",
+    "viewMode": "View mode",
+    "defaultLanguage": "Default language"
   },
   "translator": {
     "title": "ಅನುವಾದಕ",
@@ -10356,7 +10386,10 @@
     "healthCdw": "ವಾರದ · ಕಾಯುವ ಅವಧಿ",
     "healthRecentSuccessBypass": "ಇತ್ತೀಚೆಗೆ ವಿನಂತಿ ಯಶಸ್ವಿಯಾದ ಕಾರಣ ರೌಟಿಂಗ್ ಈ ಖಾತೆಯನ್ನು ಅನುಮತಿಸುತ್ತದೆ.",
     "healthPurchasedBalanceBypass": "ಒಳಗೊಂಡ ಕೋಟಾ ಮುಗಿದ ನಂತರ ಖರೀದಿಸಿದ ಉಳಿಕೆಯೊಂದಿಗೆ ಬಳಕೆ ಮುಂದುವರಿಸಬಹುದು.",
-    "healthCutoffAtRequest": "ವಿನಂತಿಯನ್ನು ರೌಟ್ ಮಾಡುವಾಗ ನೇರ ಕೋಟಾ ಮಿತಿಗಳನ್ನು ಪರಿಶೀಲಿಸಲಾಗುತ್ತದೆ."
+    "healthCutoffAtRequest": "ವಿನಂತಿಯನ್ನು ರೌಟ್ ಮಾಡುವಾಗ ನೇರ ಕೋಟಾ ಮಿತಿಗಳನ್ನು ಪರಿಶೀಲಿಸಲಾಗುತ್ತದೆ.",
+    "statHealthy": "Healthy",
+    "statAlert": "Alert",
+    "statCritical": "Critical"
   },
   "modals": {
     "waitingAuth": "ದೃಢೀಕರಣಕ್ಕಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ",
@@ -11143,7 +11176,8 @@
       "message": "ಸಂದೇಶ",
       "error": "ದೋಷ",
       "completion": "ಪೂರ್ಣಗೊಳಿಸುವಿಕೆ"
-    }
+    },
+    "statusFilter": "Status"
   },
   "templateNames": {
     "simple-chat": "ಸರಳ ಚಾಟ್",
@@ -11324,7 +11358,8 @@
     "minutesAgo": "{minutes} ನಿಮಿಷಗಳ ಹಿಂದೆ",
     "hoursAgo": "{hours} ಗಂಟೆಗಳ ಹಿಂದೆ",
     "daysAgo": "{days} ದಿನಗಳ ಹಿಂದೆ",
-    "entries": "ನಮೂದುಗಳು"
+    "entries": "ನಮೂದುಗಳು",
+    "viewSwitcherAria": "Cache view"
   },
   "proxyConfigModal": {
     "levelGlobal": "ಜಾಗತಿಕ",
@@ -11669,7 +11704,8 @@
     "notMeasured": "ಅಳೆಯಲಾಗಿಲ್ಲ",
     "upstream4xx": "{count} ಅಪ್‌ಸ್ಟ್ರೀಮ್ ಕ್ಲೈಂಟ್ ದೋಷಗಳು",
     "upstream5xx": "{count} ಅಪ್‌ಸ್ಟ್ರೀಮ್ ಸರ್ವರ್ ದೋಷಗಳು",
-    "uniformEgressLine": "{provider} ನಲ್ಲಿ {exits} ಎಕ್ಸಿಟ್‌ಗಳ ಪೈಕಿ {affected} ಒಟ್ಟಿಗೆ ವಿಫಲವಾಗಿವೆ (ಕಳೆದ {hours}ಗಂ) — ಎಕ್ಸಿಟ್ ಸಮಸ್ಯೆಯಲ್ಲ"
+    "uniformEgressLine": "{provider} ನಲ್ಲಿ {exits} ಎಕ್ಸಿಟ್‌ಗಳ ಪೈಕಿ {affected} ಒಟ್ಟಿಗೆ ವಿಫಲವಾಗಿವೆ (ಕಳೆದ {hours}ಗಂ) — ಎಕ್ಸಿಟ್ ಸಮಸ್ಯೆಯಲ್ಲ",
+    "moreActions": "More actions"
   },
   "playground": {
     "title": "ಮಾದರಿ ಪ್ರಯೋಗಾಂಗಣ",
@@ -11875,7 +11911,8 @@
       "nextButton": "ಮುಂದೆ",
       "runButton": "ಚಾಲನೆ ಮಾಡಿ",
       "promptPlaceholder": "ನಿಮ್ಮ ಸಂದೇಶವನ್ನು ನಮೂದಿಸಿ… (ಕಳುಹಿಸಲು Enter, ಹೊಸ ಸಾಲಿಗಾಗಿ Shift+Enter)"
-    }
+    },
+    "playgroundTabs": "Playground modes"
   },
   "miniPlayground": {
     "endpoint": "ಎಂಡ್ಪಾಯಿಂಟ್",
@@ -11946,7 +11983,8 @@
     "assistant": "ಸಹಾಯಕ",
     "errorLabel": "ದೋಷ",
     "requestFailed": "ವಿನಂತಿ ವಿಫಲವಾಗಿದೆ",
-    "stop": "ನಿಲ್ಲಿಸಿ"
+    "stop": "ನಿಲ್ಲಿಸಿ",
+    "messageInputAria": "Message"
   },
   "requestLogger": {
     "recording": "ರೆಕಾರ್ಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ",
@@ -12133,8 +12171,18 @@
       "resilienceRotations": "{count} ಖಾತೆ ಬದಲಾವಣೆಗಳು",
       "resilienceRetried": "ಖಾಲಿ ಸರದಿಯನ್ನು ಮರುಪ್ರಯತ್ನಿಸಲಾಗಿದೆ",
       "resilienceContinued": "ಸ್ಟ್ರೀಮ್ ಮಧ್ಯದಿಂದ ಮುಂದುವರಿಸಲಾಗಿದೆ",
-      "resilienceRecovered": "ಸ್ಥಿತಿಸ್ಥಾಪಕತ್ವ ಕ್ರಿಯೆಯಿಂದ ಮರುಪಡೆಯಲಾಗಿದೆ"
-    }
+      "resilienceRecovered": "ಸ್ಥಿತಿಸ್ಥಾಪಕತ್ವ ಕ್ರಿಯೆಯಿಂದ ಮರುಪಡೆಯಲಾಗಿದೆ",
+      "openConversation": "Open conversation {id}",
+      "goToBottom": "Go to bottom",
+      "liveRefresh": "Live refresh",
+      "conversationContext": "Conversation Context",
+      "viewConversation": "view conversation",
+      "continuesFromParent": "continues from parent",
+      "continuesFrom": "Continues from {id}",
+      "liveRefreshOn": "Live refresh: on",
+      "liveRefreshOff": "Live refresh: off"
+    },
+    "tableLabel": "Request logs"
   },
   "proxyLogger": {
     "filterAll": "ಎಲ್ಲಾ",
@@ -12179,7 +12227,9 @@
     "colServedBy": "ಸೇವಿತ بواسطة",
     "filterTraffic": "ಟ್ರಾಫಿಕ್",
     "filterTests": "ಪರೀಕ್ಷೆಗಳು",
-    "filterSource": "ಮೂಲ"
+    "filterSource": "ಮೂಲ",
+    "sortLogs": "Sort logs",
+    "tableLabel": "Proxy logs"
   },
   "endpointOptions": {
     "speech": "ಧ್ವನಿ",
@@ -12264,7 +12314,8 @@
     "statusExhausted": "ಖಾಲಿಯಾಗಿದೆ",
     "statusAlerting": "ಎಚ್ಚರಿಕೆ ನೀಡಲಾಗುತ್ತಿದೆ",
     "statusError": "ದೋಷ",
-    "moreSuffix": "+{count} ಇನ್ನಷ್ಟು"
+    "moreSuffix": "+{count} ಇನ್ನಷ್ಟು",
+    "feedFilterLabel": "Filter events"
   },
   "quotaShare": {
     "weightPercent": "ತೂಕ %",
@@ -12431,7 +12482,10 @@
     "ungroupedTitle": "ಗುಂಪಿಗೆ ಸೇರಿಸದವು",
     "ungroupedHint": "ಈ ಪೂಲ್ಗಳನ್ನು ತಿಳಿದಿರುವ ಯಾವುದೇ ಗುಂಪಿಗೆ ನಿಯೋಜಿಸಲಾಗಿಲ್ಲ. ಅವುಗಳನ್ನು ಮಾನ್ಯ ಗುಂಪಿಗೆ ಸರಿಸಲು ಪೂಲ್ ಅನ್ನು ಸಂಪಾದಿಸಿ.",
     "removeFailed": "ಈ ಪೂಲ್ ಅನ್ನು ತೆಗೆದುಹಾಕಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.",
-    "dismiss": "ಮುಚ್ಚಿ"
+    "dismiss": "ಮುಚ್ಚಿ",
+    "wizardRemoveDimension": "Remove dimension",
+    "wizardRemoveKey": "Remove key",
+    "allocationsHeading": "Allocations"
   },
   "plugins": {
     "title": "ಪ್ಲಗಿನ್ಗಳು",
@@ -12589,7 +12643,8 @@
       "settingsUpdateFailed": "ಸೆಟ್ಟಿಂಗ್ಗಳ ನವೀಕರಣ ವಿಫಲವಾಗಿದೆ",
       "serviceRevealApiKey": "{actor} ಅವರು {target} ಗಾಗಿ API ಕೀಲಿಯನ್ನು ಬಹಿರಂಗಪಡಿಸಿದ್ದಾರೆ",
       "genericEvent": "{actor} {target}"
-    }
+    },
+    "dismissError": "Dismiss error"
   },
   "agentBridge": {
     "title": "AgentBridge",
@@ -12722,7 +12777,21 @@
       "goNow": "ಈಗಲೇ ಹೋಗಿ",
       "message": "MITM Proxy ಈಗ AgentBridge ಅಡಿಯಲ್ಲಿ ಲಭ್ಯವಿದೆ.",
       "title": "ಈ ಪುಟವನ್ನು ಸ್ಥಳಾಂತರಿಸಲಾಗಿದೆ"
-    }
+    },
+    "dnsOff": "DNS off",
+    "upstreamCaTesting": "Testing…",
+    "wizardAddModels": "Add {count, plural, one {# model} other {# models}}",
+    "removeMapping": "Remove mapping",
+    "dnsOn": "DNS on",
+    "wizardNoModelsHint": "Or close this wizard and add mappings manually in the agent card.",
+    "hideServerSettings": "Hide server settings",
+    "wizardSelectedModels": "{count, plural, one {# model} other {# models}} selected. You'll map them to OmniRoute models in the next screen.",
+    "showServerSettings": "Show server settings",
+    "mappingSourcePlaceholder": "e.g., gemini-3.6-flash-medium, or * for all unmapped",
+    "wizardDetectingModels": "Detecting models from intercepted traffic...",
+    "mappingWildcardHint": "Use * as the source to route every model without an explicit mapping through OmniRoute to the selected target. Exact source matches always win over *.",
+    "wizardNoModelsDetected": "No models detected yet. Use {agent} to make a request, then run this wizard again to auto-detect models from traffic.",
+    "wizardDetectedModels": "Found {count, plural, one {# model} other {# models}} in intercepted traffic. Select the ones you want to add:"
   },
   "providerStats": {
     "unknownError": "ಅಜ್ಞಾತ ದೋಷ",
@@ -12752,7 +12821,11 @@
     "avgTtft": "ಸರಾಸರಿ TTFT",
     "avgTotal": "ಸರಾಸರಿ ಒಟ್ಟು",
     "requestTelemetry": "ವಿನಂತಿ ಟೆಲಿಮೆಟ್ರಿ",
-    "requestTelemetryDescription": "7-ಹಂತದ ಪೈಪ್ಲೈನ್ ವಿವರ (ಕಳೆದ 5 ನಿಮಿಷಗಳು)"
+    "requestTelemetryDescription": "7-ಹಂತದ ಪೈಪ್ಲೈನ್ ವಿವರ (ಕಳೆದ 5 ನಿಮಿಷಗಳು)",
+    "description": "Per-provider and per-model traffic, latency and success rates",
+    "title": "Provider stats",
+    "toggleModels": "Show models for {provider}",
+    "combo": "Combo"
   },
   "relay": {
     "title": "ಸರ್ವರ್ಲೆಸ್ ರಿಲೇ ಪ್ರಾಕ್ಸಿಗಳು",
@@ -12913,7 +12986,18 @@
     "noRequestBody": "ವಿನಂತಿಯ ಬಾಡಿ ಇಲ್ಲ.",
     "noResponseBody": "ಪ್ರತಿಕ್ರಿಯೆಯ ಬಾಡಿ ಇಲ್ಲ.",
     "formatted": "ಸ್ವರೂಪಗೊಳಿಸಲಾಗಿದೆ",
-    "raw": "ಕಚ್ಚಾ"
+    "raw": "ಕಚ್ಚಾ",
+    "expandList": "Expand list",
+    "maskSecrets": "Mask secrets",
+    "llmStreamNo": "no",
+    "llmNotAvailable": "LLM metadata not available for this request.",
+    "llmStreamYes": "yes (SSE)",
+    "snippetLanguage": "Snippet language",
+    "showSecrets": "Show secrets",
+    "llmTotalTokens": "Total: {count} tokens",
+    "collapseList": "Collapse list",
+    "headersTable": "Headers",
+    "requestCount": "{count, plural, one {# request} other {# requests}}"
   },
   "cliCommon": {
     "companion": {
@@ -13372,7 +13456,8 @@
     "colReliabilityHelp": "ಕಳೆದ 24 ಗಂಟೆಗಳಲ್ಲಿ ಈ ಪೂರೈಕೆದಾರರು ನಿಜವಾಗಿ ಉತ್ತರಿಸಿದ ಕರೆಗಳ ಪ್ರಮಾಣ. ಡ್ಯಾಶ್ ಗುರುತು ಎಂದರೆ ಪ್ರಮಾಣವನ್ನು ನಿರ್ಧರಿಸಲು ಇದು ಸಾಕಷ್ಟು ಟ್ರಾಫಿಕ್ ಅನ್ನು ನಿರ್ವಹಿಸಿಲ್ಲ ಎಂದರ್ಥ.",
     "reliabilitySample": "ಕಳೆದ {hours} ಗಂಟೆಗಳಲ್ಲಿ {requests} ಕರೆಗಳಲ್ಲಿ {successes} ಯಶಸ್ವಿಯಾಗಿವೆ",
     "reliabilityTooFew": "ಕಳೆದ {hours} ಗಂಟೆಗಳಲ್ಲಿ ಕೇವಲ {requests} ಕರೆಗಳು — ಪ್ರಮಾಣವನ್ನು ನಿರ್ಧರಿಸಲು ತುಂಬಾ ಕಡಿಮೆ",
-    "reliabilityNoTraffic": "ಕಳೆದ 24 ಗಂಟೆಗಳಲ್ಲಿ ಯಾವುದೇ ಕರೆಗಳು ದಾಖಲಾಗಿಲ್ಲ"
+    "reliabilityNoTraffic": "ಕಳೆದ 24 ಗಂಟೆಗಳಲ್ಲಿ ಯಾವುದೇ ಕರೆಗಳು ದಾಖಲಾಗಿಲ್ಲ",
+    "categoryFilter": "Task category"
   },
   "discovery": {
     "title": "ಪೂರೈಕೆದಾರರ ಅನ್ವೇಷಣೆ",
@@ -13397,7 +13482,11 @@
     "method": "ವಿಧಾನ",
     "auth": "ದೃಢೀಕರಣ",
     "feasibility": "ಕಾರ್ಯಸಾಧ್ಯತೆ",
-    "models": "ಮಾದರಿಗಳು"
+    "models": "ಮಾದರಿಗಳು",
+    "actions": "Actions",
+    "status": "Status",
+    "endpoint": "Endpoint",
+    "provider": "Provider"
   },
   "noAuthProvider": {
     "title": "ಯಾವುದೇ ದೃಢೀಕರಣದ ಅಗತ್ಯವಿಲ್ಲ",
@@ -13446,7 +13535,8 @@
     "ownProxy": "ಸ್ವಂತ ಪ್ರಾಕ್ಸಿ",
     "freeTierPause": "ಮಾಡೆಲ್ {model} ವಿರಾಮಗೊಂಡಿದೆ (429), {time} ಗೆ ಮರಳುತ್ತದೆ",
     "freeTierPauseProvider": "ವಿರಾಮಗೊಂಡಿದೆ (429), {time} ಗೆ ಮರಳುತ್ತದೆ",
-    "freeTierPauseNote": "ಈ ಇನ್‌ಸ್ಟೆನ್ಸ್‌ನಲ್ಲಿ ಪ್ರಕ್ರಿಯೆಯೊಳಗಿನ ವಿರಾಮ"
+    "freeTierPauseNote": "ಈ ಇನ್‌ಸ್ಟೆನ್ಸ್‌ನಲ್ಲಿ ಪ್ರಕ್ರಿಯೆಯೊಳಗಿನ ವಿರಾಮ",
+    "proxyType": "Proxy type"
   },
   "gamification": {
     "leaderboardScopes": {
@@ -13619,7 +13709,10 @@
         "description": "ಗುಪ್ತ ಸಾಧನೆಯೊಂದು ಕಾಯುತ್ತಿದೆ...",
         "criteria": "ಈ ಬ್ಯಾಡ್ಜ್ ಅನ್ನು ಬಹಿರಂಗಪಡಿಸಲು ಗುಪ್ತ ಸಾಧನೆಯನ್ನು ಪೂರ್ಣಗೊಳಿಸಿ."
       }
-    }
+    },
+    "leaderboardTitle": "Leaderboard",
+    "leaderboardDescription": "Rankings and achievements across your API keys",
+    "badgeLocked": "Locked"
   },
   "featureFlags": {
     "title": "ವೈಶಿಷ್ಟ್ಯ ಫ್ಲ್ಯಾಗ್ಗಳು",
@@ -13914,7 +14007,8 @@
     "unknown": "ತಿಳಿದಿಲ್ಲ",
     "unknownProvider": "ತಿಳಿಯದ ಪೂರೈಕೆದಾರ",
     "unknownModel": "ತಿಳಿಯದ ಮಾದರಿ",
-    "resolvedTargetMetrics": "{requests} ವಿನಂತಿಗಳು · {success} ಯಶಸ್ಸು · {latency} · ಕೋಟಾ {quota}"
+    "resolvedTargetMetrics": "{requests} ವಿನಂತಿಗಳು · {success} ಯಶಸ್ಸು · {latency} · ಕೋಟಾ {quota}",
+    "timeRange": "Time range"
   },
   "usageLimits": {
     "usdUsageQuota": "USD ಬಳಕೆ ಕೋಟಾ",
@@ -14061,7 +14155,11 @@
     "learnMore": "ಇನ್ನಷ್ಟು ತಿಳಿಯಿರಿ",
     "changelogLoadFailed": "ಬದಲಾವಣೆಗಳ ದಾಖಲೆಯನ್ನು ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
     "retry": "ಮರುಪ್ರಯತ್ನಿಸಿ",
-    "viewFullHistory": "GitHub ನಲ್ಲಿ ಸಂಪೂರ್ಣ ಇತಿಹಾಸವನ್ನು ವೀಕ್ಷಿಸಿ"
+    "viewFullHistory": "GitHub ನಲ್ಲಿ ಸಂಪೂರ್ಣ ಇತಿಹಾಸವನ್ನು ವೀಕ್ಷಿಸಿ",
+    "loadingNews": "Loading announcements...",
+    "viewLabel": "View",
+    "description": "Announcements from the OmniRoute team and the latest release notes",
+    "title": "News & changelog"
   },
   "reasoningRouting": {
     "editor": {
@@ -14612,7 +14710,9 @@
       "circuitBreakerState": "ಪೂರೈಕೆದಾರರ ಸರ್ಕ್ಯೂಟ್ ಬ್ರೇಕರ್ ಸ್ಥಿತಿ",
       "lastUpdate": "ಕೊನೆಯ ನವೀಕರಣ: {timestamp}",
       "uptimeMinutes": "{minutes}ನಿ",
-      "uptimeHoursMinutes": "{hours}ಗಂ {minutes}ನಿ"
+      "uptimeHoursMinutes": "{hours}ಗಂ {minutes}ನಿ",
+      "breakerNotClosed": "Open or half-open",
+      "breakerClosed": "Closed"
     },
     "statusPages": {
       "400": {
@@ -14687,6 +14787,9 @@
         "primaryAction": "ನಿರ್ವಹಣೆಯ ವಿವರಗಳು",
         "secondaryAction": "ಸಿಸ್ಟಮ್ ಸ್ಥಿತಿ"
       }
+    },
+    "miniapp": {
+      "askAnything": "Ask anything…"
     }
   },
   "kiroAuthModal": {
@@ -14877,7 +14980,20 @@
     "mcp": "MCP",
     "mcpTool": "MCP tool",
     "scope": "Scope",
-    "apiKey": "API key"
+    "apiKey": "API key",
+    "visibleCount": "{visible} visible / {total} total",
+    "zoomOut": "Zoom out",
+    "autoRefreshUnit": "s",
+    "modeLabel": "View mode",
+    "zoomIn": "Zoom in",
+    "jumpToNow": "Jump to current time, NOW line resets to position {position}%",
+    "laneReuse": "Lane reuse",
+    "laneReuseUnit": "min",
+    "laneReuseHint": "Requests sharing a conversation id stay on the same timeline row as long as the gap between them is under this many minutes.",
+    "autoRefreshLabel": "Auto-refresh interval (seconds)",
+    "autoRefresh": "Auto-refresh",
+    "autoRefreshHint": "How often the timeline re-fetches the request list from the server.",
+    "laneReuseLabel": "Lane reuse window (minutes)"
   },
   "metadata": {
     "compressionTitle": "ಸಂಕುಚನ",

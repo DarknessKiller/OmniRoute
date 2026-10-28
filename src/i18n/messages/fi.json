@@ -1345,7 +1345,20 @@
       "open": "avaa",
       "close": "sulje"
     },
-    "noResults": "Ei tuloksia"
+    "noResults": "Ei tuloksia",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Webhookit",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "Edistyneet hyötykuormasäännöt, pyyntörajat ja välityspalvelimen API-asetukset",
     "mitmProxyDescription": "Määritä MITM-välityspalvelimen asetukset liikenteen tarkastusta ja virheenkorjausta varten",
     "oneProxyDescription": "Määritä 1Proxy-asetukset edistyneeseen välityspalvelinten ketjutukseen",
-    "omniSkillsDescription": "Asenna ja hallitse hiekkalaatikkotaitoja automaattista kehotteiden ja työkalujen suorittamista varten"
+    "omniSkillsDescription": "Asenna ja hallitse hiekkalaatikkotaitoja automaattista kehotteiden ja työkalujen suorittamista varten",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "Synkronoitu",
@@ -8949,7 +8964,19 @@
       "statsTitle": "Havainnot uudelleenkäynnistyksen jälkeen",
       "statsEmpty": "Ei vielä havaintoja.",
       "statsRequest": "Pyynnöt"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "RTK Engine",
@@ -10350,7 +10377,10 @@
     "healthCdw": "Viikoittain · Odotusaika",
     "healthRecentSuccessBypass": "Reititys sallii tämän tilin, koska pyyntö onnistui äskettäin.",
     "healthPurchasedBalanceBypass": "Ostettua saldoa voi käyttää sisältyvän kiintiön loputtua.",
-    "healthCutoffAtRequest": "Reaaliaikaiset kiintiörajat tarkistetaan pyyntöä reititettäessä."
+    "healthCutoffAtRequest": "Reaaliaikaiset kiintiörajat tarkistetaan pyyntöä reititettäessä.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "Odotetaan valtuutusta",
@@ -11872,7 +11902,8 @@
       "runButton": "Suorita",
       "promptPlaceholder": "Kirjoita viestisi… (Lähetä painamalla Enter, rivinvaihto painamalla Shift+Enter)"
     },
-    "playgroundTabs": "Playground-tilat"
+    "playgroundTabs": "Playground-tilat",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "Päätepiste",
@@ -15216,5 +15247,14 @@
     "importButton": "Tuo",
     "importFailed": "Tuonti epäonnistui.",
     "importSuccess": "Tuotiin {connections} tiliä ja {nodes} palveluntarjoajasolmua; {skipped} ohitettiin."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

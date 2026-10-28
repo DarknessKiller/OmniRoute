@@ -1345,7 +1345,20 @@
       "open": "פתח",
       "close": "סגור"
     },
-    "noResults": "אין תוצאות"
+    "noResults": "אין תוצאות",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "וובהוקים",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "כללים מתקדמים למטען הנתונים, מגבלות בקשות והגדרות API של פרוקסי",
     "mitmProxyDescription": "הגדרת פרוקסי MITM לבדיקת תעבורה ולניפוי שגיאות",
     "oneProxyDescription": "הגדרת 1Proxy לשרשור פרוקסי מתקדם",
-    "omniSkillsDescription": "התקן ונהל מיומנויות ארגז חול להרצה אוטומטית של הנחיות וכלים"
+    "omniSkillsDescription": "התקן ונהל מיומנויות ארגז חול להרצה אוטומטית של הנחיות וכלים",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "מסונכרן",
@@ -8949,7 +8964,19 @@
       "statsTitle": "זיהויים מאז ההפעלה מחדש",
       "statsEmpty": "אין זיהויים עדיין.",
       "statsRequest": "בקשות"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "מנוע RTK",
@@ -10350,7 +10377,10 @@
     "healthCdw": "שבועי · זמן המתנה",
     "healthRecentSuccessBypass": "הניתוב מאפשר שימוש בחשבון זה משום שבקשה הצליחה לאחרונה.",
     "healthPurchasedBalanceBypass": "יתרה שנרכשה מאפשרת להמשיך לאחר ניצול המכסה הכלולה.",
-    "healthCutoffAtRequest": "ספי המכסה בזמן אמת נבדקים בעת ניתוב בקשה."
+    "healthCutoffAtRequest": "ספי המכסה בזמן אמת נבדקים בעת ניתוב בקשה.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "ממתין לאישור",
@@ -11872,7 +11902,8 @@
       "runButton": "הפעל",
       "promptPlaceholder": "הזן את ההודעה שלך… (Enter לשליחה, Shift+Enter לשורה חדשה)"
     },
-    "playgroundTabs": "מצבי Playground"
+    "playgroundTabs": "מצבי Playground",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "נקודת קצה",
@@ -15216,5 +15247,14 @@
     "importButton": "ייבוא",
     "importFailed": "הייבוא נכשל.",
     "importSuccess": "יובאו {connections} חשבונות ו-{nodes} צמתי ספק; דולגו {skipped}."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

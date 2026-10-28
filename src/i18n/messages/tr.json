@@ -1345,7 +1345,20 @@
       "open": "açık",
       "close": "kapat"
     },
-    "noResults": "Sonuç yok"
+    "noResults": "Sonuç yok",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Web kancaları",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "Gelişmiş yük kuralları, istek sınırları ve proxy API ayarları",
     "mitmProxyDescription": "Trafik incelemesi ve hata ayıklama için MITM proxy ayarlarını yapılandırın",
     "oneProxyDescription": "Gelişmiş proxy zincirleme için 1Proxy ayarlarını yapılandırın",
-    "omniSkillsDescription": "Otomatik istem ve araç yürütme için korumalı alan becerilerini yükleyin ve yönetin"
+    "omniSkillsDescription": "Otomatik istem ve araç yürütme için korumalı alan becerilerini yükleyin ve yönetin",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "Eşitlendi",
@@ -8949,7 +8964,19 @@
       "statsTitle": "Yeniden başlatmadan bu yana tespitler",
       "statsEmpty": "Henüz tespit yok.",
       "statsRequest": "İstekler"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "RTK Motoru",
@@ -10350,7 +10377,10 @@
     "healthCdw": "Haftalık · Bekleme süresi",
     "healthRecentSuccessBypass": "Yakın zamanda bir istek başarılı olduğu için yönlendirme bu hesaba izin verir.",
     "healthPurchasedBalanceBypass": "Dahil edilen kota tükendikten sonra satın alınan bakiye kullanılabilir.",
-    "healthCutoffAtRequest": "Canlı kota eşikleri, istek yönlendirilirken kontrol edilir."
+    "healthCutoffAtRequest": "Canlı kota eşikleri, istek yönlendirilirken kontrol edilir.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "Yetkilendirme bekleniyor",
@@ -11872,7 +11902,8 @@
       "runButton": "Çalıştır",
       "promptPlaceholder": "Mesajınızı girin… (Göndermek için Enter, yeni satır için Shift+Enter)"
     },
-    "playgroundTabs": "Playground modları"
+    "playgroundTabs": "Playground modları",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "Uç Nokta",
@@ -15216,5 +15247,14 @@
     "importButton": "İçe aktar",
     "importFailed": "İçe aktarma başarısız oldu.",
     "importSuccess": "{connections} hesap ve {nodes} sağlayıcı düğümü içe aktarıldı; {skipped} atlandı."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

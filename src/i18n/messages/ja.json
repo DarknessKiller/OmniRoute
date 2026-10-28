@@ -1345,7 +1345,20 @@
       "open": "開く",
       "close": "閉じる"
     },
-    "noResults": "結果がありません"
+    "noResults": "結果がありません",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Webhook",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "高度なペイロードルール、リクエスト制限、プロキシAPI設定",
     "mitmProxyDescription": "トラフィック検査とデバッグ用のMITMプロキシ設定を構成",
     "oneProxyDescription": "高度なプロキシチェーン用の1Proxy設定を構成",
-    "omniSkillsDescription": "自動化されたプロンプトとツールの実行のためのサンドボックススキルをインストールして管理します"
+    "omniSkillsDescription": "自動化されたプロンプトとツールの実行のためのサンドボックススキルをインストールして管理します",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "同期済み",
@@ -8949,7 +8964,19 @@
       "statsTitle": "再起動以降の検出",
       "statsEmpty": "まだ検出はありません。",
       "statsRequest": "リクエスト"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "RTKエンジン",
@@ -10350,7 +10377,10 @@
     "healthCdw": "毎週 · 待機期間",
     "healthRecentSuccessBypass": "最近リクエストが成功したため、このアカウントの利用が許可されています。",
     "healthPurchasedBalanceBypass": "プラン内の利用枠を使い切っても、購入済み残高を利用できます。",
-    "healthCutoffAtRequest": "リアルタイムの利用枠のしきい値は、リクエストのルーティング時に確認されます。"
+    "healthCutoffAtRequest": "リアルタイムの利用枠のしきい値は、リクエストのルーティング時に確認されます。",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "承認を待っています",
@@ -11872,7 +11902,8 @@
       "runButton": "実行",
       "promptPlaceholder": "メッセージを入力… (Enterで送信、Shift+Enterで改行)"
     },
-    "playgroundTabs": "Playgroundモード"
+    "playgroundTabs": "Playgroundモード",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "エンドポイント",
@@ -15216,5 +15247,14 @@
     "importButton": "インポート",
     "importFailed": "インポートに失敗しました。",
     "importSuccess": "{connections} 件のアカウントと {nodes} 件のプロバイダーノードをインポートしました。{skipped} 件はスキップしました。"
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

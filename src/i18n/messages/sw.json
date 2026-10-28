@@ -1345,7 +1345,20 @@
       "open": "fungua",
       "close": "funga"
     },
-    "noResults": "Hakuna matokeo"
+    "noResults": "Hakuna matokeo",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Viboko vya mtandao",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "Kanuni za kina za payload, vikomo vya maombi, na mipangilio ya API ya proksi",
     "mitmProxyDescription": "Sanidi mipangilio ya proksi ya MITM kwa ukaguzi wa trafiki na utatuzi wa hitilafu",
     "oneProxyDescription": "Sanidi mipangilio ya 1Proxy kwa uunganishaji wa kina wa proksi",
-    "omniSkillsDescription": "Sakinisha na udhibiti ujuzi wa sandbox kwa ajili ya utekelezaji wa kiotomatiki wa vidokezo na zana"
+    "omniSkillsDescription": "Sakinisha na udhibiti ujuzi wa sandbox kwa ajili ya utekelezaji wa kiotomatiki wa vidokezo na zana",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "Imesawazishwa",
@@ -8949,7 +8964,19 @@
       "statsTitle": "Ugunduzi tangu kuanzishwa upya",
       "statsEmpty": "Bado hakuna ugunduzi.",
       "statsRequest": "Maombi"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "Injini ya RTK",
@@ -10350,7 +10377,10 @@
     "healthCdw": "Kila Wiki · Muda wa kusubiri",
     "healthRecentSuccessBypass": "Uelekezaji unaruhusu akaunti hii kwa sababu ombi limefaulu hivi karibuni.",
     "healthPurchasedBalanceBypass": "Salio lililonunuliwa huruhusu matumizi kuendelea baada ya mgao uliojumuishwa kuisha.",
-    "healthCutoffAtRequest": "Viwango vya mgao wa moja kwa moja hukaguliwa wakati wa kuelekeza ombi."
+    "healthCutoffAtRequest": "Viwango vya mgao wa moja kwa moja hukaguliwa wakati wa kuelekeza ombi.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "Inasubiri Uidhinishaji",
@@ -11872,7 +11902,8 @@
       "runButton": "Endesha",
       "promptPlaceholder": "Ingiza ujumbe wako… (Enter kutuma, Shift+Enter kwa mstari mpya)"
     },
-    "playgroundTabs": "Hali za Playground"
+    "playgroundTabs": "Hali za Playground",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "Kituo cha mwisho",
@@ -15216,5 +15247,14 @@
     "importButton": "Leta",
     "importFailed": "Kuleta kumeshindwa.",
     "importSuccess": "Akaunti {connections} na nodi {nodes} za watoa huduma zimeletwa; {skipped} zimerukwa."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

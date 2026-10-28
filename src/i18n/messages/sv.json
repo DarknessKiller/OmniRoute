@@ -1345,7 +1345,20 @@
       "open": "öppna",
       "close": "stäng"
     },
-    "noResults": "Inga resultat"
+    "noResults": "Inga resultat",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Webhookar",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "Avancerade nyttolastregler, gränser för förfrågningar och inställningar för proxy-API",
     "mitmProxyDescription": "Konfigurera MITM-proxyinställningar för trafikinspektion och felsökning",
     "oneProxyDescription": "Konfigurera 1Proxy-inställningar för avancerad proxykedjning",
-    "omniSkillsDescription": "Installera och hantera sandlådefärdigheter för automatiserad körning av prompter och verktyg"
+    "omniSkillsDescription": "Installera och hantera sandlådefärdigheter för automatiserad körning av prompter och verktyg",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "Synkroniserad",
@@ -8949,7 +8964,19 @@
       "statsTitle": "Upptäckter sedan omstart",
       "statsEmpty": "Inga upptäckter än.",
       "statsRequest": "Förfrågningar"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "RTK-motor",
@@ -10350,7 +10377,10 @@
     "healthCdw": "Varje vecka · Väntetid",
     "healthRecentSuccessBypass": "Routningen tillåter kontot eftersom en begäran nyligen lyckades.",
     "healthPurchasedBalanceBypass": "Köpt saldo kan användas när den inkluderade kvoten är slut.",
-    "healthCutoffAtRequest": "Kvotgränser i realtid kontrolleras när en begäran routas."
+    "healthCutoffAtRequest": "Kvotgränser i realtid kontrolleras när en begäran routas.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "Väntar på auktorisering",
@@ -11872,7 +11902,8 @@
       "runButton": "Kör",
       "promptPlaceholder": "Skriv ditt meddelande… (Enter för att skicka, Shift+Enter för ny rad)"
     },
-    "playgroundTabs": "Playground-lägen"
+    "playgroundTabs": "Playground-lägen",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "Slutpunkt",
@@ -15216,5 +15247,14 @@
     "importButton": "Importera",
     "importFailed": "Importen misslyckades.",
     "importSuccess": "Importerade {connections} konton och {nodes} leverantörsnoder; {skipped} hoppades över."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

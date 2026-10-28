@@ -1345,7 +1345,20 @@
       "open": "열기",
       "close": "닫기"
     },
-    "noResults": "결과가 없습니다"
+    "noResults": "결과가 없습니다",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "웹훅",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "고급 페이로드 규칙, 요청 제한 및 프록시 API 설정",
     "mitmProxyDescription": "트래픽 검사 및 디버깅을 위한 MITM 프록시 설정을 구성합니다",
     "oneProxyDescription": "고급 프록시 체이닝을 위한 1Proxy 설정을 구성합니다",
-    "omniSkillsDescription": "자동화된 프롬프트 및 도구 실행을 위한 샌드박스 스킬 설치 및 관리"
+    "omniSkillsDescription": "자동화된 프롬프트 및 도구 실행을 위한 샌드박스 스킬 설치 및 관리",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "동기화됨",
@@ -8949,7 +8964,19 @@
       "statsTitle": "재시작 이후 감지",
       "statsEmpty": "아직 감지된 항목이 없습니다.",
       "statsRequest": "요청"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "RTK 엔진",
@@ -10350,7 +10377,10 @@
     "healthCdw": "매주 · 대기 시간",
     "healthRecentSuccessBypass": "최근 요청이 성공하여 라우터가 이 계정의 사용을 허용합니다.",
     "healthPurchasedBalanceBypass": "포함된 할당량을 소진해도 구매한 잔액으로 계속 사용할 수 있습니다.",
-    "healthCutoffAtRequest": "실시간 할당량 임계값은 요청을 라우팅할 때 확인합니다."
+    "healthCutoffAtRequest": "실시간 할당량 임계값은 요청을 라우팅할 때 확인합니다.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "승인을 기다리는 중",
@@ -11872,7 +11902,8 @@
       "runButton": "실행",
       "promptPlaceholder": "메시지를 입력하세요… (전송하려면 Enter, 줄바꿈은 Shift+Enter)"
     },
-    "playgroundTabs": "Playground 모드"
+    "playgroundTabs": "Playground 모드",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "엔드포인트",
@@ -15216,5 +15247,14 @@
     "importButton": "가져오기",
     "importFailed": "가져오기에 실패했습니다.",
     "importSuccess": "계정 {connections}개와 공급자 노드 {nodes}개를 가져왔습니다. {skipped}개는 건너뛰었습니다."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

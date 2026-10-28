@@ -1345,7 +1345,20 @@
       "open": "buka",
       "close": "tutup"
     },
-    "noResults": "Tidak ada hasil"
+    "noResults": "Tidak ada hasil",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Webhook",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "Aturan payload lanjutan, batas permintaan, dan pengaturan API proxy",
     "mitmProxyDescription": "Konfigurasikan pengaturan proxy MITM untuk pemeriksaan lalu lintas dan debugging",
     "oneProxyDescription": "Konfigurasikan pengaturan 1Proxy untuk perangkaian proxy lanjutan",
-    "omniSkillsDescription": "Instal dan kelola kemampuan sandbox untuk eksekusi prompt dan alat otomatis"
+    "omniSkillsDescription": "Instal dan kelola kemampuan sandbox untuk eksekusi prompt dan alat otomatis",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "Disinkronkan",
@@ -8949,7 +8964,19 @@
       "statsTitle": "Deteksi sejak dimulai ulang",
       "statsEmpty": "Belum ada deteksi.",
       "statsRequest": "Permintaan"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "Mesin RTK",
@@ -10350,7 +10377,10 @@
     "healthCdw": "Mingguan · Waktu tunggu",
     "healthRecentSuccessBypass": "Perutean mengizinkan akun ini karena ada permintaan yang berhasil baru-baru ini.",
     "healthPurchasedBalanceBypass": "Saldo yang dibeli memungkinkan penggunaan berlanjut setelah kuota bawaan habis.",
-    "healthCutoffAtRequest": "Ambang kuota langsung diperiksa saat merutekan permintaan."
+    "healthCutoffAtRequest": "Ambang kuota langsung diperiksa saat merutekan permintaan.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "Menunggu Otorisasi",
@@ -11872,7 +11902,8 @@
       "runButton": "Jalankan",
       "promptPlaceholder": "Masukkan pesan Anda… (Enter untuk mengirim, Shift+Enter untuk baris baru)"
     },
-    "playgroundTabs": "Mode Playground"
+    "playgroundTabs": "Mode Playground",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "Titik Akhir",
@@ -15216,5 +15247,14 @@
     "importButton": "Impor",
     "importFailed": "Impor gagal.",
     "importSuccess": "{connections} akun dan {nodes} node penyedia diimpor; {skipped} dilewati."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

@@ -1345,7 +1345,20 @@
       "open": "उघडा",
       "close": "बंद करा"
     },
-    "noResults": "कोणतेही परिणाम नाहीत"
+    "noResults": "कोणतेही परिणाम नाहीत",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "वेबहुक",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "प्रगत पेलोड नियम, विनंती मर्यादा आणि प्रॉक्सी API सेटिंग्ज",
     "mitmProxyDescription": "ट्रॅफिक तपासणी आणि डीबगिंगसाठी MITM प्रॉक्सी सेटिंग्ज कॉन्फिगर करा",
     "oneProxyDescription": "प्रगत प्रॉक्सी शृंखलेसाठी 1Proxy सेटिंग्ज कॉन्फिगर करा",
-    "omniSkillsDescription": "स्वयंचलित प्रॉम्प्ट आणि टूल एक्झिक्यूशनसाठी सँडबॉक्स स्किल्स इन्स्टॉल आणि व्यवस्थापित करा"
+    "omniSkillsDescription": "स्वयंचलित प्रॉम्प्ट आणि टूल एक्झिक्यूशनसाठी सँडबॉक्स स्किल्स इन्स्टॉल आणि व्यवस्थापित करा",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "सिंक केले",
@@ -8949,7 +8964,19 @@
       "statsTitle": "पुन्हा सुरू झाल्यापासूनच्या ओळखी",
       "statsEmpty": "अद्याप कोणतीही ओळख नाही.",
       "statsRequest": "विनंत्या"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "RTK इंजिन",
@@ -10350,7 +10377,10 @@
     "healthCdw": "साप्ताहिक · प्रतीक्षा कालावधी",
     "healthRecentSuccessBypass": "अलीकडे विनंती यशस्वी झाल्यामुळे राउटिंग या खात्याला परवानगी देते.",
     "healthPurchasedBalanceBypass": "समाविष्ट कोटा संपल्यानंतर खरेदी केलेल्या शिल्लकीतून वापर सुरू ठेवता येतो.",
-    "healthCutoffAtRequest": "विनंती राउट करताना थेट कोट्याच्या मर्यादा तपासल्या जातात."
+    "healthCutoffAtRequest": "विनंती राउट करताना थेट कोट्याच्या मर्यादा तपासल्या जातात.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "अधिकृततेची प्रतीक्षा करत आहे",
@@ -11872,7 +11902,8 @@
       "runButton": "चालवा",
       "promptPlaceholder": "तुमचा संदेश प्रविष्ट करा… (पाठवण्यासाठी Enter, नवीन ओळीसाठी Shift+Enter)"
     },
-    "playgroundTabs": "Playground मोड"
+    "playgroundTabs": "Playground मोड",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "एंडपॉइंट",
@@ -15216,5 +15247,14 @@
     "importButton": "आयात करा",
     "importFailed": "आयात अयशस्वी.",
     "importSuccess": "{connections} खाती आणि {nodes} प्रदाता नोड आयात झाले; {skipped} वगळले."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

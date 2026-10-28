@@ -998,7 +998,13 @@
     "batchFileUsedByCount": "Օգտագործվում է {count, plural, one {# փաթեթի} other {# փաթեթների}} կողմից",
     "batchFilePreview": "Նախադիտում",
     "batchFilePreviewTruncated": "Ցուցադրվում են առաջին {shown} տողերը (ընդամենը՝ {total} տող)",
-    "batchFileDownloadFull": "Ներբեռնել ամբողջական ֆայլը"
+    "batchFileDownloadFull": "Ներբեռնել ամբողջական ֆայլը",
+    "dialogTitleFallback": "Dialog",
+    "tokensServerUrlLabel": "Server URL",
+    "tokensPageTitle": "Tokens",
+    "pagination": "Pagination",
+    "clearFilters": "Clear filters",
+    "tokensPageDescription": "Send tokens between API keys, share invite codes and connect community servers."
   },
   "disabled": "Անջատված է",
   "featureFlagOmnirouteEmergencyFallbackDescription": "Բյուջեն սպառած հարցումներն ուղղորդել արտակարգ անվճար պահուստային մատակարարին/մոդելին։",
@@ -1485,7 +1491,11 @@
       "chatIdPlaceholder": "-100123456789 կամ @channelname",
       "chatIdHint": "Զրույցի/ալիքի եզակի թվային նույնացուցիչը կամ հանրային օգտանունը։",
       "tutorial": "Ինչպես կարգավորել Telegram վեբհուկը․"
-    }
+    },
+    "copy": "Copy",
+    "copied": "Copied!",
+    "collapseDetails": "Hide details",
+    "expandDetails": "Show details"
   },
   "compliance": {
     "auditTitle": "Աուդիտ",
@@ -1597,7 +1607,8 @@
     "mcpMetricCalls24h": "Կանչեր (24 ժ)",
     "mcpMetricSuccessRate": "Հաջողության ցուցանիշ",
     "mcpMetricAvgDuration": "Միջին տևողություն",
-    "mcpMetricTopTool": "Ամենաշատ օգտագործվող գործիք"
+    "mcpMetricTopTool": "Ամենաշատ օգտագործվող գործիք",
+    "dismissError": "Dismiss error"
   },
   "themesPage": {
     "title": "Թեմաներ",
@@ -1713,7 +1724,9 @@
     "settingsAdvancedDescription": "Օգտակար բեռի ընդլայնված կանոններ, հարցումների սահմանաչափեր և պրոքսի API-ի կարգավորումներ",
     "mitmProxyDescription": "Կարգավորեք MITM պրոքսիի պարամետրերը՝ տրաֆիկի ստուգման և վրիպազերծման համար",
     "oneProxyDescription": "Կարգավորեք 1Proxy-ի պարամետրերը՝ պրոքսիների ընդլայնված շղթայակցման համար",
-    "omniSkillsDescription": "Տեղադրեք և կառավարեք sandbox հմտությունները՝ հուշումների և գործիքների ավտոմատ կատարման համար"
+    "omniSkillsDescription": "Տեղադրեք և կառավարեք sandbox հմտությունները՝ հուշումների և գործիքների ավտոմատ կատարման համար",
+    "openMenu": "Open menu",
+    "products": "Keak products"
   },
   "cloudSyncStatus": {
     "synced": "Համաժամեցված է",
@@ -2499,7 +2512,8 @@
     "preferredConnections": "Նախընտրելի կապեր",
     "preferredConnectionsDesc": "Առաջնահերթության կարգ յուրաքանչյուր բանալու համար։ Եթե նախընտրելի կապը հասանելի չէ, երթուղումն անցնում է հաջորդ համապատասխան կապին։",
     "preferredConnectionsNone": "Նախընտրություն սահմանված չէ — օգտագործվում է երթուղման լռելյայն ռազմավարությունը։",
-    "preferredConnectionsClear": "Մաքրել"
+    "preferredConnectionsClear": "Մաքրել",
+    "removeSelection": "Remove {name}"
   },
   "auditLog": {
     "title": "Աուդիտի մատյան",
@@ -2611,7 +2625,9 @@
     "imageToTextBridgeCta": "Կարգավորեք Image→Text կամուրջը Modality Bridge-ի կարգավորումներում",
     "sttBridgeCta": "Կարգավորեք Speech→Text կամուրջը Modality Bridge-ի կարգավորումներում",
     "existingConnection": "Առկա կապ",
-    "openrouterSttDescription": "OpenRouter-ի խոսքը տեքստի փոխակերպող մոդելներն օգտագործում են ձեր կարգավորված OpenRouter կապը։ Առանձին հավատարմագրեր չեն պահանջվում։"
+    "openrouterSttDescription": "OpenRouter-ի խոսքը տեքստի փոխակերպող մոդելներն օգտագործում են ձեր կարգավորված OpenRouter կապը։ Առանձին հավատարմագրեր չեն պահանջվում։",
+    "modalityTabsAria": "Media type",
+    "serviceKindsAria": "Service type"
   },
   "search": {
     "searchQuery": "Որոնման հարցում",
@@ -3282,7 +3298,8 @@
     "cliproxyapiUnknown": "Անհայտ",
     "cliproxyapiUpdate": "Թարմացնել",
     "cliproxyapiUpdateAvailable": "Հասանելի է թարմացում՝ v{current} → v{latest}",
-    "cliproxyapiVersion": "Տարբերակ"
+    "cliproxyapiVersion": "Տարբերակ",
+    "removeMapping": "Remove mapping"
   },
   "modelCatalog": {
     "title": "Մոդելներ և կոմբոներ",
@@ -4019,7 +4036,13 @@
     "duplicateAutoComboSnapshotMsg": "Այս ձևանմուշին համապատասխանող՝ ներկայումս միացված մատակարարների/մոդելների պատճենը կպահվի որպես խմբագրվող կոմբինացիա։",
     "duplicateAutoComboFailedPrefix": "Չհաջողվեց կրկնօրինակել ավտոմատ կոմբինացիան՝",
     "duplicateAutoComboUnknownError": "Անհայտ սխալ",
-    "duplicateAutoComboTitle": "Ստեղծել ստատիկ կոմբինացիա {name}-ից"
+    "duplicateAutoComboTitle": "Ստեղծել ստատիկ կոմբինացիա {name}-ից",
+    "weightPercent": "Weight (%)",
+    "responseValidationPath": "JSON path",
+    "responseValidationCondition": "Condition",
+    "responseValidationRemoveCheck": "Remove check",
+    "clearSearch": "Clear search",
+    "responseValidationValue": "Expected value"
   },
   "costs": {
     "title": "Ծախսեր",
@@ -5293,7 +5316,8 @@
         "skipped": "արդեն կարգավորված է",
         "failed": "ձախողվել է"
       }
-    }
+    },
+    "stepProgress": "Setup progress"
   },
   "providers": {
     "tosAvoidNoticeTitle": "Այս մատակարարը լռելյայն բացառված է auto-ից",
@@ -8960,7 +8984,8 @@
       "statsEmpty": "Դեռ հայտնաբերումներ չկան։",
       "statsRequest": "Հարցումներ"
     },
-    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection."
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "modelOverrideKey": "Override key"
   },
   "contextRtk": {
     "title": "RTK շարժիչ",
@@ -9044,7 +9069,8 @@
     "tomlTestPassed": "Անցած",
     "tomlTestFailed": "Չանցած",
     "tomlImportError": "Չհաջողվեց մշակել RTK TOML ֆայլը։",
-    "tomlFileReadError": "Չհաջողվեց կարդալ ընտրված TOML ֆայլը։"
+    "tomlFileReadError": "Չհաջողվեց կարդալ ընտրված TOML ֆայլը։",
+    "viewMode": "View mode"
   },
   "compressionEngineConfig": {
     "loading": "Բեռնվում է…",
@@ -9266,7 +9292,8 @@
     "languagePacksList": "Լեզվային փաթեթներ՝ {packs}",
     "dragToReorder": "Քաշեք՝ քայլի հերթականությունը փոխելու համար",
     "engine": "Շարժիչ",
-    "intensity": "Ինտենսիվություն"
+    "intensity": "Ինտենսիվություն",
+    "compressionOverride": "Compression override"
   },
   "compressionStudio": {
     "noRun": "Սեղմման ոչ մի գործարկում հասանելի չէ։",
@@ -9326,7 +9353,8 @@
     "encoderWinner": "հաղթող՝ {winner}",
     "encoder": "կոդավորիչ",
     "bytes": "բայթեր",
-    "tokensCl100k": "թոքեններ (cl100k)"
+    "tokensCl100k": "թոքեններ (cl100k)",
+    "studioViews": "Studio views"
   },
   "omniglyph": {
     "preview": "Նախադիտում",
@@ -9532,7 +9560,9 @@
     "tooltipMinLength": "Սրանից կարճ հաղորդագրությունները չեն սեղմվում։ Ավելի ցածր = ավելի շատ սեղմում։",
     "tooltipMinSavings": "Սեղմել միայն այն դեպքում, եթե խնայվում է առնվազն այսքան տոկեն։",
     "ultraSettings": "Ultra կարգավորումներ",
-    "ultraSettingsDesc": "SLM-ով աշխատող իմաստային սեղմում"
+    "ultraSettingsDesc": "SLM-ով աշխատող իմաստային սեղմում",
+    "viewMode": "View mode",
+    "defaultLanguage": "Default language"
   },
   "translator": {
     "title": "Թարգմանիչ",
@@ -10356,7 +10386,10 @@
     "healthCdw": "Շաբաթական · Սպասման ժամանակ",
     "healthRecentSuccessBypass": "Երթուղավորումը թույլատրում է այս հաշիվը, քանի որ վերջերս հարցումը հաջողվել է։",
     "healthPurchasedBalanceBypass": "Գնված մնացորդը թույլ է տալիս շարունակել ներառված քվոտան սպառելուց հետո։",
-    "healthCutoffAtRequest": "Իրական ժամանակի քվոտայի շեմերը ստուգվում են հարցման երթուղավորման ժամանակ։"
+    "healthCutoffAtRequest": "Իրական ժամանակի քվոտայի շեմերը ստուգվում են հարցման երթուղավորման ժամանակ։",
+    "statHealthy": "Healthy",
+    "statAlert": "Alert",
+    "statCritical": "Critical"
   },
   "modals": {
     "waitingAuth": "Սպասում է լիազորմանը",
@@ -11143,7 +11176,8 @@
       "message": "Հաղորդագրություն",
       "error": "Սխալ",
       "completion": "Ավարտ"
-    }
+    },
+    "statusFilter": "Status"
   },
   "templateNames": {
     "simple-chat": "Պարզ զրույց",
@@ -11324,7 +11358,8 @@
     "minutesAgo": "{minutes} րոպե առաջ",
     "hoursAgo": "{hours} ժամ առաջ",
     "daysAgo": "{days} օր առաջ",
-    "entries": "Գրառումներ"
+    "entries": "Գրառումներ",
+    "viewSwitcherAria": "Cache view"
   },
   "proxyConfigModal": {
     "levelGlobal": "Գլոբալ",
@@ -11669,7 +11704,8 @@
     "notMeasured": "Չի չափվել",
     "upstream4xx": "{count} վերահոսքային հաճախորդի սխալներ",
     "upstream5xx": "{count} վերահոսքային սերվերի սխալներ",
-    "uniformEgressLine": "{affected}-ը {exits} ելքերից միասին ձախողվում են {provider}-ում (վերջին {hours}ժ) — ելքի խնդիր չէ"
+    "uniformEgressLine": "{affected}-ը {exits} ելքերից միասին ձախողվում են {provider}-ում (վերջին {hours}ժ) — ելքի խնդիր չէ",
+    "moreActions": "More actions"
   },
   "playground": {
     "title": "Մոդելների փորձարկման հարթակ",
@@ -11875,7 +11911,8 @@
       "nextButton": "Հաջորդ",
       "runButton": "Գործարկել",
       "promptPlaceholder": "Մուտքագրեք ձեր հաղորդագրությունը… (Enter՝ ուղարկելու համար, Shift+Enter՝ նոր տողի համար)"
-    }
+    },
+    "playgroundTabs": "Playground modes"
   },
   "miniPlayground": {
     "endpoint": "Վերջնակետ",
@@ -11946,7 +11983,8 @@
     "assistant": "Օգնական",
     "errorLabel": "Սխալ",
     "requestFailed": "Հարցումը ձախողվեց",
-    "stop": "Կանգնեցնել"
+    "stop": "Կանգնեցնել",
+    "messageInputAria": "Message"
   },
   "requestLogger": {
     "recording": "Գրանցվում է",
@@ -12133,8 +12171,18 @@
       "resilienceRotations": "{count} հաշվի ռոտացիա",
       "resilienceRetried": "Դատարկ հերթը կրկնվել է",
       "resilienceContinued": "Վերսկսվել է հոսքի կեսից",
-      "resilienceRecovered": "Վերականգնվել է կայունության գործողությամբ"
-    }
+      "resilienceRecovered": "Վերականգնվել է կայունության գործողությամբ",
+      "openConversation": "Open conversation {id}",
+      "goToBottom": "Go to bottom",
+      "liveRefresh": "Live refresh",
+      "conversationContext": "Conversation Context",
+      "viewConversation": "view conversation",
+      "continuesFromParent": "continues from parent",
+      "continuesFrom": "Continues from {id}",
+      "liveRefreshOn": "Live refresh: on",
+      "liveRefreshOff": "Live refresh: off"
+    },
+    "tableLabel": "Request logs"
   },
   "proxyLogger": {
     "filterAll": "Բոլորը",
@@ -12179,7 +12227,9 @@
     "colServedBy": "Մատակարարող",
     "filterTraffic": "Հոսք",
     "filterTests": "Թեստեր",
-    "filterSource": "Աղբյուր"
+    "filterSource": "Աղբյուր",
+    "sortLogs": "Sort logs",
+    "tableLabel": "Proxy logs"
   },
   "endpointOptions": {
     "speech": "Խոսք",
@@ -12264,7 +12314,8 @@
     "statusExhausted": "ՍՊԱՌՎԱԾ",
     "statusAlerting": "ԶԳՈՒՇԱՑՈՒՄ",
     "statusError": "ՍԽԱԼ",
-    "moreSuffix": "+ ևս {count}"
+    "moreSuffix": "+ ևս {count}",
+    "feedFilterLabel": "Filter events"
   },
   "quotaShare": {
     "weightPercent": "Կշիռ (%)",
@@ -12431,7 +12482,10 @@
     "ungroupedTitle": "Առանց խմբի",
     "ungroupedHint": "Այս պուլերը վերագրված չեն որևէ հայտնի խմբի։ Խմբագրեք պուլը՝ այն իրական խումբ տեղափոխելու համար։",
     "removeFailed": "Չհաջողվեց հեռացնել այս պուլը։",
-    "dismiss": "Փակել"
+    "dismiss": "Փակել",
+    "wizardRemoveDimension": "Remove dimension",
+    "wizardRemoveKey": "Remove key",
+    "allocationsHeading": "Allocations"
   },
   "plugins": {
     "title": "Փլագիններ",
@@ -12589,7 +12643,8 @@
       "settingsUpdateFailed": "Չհաջողվեց թարմացնել կարգավորումները",
       "serviceRevealApiKey": "{actor}-ը ցուցադրել է {target}-ի API բանալին",
       "genericEvent": "{actor} {target}"
-    }
+    },
+    "dismissError": "Dismiss error"
   },
   "agentBridge": {
     "title": "AgentBridge",
@@ -12722,7 +12777,21 @@
       "goNow": "Անցնել հիմա",
       "message": "MITM Proxy-ն այժմ գտնվում է AgentBridge-ի բաժնում։",
       "title": "Այս էջը տեղափոխվել է"
-    }
+    },
+    "dnsOff": "DNS off",
+    "upstreamCaTesting": "Testing…",
+    "wizardAddModels": "Add {count, plural, one {# model} other {# models}}",
+    "removeMapping": "Remove mapping",
+    "dnsOn": "DNS on",
+    "wizardNoModelsHint": "Or close this wizard and add mappings manually in the agent card.",
+    "hideServerSettings": "Hide server settings",
+    "wizardSelectedModels": "{count, plural, one {# model} other {# models}} selected. You'll map them to OmniRoute models in the next screen.",
+    "showServerSettings": "Show server settings",
+    "mappingSourcePlaceholder": "e.g., gemini-3.6-flash-medium, or * for all unmapped",
+    "wizardDetectingModels": "Detecting models from intercepted traffic...",
+    "mappingWildcardHint": "Use * as the source to route every model without an explicit mapping through OmniRoute to the selected target. Exact source matches always win over *.",
+    "wizardNoModelsDetected": "No models detected yet. Use {agent} to make a request, then run this wizard again to auto-detect models from traffic.",
+    "wizardDetectedModels": "Found {count, plural, one {# model} other {# models}} in intercepted traffic. Select the ones you want to add:"
   },
   "providerStats": {
     "unknownError": "Անհայտ սխալ",
@@ -12752,7 +12821,11 @@
     "avgTtft": "Միջին TTFT",
     "avgTotal": "Միջին ընդհանուր ժամանակ",
     "requestTelemetry": "Հարցումների հեռաչափություն",
-    "requestTelemetryDescription": "7 փուլից բաղկացած մշակման շղթայի մանրամասներ (վերջին 5 րոպեի ընթացքում)"
+    "requestTelemetryDescription": "7 փուլից բաղկացած մշակման շղթայի մանրամասներ (վերջին 5 րոպեի ընթացքում)",
+    "description": "Per-provider and per-model traffic, latency and success rates",
+    "title": "Provider stats",
+    "toggleModels": "Show models for {provider}",
+    "combo": "Combo"
   },
   "relay": {
     "title": "Առանց սերվերի ռելե-պրոքսիներ",
@@ -12913,7 +12986,18 @@
     "noRequestBody": "Հարցման մարմին չկա։",
     "noResponseBody": "Պատասխանի մարմին չկա։",
     "formatted": "Ձևաչափված",
-    "raw": "Չմշակված"
+    "raw": "Չմշակված",
+    "expandList": "Expand list",
+    "maskSecrets": "Mask secrets",
+    "llmStreamNo": "no",
+    "llmNotAvailable": "LLM metadata not available for this request.",
+    "llmStreamYes": "yes (SSE)",
+    "snippetLanguage": "Snippet language",
+    "showSecrets": "Show secrets",
+    "llmTotalTokens": "Total: {count} tokens",
+    "collapseList": "Collapse list",
+    "headersTable": "Headers",
+    "requestCount": "{count, plural, one {# request} other {# requests}}"
   },
   "cliCommon": {
     "companion": {
@@ -13372,7 +13456,8 @@
     "colReliabilityHelp": "Վերջին 24 ժամում այս պրովայդերի կողմից փաստացի պատասխանված կանչերի մասնաբաժինը։ Գծիկը նշանակում է, որ սպասարկված տրաֆիկը բավարար չէ ցուցանիշ ներկայացնելու համար։",
     "reliabilitySample": "Վերջին {hours} ժ-ում {requests} կանչից {successes}-ը հաջողությամբ է ավարտվել",
     "reliabilityTooFew": "Վերջին {hours} ժ-ում ընդամենը {requests} կանչ է եղել՝ ցուցանիշ ներկայացնելու համար չափազանց քիչ",
-    "reliabilityNoTraffic": "Վերջին 24 ժ-ում կանչեր չեն գրանցվել"
+    "reliabilityNoTraffic": "Վերջին 24 ժ-ում կանչեր չեն գրանցվել",
+    "categoryFilter": "Task category"
   },
   "discovery": {
     "title": "Պրովայդերների հայտնաբերում",
@@ -13397,7 +13482,11 @@
     "method": "Մեթոդ",
     "auth": "Նույնականացում",
     "feasibility": "Իրագործելիություն",
-    "models": "Մոդելներ"
+    "models": "Մոդելներ",
+    "actions": "Actions",
+    "status": "Status",
+    "endpoint": "Endpoint",
+    "provider": "Provider"
   },
   "noAuthProvider": {
     "title": "Նույնականացում չի պահանջվում",
@@ -13446,7 +13535,8 @@
     "ownProxy": "Սեփական պրոքսի",
     "freeTierPause": "Մոդել {model} կանգնեցված է (429), կվերադառնա {time}",
     "freeTierPauseProvider": "Կանգնեցված է (429), կվերադառնա {time}",
-    "freeTierPauseNote": "Գործընթացի ներսում կանգնեցում այս օրինակի համար"
+    "freeTierPauseNote": "Գործընթացի ներսում կանգնեցում այս օրինակի համար",
+    "proxyType": "Proxy type"
   },
   "gamification": {
     "leaderboardScopes": {
@@ -13619,7 +13709,10 @@
         "description": "Ձեզ թաքնված նվաճում է սպասում...",
         "criteria": "Կատարեք թաքնված նվաճումը՝ այս կրծքանշանը բացահայտելու համար։"
       }
-    }
+    },
+    "leaderboardTitle": "Leaderboard",
+    "leaderboardDescription": "Rankings and achievements across your API keys",
+    "badgeLocked": "Locked"
   },
   "featureFlags": {
     "title": "Գործառույթների դրոշակներ",
@@ -13914,7 +14007,8 @@
     "unknown": "անհայտ",
     "unknownProvider": "անհայտ մատակարար",
     "unknownModel": "անհայտ մոդել",
-    "resolvedTargetMetrics": "{requests} հարցում · {success} հաջողված · {latency} · քվոտա՝ {quota}"
+    "resolvedTargetMetrics": "{requests} հարցում · {success} հաջողված · {latency} · քվոտա՝ {quota}",
+    "timeRange": "Time range"
   },
   "usageLimits": {
     "usdUsageQuota": "Օգտագործման քվոտա՝ USD-ով",
@@ -14061,7 +14155,11 @@
     "learnMore": "Իմանալ ավելին",
     "changelogLoadFailed": "Չհաջողվեց բեռնել փոփոխությունների մատյանը։ Խնդրում ենք ավելի ուշ կրկին փորձել։",
     "retry": "Կրկին փորձել",
-    "viewFullHistory": "Դիտել ամբողջ պատմությունը GitHub-ում"
+    "viewFullHistory": "Դիտել ամբողջ պատմությունը GitHub-ում",
+    "loadingNews": "Loading announcements...",
+    "viewLabel": "View",
+    "description": "Announcements from the OmniRoute team and the latest release notes",
+    "title": "News & changelog"
   },
   "reasoningRouting": {
     "editor": {
@@ -14612,7 +14710,9 @@
       "circuitBreakerState": "Մատակարարի շղթայի անջատիչի վիճակը",
       "lastUpdate": "Վերջին թարմացումը՝ {timestamp}",
       "uptimeMinutes": "{minutes} ր",
-      "uptimeHoursMinutes": "{hours} ժ {minutes} ր"
+      "uptimeHoursMinutes": "{hours} ժ {minutes} ր",
+      "breakerNotClosed": "Open or half-open",
+      "breakerClosed": "Closed"
     },
     "statusPages": {
       "400": {
@@ -14687,6 +14787,9 @@
         "primaryAction": "Սպասարկման մանրամասներ",
         "secondaryAction": "Համակարգի կարգավիճակ"
       }
+    },
+    "miniapp": {
+      "askAnything": "Ask anything…"
     }
   },
   "kiroAuthModal": {
@@ -14877,7 +14980,20 @@
     "mcp": "MCP",
     "mcpTool": "MCP tool",
     "scope": "Scope",
-    "apiKey": "API key"
+    "apiKey": "API key",
+    "visibleCount": "{visible} visible / {total} total",
+    "zoomOut": "Zoom out",
+    "autoRefreshUnit": "s",
+    "modeLabel": "View mode",
+    "zoomIn": "Zoom in",
+    "jumpToNow": "Jump to current time, NOW line resets to position {position}%",
+    "laneReuse": "Lane reuse",
+    "laneReuseUnit": "min",
+    "laneReuseHint": "Requests sharing a conversation id stay on the same timeline row as long as the gap between them is under this many minutes.",
+    "autoRefreshLabel": "Auto-refresh interval (seconds)",
+    "autoRefresh": "Auto-refresh",
+    "autoRefreshHint": "How often the timeline re-fetches the request list from the server.",
+    "laneReuseLabel": "Lane reuse window (minutes)"
   },
   "metadata": {
     "compressionTitle": "Սեղմում",

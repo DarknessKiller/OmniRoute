@@ -1345,7 +1345,20 @@
       "open": "megnyitás",
       "close": "bezárás"
     },
-    "noResults": "Nincs találat"
+    "noResults": "Nincs találat",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Webhookok",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "Speciális hasznosadat-szabályok, kérési korlátok és proxy API-beállítások",
     "mitmProxyDescription": "MITM-proxybeállítások konfigurálása a forgalom vizsgálatához és hibakereséséhez",
     "oneProxyDescription": "1Proxy-beállítások konfigurálása speciális proxyláncoláshoz",
-    "omniSkillsDescription": "Sandbox skillek telepítése és kezelése az automatizált prompt- és eszközfuttatáshoz"
+    "omniSkillsDescription": "Sandbox skillek telepítése és kezelése az automatizált prompt- és eszközfuttatáshoz",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "Szinkronizálva",
@@ -8949,7 +8964,19 @@
       "statsTitle": "Észlelések az újraindítás óta",
       "statsEmpty": "Még nincs észlelés.",
       "statsRequest": "Kérések"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "RTK-motor",
@@ -10350,7 +10377,10 @@
     "healthCdw": "Heti · Várakozási idő",
     "healthRecentSuccessBypass": "Az útválasztás engedélyezi ezt a fiókot, mert nemrég sikeres volt egy kérés.",
     "healthPurchasedBalanceBypass": "A megvásárolt egyenleg a foglalt keret kimerülése után is használható.",
-    "healthCutoffAtRequest": "A valós idejű kvótaküszöbök ellenőrzése a kérés útválasztásakor történik."
+    "healthCutoffAtRequest": "A valós idejű kvótaküszöbök ellenőrzése a kérés útválasztásakor történik.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "Várakozás az engedélyezésre",
@@ -11872,7 +11902,8 @@
       "runButton": "Futtatás",
       "promptPlaceholder": "Írja be az üzenetet… (Enter a küldéshez, Shift+Enter az új sorhoz)"
     },
-    "playgroundTabs": "Playground-módok"
+    "playgroundTabs": "Playground-módok",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "Végpont",
@@ -15216,5 +15247,14 @@
     "importButton": "Importálás",
     "importFailed": "Az importálás sikertelen.",
     "importSuccess": "{connections} fiók és {nodes} szolgáltatói csomópont importálva; {skipped} kihagyva."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

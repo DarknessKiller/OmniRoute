@@ -1345,7 +1345,20 @@
       "open": "відкрити",
       "close": "закрити"
     },
-    "noResults": "Немає результатів"
+    "noResults": "Немає результатів",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Веб-хуки",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "Розширені правила запитів, ліміти та налаштування API проксі",
     "mitmProxyDescription": "Налаштування MITM-проксі для інспекції трафіку та налагодження",
     "oneProxyDescription": "Налаштування 1Proxy для розширеного ланцюгування проксі",
-    "omniSkillsDescription": "Встановлюйте та керуйте навичками пісочниці для автоматичного виконання промптів та інструментів"
+    "omniSkillsDescription": "Встановлюйте та керуйте навичками пісочниці для автоматичного виконання промптів та інструментів",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "Синхронізовано",
@@ -8949,7 +8964,19 @@
       "statsTitle": "Виявлення від перезапуску",
       "statsEmpty": "Виявлень поки немає.",
       "statsRequest": "Запити"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "Двигун RTK",
@@ -10350,7 +10377,10 @@
     "healthCdw": "Щотижня · Період очікування",
     "healthRecentSuccessBypass": "Маршрутизація дозволяє цей обліковий запис, оскільки нещодавно запит був успішним.",
     "healthPurchasedBalanceBypass": "Придбаний баланс дозволяє продовжити після вичерпання включеної квоти.",
-    "healthCutoffAtRequest": "Пороги квоти в реальному часі перевіряються під час маршрутизації запиту."
+    "healthCutoffAtRequest": "Пороги квоти в реальному часі перевіряються під час маршрутизації запиту.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "Очікування авторизації",
@@ -11872,7 +11902,8 @@
       "runButton": "Запустити",
       "promptPlaceholder": "Введіть ваше повідомлення… (Enter для відправки, Shift+Enter для нового рядка)"
     },
-    "playgroundTabs": "Режими Playground"
+    "playgroundTabs": "Режими Playground",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "Ендпоінт",
@@ -15216,5 +15247,14 @@
     "importButton": "Імпортувати",
     "importFailed": "Помилка імпорту.",
     "importSuccess": "Імпортовано облікових записів: {connections}, вузлів провайдерів: {nodes}; пропущено: {skipped}."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

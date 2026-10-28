@@ -998,7 +998,13 @@
     "batchFileUsedByCount": "{count, plural, one {# အသုတ်} other {# အသုတ်}} တွင် အသုံးပြုထားသည်",
     "batchFilePreview": "အစမ်းကြည့်ရှုခြင်း",
     "batchFilePreviewTruncated": "ပထမ {shown} ကြောင်းကို ပြသနေသည် (စုစုပေါင်း {total} ကြောင်း)",
-    "batchFileDownloadFull": "ဖိုင်အပြည့်အစုံကို ဒေါင်းလုဒ်လုပ်ရန်"
+    "batchFileDownloadFull": "ဖိုင်အပြည့်အစုံကို ဒေါင်းလုဒ်လုပ်ရန်",
+    "dialogTitleFallback": "Dialog",
+    "tokensServerUrlLabel": "Server URL",
+    "tokensPageTitle": "Tokens",
+    "pagination": "Pagination",
+    "clearFilters": "Clear filters",
+    "tokensPageDescription": "Send tokens between API keys, share invite codes and connect community servers."
   },
   "disabled": "ပိတ်ထားသည်",
   "featureFlagOmnirouteEmergencyFallbackDescription": "ဘတ်ဂျက်ကုန်ဆုံးသွားသော တောင်းဆိုမှုများကို အရေးပေါ် အခမဲ့ အရန် provider/model သို့ လမ်းကြောင်းပြောင်းပါ။",
@@ -1485,7 +1491,11 @@
       "chatIdPlaceholder": "-100123456789 သို့မဟုတ် @channelname",
       "chatIdHint": "chat/channel ၏ သီးသန့်ဂဏန်းအမှတ်အသား သို့မဟုတ် အများသုံးအသုံးပြုသူအမည်။",
       "tutorial": "Telegram webhook ပြင်ဆင်သတ်မှတ်နည်း-"
-    }
+    },
+    "copy": "Copy",
+    "copied": "Copied!",
+    "collapseDetails": "Hide details",
+    "expandDetails": "Show details"
   },
   "compliance": {
     "auditTitle": "စာရင်းစစ်",
@@ -1597,7 +1607,8 @@
     "mcpMetricCalls24h": "ခေါ်ဆိုမှုများ (24 နာရီ)",
     "mcpMetricSuccessRate": "အောင်မြင်မှုနှုန်း",
     "mcpMetricAvgDuration": "ပျမ်းမျှကြာချိန်",
-    "mcpMetricTopTool": "အသုံးအများဆုံးကိရိယာ"
+    "mcpMetricTopTool": "အသုံးအများဆုံးကိရိယာ",
+    "dismissError": "Dismiss error"
   },
   "themesPage": {
     "title": "အပြင်အဆင်များ",
@@ -1713,7 +1724,9 @@
     "settingsAdvancedDescription": "အဆင့်မြင့် ပေးပို့ဒေတာ စည်းမျဉ်းများ၊ တောင်းဆိုမှုကန့်သတ်ချက်များနှင့် ပရောက်စီ API ဆက်တင်များ",
     "mitmProxyDescription": "ကွန်ရက်အသွားအလာကို စစ်ဆေးခြင်းနှင့် ချို့ယွင်းချက်ရှာဖွေခြင်းအတွက် MITM ပရောက်စီ ဆက်တင်များကို ဖွဲ့စည်းသတ်မှတ်ရန်",
     "oneProxyDescription": "အဆင့်မြင့် ပရောက်စီဆက်တိုက်ချိတ်ဆက်မှုအတွက် 1Proxy ဆက်တင်များကို ဖွဲ့စည်းသတ်မှတ်ရန်",
-    "omniSkillsDescription": "အလိုအလျောက် ပရောမ့်နှင့် ကိရိယာဆောင်ရွက်မှုအတွက် sandbox စွမ်းရည်များကို ထည့်သွင်းပြီး စီမံခန့်ခွဲရန်"
+    "omniSkillsDescription": "အလိုအလျောက် ပရောမ့်နှင့် ကိရိယာဆောင်ရွက်မှုအတွက် sandbox စွမ်းရည်များကို ထည့်သွင်းပြီး စီမံခန့်ခွဲရန်",
+    "openMenu": "Open menu",
+    "products": "Keak products"
   },
   "cloudSyncStatus": {
     "synced": "စင့်ခ်လုပ်ပြီးပါပြီ",
@@ -2499,7 +2512,8 @@
     "preferredConnections": "ဦးစားပေး ချိတ်ဆက်မှုများ",
     "preferredConnectionsDesc": "ကီးတစ်ခုချင်းစီအတွက် ဦးစားပေးအစီအစဉ်။ ဦးစားပေးချိတ်ဆက်မှု မရရှိနိုင်ပါက လမ်းကြောင်းပေးခြင်းသည် နောက်ထပ်အရည်အချင်းပြည့်မီသော ချိတ်ဆက်မှုသို့ ပြောင်းသွားပါမည်။",
     "preferredConnectionsNone": "ဦးစားပေးမှု သတ်မှတ်ထားခြင်းမရှိပါ — မူလ လမ်းကြောင်းပေးနည်းဗျူဟာကို အသုံးပြုပါသည်။",
-    "preferredConnectionsClear": "ရှင်းလင်းရန်"
+    "preferredConnectionsClear": "ရှင်းလင်းရန်",
+    "removeSelection": "Remove {name}"
   },
   "auditLog": {
     "title": "စစ်ဆေးမှတ်တမ်း",
@@ -2611,7 +2625,9 @@
     "imageToTextBridgeCta": "Modality Bridge ဆက်တင်များတွင် ပုံ→စာသား bridge ကို စီစဉ်သတ်မှတ်ပါ",
     "sttBridgeCta": "Modality Bridge ဆက်တင်များတွင် စကားသံ→စာသား bridge ကို စီစဉ်သတ်မှတ်ပါ",
     "existingConnection": "ရှိပြီးသား ချိတ်ဆက်မှု",
-    "openrouterSttDescription": "OpenRouter စကားသံမှစာသားသို့ ပြောင်းလဲသည့် မော်ဒယ်များသည် သင်စီစဉ်သတ်မှတ်ထားသော OpenRouter ချိတ်ဆက်မှုကို အသုံးပြုသည်။ သီးခြား အထောက်အထားအချက်အလက် မလိုအပ်ပါ။"
+    "openrouterSttDescription": "OpenRouter စကားသံမှစာသားသို့ ပြောင်းလဲသည့် မော်ဒယ်များသည် သင်စီစဉ်သတ်မှတ်ထားသော OpenRouter ချိတ်ဆက်မှုကို အသုံးပြုသည်။ သီးခြား အထောက်အထားအချက်အလက် မလိုအပ်ပါ။",
+    "modalityTabsAria": "Media type",
+    "serviceKindsAria": "Service type"
   },
   "search": {
     "searchQuery": "ရှာဖွေမှု မေးမြန်းချက်",
@@ -3282,7 +3298,8 @@
     "cliproxyapiUnknown": "မသိရပါ",
     "cliproxyapiUpdate": "အပ်ဒိတ်လုပ်ရန်",
     "cliproxyapiUpdateAvailable": "အပ်ဒိတ်ရရှိနိုင်သည်- v{current} → v{latest}",
-    "cliproxyapiVersion": "ဗားရှင်း"
+    "cliproxyapiVersion": "ဗားရှင်း",
+    "removeMapping": "Remove mapping"
   },
   "modelCatalog": {
     "title": "မော်ဒယ်များနှင့် Combos",
@@ -4019,7 +4036,13 @@
     "duplicateAutoComboSnapshotMsg": "ဤလုပ်ဆောင်ချက်သည် လက်ရှိချိတ်ဆက်ထားပြီး ဤတမ်းပလိတ်နှင့် ကိုက်ညီသော ဝန်ဆောင်မှုပေးသူများ/မော်ဒယ်များကို တည်းဖြတ်နိုင်သည့် ပေါင်းစပ်မှုတစ်ခုအဖြစ် လက်ရှိအခြေအနေအတိုင်း မှတ်တမ်းတင်မည်။",
     "duplicateAutoComboFailedPrefix": "အလိုအလျောက်ပေါင်းစပ်မှုကို မိတ္တူပွား၍မရပါ:",
     "duplicateAutoComboUnknownError": "မသိသော အမှား",
-    "duplicateAutoComboTitle": "{name} မှ တည်ငြိမ်သော ပေါင်းစပ်မှုတစ်ခု ဖန်တီးရန်"
+    "duplicateAutoComboTitle": "{name} မှ တည်ငြိမ်သော ပေါင်းစပ်မှုတစ်ခု ဖန်တီးရန်",
+    "weightPercent": "Weight (%)",
+    "responseValidationPath": "JSON path",
+    "responseValidationCondition": "Condition",
+    "responseValidationRemoveCheck": "Remove check",
+    "clearSearch": "Clear search",
+    "responseValidationValue": "Expected value"
   },
   "costs": {
     "title": "ကုန်ကျစရိတ်များ",
@@ -5293,7 +5316,8 @@
         "skipped": "စီစဉ်သတ်မှတ်ပြီးသား",
         "failed": "မအောင်မြင်ပါ"
       }
-    }
+    },
+    "stepProgress": "Setup progress"
   },
   "providers": {
     "tosAvoidNoticeTitle": "ဤဝန်ဆောင်မှုပေးသူကို မူလအတိုင်း auto မှ ဖယ်ထားသည်",
@@ -8960,7 +8984,8 @@
       "statsEmpty": "တွေ့ရှိမှု မရှိသေးပါ။",
       "statsRequest": "တောင်းဆိုမှုများ"
     },
-    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection."
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "modelOverrideKey": "Override key"
   },
   "contextRtk": {
     "title": "RTK Engine",
@@ -9044,7 +9069,8 @@
     "tomlTestPassed": "အောင်မြင်သည်",
     "tomlTestFailed": "မအောင်မြင်ပါ",
     "tomlImportError": "RTK TOML ဖိုင်ကို လုပ်ဆောင်၍မရပါ။",
-    "tomlFileReadError": "ရွေးချယ်ထားသော TOML ဖိုင်ကို ဖတ်၍မရပါ။"
+    "tomlFileReadError": "ရွေးချယ်ထားသော TOML ဖိုင်ကို ဖတ်၍မရပါ။",
+    "viewMode": "View mode"
   },
   "compressionEngineConfig": {
     "loading": "တင်နေသည်…",
@@ -9266,7 +9292,8 @@
     "languagePacksList": "ဘာသာစကားပက်ကေ့များ: {packs}",
     "dragToReorder": "အဆင့်အစီအစဉ် ပြောင်းရန် ဆွဲရွှေ့ပါ",
     "engine": "အင်ဂျင်",
-    "intensity": "ပြင်းအား"
+    "intensity": "ပြင်းအား",
+    "compressionOverride": "Compression override"
   },
   "compressionStudio": {
     "noRun": "ချုံ့မှုလုပ်ဆောင်ချက် မရှိသေးပါ။",
@@ -9326,7 +9353,8 @@
     "encoderWinner": "အနိုင်ရသူ: {winner}",
     "encoder": "ကုဒ်ပြောင်းစက်",
     "bytes": "ဘိုက်များ",
-    "tokensCl100k": "တိုကင်များ (cl100k)"
+    "tokensCl100k": "တိုကင်များ (cl100k)",
+    "studioViews": "Studio views"
   },
   "omniglyph": {
     "preview": "အစမ်းကြည့်ရန်",
@@ -9532,7 +9560,9 @@
     "tooltipMinLength": "ဤအရွယ်အစားထက်တိုသော မက်ဆေ့ချ်များကို မချုံ့ပါ။ နိမ့်လေလေ = ပိုမိုချုံ့လေလေ။",
     "tooltipMinSavings": "အနည်းဆုံး ဤမျှသော token အရေအတွက်ကို ချွေတာနိုင်မှသာ ချုံ့ပါ။",
     "ultraSettings": "အလွန်ပြင်းထန်သော ဆက်တင်များ",
-    "ultraSettingsDesc": "SLM ဖြင့် လုပ်ဆောင်သော အဓိပ္ပာယ်အခြေပြု ချုံ့ခြင်း"
+    "ultraSettingsDesc": "SLM ဖြင့် လုပ်ဆောင်သော အဓိပ္ပာယ်အခြေပြု ချုံ့ခြင်း",
+    "viewMode": "View mode",
+    "defaultLanguage": "Default language"
   },
   "translator": {
     "title": "ဘာသာပြန်ကိရိယာ",
@@ -10356,7 +10386,10 @@
     "healthCdw": "အပတ်စဉ် · စောင့်ဆိုင်းချိန်",
     "healthRecentSuccessBypass": "မကြာသေးမီက တောင်းဆိုမှုအောင်မြင်ခဲ့သဖြင့် လမ်းကြောင်းစနစ်က ဤအကောင့်ကို ခွင့်ပြုထားသည်။",
     "healthPurchasedBalanceBypass": "ပါဝင်သော ခွဲတမ်းကုန်သွားပြီးနောက် ဝယ်ယူထားသော လက်ကျန်ဖြင့် ဆက်သုံးနိုင်သည်။",
-    "healthCutoffAtRequest": "တောင်းဆိုမှုကို လမ်းကြောင်းသတ်မှတ်ချိန်တွင် လက်ရှိခွဲတမ်း ကန့်သတ်ချက်များကို စစ်ဆေးသည်။"
+    "healthCutoffAtRequest": "တောင်းဆိုမှုကို လမ်းကြောင်းသတ်မှတ်ချိန်တွင် လက်ရှိခွဲတမ်း ကန့်သတ်ချက်များကို စစ်ဆေးသည်။",
+    "statHealthy": "Healthy",
+    "statAlert": "Alert",
+    "statCritical": "Critical"
   },
   "modals": {
     "waitingAuth": "ခွင့်ပြုချက်ကို စောင့်ဆိုင်းနေသည်",
@@ -11143,7 +11176,8 @@
       "message": "မက်ဆေ့ချ်",
       "error": "အမှား",
       "completion": "ပြီးစီးမှု"
-    }
+    },
+    "statusFilter": "Status"
   },
   "templateNames": {
     "simple-chat": "ရိုးရှင်းသော ချတ်",
@@ -11324,7 +11358,8 @@
     "minutesAgo": "လွန်ခဲ့သော {minutes} မိနစ်",
     "hoursAgo": "လွန်ခဲ့သော {hours} နာရီ",
     "daysAgo": "လွန်ခဲ့သော {days} ရက်",
-    "entries": "မှတ်တမ်းများ"
+    "entries": "မှတ်တမ်းများ",
+    "viewSwitcherAria": "Cache view"
   },
   "proxyConfigModal": {
     "levelGlobal": "စနစ်တစ်ခုလုံးဆိုင်ရာ",
@@ -11669,7 +11704,8 @@
     "notMeasured": "မတိုင်းတာရသေးပါ",
     "upstream4xx": "{count} ကလိန်းအတွက် အမှားအယွင်းများ",
     "upstream5xx": "{count} ဆာဗာအတွက် အမှားအယွင်းများ",
-    "uniformEgressLine": "{provider} ပေါ်ရှိ exit {exits} ခုအနက် {affected} ခု တစ်ပြိုင်နက် ကျရှုံးနေသည် (နောက်ဆုံး {hours} နာရီအတွင်း) — exit ပြဿနာ မဟုတ်ပါ"
+    "uniformEgressLine": "{provider} ပေါ်ရှိ exit {exits} ခုအနက် {affected} ခု တစ်ပြိုင်နက် ကျရှုံးနေသည် (နောက်ဆုံး {hours} နာရီအတွင်း) — exit ပြဿနာ မဟုတ်ပါ",
+    "moreActions": "More actions"
   },
   "playground": {
     "title": "မော်ဒယ် စမ်းသပ်ခန်း",
@@ -11875,7 +11911,8 @@
       "nextButton": "နောက်တစ်ဆင့်",
       "runButton": "လုပ်ဆောင်ရန်",
       "promptPlaceholder": "သင့်မက်ဆေ့ချ်ကို ထည့်သွင်းပါ… (ပို့ရန် Enter၊ စာကြောင်းအသစ်အတွက် Shift+Enter)"
-    }
+    },
+    "playgroundTabs": "Playground modes"
   },
   "miniPlayground": {
     "endpoint": "အဆုံးမှတ်",
@@ -11946,7 +11983,8 @@
     "assistant": "အကူအညီပေးသူ",
     "errorLabel": "အမှား",
     "requestFailed": "တောင်းဆိုမှု မအောင်မြင်ပါ",
-    "stop": "ရပ်ရန်"
+    "stop": "ရပ်ရန်",
+    "messageInputAria": "Message"
   },
   "requestLogger": {
     "recording": "မှတ်တမ်းတင်နေသည်",
@@ -12133,8 +12171,18 @@
       "resilienceRotations": "အကောင့်လှည့်ပတ်မှု {count} ကြိမ်",
       "resilienceRetried": "အလွတ်အလှည့်ကို ထပ်မံကြိုးစားခဲ့သည်",
       "resilienceContinued": "စထရီးမ်အလယ်မှ ပြန်လည်စတင်ခဲ့သည်",
-      "resilienceRecovered": "ခံနိုင်ရည်လုပ်ဆောင်ချက်ဖြင့် ပြန်လည်ရယူခဲ့သည်"
-    }
+      "resilienceRecovered": "ခံနိုင်ရည်လုပ်ဆောင်ချက်ဖြင့် ပြန်လည်ရယူခဲ့သည်",
+      "openConversation": "Open conversation {id}",
+      "goToBottom": "Go to bottom",
+      "liveRefresh": "Live refresh",
+      "conversationContext": "Conversation Context",
+      "viewConversation": "view conversation",
+      "continuesFromParent": "continues from parent",
+      "continuesFrom": "Continues from {id}",
+      "liveRefreshOn": "Live refresh: on",
+      "liveRefreshOff": "Live refresh: off"
+    },
+    "tableLabel": "Request logs"
   },
   "proxyLogger": {
     "filterAll": "အားလုံး",
@@ -12179,7 +12227,9 @@
     "colServedBy": "ဆောင်ရွက်သူ",
     "filterTraffic": "သွားလာမှု",
     "filterTests": "စမ်းသပ်မှုများ",
-    "filterSource": "အရင်းအမြစ်"
+    "filterSource": "အရင်းအမြစ်",
+    "sortLogs": "Sort logs",
+    "tableLabel": "Proxy logs"
   },
   "endpointOptions": {
     "speech": "စကားပြောအသံ",
@@ -12264,7 +12314,8 @@
     "statusExhausted": "ကုန်ဆုံးပြီ",
     "statusAlerting": "သတိပေးနေသည်",
     "statusError": "အမှား",
-    "moreSuffix": "+{count} ခု ထပ်မံ"
+    "moreSuffix": "+{count} ခု ထပ်မံ",
+    "feedFilterLabel": "Filter events"
   },
   "quotaShare": {
     "weightPercent": "အလေးချိန် %",
@@ -12431,7 +12482,10 @@
     "ungroupedTitle": "အုပ်စုမသတ်မှတ်ထားသော",
     "ungroupedHint": "ဤ pool များကို သတ်မှတ်ထားသည့် အုပ်စုတစ်ခုသို့ ချိတ်ဆက်ထားခြင်းမရှိပါ။ pool တစ်ခုကို တကယ့်အုပ်စုတစ်ခုသို့ ရွှေ့ရန် ၎င်းကို တည်းဖြတ်ပါ။",
     "removeFailed": "ဤ pool ကို ဖယ်ရှား၍ မရပါ။",
-    "dismiss": "ပိတ်ရန်"
+    "dismiss": "ပိတ်ရန်",
+    "wizardRemoveDimension": "Remove dimension",
+    "wizardRemoveKey": "Remove key",
+    "allocationsHeading": "Allocations"
   },
   "plugins": {
     "title": "Plugin များ",
@@ -12589,7 +12643,8 @@
       "settingsUpdateFailed": "ဆက်တင်များ အပ်ဒိတ်လုပ်ခြင်း မအောင်မြင်ပါ",
       "serviceRevealApiKey": "{actor} က {target} အတွက် API key ကို ဖော်ပြခဲ့သည်",
       "genericEvent": "{actor} {target}"
-    }
+    },
+    "dismissError": "Dismiss error"
   },
   "agentBridge": {
     "title": "AgentBridge",
@@ -12722,7 +12777,21 @@
       "goNow": "ယခု သွားပါ",
       "message": "MITM Proxy ကို ယခု AgentBridge အောက်သို့ ရွှေ့ထားပါသည်။",
       "title": "ဤစာမျက်နှာကို ရွှေ့ထားပါသည်"
-    }
+    },
+    "dnsOff": "DNS off",
+    "upstreamCaTesting": "Testing…",
+    "wizardAddModels": "Add {count, plural, one {# model} other {# models}}",
+    "removeMapping": "Remove mapping",
+    "dnsOn": "DNS on",
+    "wizardNoModelsHint": "Or close this wizard and add mappings manually in the agent card.",
+    "hideServerSettings": "Hide server settings",
+    "wizardSelectedModels": "{count, plural, one {# model} other {# models}} selected. You'll map them to OmniRoute models in the next screen.",
+    "showServerSettings": "Show server settings",
+    "mappingSourcePlaceholder": "e.g., gemini-3.6-flash-medium, or * for all unmapped",
+    "wizardDetectingModels": "Detecting models from intercepted traffic...",
+    "mappingWildcardHint": "Use * as the source to route every model without an explicit mapping through OmniRoute to the selected target. Exact source matches always win over *.",
+    "wizardNoModelsDetected": "No models detected yet. Use {agent} to make a request, then run this wizard again to auto-detect models from traffic.",
+    "wizardDetectedModels": "Found {count, plural, one {# model} other {# models}} in intercepted traffic. Select the ones you want to add:"
   },
   "providerStats": {
     "unknownError": "မသိသော အမှား",
@@ -12752,7 +12821,11 @@
     "avgTtft": "ပျမ်းမျှ TTFT",
     "avgTotal": "စုစုပေါင်း ပျမ်းမျှ",
     "requestTelemetry": "တောင်းဆိုမှု တယ်လီမက်ထရီ",
-    "requestTelemetryDescription": "အဆင့် ၇ ဆင့်ပါ ပိုက်လိုင်း ခွဲခြမ်းစိတ်ဖြာမှု (ပြီးခဲ့သည့် ၅ မိနစ်)"
+    "requestTelemetryDescription": "အဆင့် ၇ ဆင့်ပါ ပိုက်လိုင်း ခွဲခြမ်းစိတ်ဖြာမှု (ပြီးခဲ့သည့် ၅ မိနစ်)",
+    "description": "Per-provider and per-model traffic, latency and success rates",
+    "title": "Provider stats",
+    "toggleModels": "Show models for {provider}",
+    "combo": "Combo"
   },
   "relay": {
     "title": "ဆာဗာမဲ့ Relay ပရောက်စီများ",
@@ -12913,7 +12986,18 @@
     "noRequestBody": "တောင်းဆိုမှု body မရှိပါ။",
     "noResponseBody": "တုံ့ပြန်မှု body မရှိပါ။",
     "formatted": "ပုံစံချထားသည်",
-    "raw": "မူရင်း"
+    "raw": "မူရင်း",
+    "expandList": "Expand list",
+    "maskSecrets": "Mask secrets",
+    "llmStreamNo": "no",
+    "llmNotAvailable": "LLM metadata not available for this request.",
+    "llmStreamYes": "yes (SSE)",
+    "snippetLanguage": "Snippet language",
+    "showSecrets": "Show secrets",
+    "llmTotalTokens": "Total: {count} tokens",
+    "collapseList": "Collapse list",
+    "headersTable": "Headers",
+    "requestCount": "{count, plural, one {# request} other {# requests}}"
   },
   "cliCommon": {
     "companion": {
@@ -13372,7 +13456,8 @@
     "colReliabilityHelp": "ပြီးခဲ့သည့် ၂၄ နာရီအတွင်း ဤဝန်ဆောင်မှုပေးသူက အမှန်တကယ် တုံ့ပြန်ပေးခဲ့သော ခေါ်ဆိုမှုအချိုးအစား။ မျဉ်းတိုတစ်ခု ပြထားပါက နှုန်းထားသတ်မှတ်ရန် ကိုင်တွယ်ပေးခဲ့သည့် ခေါ်ဆိုမှုအရေအတွက် နည်းလွန်းသည်ဟု ဆိုလိုသည်။",
     "reliabilitySample": "ပြီးခဲ့သည့် {hours} နာရီအတွင်း ခေါ်ဆိုမှု {requests} ခုအနက် {successes} ခု အောင်မြင်ခဲ့သည်",
     "reliabilityTooFew": "ပြီးခဲ့သည့် {hours} နာရီအတွင်း ခေါ်ဆိုမှု {requests} ခုသာရှိသည် — နှုန်းထားသတ်မှတ်ရန် နည်းလွန်းသည်",
-    "reliabilityNoTraffic": "ပြီးခဲ့သည့် ၂၄ နာရီအတွင်း မှတ်တမ်းတင်ထားသော ခေါ်ဆိုမှုမရှိပါ"
+    "reliabilityNoTraffic": "ပြီးခဲ့သည့် ၂၄ နာရီအတွင်း မှတ်တမ်းတင်ထားသော ခေါ်ဆိုမှုမရှိပါ",
+    "categoryFilter": "Task category"
   },
   "discovery": {
     "title": "ဝန်ဆောင်မှုပေးသူ ရှာဖွေခြင်း",
@@ -13397,7 +13482,11 @@
     "method": "နည်းလမ်း",
     "auth": "အထောက်အထားစိစစ်ခြင်း",
     "feasibility": "လက်တွေ့လုပ်ဆောင်နိုင်မှု",
-    "models": "မော်ဒယ်များ"
+    "models": "မော်ဒယ်များ",
+    "actions": "Actions",
+    "status": "Status",
+    "endpoint": "Endpoint",
+    "provider": "Provider"
   },
   "noAuthProvider": {
     "title": "အထောက်အထားစိစစ်ရန် မလိုပါ",
@@ -13446,7 +13535,8 @@
     "ownProxy": "ကိုယ်ပိုင် proxy",
     "freeTierPause": "မော်ဒယ် {model} ကို ရပ်ထားပါသည် (429)，{time} တွင် ပြန်လည်စတင်ပါမည်",
     "freeTierPauseProvider": "ရပ်ထားပါသည် (429)，{time} တွင် ပြန်လည်စတင်ပါမည်",
-    "freeTierPauseNote": "ဤဖြစ်စဉ်အတွင်း ခေတ္တရပ်နားခြင်း"
+    "freeTierPauseNote": "ဤဖြစ်စဉ်အတွင်း ခေတ္တရပ်နားခြင်း",
+    "proxyType": "Proxy type"
   },
   "gamification": {
     "leaderboardScopes": {
@@ -13619,7 +13709,10 @@
         "description": "လျှို့ဝှက် အောင်မြင်မှုတစ်ခု စောင့်ကြိုနေသည်...",
         "criteria": "ဤတံဆိပ်ကို ဖော်ထုတ်ရန် လျှို့ဝှက် အောင်မြင်မှုကို ပြီးမြောက်အောင် လုပ်ဆောင်ပါ။"
       }
-    }
+    },
+    "leaderboardTitle": "Leaderboard",
+    "leaderboardDescription": "Rankings and achievements across your API keys",
+    "badgeLocked": "Locked"
   },
   "featureFlags": {
     "title": "လုပ်ဆောင်ချက် အလံများ",
@@ -13914,7 +14007,8 @@
     "unknown": "မသိရှိပါ",
     "unknownProvider": "အမည်မသိ provider",
     "unknownModel": "အမည်မသိ မော်ဒယ်",
-    "resolvedTargetMetrics": "တောင်းဆိုမှု {requests} ခု · အောင်မြင်မှု {success} ခု · {latency} · ခွဲတမ်း {quota}"
+    "resolvedTargetMetrics": "တောင်းဆိုမှု {requests} ခု · အောင်မြင်မှု {success} ခု · {latency} · ခွဲတမ်း {quota}",
+    "timeRange": "Time range"
   },
   "usageLimits": {
     "usdUsageQuota": "USD အသုံးပြုမှု ခွဲတမ်း",
@@ -14061,7 +14155,11 @@
     "learnMore": "ပိုမိုလေ့လာရန်",
     "changelogLoadFailed": "ပြောင်းလဲမှုမှတ်တမ်းကို ဖွင့်၍မရပါ။ နောက်မှ ထပ်မံကြိုးစားပါ။",
     "retry": "ထပ်မံကြိုးစားရန်",
-    "viewFullHistory": "မှတ်တမ်းအပြည့်အစုံကို GitHub တွင် ကြည့်ရန်"
+    "viewFullHistory": "မှတ်တမ်းအပြည့်အစုံကို GitHub တွင် ကြည့်ရန်",
+    "loadingNews": "Loading announcements...",
+    "viewLabel": "View",
+    "description": "Announcements from the OmniRoute team and the latest release notes",
+    "title": "News & changelog"
   },
   "reasoningRouting": {
     "editor": {
@@ -14612,7 +14710,9 @@
       "circuitBreakerState": "ဝန်ဆောင်မှုပေးသူ Circuit Breaker အခြေအနေ",
       "lastUpdate": "နောက်ဆုံးအပ်ဒိတ်: {timestamp}",
       "uptimeMinutes": "{minutes} မိနစ်",
-      "uptimeHoursMinutes": "{hours} နာရီ {minutes} မိနစ်"
+      "uptimeHoursMinutes": "{hours} နာရီ {minutes} မိနစ်",
+      "breakerNotClosed": "Open or half-open",
+      "breakerClosed": "Closed"
     },
     "statusPages": {
       "400": {
@@ -14687,6 +14787,9 @@
         "primaryAction": "ပြုပြင်ထိန်းသိမ်းမှု အသေးစိတ်များ",
         "secondaryAction": "စနစ်အခြေအနေ"
       }
+    },
+    "miniapp": {
+      "askAnything": "Ask anything…"
     }
   },
   "kiroAuthModal": {
@@ -14877,7 +14980,20 @@
     "mcp": "MCP",
     "mcpTool": "MCP tool",
     "scope": "Scope",
-    "apiKey": "API key"
+    "apiKey": "API key",
+    "visibleCount": "{visible} visible / {total} total",
+    "zoomOut": "Zoom out",
+    "autoRefreshUnit": "s",
+    "modeLabel": "View mode",
+    "zoomIn": "Zoom in",
+    "jumpToNow": "Jump to current time, NOW line resets to position {position}%",
+    "laneReuse": "Lane reuse",
+    "laneReuseUnit": "min",
+    "laneReuseHint": "Requests sharing a conversation id stay on the same timeline row as long as the gap between them is under this many minutes.",
+    "autoRefreshLabel": "Auto-refresh interval (seconds)",
+    "autoRefresh": "Auto-refresh",
+    "autoRefreshHint": "How often the timeline re-fetches the request list from the server.",
+    "laneReuseLabel": "Lane reuse window (minutes)"
   },
   "metadata": {
     "compressionTitle": "ချုံ့ခြင်း",

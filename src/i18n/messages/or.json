@@ -998,7 +998,13 @@
     "batchFileUsedByCount": "{count, plural, one {#ଟି ବ୍ୟାଚ୍ ଦ୍ୱାରା ବ୍ୟବହୃତ} other {#ଟି ବ୍ୟାଚ୍ ଦ୍ୱାରା ବ୍ୟବହୃତ}}",
     "batchFilePreview": "ପୂର୍ବାବଲୋକନ",
     "batchFilePreviewTruncated": "ପ୍ରଥମ {shown}ଟି ଧାଡ଼ି ଦେଖାଯାଉଛି (ମୋଟ {total}ଟି ଧାଡ଼ି)",
-    "batchFileDownloadFull": "ସମ୍ପୂର୍ଣ୍ଣ ଫାଇଲ୍ ଡାଉନଲୋଡ୍ କରନ୍ତୁ"
+    "batchFileDownloadFull": "ସମ୍ପୂର୍ଣ୍ଣ ଫାଇଲ୍ ଡାଉନଲୋଡ୍ କରନ୍ତୁ",
+    "dialogTitleFallback": "Dialog",
+    "tokensServerUrlLabel": "Server URL",
+    "tokensPageTitle": "Tokens",
+    "pagination": "Pagination",
+    "clearFilters": "Clear filters",
+    "tokensPageDescription": "Send tokens between API keys, share invite codes and connect community servers."
   },
   "disabled": "ଅକ୍ଷମ",
   "featureFlagOmnirouteEmergencyFallbackDescription": "ବଜେଟ୍ ଶେଷ ହୋଇଥିବା ଅନୁରୋଧଗୁଡ଼ିକୁ ଜରୁରୀକାଳୀନ ମାଗଣା ଫଲ୍ବ୍ୟାକ୍ ପ୍ରଦାତା/ମଡେଲ୍କୁ ରୁଟ୍ କରନ୍ତୁ।",
@@ -1485,7 +1491,11 @@
       "chatIdPlaceholder": "-100123456789 କିମ୍ବା @channelname",
       "chatIdHint": "ଚାଟ୍/ଚ୍ୟାନେଲ୍ର ଅନନ୍ୟ ସାଂଖ୍ୟିକ ପରିଚୟକ କିମ୍ବା ସାର୍ବଜନୀନ ବ୍ୟବହାରକାରୀ ନାମ।",
       "tutorial": "Telegram ୱେବହୁକ୍ କିପରି ବିନ୍ୟାସ କରିବେ:"
-    }
+    },
+    "copy": "Copy",
+    "copied": "Copied!",
+    "collapseDetails": "Hide details",
+    "expandDetails": "Show details"
   },
   "compliance": {
     "auditTitle": "ଅଡିଟ୍",
@@ -1597,7 +1607,8 @@
     "mcpMetricCalls24h": "କଲ୍ (24h)",
     "mcpMetricSuccessRate": "ସଫଳତା ହାର",
     "mcpMetricAvgDuration": "ହାରାହାରି ଅବଧି",
-    "mcpMetricTopTool": "ଶୀର୍ଷ ଟୁଲ୍"
+    "mcpMetricTopTool": "ଶୀର୍ଷ ଟୁଲ୍",
+    "dismissError": "Dismiss error"
   },
   "themesPage": {
     "title": "ଥିମ୍ଗୁଡ଼ିକ",
@@ -1713,7 +1724,9 @@
     "settingsAdvancedDescription": "ଉନ୍ନତ ପେଲୋଡ୍ ନିୟମ, ଅନୁରୋଧ ସୀମା ଏବଂ ପ୍ରକ୍ସି API ସେଟିଂସ୍",
     "mitmProxyDescription": "ଟ୍ରାଫିକ୍ ଯାଞ୍ଚ ଏବଂ ଡିବଗିଂ ପାଇଁ MITM ପ୍ରକ୍ସି ସେଟିଂସ୍ ବିନ୍ୟାସ କରନ୍ତୁ",
     "oneProxyDescription": "ଉନ୍ନତ ପ୍ରକ୍ସି ଚେନିଂ ପାଇଁ 1Proxy ସେଟିଂସ୍ ବିନ୍ୟାସ କରନ୍ତୁ",
-    "omniSkillsDescription": "ସ୍ୱୟଂଚାଳିତ ପ୍ରମ୍ପ୍ଟ ଏବଂ ଟୁଲ୍ ନିଷ୍ପାଦନ ପାଇଁ ସ୍ୟାଣ୍ଡବକ୍ସ ଦକ୍ଷତାଗୁଡ଼ିକ ଇନ୍ଷ୍ଟଲ୍ ଏବଂ ପରିଚାଳନା କରନ୍ତୁ"
+    "omniSkillsDescription": "ସ୍ୱୟଂଚାଳିତ ପ୍ରମ୍ପ୍ଟ ଏବଂ ଟୁଲ୍ ନିଷ୍ପାଦନ ପାଇଁ ସ୍ୟାଣ୍ଡବକ୍ସ ଦକ୍ଷତାଗୁଡ଼ିକ ଇନ୍ଷ୍ଟଲ୍ ଏବଂ ପରିଚାଳନା କରନ୍ତୁ",
+    "openMenu": "Open menu",
+    "products": "Keak products"
   },
   "cloudSyncStatus": {
     "synced": "ସିଙ୍କ୍ ହୋଇଛି",
@@ -2499,7 +2512,8 @@
     "preferredConnections": "ପସନ୍ଦର ସଂଯୋଗଗୁଡ଼ିକ",
     "preferredConnectionsDesc": "ପ୍ରତ୍ୟେକ କି ପାଇଁ ପ୍ରାଥମିକତା କ୍ରମ। ଯଦି ପସନ୍ଦର ସଂଯୋଗ ଉପଲବ୍ଧ ନଥାଏ, ରାଉଟିଂ ପରବର୍ତ୍ତୀ ଯୋଗ୍ୟ ସଂଯୋଗକୁ ଯାଏ।",
     "preferredConnectionsNone": "କୌଣସି ପସନ୍ଦ ସେଟ୍ କରାଯାଇନାହିଁ — ଡିଫଲ୍ଟ ରାଉଟିଂ କୌଶଳ ବ୍ୟବହୃତ ହୁଏ।",
-    "preferredConnectionsClear": "ସଫା କରନ୍ତୁ"
+    "preferredConnectionsClear": "ସଫା କରନ୍ତୁ",
+    "removeSelection": "Remove {name}"
   },
   "auditLog": {
     "title": "ଅଡିଟ୍ ଲଗ୍",
@@ -2611,7 +2625,9 @@
     "imageToTextBridgeCta": "Modality Bridge ସେଟିଂସ୍ରେ ଛବି→ଟେକ୍ସଟ୍ ବ୍ରିଜ୍ ବିନ୍ୟାସ କରନ୍ତୁ",
     "sttBridgeCta": "Modality Bridge ସେଟିଂସ୍ରେ ସ୍ପିଚ୍→ଟେକ୍ସଟ୍ ବ୍ରିଜ୍ ବିନ୍ୟାସ କରନ୍ତୁ",
     "existingConnection": "ବିଦ୍ୟମାନ ସଂଯୋଗ",
-    "openrouterSttDescription": "OpenRouter ସ୍ପିଚ୍-ଟୁ-ଟେକ୍ସଟ୍ ମଡେଲ୍ଗୁଡ଼ିକ ଆପଣଙ୍କ ବିନ୍ୟାସିତ OpenRouter ସଂଯୋଗ ବ୍ୟବହାର କରନ୍ତି। କୌଣସି ପୃଥକ ପ୍ରମାଣପତ୍ର ଆବଶ୍ୟକ ନୁହେଁ।"
+    "openrouterSttDescription": "OpenRouter ସ୍ପିଚ୍-ଟୁ-ଟେକ୍ସଟ୍ ମଡେଲ୍ଗୁଡ଼ିକ ଆପଣଙ୍କ ବିନ୍ୟାସିତ OpenRouter ସଂଯୋଗ ବ୍ୟବହାର କରନ୍ତି। କୌଣସି ପୃଥକ ପ୍ରମାଣପତ୍ର ଆବଶ୍ୟକ ନୁହେଁ।",
+    "modalityTabsAria": "Media type",
+    "serviceKindsAria": "Service type"
   },
   "search": {
     "searchQuery": "ସନ୍ଧାନ କ୍ୱେରୀ",
@@ -3282,7 +3298,8 @@
     "cliproxyapiUnknown": "ଅଜଣା",
     "cliproxyapiUpdate": "ଅପଡେଟ୍ କରନ୍ତୁ",
     "cliproxyapiUpdateAvailable": "ଅପଡେଟ୍ ଉପଲବ୍ଧ: v{current} → v{latest}",
-    "cliproxyapiVersion": "ସଂସ୍କରଣ"
+    "cliproxyapiVersion": "ସଂସ୍କରଣ",
+    "removeMapping": "Remove mapping"
   },
   "modelCatalog": {
     "title": "ମଡେଲ୍ ଏବଂ କମ୍ବୋ",
@@ -4019,7 +4036,13 @@
     "duplicateAutoComboSnapshotMsg": "ଏହା ଏହି ଟେମ୍ପ୍ଲେଟ୍ ସହ ମେଳ ଖାଉଥିବା ବର୍ତ୍ତମାନ ସଂଯୁକ୍ତ ପ୍ରଦାନକାରୀ/ମଡେଲ୍ଗୁଡ଼ିକର ଏକ ସ୍ନାପ୍ସଟ୍ ନେଇ ତାହାକୁ ଏକ ସମ୍ପାଦନଯୋଗ୍ୟ କମ୍ବୋରେ ପରିଣତ କରିବ।",
     "duplicateAutoComboFailedPrefix": "ସ୍ୱୟଂଚାଳିତ କମ୍ବୋର ନକଲ କରିବାରେ ବିଫଳ:",
     "duplicateAutoComboUnknownError": "ଅଜଣା ତ୍ରୁଟି",
-    "duplicateAutoComboTitle": "{name} ରୁ ଏକ ସ୍ଥିର କମ୍ବୋ ସୃଷ୍ଟି କରନ୍ତୁ"
+    "duplicateAutoComboTitle": "{name} ରୁ ଏକ ସ୍ଥିର କମ୍ବୋ ସୃଷ୍ଟି କରନ୍ତୁ",
+    "weightPercent": "Weight (%)",
+    "responseValidationPath": "JSON path",
+    "responseValidationCondition": "Condition",
+    "responseValidationRemoveCheck": "Remove check",
+    "clearSearch": "Clear search",
+    "responseValidationValue": "Expected value"
   },
   "costs": {
     "title": "ଖର୍ଚ୍ଚ",
@@ -5293,7 +5316,8 @@
         "skipped": "ପୂର୍ବରୁ କନ୍ଫିଗର୍ ହୋଇଛି",
         "failed": "ବିଫଳ"
       }
-    }
+    },
+    "stepProgress": "Setup progress"
   },
   "providers": {
     "tosAvoidNoticeTitle": "ଏହି ପ୍ରଦାନକାରୀଙ୍କୁ ଡିଫଲ୍ଟ ଭାବେ auto ରୁ ବାଦ୍ ଦିଆଯାଇଛି",
@@ -8960,7 +8984,8 @@
       "statsEmpty": "ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ଚିହ୍ନଟ ନାହିଁ।",
       "statsRequest": "ଅନୁରୋଧ"
     },
-    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection."
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "modelOverrideKey": "Override key"
   },
   "contextRtk": {
     "title": "RTK ଇଞ୍ଜିନ୍",
@@ -9044,7 +9069,8 @@
     "tomlTestPassed": "ସଫଳ",
     "tomlTestFailed": "ବିଫଳ",
     "tomlImportError": "RTK TOML ଫାଇଲ୍କୁ ପ୍ରକ୍ରିୟାକରଣ କରାଯାଇପାରିଲା ନାହିଁ।",
-    "tomlFileReadError": "ଚୟନିତ TOML ଫାଇଲ୍ଟି ପଢ଼ାଯାଇପାରିଲା ନାହିଁ।"
+    "tomlFileReadError": "ଚୟନିତ TOML ଫାଇଲ୍ଟି ପଢ଼ାଯାଇପାରିଲା ନାହିଁ।",
+    "viewMode": "View mode"
   },
   "compressionEngineConfig": {
     "loading": "ଲୋଡ୍ ହେଉଛି…",
@@ -9266,7 +9292,8 @@
     "languagePacksList": "ଭାଷା ପ୍ୟାକ୍ଗୁଡ଼ିକ: {packs}",
     "dragToReorder": "ପଦକ୍ଷେପର କ୍ରମ ପରିବର୍ତ୍ତନ କରିବାକୁ ଟାଣନ୍ତୁ",
     "engine": "ଇଞ୍ଜିନ୍",
-    "intensity": "ତୀବ୍ରତା"
+    "intensity": "ତୀବ୍ରତା",
+    "compressionOverride": "Compression override"
   },
   "compressionStudio": {
     "noRun": "କୌଣସି ସଂକୋଚନ ରନ୍ ଉପଲବ୍ଧ ନାହିଁ।",
@@ -9326,7 +9353,8 @@
     "encoderWinner": "ବିଜେତା: {winner}",
     "encoder": "ଏନକୋଡର୍",
     "bytes": "ବାଇଟ୍",
-    "tokensCl100k": "ଟୋକନ୍ (cl100k)"
+    "tokensCl100k": "ଟୋକନ୍ (cl100k)",
+    "studioViews": "Studio views"
   },
   "omniglyph": {
     "preview": "ପୂର୍ବାବଲୋକନ",
@@ -9532,7 +9560,9 @@
     "tooltipMinLength": "ଏହାଠାରୁ ଛୋଟ ସନ୍ଦେଶଗୁଡ଼ିକ ସଙ୍କୁଚିତ ହୁଏ ନାହିଁ। କମ୍ = ଅଧିକ ସଙ୍କୋଚନ।",
     "tooltipMinSavings": "ଅତି କମ୍ରେ ଏତିକି ଟୋକେନ୍ ସଞ୍ଚୟ ହେଲେ ମାତ୍ର ସଙ୍କୁଚିତ କରନ୍ତୁ।",
     "ultraSettings": "ଅଲ୍ଟ୍ରା ସେଟିଂସ୍",
-    "ultraSettingsDesc": "SLM-ଚାଳିତ ଅର୍ଥଗତ ସଙ୍କୋଚନ"
+    "ultraSettingsDesc": "SLM-ଚାଳିତ ଅର୍ଥଗତ ସଙ୍କୋଚନ",
+    "viewMode": "View mode",
+    "defaultLanguage": "Default language"
   },
   "translator": {
     "title": "ଅନୁବାଦକ",
@@ -10356,7 +10386,10 @@
     "healthCdw": "ସାପ୍ତାହିକ · ଅପେକ୍ଷା ସମୟ",
     "healthRecentSuccessBypass": "ନିକଟରେ ଏକ ଅନୁରୋଧ ସଫଳ ହୋଇଥିବାରୁ ରାଉଟିଂ ଏହି ଖାତାକୁ ଅନୁମତି ଦିଏ।",
     "healthPurchasedBalanceBypass": "ଅନ୍ତର୍ଭୁକ୍ତ କୋଟା ସରିବା ପରେ କିଣାଯାଇଥିବା ବାଲାନ୍ସରେ ବ୍ୟବହାର ଜାରି ରହିପାରେ।",
-    "healthCutoffAtRequest": "ଅନୁରୋଧ ରାଉଟ୍ କରିବା ସମୟରେ ଲାଇଭ୍ କୋଟା ସୀମା ଯାଞ୍ଚ କରାଯାଏ।"
+    "healthCutoffAtRequest": "ଅନୁରୋଧ ରାଉଟ୍ କରିବା ସମୟରେ ଲାଇଭ୍ କୋଟା ସୀମା ଯାଞ୍ଚ କରାଯାଏ।",
+    "statHealthy": "Healthy",
+    "statAlert": "Alert",
+    "statCritical": "Critical"
   },
   "modals": {
     "waitingAuth": "ଅନୁମୋଦନ ପାଇଁ ଅପେକ୍ଷାରତ",
@@ -11143,7 +11176,8 @@
       "message": "ସନ୍ଦେଶ",
       "error": "ତ୍ରୁଟି",
       "completion": "ସମାପ୍ତି"
-    }
+    },
+    "statusFilter": "Status"
   },
   "templateNames": {
     "simple-chat": "ସରଳ ଚାଟ୍",
@@ -11324,7 +11358,8 @@
     "minutesAgo": "{minutes} ମିନିଟ୍ ପୂର୍ବେ",
     "hoursAgo": "{hours} ଘଣ୍ଟା ପୂର୍ବେ",
     "daysAgo": "{days} ଦିନ ପୂର୍ବେ",
-    "entries": "ଏଣ୍ଟ୍ରିଗୁଡ଼ିକ"
+    "entries": "ଏଣ୍ଟ୍ରିଗୁଡ଼ିକ",
+    "viewSwitcherAria": "Cache view"
   },
   "proxyConfigModal": {
     "levelGlobal": "ଗ୍ଲୋବାଲ୍",
@@ -11669,7 +11704,8 @@
     "notMeasured": "ମାପ କରାଯାଇନାହିଁ",
     "upstream4xx": "{count} ଉପରି ଗ୍ରାହକ ତ୍ରୁଟିଗୁଡ଼ିକ",
     "upstream5xx": "{count} ଉପରି ସର୍ଭର ତ୍ରୁଟିଗୁଡ଼ିକ",
-    "uniformEgressLine": "{provider}ରେ {exits}ଟି ଏକ୍ଜିଟ୍ ମଧ୍ୟରୁ {affected}ଟି ଏକାଠି ବିଫଳ ହେଉଛି (ଗତ {hours}ଘଣ୍ଟା) — ଏହା ଏକ୍ଜିଟ୍ ସମସ୍ୟା ନୁହେଁ"
+    "uniformEgressLine": "{provider}ରେ {exits}ଟି ଏକ୍ଜିଟ୍ ମଧ୍ୟରୁ {affected}ଟି ଏକାଠି ବିଫଳ ହେଉଛି (ଗତ {hours}ଘଣ୍ଟା) — ଏହା ଏକ୍ଜିଟ୍ ସମସ୍ୟା ନୁହେଁ",
+    "moreActions": "More actions"
   },
   "playground": {
     "title": "ମଡେଲ୍ ପ୍ଲେଗ୍ରାଉଣ୍ଡ",
@@ -11875,7 +11911,8 @@
       "nextButton": "ପରବର୍ତ୍ତୀ",
       "runButton": "ଚଲାନ୍ତୁ",
       "promptPlaceholder": "ଆପଣଙ୍କ ସନ୍ଦେଶ ଲେଖନ୍ତୁ… (ପଠାଇବାକୁ Enter, ନୂଆ ଧାଡ଼ି ପାଇଁ Shift+Enter)"
-    }
+    },
+    "playgroundTabs": "Playground modes"
   },
   "miniPlayground": {
     "endpoint": "ଏଣ୍ଡପଏଣ୍ଟ",
@@ -11946,7 +11983,8 @@
     "assistant": "ସହାୟକ",
     "errorLabel": "ତ୍ରୁଟି",
     "requestFailed": "ଅନୁରୋଧ ବିଫଳ ହେଲା",
-    "stop": "ବନ୍ଦ କରନ୍ତୁ"
+    "stop": "ବନ୍ଦ କରନ୍ତୁ",
+    "messageInputAria": "Message"
   },
   "requestLogger": {
     "recording": "ରେକର୍ଡିଂ ଚାଲିଛି",
@@ -12133,8 +12171,18 @@
       "resilienceRotations": "{count} ଆକାଉଣ୍ଟ ରୋଟେସନ୍",
       "resilienceRetried": "ଖାଲି ପାଳି ପୁନଃ ଚେଷ୍ଟା କରାଗଲା",
       "resilienceContinued": "ଷ୍ଟ୍ରିମ୍ ମଝିରୁ ପୁନଃ ଆରମ୍ଭ",
-      "resilienceRecovered": "ସ୍ଥିତିସ୍ଥାପକତା କାର୍ଯ୍ୟ ଦ୍ୱାରା ପୁନରୁଦ୍ଧାର"
-    }
+      "resilienceRecovered": "ସ୍ଥିତିସ୍ଥାପକତା କାର୍ଯ୍ୟ ଦ୍ୱାରା ପୁନରୁଦ୍ଧାର",
+      "openConversation": "Open conversation {id}",
+      "goToBottom": "Go to bottom",
+      "liveRefresh": "Live refresh",
+      "conversationContext": "Conversation Context",
+      "viewConversation": "view conversation",
+      "continuesFromParent": "continues from parent",
+      "continuesFrom": "Continues from {id}",
+      "liveRefreshOn": "Live refresh: on",
+      "liveRefreshOff": "Live refresh: off"
+    },
+    "tableLabel": "Request logs"
   },
   "proxyLogger": {
     "filterAll": "ସବୁ",
@@ -12179,7 +12227,9 @@
     "colServedBy": "ଦ୍ୱାରା ସେବିତ",
     "filterTraffic": "ଟ୍ରାଫିକ୍",
     "filterTests": "ପରୀକ୍ଷା",
-    "filterSource": "ସ୍ରୋତ"
+    "filterSource": "ସ୍ରୋତ",
+    "sortLogs": "Sort logs",
+    "tableLabel": "Proxy logs"
   },
   "endpointOptions": {
     "speech": "ବାଣୀ",
@@ -12264,7 +12314,8 @@
     "statusExhausted": "ନିଃଶେଷ",
     "statusAlerting": "ସତର୍କତା ଜାରି",
     "statusError": "ତ୍ରୁଟି",
-    "moreSuffix": "+ଆହୁରି {count}ଟି"
+    "moreSuffix": "+ଆହୁରି {count}ଟି",
+    "feedFilterLabel": "Filter events"
   },
   "quotaShare": {
     "weightPercent": "ଭାର %",
@@ -12431,7 +12482,10 @@
     "ungroupedTitle": "ଗୋଷ୍ଠୀବିହୀନ",
     "ungroupedHint": "ଏହି ପୁଲ୍ଗୁଡ଼ିକ କୌଣସି ଜଣାଶୁଣା ଗୋଷ୍ଠୀକୁ ନ୍ୟସ୍ତ ହୋଇନାହିଁ। ଏକ ପୁଲ୍କୁ ପ୍ରକୃତ ଗୋଷ୍ଠୀକୁ ସ୍ଥାନାନ୍ତର କରିବା ପାଇଁ ତାହାକୁ ସମ୍ପାଦନା କରନ୍ତୁ।",
     "removeFailed": "ଏହି ପୁଲ୍କୁ ଅପସାରଣ କରାଯାଇପାରିଲା ନାହିଁ।",
-    "dismiss": "ଖାରଜ କରନ୍ତୁ"
+    "dismiss": "ଖାରଜ କରନ୍ତୁ",
+    "wizardRemoveDimension": "Remove dimension",
+    "wizardRemoveKey": "Remove key",
+    "allocationsHeading": "Allocations"
   },
   "plugins": {
     "title": "ପ୍ଲଗଇନ୍ଗୁଡ଼ିକ",
@@ -12589,7 +12643,8 @@
       "settingsUpdateFailed": "ସେଟିଂସ୍ ଅପଡେଟ୍ ବିଫଳ ହେଲା",
       "serviceRevealApiKey": "{actor} {target} ପାଇଁ API କୀ ପ୍ରକାଶ କରିଛନ୍ତି",
       "genericEvent": "{actor} {target}"
-    }
+    },
+    "dismissError": "Dismiss error"
   },
   "agentBridge": {
     "title": "AgentBridge",
@@ -12722,7 +12777,21 @@
       "goNow": "ଏବେ ଯାଆନ୍ତୁ",
       "message": "MITM Proxy ଏବେ AgentBridge ଅଧୀନରେ ଅଛି।",
       "title": "ଏହି ପୃଷ୍ଠାଟି ସ୍ଥାନାନ୍ତରିତ ହୋଇଛି"
-    }
+    },
+    "dnsOff": "DNS off",
+    "upstreamCaTesting": "Testing…",
+    "wizardAddModels": "Add {count, plural, one {# model} other {# models}}",
+    "removeMapping": "Remove mapping",
+    "dnsOn": "DNS on",
+    "wizardNoModelsHint": "Or close this wizard and add mappings manually in the agent card.",
+    "hideServerSettings": "Hide server settings",
+    "wizardSelectedModels": "{count, plural, one {# model} other {# models}} selected. You'll map them to OmniRoute models in the next screen.",
+    "showServerSettings": "Show server settings",
+    "mappingSourcePlaceholder": "e.g., gemini-3.6-flash-medium, or * for all unmapped",
+    "wizardDetectingModels": "Detecting models from intercepted traffic...",
+    "mappingWildcardHint": "Use * as the source to route every model without an explicit mapping through OmniRoute to the selected target. Exact source matches always win over *.",
+    "wizardNoModelsDetected": "No models detected yet. Use {agent} to make a request, then run this wizard again to auto-detect models from traffic.",
+    "wizardDetectedModels": "Found {count, plural, one {# model} other {# models}} in intercepted traffic. Select the ones you want to add:"
   },
   "providerStats": {
     "unknownError": "ଅଜଣା ତ୍ରୁଟି",
@@ -12752,7 +12821,11 @@
     "avgTtft": "ହାରାହାରି TTFT",
     "avgTotal": "ହାରାହାରି ମୋଟ",
     "requestTelemetry": "ଅନୁରୋଧ ଟେଲିମେଟ୍ରି",
-    "requestTelemetryDescription": "୭-ପର୍ଯ୍ୟାୟ ପାଇପଲାଇନ୍ ବିଶ୍ଳେଷଣ (ଗତ ୫ ମିନିଟ୍)"
+    "requestTelemetryDescription": "୭-ପର୍ଯ୍ୟାୟ ପାଇପଲାଇନ୍ ବିଶ୍ଳେଷଣ (ଗତ ୫ ମିନିଟ୍)",
+    "description": "Per-provider and per-model traffic, latency and success rates",
+    "title": "Provider stats",
+    "toggleModels": "Show models for {provider}",
+    "combo": "Combo"
   },
   "relay": {
     "title": "ସର୍ଭରଲେସ୍ ରିଲେ ପ୍ରକ୍ସିଗୁଡ଼ିକ",
@@ -12913,7 +12986,18 @@
     "noRequestBody": "କୌଣସି ଅନୁରୋଧ ବଡି ନାହିଁ।",
     "noResponseBody": "କୌଣସି ପ୍ରତିକ୍ରିୟା ବଡି ନାହିଁ।",
     "formatted": "ଫର୍ମାଟ୍ କରାଯାଇଛି",
-    "raw": "ମୂଳ"
+    "raw": "ମୂଳ",
+    "expandList": "Expand list",
+    "maskSecrets": "Mask secrets",
+    "llmStreamNo": "no",
+    "llmNotAvailable": "LLM metadata not available for this request.",
+    "llmStreamYes": "yes (SSE)",
+    "snippetLanguage": "Snippet language",
+    "showSecrets": "Show secrets",
+    "llmTotalTokens": "Total: {count} tokens",
+    "collapseList": "Collapse list",
+    "headersTable": "Headers",
+    "requestCount": "{count, plural, one {# request} other {# requests}}"
   },
   "cliCommon": {
     "companion": {
@@ -13372,7 +13456,8 @@
     "colReliabilityHelp": "ଗତ 24 ଘଣ୍ଟାରେ ଏହି ପ୍ରଦାତା ପ୍ରକୃତରେ ଉତ୍ତର ଦେଇଥିବା କଲ୍ଗୁଡ଼ିକର ଅନୁପାତ। ଡ୍ୟାସ୍ର ଅର୍ଥ ହେଉଛି ହାର ନିର୍ଦ୍ଧାରଣ ପାଇଁ ଏହା ଅତି କମ୍ ଟ୍ରାଫିକ୍ ପରିଚାଳନା କରିଛି।",
     "reliabilitySample": "ଗତ {hours} ଘଣ୍ଟାରେ {requests}ଟି କଲ୍ରୁ {successes}ଟି ସଫଳ ହୋଇଛି",
     "reliabilityTooFew": "ଗତ {hours} ଘଣ୍ଟାରେ କେବଳ {requests}ଟି କଲ୍ — ହାର ନିର୍ଦ୍ଧାରଣ ପାଇଁ ଅତି କମ୍",
-    "reliabilityNoTraffic": "ଗତ 24 ଘଣ୍ଟାରେ କୌଣସି କଲ୍ ରେକର୍ଡ ହୋଇନାହିଁ"
+    "reliabilityNoTraffic": "ଗତ 24 ଘଣ୍ଟାରେ କୌଣସି କଲ୍ ରେକର୍ଡ ହୋଇନାହିଁ",
+    "categoryFilter": "Task category"
   },
   "discovery": {
     "title": "ପ୍ରଦାତା ଅନ୍ୱେଷଣ",
@@ -13397,7 +13482,11 @@
     "method": "ପଦ୍ଧତି",
     "auth": "ପ୍ରମାଣୀକରଣ",
     "feasibility": "ସାଧ୍ୟତା",
-    "models": "ମଡେଲ୍ଗୁଡ଼ିକ"
+    "models": "ମଡେଲ୍ଗୁଡ଼ିକ",
+    "actions": "Actions",
+    "status": "Status",
+    "endpoint": "Endpoint",
+    "provider": "Provider"
   },
   "noAuthProvider": {
     "title": "କୌଣସି ପ୍ରମାଣୀକରଣ ଆବଶ୍ୟକ ନାହିଁ",
@@ -13446,7 +13535,8 @@
     "ownProxy": "ନିଜସ୍ୱ ପ୍ରକ୍ସି",
     "freeTierPause": "ମଡେଲ {model} ବିରତି (429), {time} ରେ ଫେରିବ",
     "freeTierPauseProvider": "ବିରତି (429), {time} ରେ ଫେରିବ",
-    "freeTierPauseNote": "ଏହି ଇନଷ୍ଟାନ୍ସରେ ଇନ୍-ପ୍ରୋସେସ୍ ବିରତି"
+    "freeTierPauseNote": "ଏହି ଇନଷ୍ଟାନ୍ସରେ ଇନ୍-ପ୍ରୋସେସ୍ ବିରତି",
+    "proxyType": "Proxy type"
   },
   "gamification": {
     "leaderboardScopes": {
@@ -13619,7 +13709,10 @@
         "description": "ଏକ ଗୁପ୍ତ ସଫଳତା ଅପେକ୍ଷା କରିଛି...",
         "criteria": "ଏହି ବ୍ୟାଜ୍କୁ ପ୍ରକାଶ କରିବା ପାଇଁ ଗୁପ୍ତ ସଫଳତାଟି ସମ୍ପୂର୍ଣ୍ଣ କରନ୍ତୁ।"
       }
-    }
+    },
+    "leaderboardTitle": "Leaderboard",
+    "leaderboardDescription": "Rankings and achievements across your API keys",
+    "badgeLocked": "Locked"
   },
   "featureFlags": {
     "title": "ଫିଚର୍ ଫ୍ଲାଗ୍ଗୁଡ଼ିକ",
@@ -13914,7 +14007,8 @@
     "unknown": "ଅଜ୍ଞାତ",
     "unknownProvider": "ଅଜ୍ଞାତ ପ୍ରଦାନକାରୀ",
     "unknownModel": "ଅଜ୍ଞାତ ମଡେଲ୍",
-    "resolvedTargetMetrics": "{requests} ଅନୁରୋଧ · {success} ସଫଳ · {latency} · କୋଟା {quota}"
+    "resolvedTargetMetrics": "{requests} ଅନୁରୋଧ · {success} ସଫଳ · {latency} · କୋଟା {quota}",
+    "timeRange": "Time range"
   },
   "usageLimits": {
     "usdUsageQuota": "USD ବ୍ୟବହାର କୋଟା",
@@ -14061,7 +14155,11 @@
     "learnMore": "ଅଧିକ ଜାଣନ୍ତୁ",
     "changelogLoadFailed": "ପରିବର୍ତ୍ତନ ତାଲିକା ଲୋଡ୍ କରାଯାଇପାରିଲା ନାହିଁ। ଦୟାକରି ପରେ ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
     "retry": "ପୁନଃଚେଷ୍ଟା କରନ୍ତୁ",
-    "viewFullHistory": "GitHubରେ ସମ୍ପୂର୍ଣ୍ଣ ଇତିହାସ ଦେଖନ୍ତୁ"
+    "viewFullHistory": "GitHubରେ ସମ୍ପୂର୍ଣ୍ଣ ଇତିହାସ ଦେଖନ୍ତୁ",
+    "loadingNews": "Loading announcements...",
+    "viewLabel": "View",
+    "description": "Announcements from the OmniRoute team and the latest release notes",
+    "title": "News & changelog"
   },
   "reasoningRouting": {
     "editor": {
@@ -14612,7 +14710,9 @@
       "circuitBreakerState": "ପ୍ରଦାନକାରୀ ସର୍କିଟ୍ ବ୍ରେକର୍ ସ୍ଥିତି",
       "lastUpdate": "ଶେଷ ଅପଡେଟ୍: {timestamp}",
       "uptimeMinutes": "{minutes}ମି",
-      "uptimeHoursMinutes": "{hours}ଘ {minutes}ମି"
+      "uptimeHoursMinutes": "{hours}ଘ {minutes}ମି",
+      "breakerNotClosed": "Open or half-open",
+      "breakerClosed": "Closed"
     },
     "statusPages": {
       "400": {
@@ -14687,6 +14787,9 @@
         "primaryAction": "ରକ୍ଷଣାବେକ୍ଷଣ ବିବରଣୀ",
         "secondaryAction": "ସିଷ୍ଟମ୍ ସ୍ଥିତି"
       }
+    },
+    "miniapp": {
+      "askAnything": "Ask anything…"
     }
   },
   "kiroAuthModal": {
@@ -14877,7 +14980,20 @@
     "mcp": "MCP",
     "mcpTool": "MCP tool",
     "scope": "Scope",
-    "apiKey": "API key"
+    "apiKey": "API key",
+    "visibleCount": "{visible} visible / {total} total",
+    "zoomOut": "Zoom out",
+    "autoRefreshUnit": "s",
+    "modeLabel": "View mode",
+    "zoomIn": "Zoom in",
+    "jumpToNow": "Jump to current time, NOW line resets to position {position}%",
+    "laneReuse": "Lane reuse",
+    "laneReuseUnit": "min",
+    "laneReuseHint": "Requests sharing a conversation id stay on the same timeline row as long as the gap between them is under this many minutes.",
+    "autoRefreshLabel": "Auto-refresh interval (seconds)",
+    "autoRefresh": "Auto-refresh",
+    "autoRefreshHint": "How often the timeline re-fetches the request list from the server.",
+    "laneReuseLabel": "Lane reuse window (minutes)"
   },
   "metadata": {
     "compressionTitle": "ସଂକୋଚନ",

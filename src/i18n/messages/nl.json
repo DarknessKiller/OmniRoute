@@ -1345,7 +1345,20 @@
       "open": "open",
       "close": "sluiten"
     },
-    "noResults": "Geen resultaten"
+    "noResults": "Geen resultaten",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Webhaken",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "Geavanceerde payloadregels, aanvraaglimieten en proxy-API-instellingen",
     "mitmProxyDescription": "Configureer MITM-proxy-instellingen voor verkeersinspectie en foutopsporing",
     "oneProxyDescription": "Configureer 1Proxy-instellingen voor geavanceerde proxyketens",
-    "omniSkillsDescription": "Installeer en beheer sandbox-skills voor geautomatiseerde prompt- en tooluitvoering"
+    "omniSkillsDescription": "Installeer en beheer sandbox-skills voor geautomatiseerde prompt- en tooluitvoering",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "Gesynchroniseerd",
@@ -8949,7 +8964,19 @@
       "statsTitle": "Detecties sinds herstart",
       "statsEmpty": "Nog geen detecties.",
       "statsRequest": "Verzoeken"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "RTK Engine",
@@ -10350,7 +10377,10 @@
     "healthCdw": "Wekelijks · Wachttijd",
     "healthRecentSuccessBypass": "De routering staat dit account toe omdat een verzoek onlangs is geslaagd.",
     "healthPurchasedBalanceBypass": "Met gekocht tegoed kunt u doorgaan nadat het inbegrepen quotum is verbruikt.",
-    "healthCutoffAtRequest": "Realtime quotumdrempels worden gecontroleerd bij het routeren van een verzoek."
+    "healthCutoffAtRequest": "Realtime quotumdrempels worden gecontroleerd bij het routeren van een verzoek.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "Wachten op toestemming",
@@ -11872,7 +11902,8 @@
       "runButton": "Uitvoeren",
       "promptPlaceholder": "Voer je bericht in… (Enter om te verzenden, Shift+Enter voor nieuwe regel)"
     },
-    "playgroundTabs": "Playground-modi"
+    "playgroundTabs": "Playground-modi",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "Eindpunt",
@@ -15216,5 +15247,14 @@
     "importButton": "Importeren",
     "importFailed": "Importeren mislukt.",
     "importSuccess": "{connections} accounts en {nodes} providernodes geïmporteerd; {skipped} overgeslagen."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

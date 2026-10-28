@@ -1345,7 +1345,20 @@
       "open": "เปิด",
       "close": "ปิด"
     },
-    "noResults": "ไม่มีผลลัพธ์"
+    "noResults": "ไม่มีผลลัพธ์",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "เว็บฮุค",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "กฎเพย์โหลดขั้นสูง ขีดจำกัดคำขอ และการตั้งค่า proxy API",
     "mitmProxyDescription": "กำหนดค่าพร็อกซี MITM สำหรับการตรวจสอบทราฟฟิกและการดีบัก",
     "oneProxyDescription": "กำหนดค่า 1Proxy สำหรับการเชื่อมต่อพร็อกซีแบบลูกโซ่ขั้นสูง",
-    "omniSkillsDescription": "ติดตั้งและจัดการทักษะแซนด์บ็อกซ์สำหรับการดำเนินการพรอมต์และเครื่องมือโดยอัตโนมัติ"
+    "omniSkillsDescription": "ติดตั้งและจัดการทักษะแซนด์บ็อกซ์สำหรับการดำเนินการพรอมต์และเครื่องมือโดยอัตโนมัติ",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "ซิงค์แล้ว",
@@ -8949,7 +8964,19 @@
       "statsTitle": "การตรวจพบตั้งแต่รีสตาร์ต",
       "statsEmpty": "ยังไม่มีการตรวจพบ",
       "statsRequest": "คำขอ"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "RTK Engine",
@@ -10350,7 +10377,10 @@
     "healthCdw": "รายสัปดาห์ · ระยะเวลารอ",
     "healthRecentSuccessBypass": "ระบบกำหนดเส้นทางอนุญาตให้ใช้บัญชีนี้เพราะมีคำขอสำเร็จเมื่อไม่นานมานี้",
     "healthPurchasedBalanceBypass": "ยอดคงเหลือที่ซื้อไว้ช่วยให้ใช้งานต่อได้หลังจากโควตาที่รวมไว้หมด",
-    "healthCutoffAtRequest": "ระบบจะตรวจสอบเกณฑ์โควตาปัจจุบันเมื่อกำหนดเส้นทางคำขอ"
+    "healthCutoffAtRequest": "ระบบจะตรวจสอบเกณฑ์โควตาปัจจุบันเมื่อกำหนดเส้นทางคำขอ",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "รอการอนุญาต",
@@ -11872,7 +11902,8 @@
       "runButton": "รัน",
       "promptPlaceholder": "พิมพ์ข้อความของคุณ… (กด Enter เพื่อส่ง, Shift+Enter เพื่อขึ้นบรรทัดใหม่)"
     },
-    "playgroundTabs": "โหมด Playground"
+    "playgroundTabs": "โหมด Playground",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "เอนด์พอยต์",
@@ -15216,5 +15247,14 @@
     "importButton": "นำเข้า",
     "importFailed": "นำเข้าไม่สำเร็จ",
     "importSuccess": "นำเข้า {connections} บัญชีและ {nodes} โหนดผู้ให้บริการแล้ว ข้าม {skipped} รายการ"
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

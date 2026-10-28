@@ -1345,7 +1345,20 @@
       "open": "திறக்கவும்",
       "close": "மூடு"
     },
-    "noResults": "எந்த முடிவுகளும் இல்லை"
+    "noResults": "எந்த முடிவுகளும் இல்லை",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "வெப்ஹூக்ஸ்",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "மேம்பட்ட பேலோடு விதிகள், கோரிக்கை வரம்புகள் மற்றும் ப்ராக்ஸி API அமைப்புகள்",
     "mitmProxyDescription": "போக்குவரத்து ஆய்வு மற்றும் பிழைத்திருத்தத்திற்கான MITM ப்ராக்ஸி அமைப்புகளை உள்ளமைக்கவும்",
     "oneProxyDescription": "மேம்பட்ட ப்ராக்ஸி சங்கிலியிடலுக்கான 1Proxy அமைப்புகளை உள்ளமைக்கவும்",
-    "omniSkillsDescription": "தானியங்கி தூண்டுதல் மற்றும் கருவி செயலாக்கத்திற்கான சாண்ட்பாக்ஸ் திறன்களை நிறுவி நிர்வகிக்கவும்"
+    "omniSkillsDescription": "தானியங்கி தூண்டுதல் மற்றும் கருவி செயலாக்கத்திற்கான சாண்ட்பாக்ஸ் திறன்களை நிறுவி நிர்வகிக்கவும்",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "ஒத்திசைக்கப்பட்டது",
@@ -8949,7 +8964,19 @@
       "statsTitle": "மறுதொடக்கத்திற்குப் பின் கண்டறிதல்கள்",
       "statsEmpty": "இதுவரை கண்டறிதல்கள் இல்லை.",
       "statsRequest": "கோரிக்கைகள்"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "RTK எஞ்சின்",
@@ -10350,7 +10377,10 @@
     "healthCdw": "வாரந்தோறும் · காத்திருப்பு காலம்",
     "healthRecentSuccessBypass": "சமீபத்தில் கோரிக்கை வெற்றியடைந்ததால் இந்தக் கணக்கை வழிசெலுத்தல் அனுமதிக்கிறது.",
     "healthPurchasedBalanceBypass": "சேர்க்கப்பட்ட ஒதுக்கீடு தீர்ந்தபின் வாங்கிய இருப்பைக் கொண்டு தொடர்ந்து பயன்படுத்தலாம்.",
-    "healthCutoffAtRequest": "கோரிக்கையை வழிசெலுத்தும்போது நேரடி ஒதுக்கீட்டு வரம்புகள் சரிபார்க்கப்படும்."
+    "healthCutoffAtRequest": "கோரிக்கையை வழிசெலுத்தும்போது நேரடி ஒதுக்கீட்டு வரம்புகள் சரிபார்க்கப்படும்.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "அங்கீகாரத்திற்காகக் காத்திருக்கிறது",
@@ -11872,7 +11902,8 @@
       "runButton": "இயக்கு",
       "promptPlaceholder": "உங்கள் செய்தியை உள்ளிடவும்… (அனுப்ப Enter, புதிய வரிக்காக Shift+Enter)"
     },
-    "playgroundTabs": "Playground முறைகள்"
+    "playgroundTabs": "Playground முறைகள்",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "இறுதிப்புள்ளி",
@@ -15216,5 +15247,14 @@
     "importButton": "இறக்குமதி செய்",
     "importFailed": "இறக்குமதி தோல்வியடைந்தது.",
     "importSuccess": "{connections} கணக்குகளும் {nodes} வழங்குநர் முனைகளும் இறக்குமதி செய்யப்பட்டன; {skipped} தவிர்க்கப்பட்டன."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

@@ -1345,7 +1345,20 @@
       "open": "mở",
       "close": "đóng"
     },
-    "noResults": "Không có kết quả"
+    "noResults": "Không có kết quả",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Webhook",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "Các quy tắc payload nâng cao, giới hạn yêu cầu và cài đặt proxy API",
     "mitmProxyDescription": "Định cấu hình cài đặt proxy MITM để kiểm tra và gỡ lỗi lưu lượng truy cập",
     "oneProxyDescription": "Định cấu hình cài đặt 1Proxy cho chuỗi proxy nâng cao",
-    "omniSkillsDescription": "Cài đặt và quản lý các kỹ năng trong môi trường hộp cát để thực thi tự động prompt và công cụ"
+    "omniSkillsDescription": "Cài đặt và quản lý các kỹ năng trong môi trường hộp cát để thực thi tự động prompt và công cụ",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "Đã đồng bộ",
@@ -8949,7 +8964,19 @@
       "statsTitle": "Phát hiện kể từ khi khởi động lại",
       "statsEmpty": "Chưa có phát hiện nào.",
       "statsRequest": "Yêu cầu"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "Công cụ RTK",
@@ -10350,7 +10377,10 @@
     "healthCdw": "Hàng tuần · Thời gian chờ",
     "healthRecentSuccessBypass": "Bộ định tuyến cho phép tài khoản này vì một yêu cầu đã thành công gần đây.",
     "healthPurchasedBalanceBypass": "Số dư đã mua cho phép tiếp tục sử dụng sau khi hết hạn mức đi kèm.",
-    "healthCutoffAtRequest": "Ngưỡng hạn mức trực tiếp được kiểm tra khi định tuyến yêu cầu."
+    "healthCutoffAtRequest": "Ngưỡng hạn mức trực tiếp được kiểm tra khi định tuyến yêu cầu.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "Đang chờ ủy quyền",
@@ -11872,7 +11902,8 @@
       "runButton": "Chạy",
       "promptPlaceholder": "Nhập tin nhắn của bạn… (Enter để gửi, Shift+Enter để xuống dòng)"
     },
-    "playgroundTabs": "Chế độ playground"
+    "playgroundTabs": "Chế độ playground",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "Điểm cuối",
@@ -15216,5 +15247,14 @@
     "importButton": "Nhập",
     "importFailed": "Nhập thất bại.",
     "importSuccess": "Đã nhập {connections} tài khoản và {nodes} nút nhà cung cấp; bỏ qua {skipped}."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

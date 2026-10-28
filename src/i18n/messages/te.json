@@ -1345,7 +1345,20 @@
       "open": "తిరిగి తెరువు",
       "close": "మూసివేయండి"
     },
-    "noResults": "ఫలితాలు లేవు"
+    "noResults": "ఫలితాలు లేవు",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "వెబ్‌బూక్స్",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "అధునాతన పేలోడ్ నియమాలు, అభ్యర్థన పరిమితులు మరియు ప్రాక్సీ API సెట్టింగ్లు",
     "mitmProxyDescription": "ట్రాఫిక్ తనిఖీ మరియు డీబగ్గింగ్ కోసం MITM ప్రాక్సీ సెట్టింగ్లను కాన్ఫిగర్ చేయండి",
     "oneProxyDescription": "అధునాతన ప్రాక్సీ చైనింగ్ కోసం 1Proxy సెట్టింగ్లను కాన్ఫిగర్ చేయండి",
-    "omniSkillsDescription": "ఆటోమేటెడ్ ప్రాంప్ట్ మరియు టూల్ ఎగ్జిక్యూషన్ కోసం శాండ్‌బాక్స్ స్కిల్స్‌ను ఇన్‌స్టాల్ చేయండి మరియు నిర్వహించండి"
+    "omniSkillsDescription": "ఆటోమేటెడ్ ప్రాంప్ట్ మరియు టూల్ ఎగ్జిక్యూషన్ కోసం శాండ్‌బాక్స్ స్కిల్స్‌ను ఇన్‌స్టాల్ చేయండి మరియు నిర్వహించండి",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "సింక్ చేయబడింది",
@@ -8949,7 +8964,19 @@
       "statsTitle": "పునఃప్రారంభం నుండి గుర్తింపులు",
       "statsEmpty": "ఇంకా గుర్తింపులు లేవు.",
       "statsRequest": "అభ్యర్థనలు"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "RTK ఇంజిన్",
@@ -10350,7 +10377,10 @@
     "healthCdw": "వారానికొకసారి · వేచి ఉండే సమయం",
     "healthRecentSuccessBypass": "ఇటీవల అభ్యర్థన విజయవంతమైనందున రూటింగ్ ఈ ఖాతాను అనుమతిస్తుంది.",
     "healthPurchasedBalanceBypass": "చేర్చిన కోటా అయిపోయిన తర్వాత కొనుగోలు చేసిన బ్యాలెన్స్‌తో వినియోగం కొనసాగించవచ్చు.",
-    "healthCutoffAtRequest": "అభ్యర్థనను రూట్ చేసేటప్పుడు ప్రత్యక్ష కోటా పరిమితులను తనిఖీ చేస్తారు."
+    "healthCutoffAtRequest": "అభ్యర్థనను రూట్ చేసేటప్పుడు ప్రత్యక్ష కోటా పరిమితులను తనిఖీ చేస్తారు.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "అనుమతి కోసం వేచి ఉంది",
@@ -11872,7 +11902,8 @@
       "runButton": "రన్ చేయండి",
       "promptPlaceholder": "మీ సందేశాన్ని నమోదు చేయండి… (పంపడానికి Enter, కొత్త లైన్ కోసం Shift+Enter)"
     },
-    "playgroundTabs": "Playground మోడ్లు"
+    "playgroundTabs": "Playground మోడ్లు",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "ఎండ్‌పాయింట్",
@@ -15216,5 +15247,14 @@
     "importButton": "దిగుమతి చేయండి",
     "importFailed": "దిగుమతి విఫలమైంది.",
     "importSuccess": "{connections} ఖాతాలు, {nodes} ప్రొవైడర్ నోడ్‌లు దిగుమతి అయ్యాయి; {skipped} దాటవేయబడ్డాయి."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

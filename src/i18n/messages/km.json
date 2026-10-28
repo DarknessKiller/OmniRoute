@@ -998,7 +998,13 @@
     "batchFileUsedByCount": "ត្រូវបានប្រើដោយ {count, plural, one {# បាច់} other {# បាច់}}",
     "batchFilePreview": "មើលជាមុន",
     "batchFilePreviewTruncated": "កំពុងបង្ហាញ {shown} បន្ទាត់ដំបូង (សរុប {total} បន្ទាត់)",
-    "batchFileDownloadFull": "ទាញយកឯកសារពេញលេញ"
+    "batchFileDownloadFull": "ទាញយកឯកសារពេញលេញ",
+    "dialogTitleFallback": "Dialog",
+    "tokensServerUrlLabel": "Server URL",
+    "tokensPageTitle": "Tokens",
+    "pagination": "Pagination",
+    "clearFilters": "Clear filters",
+    "tokensPageDescription": "Send tokens between API keys, share invite codes and connect community servers."
   },
   "disabled": "បានបិទ",
   "featureFlagOmnirouteEmergencyFallbackDescription": "បញ្ជូនសំណើដែលអស់ថវិកាទៅកាន់ provider/model ជំនួសឥតគិតថ្លៃសម្រាប់គ្រាអាសន្ន។",
@@ -1485,7 +1491,11 @@
       "chatIdPlaceholder": "-100123456789 ឬ @channelname",
       "chatIdHint": "លេខសម្គាល់ជាលេខតែមួយគត់ ឬឈ្មោះអ្នកប្រើប្រាស់សាធារណៈរបស់ការជជែក/ឆានែល។",
       "tutorial": "របៀបកំណត់រចនាសម្ព័ន្ធ Telegram webhook៖"
-    }
+    },
+    "copy": "Copy",
+    "copied": "Copied!",
+    "collapseDetails": "Hide details",
+    "expandDetails": "Show details"
   },
   "compliance": {
     "auditTitle": "សវនកម្ម",
@@ -1597,7 +1607,8 @@
     "mcpMetricCalls24h": "ការហៅ (24 ម៉ោង)",
     "mcpMetricSuccessRate": "អត្រាជោគជ័យ",
     "mcpMetricAvgDuration": "រយៈពេលមធ្យម",
-    "mcpMetricTopTool": "ឧបករណ៍កំពូល"
+    "mcpMetricTopTool": "ឧបករណ៍កំពូល",
+    "dismissError": "Dismiss error"
   },
   "themesPage": {
     "title": "រូបរាង",
@@ -1713,7 +1724,9 @@
     "settingsAdvancedDescription": "ច្បាប់ payload កម្រិតខ្ពស់ ដែនកំណត់សំណើ និងការកំណត់ proxy API",
     "mitmProxyDescription": "កំណត់រចនាសម្ព័ន្ធការកំណត់ MITM proxy សម្រាប់ការត្រួតពិនិត្យចរាចរណ៍ និងការបំបាត់កំហុស",
     "oneProxyDescription": "កំណត់រចនាសម្ព័ន្ធការកំណត់ 1Proxy សម្រាប់ការតភ្ជាប់ proxy ជាខ្សែសង្វាក់កម្រិតខ្ពស់",
-    "omniSkillsDescription": "ដំឡើង និងគ្រប់គ្រងជំនាញ sandbox សម្រាប់ការប្រតិបត្តិ prompt និងឧបករណ៍ដោយស្វ័យប្រវត្តិ"
+    "omniSkillsDescription": "ដំឡើង និងគ្រប់គ្រងជំនាញ sandbox សម្រាប់ការប្រតិបត្តិ prompt និងឧបករណ៍ដោយស្វ័យប្រវត្តិ",
+    "openMenu": "Open menu",
+    "products": "Keak products"
   },
   "cloudSyncStatus": {
     "synced": "បានធ្វើសមកាលកម្ម",
@@ -2499,7 +2512,8 @@
     "preferredConnections": "ការតភ្ជាប់ដែលពេញចិត្ត",
     "preferredConnectionsDesc": "លំដាប់អាទិភាពសម្រាប់សោនីមួយៗ។ ប្រសិនបើការតភ្ជាប់ដែលពេញចិត្តមិនអាចប្រើបាន ការបញ្ជូនបន្តនឹងប្តូរទៅការតភ្ជាប់ដែលមានសិទ្ធិបន្ទាប់។",
     "preferredConnectionsNone": "មិនបានកំណត់ចំណូលចិត្តទេ — យុទ្ធសាស្ត្របញ្ជូនបន្តលំនាំដើមត្រូវបានប្រើ។",
-    "preferredConnectionsClear": "សម្អាត"
+    "preferredConnectionsClear": "សម្អាត",
+    "removeSelection": "Remove {name}"
   },
   "auditLog": {
     "title": "កំណត់ហេតុសវនកម្ម",
@@ -2611,7 +2625,9 @@
     "imageToTextBridgeCta": "កំណត់រចនាសម្ព័ន្ធស្ពានរូបភាព→អត្ថបទ នៅក្នុងការកំណត់ Modality Bridge",
     "sttBridgeCta": "កំណត់រចនាសម្ព័ន្ធស្ពានសំឡេងនិយាយ→អត្ថបទ នៅក្នុងការកំណត់ Modality Bridge",
     "existingConnection": "ការតភ្ជាប់ដែលមានស្រាប់",
-    "openrouterSttDescription": "ម៉ូដែលបម្លែងសំឡេងនិយាយជាអត្ថបទរបស់ OpenRouter ប្រើការតភ្ជាប់ OpenRouter ដែលអ្នកបានកំណត់រចនាសម្ព័ន្ធ។ មិនត្រូវការព័ត៌មានសម្គាល់អត្តសញ្ញាណដាច់ដោយឡែកទេ។"
+    "openrouterSttDescription": "ម៉ូដែលបម្លែងសំឡេងនិយាយជាអត្ថបទរបស់ OpenRouter ប្រើការតភ្ជាប់ OpenRouter ដែលអ្នកបានកំណត់រចនាសម្ព័ន្ធ។ មិនត្រូវការព័ត៌មានសម្គាល់អត្តសញ្ញាណដាច់ដោយឡែកទេ។",
+    "modalityTabsAria": "Media type",
+    "serviceKindsAria": "Service type"
   },
   "search": {
     "searchQuery": "សំណួរស្វែងរក",
@@ -3282,7 +3298,8 @@
     "cliproxyapiUnknown": "មិនស្គាល់",
     "cliproxyapiUpdate": "ធ្វើបច្ចុប្បន្នភាព",
     "cliproxyapiUpdateAvailable": "មានបច្ចុប្បន្នភាព៖ v{current} → v{latest}",
-    "cliproxyapiVersion": "កំណែ"
+    "cliproxyapiVersion": "កំណែ",
+    "removeMapping": "Remove mapping"
   },
   "modelCatalog": {
     "title": "ម៉ូឌែល និង បន្សំ",
@@ -4019,7 +4036,13 @@
     "duplicateAutoComboSnapshotMsg": "វានឹងថតស្ថានភាពបច្ចុប្បន្ននៃអ្នកផ្តល់សេវា/ម៉ូដែលដែលបានតភ្ជាប់ និងត្រូវគ្នានឹងគំរូនេះ ទៅជាបន្សំដែលអាចកែសម្រួលបាន។",
     "duplicateAutoComboFailedPrefix": "មិនអាចចម្លងបន្សំស្វ័យប្រវត្តិបានទេ៖",
     "duplicateAutoComboUnknownError": "កំហុសដែលមិនស្គាល់",
-    "duplicateAutoComboTitle": "បង្កើតបន្សំថេរពី {name}"
+    "duplicateAutoComboTitle": "បង្កើតបន្សំថេរពី {name}",
+    "weightPercent": "Weight (%)",
+    "responseValidationPath": "JSON path",
+    "responseValidationCondition": "Condition",
+    "responseValidationRemoveCheck": "Remove check",
+    "clearSearch": "Clear search",
+    "responseValidationValue": "Expected value"
   },
   "costs": {
     "title": "ការចំណាយ",
@@ -5293,7 +5316,8 @@
         "skipped": "បានកំណត់រចនាសម្ព័ន្ធរួចហើយ",
         "failed": "បានបរាជ័យ"
       }
-    }
+    },
+    "stepProgress": "Setup progress"
   },
   "providers": {
     "tosAvoidNoticeTitle": "អ្នកផ្តល់សេវានេះត្រូវបានដកចេញពី auto តាមលំនាំដើម",
@@ -8960,7 +8984,8 @@
       "statsEmpty": "មិនទាន់មានការរកឃើញទេ។",
       "statsRequest": "សំណើ"
     },
-    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection."
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "modelOverrideKey": "Override key"
   },
   "contextRtk": {
     "title": "ម៉ាស៊ីន RTK",
@@ -9044,7 +9069,8 @@
     "tomlTestPassed": "បានជោគជ័យ",
     "tomlTestFailed": "បានបរាជ័យ",
     "tomlImportError": "មិនអាចដំណើរការឯកសារ RTK TOML បានទេ។",
-    "tomlFileReadError": "មិនអាចអានឯកសារ TOML ដែលបានជ្រើសរើសទេ។"
+    "tomlFileReadError": "មិនអាចអានឯកសារ TOML ដែលបានជ្រើសរើសទេ។",
+    "viewMode": "View mode"
   },
   "compressionEngineConfig": {
     "loading": "កំពុងផ្ទុក…",
@@ -9266,7 +9292,8 @@
     "languagePacksList": "កញ្ចប់ភាសា៖ {packs}",
     "dragToReorder": "អូសដើម្បីរៀបលំដាប់ជំហានឡើងវិញ",
     "engine": "ម៉ាស៊ីន",
-    "intensity": "កម្រិត"
+    "intensity": "កម្រិត",
+    "compressionOverride": "Compression override"
   },
   "compressionStudio": {
     "noRun": "មិនមានការដំណើរការបង្ហាប់ទេ។",
@@ -9326,7 +9353,8 @@
     "encoderWinner": "អ្នកឈ្នះ៖ {winner}",
     "encoder": "អ៊ិនកូឌ័រ",
     "bytes": "បៃ",
-    "tokensCl100k": "តូខឹន (cl100k)"
+    "tokensCl100k": "តូខឹន (cl100k)",
+    "studioViews": "Studio views"
   },
   "omniglyph": {
     "preview": "មើលជាមុន",
@@ -9532,7 +9560,9 @@
     "tooltipMinLength": "សារដែលខ្លីជាងនេះមិនត្រូវបានបង្ហាប់ទេ។ ទាបជាង = បង្ហាប់ច្រើនជាង។",
     "tooltipMinSavings": "បង្ហាប់តែក្នុងករណីដែលវាសន្សំបានយ៉ាងហោចណាស់ចំនួនថូខឹននេះ។",
     "ultraSettings": "ការកំណត់ Ultra",
-    "ultraSettingsDesc": "ការបង្ហាប់តាមអត្ថន័យដែលដំណើរការដោយ SLM"
+    "ultraSettingsDesc": "ការបង្ហាប់តាមអត្ថន័យដែលដំណើរការដោយ SLM",
+    "viewMode": "View mode",
+    "defaultLanguage": "Default language"
   },
   "translator": {
     "title": "កម្មវិធីបកប្រែ",
@@ -10356,7 +10386,10 @@
     "healthCdw": "ប្រចាំសប្ដាហ៍ · រយៈពេលរង់ចាំ",
     "healthRecentSuccessBypass": "ការបញ្ជូនអនុញ្ញាតឱ្យប្រើគណនីនេះ ព្រោះមានសំណើជោគជ័យថ្មីៗនេះ។",
     "healthPurchasedBalanceBypass": "សមតុល្យដែលបានទិញអនុញ្ញាតឱ្យបន្តប្រើ បន្ទាប់ពីអស់កូតាដែលបានរួមបញ្ចូល។",
-    "healthCutoffAtRequest": "កម្រិតកូតាបច្ចុប្បន្នត្រូវបានពិនិត្យនៅពេលបញ្ជូនសំណើ។"
+    "healthCutoffAtRequest": "កម្រិតកូតាបច្ចុប្បន្នត្រូវបានពិនិត្យនៅពេលបញ្ជូនសំណើ។",
+    "statHealthy": "Healthy",
+    "statAlert": "Alert",
+    "statCritical": "Critical"
   },
   "modals": {
     "waitingAuth": "កំពុងរង់ចាំការផ្តល់សិទ្ធិ",
@@ -11143,7 +11176,8 @@
       "message": "សារ",
       "error": "កំហុស",
       "completion": "ការបញ្ចប់"
-    }
+    },
+    "statusFilter": "Status"
   },
   "templateNames": {
     "simple-chat": "ការជជែកសាមញ្ញ",
@@ -11324,7 +11358,8 @@
     "minutesAgo": "{minutes} នាទីមុន",
     "hoursAgo": "{hours} ម៉ោងមុន",
     "daysAgo": "{days} ថ្ងៃមុន",
-    "entries": "ធាតុ"
+    "entries": "ធាតុ",
+    "viewSwitcherAria": "Cache view"
   },
   "proxyConfigModal": {
     "levelGlobal": "សកល",
@@ -11669,7 +11704,8 @@
     "notMeasured": "មិនបានវាស់",
     "upstream4xx": "កំហុសអតិថិជន {count}",
     "upstream5xx": "កំហុសម៉ាស៊ីនមេ {count}",
-    "uniformEgressLine": "{affected} ក្នុងចំណោម {exits} ច្រកចេញបានបរាជ័យជាមួយគ្នានៅលើ {provider} (ក្នុង {hours}ម៉ោងចុងក្រោយ) — មិនមែនជាបញ្ហាច្រកចេញទេ"
+    "uniformEgressLine": "{affected} ក្នុងចំណោម {exits} ច្រកចេញបានបរាជ័យជាមួយគ្នានៅលើ {provider} (ក្នុង {hours}ម៉ោងចុងក្រោយ) — មិនមែនជាបញ្ហាច្រកចេញទេ",
+    "moreActions": "More actions"
   },
   "playground": {
     "title": "កន្លែងសាកល្បងម៉ូដែល",
@@ -11875,7 +11911,8 @@
       "nextButton": "បន្ទាប់",
       "runButton": "ដំណើរការ",
       "promptPlaceholder": "បញ្ចូលសាររបស់អ្នក… (Enter ដើម្បីផ្ញើ, Shift+Enter សម្រាប់បន្ទាត់ថ្មី)"
-    }
+    },
+    "playgroundTabs": "Playground modes"
   },
   "miniPlayground": {
     "endpoint": "ចំណុចបញ្ចប់",
@@ -11946,7 +11983,8 @@
     "assistant": "ជំនួយការ",
     "errorLabel": "កំហុស",
     "requestFailed": "សំណើបានបរាជ័យ",
-    "stop": "បញ្ឈប់"
+    "stop": "បញ្ឈប់",
+    "messageInputAria": "Message"
   },
   "requestLogger": {
     "recording": "កំពុងកត់ត្រា",
@@ -12133,8 +12171,18 @@
       "resilienceRotations": "ការបង្វិលគណនី {count} ដង",
       "resilienceRetried": "បានព្យាយាមវេនទទេម្តងទៀត",
       "resilienceContinued": "បានបន្តនៅកណ្តាលស្ទ្រីម",
-      "resilienceRecovered": "បានស្ដារឡើងវិញដោយសកម្មភាពធន់"
-    }
+      "resilienceRecovered": "បានស្ដារឡើងវិញដោយសកម្មភាពធន់",
+      "openConversation": "Open conversation {id}",
+      "goToBottom": "Go to bottom",
+      "liveRefresh": "Live refresh",
+      "conversationContext": "Conversation Context",
+      "viewConversation": "view conversation",
+      "continuesFromParent": "continues from parent",
+      "continuesFrom": "Continues from {id}",
+      "liveRefreshOn": "Live refresh: on",
+      "liveRefreshOff": "Live refresh: off"
+    },
+    "tableLabel": "Request logs"
   },
   "proxyLogger": {
     "filterAll": "ទាំងអស់",
@@ -12179,7 +12227,9 @@
     "colServedBy": "បានផ្តល់ដោយ",
     "filterTraffic": "ចរាចរណ៍",
     "filterTests": "ការសាកល្បង",
-    "filterSource": "ប្រភព"
+    "filterSource": "ប្រភព",
+    "sortLogs": "Sort logs",
+    "tableLabel": "Proxy logs"
   },
   "endpointOptions": {
     "speech": "សំឡេងនិយាយ",
@@ -12264,7 +12314,8 @@
     "statusExhausted": "បានប្រើអស់",
     "statusAlerting": "កំពុងជូនដំណឹង",
     "statusError": "កំហុស",
-    "moreSuffix": "+{count} ទៀត"
+    "moreSuffix": "+{count} ទៀត",
+    "feedFilterLabel": "Filter events"
   },
   "quotaShare": {
     "weightPercent": "ទម្ងន់ %",
@@ -12431,7 +12482,10 @@
     "ungroupedTitle": "មិនបានដាក់ជាក្រុម",
     "ungroupedHint": "ពូលទាំងនេះមិនត្រូវបានចាត់តាំងទៅក្រុមដែលមានស្រាប់ណាមួយទេ។ កែសម្រួលពូលមួយ ដើម្បីផ្លាស់ទីវាទៅក្រុមដែលមានស្រាប់។",
     "removeFailed": "មិនអាចដកពូលនេះចេញបានទេ។",
-    "dismiss": "បិទ"
+    "dismiss": "បិទ",
+    "wizardRemoveDimension": "Remove dimension",
+    "wizardRemoveKey": "Remove key",
+    "allocationsHeading": "Allocations"
   },
   "plugins": {
     "title": "កម្មវិធីជំនួយ",
@@ -12589,7 +12643,8 @@
       "settingsUpdateFailed": "ការធ្វើបច្ចុប្បន្នភាពការកំណត់បានបរាជ័យ",
       "serviceRevealApiKey": "{actor} បានបង្ហាញ API key សម្រាប់ {target}",
       "genericEvent": "{actor} {target}"
-    }
+    },
+    "dismissError": "Dismiss error"
   },
   "agentBridge": {
     "title": "AgentBridge",
@@ -12722,7 +12777,21 @@
       "goNow": "ទៅឥឡូវនេះ",
       "message": "ឥឡូវនេះ MITM Proxy ស្ថិតនៅក្រោម AgentBridge។",
       "title": "ទំព័រនេះត្រូវបានផ្លាស់ទី"
-    }
+    },
+    "dnsOff": "DNS off",
+    "upstreamCaTesting": "Testing…",
+    "wizardAddModels": "Add {count, plural, one {# model} other {# models}}",
+    "removeMapping": "Remove mapping",
+    "dnsOn": "DNS on",
+    "wizardNoModelsHint": "Or close this wizard and add mappings manually in the agent card.",
+    "hideServerSettings": "Hide server settings",
+    "wizardSelectedModels": "{count, plural, one {# model} other {# models}} selected. You'll map them to OmniRoute models in the next screen.",
+    "showServerSettings": "Show server settings",
+    "mappingSourcePlaceholder": "e.g., gemini-3.6-flash-medium, or * for all unmapped",
+    "wizardDetectingModels": "Detecting models from intercepted traffic...",
+    "mappingWildcardHint": "Use * as the source to route every model without an explicit mapping through OmniRoute to the selected target. Exact source matches always win over *.",
+    "wizardNoModelsDetected": "No models detected yet. Use {agent} to make a request, then run this wizard again to auto-detect models from traffic.",
+    "wizardDetectedModels": "Found {count, plural, one {# model} other {# models}} in intercepted traffic. Select the ones you want to add:"
   },
   "providerStats": {
     "unknownError": "កំហុសមិនស្គាល់",
@@ -12752,7 +12821,11 @@
     "avgTtft": "TTFT មធ្យម",
     "avgTotal": "សរុបមធ្យម",
     "requestTelemetry": "ទិន្នន័យតាមដានសំណើ",
-    "requestTelemetryDescription": "ការបែងចែកលំហូរដំណើរការ 7 ដំណាក់កាល (5 នាទីចុងក្រោយ)"
+    "requestTelemetryDescription": "ការបែងចែកលំហូរដំណើរការ 7 ដំណាក់កាល (5 នាទីចុងក្រោយ)",
+    "description": "Per-provider and per-model traffic, latency and success rates",
+    "title": "Provider stats",
+    "toggleModels": "Show models for {provider}",
+    "combo": "Combo"
   },
   "relay": {
     "title": "ប្រូកស៊ី Relay បែប Serverless",
@@ -12913,7 +12986,18 @@
     "noRequestBody": "គ្មានតួសំណើ។",
     "noResponseBody": "គ្មានតួការឆ្លើយតប។",
     "formatted": "បានរៀបចំទ្រង់ទ្រាយ",
-    "raw": "ដើម"
+    "raw": "ដើម",
+    "expandList": "Expand list",
+    "maskSecrets": "Mask secrets",
+    "llmStreamNo": "no",
+    "llmNotAvailable": "LLM metadata not available for this request.",
+    "llmStreamYes": "yes (SSE)",
+    "snippetLanguage": "Snippet language",
+    "showSecrets": "Show secrets",
+    "llmTotalTokens": "Total: {count} tokens",
+    "collapseList": "Collapse list",
+    "headersTable": "Headers",
+    "requestCount": "{count, plural, one {# request} other {# requests}}"
   },
   "cliCommon": {
     "companion": {
@@ -13372,7 +13456,8 @@
     "colReliabilityHelp": "សមាមាត្រនៃការហៅដែលអ្នកផ្តល់សេវានេះបានឆ្លើយតបជាក់ស្តែងក្នុងរយៈពេល 24 ម៉ោងចុងក្រោយ។ សញ្ញាដកមានន័យថា វាបានបម្រើចរាចរណ៍តិចពេក ដើម្បីកំណត់អត្រា។",
     "reliabilitySample": "ការហៅ {successes} ក្នុងចំណោម {requests} បានជោគជ័យក្នុងរយៈពេល {hours}h ចុងក្រោយ",
     "reliabilityTooFew": "មានការហៅតែ {requests} ប៉ុណ្ណោះក្នុងរយៈពេល {hours}h ចុងក្រោយ — តិចពេកដើម្បីកំណត់អត្រា",
-    "reliabilityNoTraffic": "មិនមានការហៅដែលបានកត់ត្រាក្នុងរយៈពេល 24h ចុងក្រោយទេ"
+    "reliabilityNoTraffic": "មិនមានការហៅដែលបានកត់ត្រាក្នុងរយៈពេល 24h ចុងក្រោយទេ",
+    "categoryFilter": "Task category"
   },
   "discovery": {
     "title": "ការស្វែងរកអ្នកផ្តល់សេវា",
@@ -13397,7 +13482,11 @@
     "method": "វិធីសាស្ត្រ",
     "auth": "ការផ្ទៀងផ្ទាត់អត្តសញ្ញាណ",
     "feasibility": "លទ្ធភាពអនុវត្ត",
-    "models": "ម៉ូដែល"
+    "models": "ម៉ូដែល",
+    "actions": "Actions",
+    "status": "Status",
+    "endpoint": "Endpoint",
+    "provider": "Provider"
   },
   "noAuthProvider": {
     "title": "មិនតម្រូវឱ្យផ្ទៀងផ្ទាត់អត្តសញ្ញាណ",
@@ -13446,7 +13535,8 @@
     "ownProxy": "ប្រូកស៊ីផ្ទាល់ខ្លួន",
     "freeTierPause": "ម៉ូឌែល {model} បានផ្អាក (429) នឹងត្រឡប់មកវិញនៅ {time}",
     "freeTierPauseProvider": "បានផ្អាក (429) នឹងត្រឡប់មកវិញនៅ {time}",
-    "freeTierPauseNote": "ការផ្អាកក្នុងដំណើរការនៅក្នុងវត្ថុនេះ"
+    "freeTierPauseNote": "ការផ្អាកក្នុងដំណើរការនៅក្នុងវត្ថុនេះ",
+    "proxyType": "Proxy type"
   },
   "gamification": {
     "leaderboardScopes": {
@@ -13619,7 +13709,10 @@
         "description": "សមិទ្ធផលលាក់កំបាំងមួយកំពុងរង់ចាំ...",
         "criteria": "បំពេញសមិទ្ធផលលាក់កំបាំង ដើម្បីបង្ហាញផ្លាកសញ្ញានេះ។"
       }
-    }
+    },
+    "leaderboardTitle": "Leaderboard",
+    "leaderboardDescription": "Rankings and achievements across your API keys",
+    "badgeLocked": "Locked"
   },
   "featureFlags": {
     "title": "ទង់មុខងារ",
@@ -13914,7 +14007,8 @@
     "unknown": "មិនស្គាល់",
     "unknownProvider": "អ្នកផ្តល់សេវាមិនស្គាល់",
     "unknownModel": "ម៉ូដែលមិនស្គាល់",
-    "resolvedTargetMetrics": "សំណើ {requests} · ជោគជ័យ {success} · {latency} · កូតា {quota}"
+    "resolvedTargetMetrics": "សំណើ {requests} · ជោគជ័យ {success} · {latency} · កូតា {quota}",
+    "timeRange": "Time range"
   },
   "usageLimits": {
     "usdUsageQuota": "កូតាការប្រើប្រាស់ជា USD",
@@ -14061,7 +14155,11 @@
     "learnMore": "ស្វែងយល់បន្ថែម",
     "changelogLoadFailed": "មិនអាចផ្ទុកកំណត់ហេតុការផ្លាស់ប្តូរបានទេ។ សូមព្យាយាមម្តងទៀតនៅពេលក្រោយ។",
     "retry": "ព្យាយាមម្តងទៀត",
-    "viewFullHistory": "មើលប្រវត្តិពេញលេញនៅលើ GitHub"
+    "viewFullHistory": "មើលប្រវត្តិពេញលេញនៅលើ GitHub",
+    "loadingNews": "Loading announcements...",
+    "viewLabel": "View",
+    "description": "Announcements from the OmniRoute team and the latest release notes",
+    "title": "News & changelog"
   },
   "reasoningRouting": {
     "editor": {
@@ -14612,7 +14710,9 @@
       "circuitBreakerState": "ស្ថានភាព Circuit Breaker របស់អ្នកផ្តល់សេវា",
       "lastUpdate": "ការធ្វើបច្ចុប្បន្នភាពចុងក្រោយ៖ {timestamp}",
       "uptimeMinutes": "{minutes} នាទី",
-      "uptimeHoursMinutes": "{hours} ម៉ោង {minutes} នាទី"
+      "uptimeHoursMinutes": "{hours} ម៉ោង {minutes} នាទី",
+      "breakerNotClosed": "Open or half-open",
+      "breakerClosed": "Closed"
     },
     "statusPages": {
       "400": {
@@ -14687,6 +14787,9 @@
         "primaryAction": "ព័ត៌មានលម្អិតអំពីការថែទាំ",
         "secondaryAction": "ស្ថានភាពប្រព័ន្ធ"
       }
+    },
+    "miniapp": {
+      "askAnything": "Ask anything…"
     }
   },
   "kiroAuthModal": {
@@ -14877,7 +14980,20 @@
     "mcp": "MCP",
     "mcpTool": "MCP tool",
     "scope": "Scope",
-    "apiKey": "API key"
+    "apiKey": "API key",
+    "visibleCount": "{visible} visible / {total} total",
+    "zoomOut": "Zoom out",
+    "autoRefreshUnit": "s",
+    "modeLabel": "View mode",
+    "zoomIn": "Zoom in",
+    "jumpToNow": "Jump to current time, NOW line resets to position {position}%",
+    "laneReuse": "Lane reuse",
+    "laneReuseUnit": "min",
+    "laneReuseHint": "Requests sharing a conversation id stay on the same timeline row as long as the gap between them is under this many minutes.",
+    "autoRefreshLabel": "Auto-refresh interval (seconds)",
+    "autoRefresh": "Auto-refresh",
+    "autoRefreshHint": "How often the timeline re-fetches the request list from the server.",
+    "laneReuseLabel": "Lane reuse window (minutes)"
   },
   "metadata": {
     "compressionTitle": "ការបង្ហាប់",

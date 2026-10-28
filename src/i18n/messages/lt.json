@@ -1345,7 +1345,20 @@
       "open": "atidaryti",
       "close": "uždaryti"
     },
-    "noResults": "Rezultatų nerasta"
+    "noResults": "Rezultatų nerasta",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Webhookai",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "Išplėstinės naudingosios apkrovos taisyklės, užklausų limitai ir tarpinio serverio API nustatymai",
     "mitmProxyDescription": "Konfigūruoti MITM tarpinio serverio nustatymus srauto tikrinimui ir derinimui",
     "oneProxyDescription": "Konfigūruoti 1Proxy nustatymus išplėstiniam tarpinių serverių grandinės sudarymui",
-    "omniSkillsDescription": "Įdiegti ir tvarkyti smėlio dėžės įgūdžius automatizuotam užklausų ir įrankių vykdymui"
+    "omniSkillsDescription": "Įdiegti ir tvarkyti smėlio dėžės įgūdžius automatizuotam užklausų ir įrankių vykdymui",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "Sinchronizuota",
@@ -8949,7 +8964,19 @@
       "statsTitle": "Aptikimai nuo paleidimo iš naujo",
       "statsEmpty": "Aptikimų dar nėra.",
       "statsRequest": "Užklausos"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "RTK variklis",
@@ -10350,7 +10377,10 @@
     "healthCdw": "Kas savaitę · Laukimo laikotarpis",
     "healthRecentSuccessBypass": "Maršruto parinkimas leidžia šią paskyrą, nes užklausa neseniai buvo sėkminga.",
     "healthPurchasedBalanceBypass": "Įsigytas likutis leidžia tęsti naudojimą išnaudojus įtrauktą kvotą.",
-    "healthCutoffAtRequest": "Realaus laiko kvotos slenksčiai tikrinami parenkant užklausos maršrutą."
+    "healthCutoffAtRequest": "Realaus laiko kvotos slenksčiai tikrinami parenkant užklausos maršrutą.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "Laukiama autorizacijos",
@@ -11872,7 +11902,8 @@
       "runButton": "Paleisti",
       "promptPlaceholder": "Įveskite žinutę… („Enter“ – siųsti, „Shift+Enter“ – nauja eilutė)"
     },
-    "playgroundTabs": "Bandymų aplinkos režimai"
+    "playgroundTabs": "Bandymų aplinkos režimai",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "Galinis taškas",
@@ -15216,5 +15247,14 @@
     "importButton": "Importuoti",
     "importFailed": "Importuoti nepavyko.",
     "importSuccess": "Importuota paskyrų: {connections}, teikėjų mazgų: {nodes}; praleista: {skipped}."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

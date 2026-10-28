@@ -1345,7 +1345,20 @@
       "open": "odpri",
       "close": "zapri"
     },
-    "noResults": "Ni rezultatov"
+    "noResults": "Ni rezultatov",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Spletni kavlji",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "Napredna pravila za koristno vsebino, omejitve zahtev in nastavitve posredniškega API-ja",
     "mitmProxyDescription": "Konfigurirajte nastavitve posredniškega strežnika MITM za pregledovanje prometa in odpravljanje napak",
     "oneProxyDescription": "Konfigurirajte nastavitve 1Proxy za napredno veriženje posredniških strežnikov",
-    "omniSkillsDescription": "Namestite in upravljajte veščine peskovnika za avtomatizirano izvajanje pozivov in orodij"
+    "omniSkillsDescription": "Namestite in upravljajte veščine peskovnika za avtomatizirano izvajanje pozivov in orodij",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "Sinhronizirano",
@@ -8949,7 +8964,19 @@
       "statsTitle": "Zaznave od ponovnega zagona",
       "statsEmpty": "Še ni zaznav.",
       "statsRequest": "Zahteve"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "Pogon RTK",
@@ -10350,7 +10377,10 @@
     "healthCdw": "Tedensko · Čakalna doba",
     "healthRecentSuccessBypass": "Usmerjanje dovoli ta račun, ker je bila nedavna zahteva uspešna.",
     "healthPurchasedBalanceBypass": "Kupljeno dobroimetje omogoča uporabo po izčrpanju vključene kvote.",
-    "healthCutoffAtRequest": "Pragovi kvote v realnem času se preverijo ob usmerjanju zahteve."
+    "healthCutoffAtRequest": "Pragovi kvote v realnem času se preverijo ob usmerjanju zahteve.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "Čakanje na avtorizacijo",
@@ -11872,7 +11902,8 @@
       "runButton": "Zaženi",
       "promptPlaceholder": "Vnesite sporočilo … (Enter za pošiljanje, Shift+Enter za novo vrstico)"
     },
-    "playgroundTabs": "Načini Playgrounda"
+    "playgroundTabs": "Načini Playgrounda",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "Končna točka",
@@ -15216,5 +15247,14 @@
     "importButton": "Uvozi",
     "importFailed": "Uvoz ni uspel.",
     "importSuccess": "Uvoženih {connections} računov in {nodes} vozlišč ponudnikov; preskočenih {skipped}."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

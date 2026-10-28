@@ -1345,7 +1345,20 @@
       "open": "打開",
       "close": "關閉"
     },
-    "noResults": "沒有結果"
+    "noResults": "沒有結果",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Webhook",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "高階負載規則、請求限制和代理 API 設定",
     "mitmProxyDescription": "設定 MITM 代理設定以進行流量檢查和除錯",
     "oneProxyDescription": "設定 1Proxy 設定以實現高階代理鏈",
-    "omniSkillsDescription": "安裝和管理用於自動提示和工具執行的沙箱技能"
+    "omniSkillsDescription": "安裝和管理用於自動提示和工具執行的沙箱技能",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "已同步",
@@ -8949,7 +8964,19 @@
       "statsTitle": "自重新啟動以來的偵測",
       "statsEmpty": "尚無偵測。",
       "statsRequest": "請求"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "RTK 引擎",
@@ -10350,7 +10377,10 @@
     "healthCdw": "週冷卻",
     "healthRecentSuccessBypass": "此帳號剛有請求成功，路由暫時放行。",
     "healthPurchasedBalanceBypass": "方案內額度用盡後，仍可使用已購餘額。",
-    "healthCutoffAtRequest": "即時額度門檻會在路由請求時檢查。"
+    "healthCutoffAtRequest": "即時額度門檻會在路由請求時檢查。",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "等待授權",
@@ -11872,7 +11902,8 @@
       "runButton": "執行",
       "promptPlaceholder": "輸入您的訊息…（按 Enter 傳送，Shift+Enter 換行）"
     },
-    "playgroundTabs": "Playground 模式"
+    "playgroundTabs": "Playground 模式",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "端點",
@@ -15216,5 +15247,14 @@
     "importButton": "匯入",
     "importFailed": "匯入失敗。",
     "importSuccess": "已匯入 {connections} 個帳號與 {nodes} 個提供者節點;略過 {skipped} 個。"
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

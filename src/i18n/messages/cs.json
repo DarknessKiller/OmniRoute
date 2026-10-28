@@ -1345,7 +1345,20 @@
       "open": "otevřít",
       "close": "zavřít"
     },
-    "noResults": "Žádné výsledky"
+    "noResults": "Žádné výsledky",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Webhooky",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "Pokročilá pravidla datové části, limity požadavků a nastavení proxy API",
     "mitmProxyDescription": "Konfigurace nastavení MITM proxy pro kontrolu provozu a ladění",
     "oneProxyDescription": "Konfigurace nastavení 1Proxy pro pokročilé řetězení proxy serverů",
-    "omniSkillsDescription": "Instalujte a spravujte dovednosti sandboxu pro automatizované spouštění promptů a nástrojů"
+    "omniSkillsDescription": "Instalujte a spravujte dovednosti sandboxu pro automatizované spouštění promptů a nástrojů",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "Synchronizováno",
@@ -8949,7 +8964,19 @@
       "statsTitle": "Detekce od restartu",
       "statsEmpty": "Zatím žádné detekce.",
       "statsRequest": "Požadavky"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "Modul RTK",
@@ -10350,7 +10377,10 @@
     "healthCdw": "Týdně · Doba čekání",
     "healthRecentSuccessBypass": "Směrování povoluje tento účet, protože nedávný požadavek uspěl.",
     "healthPurchasedBalanceBypass": "Zakoupený zůstatek umožňuje pokračovat po vyčerpání zahrnuté kvóty.",
-    "healthCutoffAtRequest": "Aktuální prahové hodnoty kvóty se kontrolují při směrování požadavku."
+    "healthCutoffAtRequest": "Aktuální prahové hodnoty kvóty se kontrolují při směrování požadavku.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "Očekávám Autorizaci",
@@ -11872,7 +11902,8 @@
       "runButton": "Spustit",
       "promptPlaceholder": "Napište zprávu… (Enter pro odeslání, Shift+Enter pro nový řádek)"
     },
-    "playgroundTabs": "Režimy Playgroundu"
+    "playgroundTabs": "Režimy Playgroundu",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "Koncový bod",
@@ -15216,5 +15247,14 @@
     "importButton": "Importovat",
     "importFailed": "Import se nezdařil.",
     "importSuccess": "Importováno {connections} účtů a {nodes} uzlů poskytovatelů; přeskočeno {skipped}."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

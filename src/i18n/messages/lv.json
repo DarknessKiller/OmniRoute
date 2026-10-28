@@ -1345,7 +1345,20 @@
       "open": "atvērt",
       "close": "aizvērt"
     },
-    "noResults": "Nav rezultātu"
+    "noResults": "Nav rezultātu",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Tīmekļa aizķeres",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "Papildu lietderīgās slodzes noteikumi, pieprasījumu ierobežojumi un proxy API iestatījumi",
     "mitmProxyDescription": "Konfigurēt MITM proxy iestatījumus datplūsmas pārbaudei un atkļūdošanai",
     "oneProxyDescription": "Konfigurēt 1Proxy iestatījumus uzlabotai proxy ķēdēšanai",
-    "omniSkillsDescription": "Instalēt un pārvaldīt smilškastes prasmes automatizētai uzvedņu un rīku izpildei"
+    "omniSkillsDescription": "Instalēt un pārvaldīt smilškastes prasmes automatizētai uzvedņu un rīku izpildei",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "Sinhronizēts",
@@ -8949,7 +8964,19 @@
       "statsTitle": "Atklājumi kopš restartēšanas",
       "statsEmpty": "Atklājumu vēl nav.",
       "statsRequest": "Pieprasījumi"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "RTK dzinējs",
@@ -10350,7 +10377,10 @@
     "healthCdw": "Iknedēļas · Nogaidīšanas periods",
     "healthRecentSuccessBypass": "Maršrutēšana atļauj šo kontu, jo nesen pieprasījums bija veiksmīgs.",
     "healthPurchasedBalanceBypass": "Iegādātais atlikums ļauj turpināt pēc iekļautās kvotas izsmelšanas.",
-    "healthCutoffAtRequest": "Reāllaika kvotas sliekšņi tiek pārbaudīti, maršrutējot pieprasījumu."
+    "healthCutoffAtRequest": "Reāllaika kvotas sliekšņi tiek pārbaudīti, maršrutējot pieprasījumu.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "Tiek gaidīta autorizācija",
@@ -11872,7 +11902,8 @@
       "runButton": "Palaist",
       "promptPlaceholder": "Ievadiet savu ziņu… (Enter, lai nosūtītu, Shift+Enter jaunai rindai)"
     },
-    "playgroundTabs": "Playground režīmi"
+    "playgroundTabs": "Playground režīmi",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "Galapunkts",
@@ -15216,5 +15247,14 @@
     "importButton": "Importēt",
     "importFailed": "Importēšana neizdevās.",
     "importSuccess": "Importēti {connections} konti un {nodes} pakalpojumu sniedzēju mezgli; izlaisti {skipped}."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

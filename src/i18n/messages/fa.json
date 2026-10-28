@@ -1345,7 +1345,20 @@
       "open": "باز کردن",
       "close": "بستن"
     },
-    "noResults": "هیچ نتیجه‌ای یافت نشد"
+    "noResults": "هیچ نتیجه‌ای یافت نشد",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "وب هوک ها",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "قواعد پیشرفته بار داده، محدودیتهای درخواست و تنظیمات API پروکسی",
     "mitmProxyDescription": "تنظیمات پروکسی MITM را برای بازرسی ترافیک و اشکالزدایی پیکربندی کنید",
     "oneProxyDescription": "تنظیمات 1Proxy را برای زنجیرهسازی پیشرفته پروکسی پیکربندی کنید",
-    "omniSkillsDescription": "نصب و مدیریت مهارت‌های sandbox برای اجرای خودکار پرامپت و ابزار"
+    "omniSkillsDescription": "نصب و مدیریت مهارت‌های sandbox برای اجرای خودکار پرامپت و ابزار",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "همگام‌سازی شد",
@@ -8949,7 +8964,19 @@
       "statsTitle": "شناسایی‌ها از زمان راه‌اندازی مجدد",
       "statsEmpty": "هنوز موردی شناسایی نشده است.",
       "statsRequest": "درخواست‌ها"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "موتور RTK",
@@ -10350,7 +10377,10 @@
     "healthCdw": "هفتگی · زمان انتظار",
     "healthRecentSuccessBypass": "مسیریابی این حساب را مجاز می‌داند چون درخواستی اخیراً موفق بوده است.",
     "healthPurchasedBalanceBypass": "پس از اتمام سهمیهٔ موجود، می‌توان از موجودی خریداری‌شده استفاده کرد.",
-    "healthCutoffAtRequest": "آستانه‌های سهمیهٔ زنده هنگام مسیریابی درخواست بررسی می‌شوند."
+    "healthCutoffAtRequest": "آستانه‌های سهمیهٔ زنده هنگام مسیریابی درخواست بررسی می‌شوند.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "در انتظار تأیید مجوز",
@@ -11872,7 +11902,8 @@
       "runButton": "اجرا",
       "promptPlaceholder": "پیام خود را وارد کنید… (Enter برای ارسال، Shift+Enter برای خط جدید)"
     },
-    "playgroundTabs": "حالتهای Playground"
+    "playgroundTabs": "حالتهای Playground",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "نقطه پایانی",
@@ -15216,5 +15247,14 @@
     "importButton": "ورود",
     "importFailed": "وارد کردن ناموفق بود.",
     "importSuccess": "{connections} حساب و {nodes} گره ارائه‌دهنده وارد شد؛ {skipped} رد شد."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

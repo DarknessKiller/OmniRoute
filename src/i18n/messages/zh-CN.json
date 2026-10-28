@@ -1345,7 +1345,20 @@
       "open": "打开",
       "close": "关闭"
     },
-    "noResults": "没有结果"
+    "noResults": "没有结果",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Webhook",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "高级负载规则、请求限制和代理 API 设置",
     "mitmProxyDescription": "配置 MITM 代理设置以进行流量检查和调试",
     "oneProxyDescription": "配置 1Proxy 设置以实现高级代理链",
-    "omniSkillsDescription": "安装和管理用于自动提示和工具执行的沙箱技能"
+    "omniSkillsDescription": "安装和管理用于自动提示和工具执行的沙箱技能",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "已同步",
@@ -8949,7 +8964,19 @@
       "statsTitle": "自重启以来的检测",
       "statsEmpty": "暂无检测。",
       "statsRequest": "请求"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "命令输出过滤引擎",
@@ -10350,7 +10377,10 @@
     "healthCdw": "周冷却",
     "healthRecentSuccessBypass": "此账号刚有请求成功，路由暂时放行。",
     "healthPurchasedBalanceBypass": "套餐内额度耗尽后，仍可使用已购余额。",
-    "healthCutoffAtRequest": "实时额度阈值在路由请求时检查。"
+    "healthCutoffAtRequest": "实时额度阈值在路由请求时检查。",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "等待授权",
@@ -11872,7 +11902,8 @@
       "runButton": "运行",
       "promptPlaceholder": "输入您的消息…（按 Enter 发送，Shift+Enter 换行）"
     },
-    "playgroundTabs": "Playground 模式"
+    "playgroundTabs": "Playground 模式",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "端点",
@@ -15216,5 +15247,14 @@
     "importButton": "导入",
     "importFailed": "导入失败。",
     "importSuccess": "已导入 {connections} 个账号和 {nodes} 个提供者节点;跳过 {skipped} 个。"
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

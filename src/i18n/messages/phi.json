@@ -1345,7 +1345,20 @@
       "open": "buksan",
       "close": "isara"
     },
-    "noResults": "Walang resulta"
+    "noResults": "Walang resulta",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Mga Webhook",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "Mga advanced na panuntunan sa payload, limitasyon sa request, at mga setting ng proxy API",
     "mitmProxyDescription": "I-configure ang mga setting ng MITM proxy para sa inspeksyon at pag-debug ng traffic",
     "oneProxyDescription": "I-configure ang mga setting ng 1Proxy para sa advanced na proxy chaining",
-    "omniSkillsDescription": "Mag-install at mamahala ng mga sandbox skill para sa awtomatikong prompt at pagpapagana ng tool"
+    "omniSkillsDescription": "Mag-install at mamahala ng mga sandbox skill para sa awtomatikong prompt at pagpapagana ng tool",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "Na-sync",
@@ -8949,7 +8964,19 @@
       "statsTitle": "Mga natukoy mula nang mag-restart",
       "statsEmpty": "Wala pang natukoy.",
       "statsRequest": "Mga request"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "Engine ng RTK",
@@ -10350,7 +10377,10 @@
     "healthCdw": "Lingguhan · Panahon ng paghihintay",
     "healthRecentSuccessBypass": "Pinapayagan ng pagruruta ang account na ito dahil may kahilingang nagtagumpay kamakailan.",
     "healthPurchasedBalanceBypass": "Maaaring magpatuloy gamit ang biniling balanse kapag naubos ang kasamang quota.",
-    "healthCutoffAtRequest": "Sinusuri ang mga live na limitasyon ng quota kapag niruruta ang kahilingan."
+    "healthCutoffAtRequest": "Sinusuri ang mga live na limitasyon ng quota kapag niruruta ang kahilingan.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "Naghihintay ng Awtorisasyon",
@@ -11872,7 +11902,8 @@
       "runButton": "Patakbuhin",
       "promptPlaceholder": "Ilagay ang iyong mensahe… (Enter para ipadala, Shift+Enter para sa bagong linya)"
     },
-    "playgroundTabs": "Mga mode ng Playground"
+    "playgroundTabs": "Mga mode ng Playground",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "Endpoint",
@@ -15216,5 +15247,14 @@
     "importButton": "I-import",
     "importFailed": "Nabigo ang pag-import.",
     "importSuccess": "Na-import ang {connections} account at {nodes} provider node; nilaktawan ang {skipped}."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

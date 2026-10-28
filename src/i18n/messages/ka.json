@@ -998,7 +998,13 @@
     "batchFileUsedByCount": "გამოიყენება {count, plural, one {# პაკეტში} other {# პაკეტში}}",
     "batchFilePreview": "წინასწარი ნახვა",
     "batchFilePreviewTruncated": "ნაჩვენებია პირველი {shown} ხაზი (სულ {total} ხაზი)",
-    "batchFileDownloadFull": "სრული ფაილის ჩამოტვირთვა"
+    "batchFileDownloadFull": "სრული ფაილის ჩამოტვირთვა",
+    "dialogTitleFallback": "Dialog",
+    "tokensServerUrlLabel": "Server URL",
+    "tokensPageTitle": "Tokens",
+    "pagination": "Pagination",
+    "clearFilters": "Clear filters",
+    "tokensPageDescription": "Send tokens between API keys, share invite codes and connect community servers."
   },
   "disabled": "გამორთულია",
   "featureFlagOmnirouteEmergencyFallbackDescription": "ბიუჯეტის ამოწურვის გამო დაუმუშავებელი მოთხოვნები გადაამისამართეთ საგანგებო უფასო სარეზერვო პროვაიდერთან/მოდელთან.",
@@ -1485,7 +1491,11 @@
       "chatIdPlaceholder": "-100123456789 ან @channelname",
       "chatIdHint": "ჩატის/არხის უნიკალური რიცხვითი იდენტიფიკატორი ან საჯარო მომხმარებლის სახელი.",
       "tutorial": "როგორ დავაკონფიგურიროთ Telegram webhook:"
-    }
+    },
+    "copy": "Copy",
+    "copied": "Copied!",
+    "collapseDetails": "Hide details",
+    "expandDetails": "Show details"
   },
   "compliance": {
     "auditTitle": "აუდიტი",
@@ -1597,7 +1607,8 @@
     "mcpMetricCalls24h": "გამოძახებები (24 სთ)",
     "mcpMetricSuccessRate": "წარმატების მაჩვენებელი",
     "mcpMetricAvgDuration": "საშ. ხანგრძლივობა",
-    "mcpMetricTopTool": "ყველაზე ხშირად გამოყენებული ინსტრუმენტი"
+    "mcpMetricTopTool": "ყველაზე ხშირად გამოყენებული ინსტრუმენტი",
+    "dismissError": "Dismiss error"
   },
   "themesPage": {
     "title": "თემები",
@@ -1713,7 +1724,9 @@
     "settingsAdvancedDescription": "payload-ის გაფართოებული წესები, მოთხოვნების ლიმიტები და პროქსი API-ის პარამეტრები",
     "mitmProxyDescription": "ტრაფიკის შემოწმებისა და გამართვისთვის MITM პროქსის პარამეტრების კონფიგურაცია",
     "oneProxyDescription": "პროქსების გაფართოებული ჯაჭვური დაკავშირებისთვის 1Proxy-ის პარამეტრების კონფიგურაცია",
-    "omniSkillsDescription": "პრომპტებისა და ინსტრუმენტების ავტომატიზებული შესრულებისთვის sandbox-ის უნარების დაყენება და მართვა"
+    "omniSkillsDescription": "პრომპტებისა და ინსტრუმენტების ავტომატიზებული შესრულებისთვის sandbox-ის უნარების დაყენება და მართვა",
+    "openMenu": "Open menu",
+    "products": "Keak products"
   },
   "cloudSyncStatus": {
     "synced": "სინქრონიზებულია",
@@ -2499,7 +2512,8 @@
     "preferredConnections": "სასურველი კავშირები",
     "preferredConnectionsDesc": "პრიორიტეტის რიგი თითოეული გასაღებისთვის. თუ სასურველი კავშირი მიუწვდომელია, მარშრუტიზაცია გადადის შემდეგ შესაბამის კავშირზე.",
     "preferredConnectionsNone": "უპირატესობა არ არის დაყენებული — გამოიყენება ნაგულისხმევი მარშრუტიზაციის სტრატეგია.",
-    "preferredConnectionsClear": "გასუფთავება"
+    "preferredConnectionsClear": "გასუფთავება",
+    "removeSelection": "Remove {name}"
   },
   "auditLog": {
     "title": "აუდიტის ჟურნალი",
@@ -2611,7 +2625,9 @@
     "imageToTextBridgeCta": "Image→Text ხიდის კონფიგურაცია Modality Bridge-ის პარამეტრებში",
     "sttBridgeCta": "დააკონფიგურირეთ Speech→Text ხიდი Modality Bridge-ის პარამეტრებში",
     "existingConnection": "არსებული კავშირი",
-    "openrouterSttDescription": "OpenRouter-ის მეტყველებიდან ტექსტად გარდაქმნის მოდელები იყენებენ თქვენს კონფიგურირებულ OpenRouter კავშირს. ცალკე ავტორიზაციის მონაცემები საჭირო არ არის."
+    "openrouterSttDescription": "OpenRouter-ის მეტყველებიდან ტექსტად გარდაქმნის მოდელები იყენებენ თქვენს კონფიგურირებულ OpenRouter კავშირს. ცალკე ავტორიზაციის მონაცემები საჭირო არ არის.",
+    "modalityTabsAria": "Media type",
+    "serviceKindsAria": "Service type"
   },
   "search": {
     "searchQuery": "საძიებო მოთხოვნა",
@@ -3282,7 +3298,8 @@
     "cliproxyapiUnknown": "უცნობი",
     "cliproxyapiUpdate": "განახლება",
     "cliproxyapiUpdateAvailable": "ხელმისაწვდომია განახლება: v{current} → v{latest}",
-    "cliproxyapiVersion": "ვერსია"
+    "cliproxyapiVersion": "ვერსია",
+    "removeMapping": "Remove mapping"
   },
   "modelCatalog": {
     "title": "Models & Combos",
@@ -4019,7 +4036,13 @@
     "duplicateAutoComboSnapshotMsg": "ამჟამად დაკავშირებული პროვაიდერებისა და მოდელების, რომლებიც ამ შაბლონს შეესაბამება, მიმდინარე მდგომარეობა დაფიქსირდება რედაქტირებად კომბოდ.",
     "duplicateAutoComboFailedPrefix": "ავტოკომბოს დუბლირება ვერ მოხერხდა:",
     "duplicateAutoComboUnknownError": "უცნობი შეცდომა",
-    "duplicateAutoComboTitle": "სტატიკური კომბოს შექმნა {name}-დან"
+    "duplicateAutoComboTitle": "სტატიკური კომბოს შექმნა {name}-დან",
+    "weightPercent": "Weight (%)",
+    "responseValidationPath": "JSON path",
+    "responseValidationCondition": "Condition",
+    "responseValidationRemoveCheck": "Remove check",
+    "clearSearch": "Clear search",
+    "responseValidationValue": "Expected value"
   },
   "costs": {
     "title": "ხარჯები",
@@ -5293,7 +5316,8 @@
         "skipped": "უკვე კონფიგურირებულია",
         "failed": "ვერ მოხერხდა"
       }
-    }
+    },
+    "stepProgress": "Setup progress"
   },
   "providers": {
     "tosAvoidNoticeTitle": "ეს პროვაიდერი ნაგულისხმევად გამორიცხულია auto-დან",
@@ -8960,7 +8984,8 @@
       "statsEmpty": "აღმოჩენები ჯერ არ არის.",
       "statsRequest": "მოთხოვნები"
     },
-    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection."
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "modelOverrideKey": "Override key"
   },
   "contextRtk": {
     "title": "RTK ძრავა",
@@ -9044,7 +9069,8 @@
     "tomlTestPassed": "წარმატებული",
     "tomlTestFailed": "წარუმატებელი",
     "tomlImportError": "RTK TOML ფაილის დამუშავება ვერ მოხერხდა.",
-    "tomlFileReadError": "არჩეული TOML ფაილის წაკითხვა ვერ მოხერხდა."
+    "tomlFileReadError": "არჩეული TOML ფაილის წაკითხვა ვერ მოხერხდა.",
+    "viewMode": "View mode"
   },
   "compressionEngineConfig": {
     "loading": "იტვირთება…",
@@ -9266,7 +9292,8 @@
     "languagePacksList": "ენობრივი პაკეტები: {packs}",
     "dragToReorder": "გადაათრიეთ ნაბიჯი რიგის შესაცვლელად",
     "engine": "ძრავა",
-    "intensity": "ინტენსივობა"
+    "intensity": "ინტენსივობა",
+    "compressionOverride": "Compression override"
   },
   "compressionStudio": {
     "noRun": "შეკუმშვის არცერთი გაშვება არ არის ხელმისაწვდომი.",
@@ -9326,7 +9353,8 @@
     "encoderWinner": "გამარჯვებული: {winner}",
     "encoder": "კოდირებელი",
     "bytes": "ბაიტები",
-    "tokensCl100k": "ტოკენები (cl100k)"
+    "tokensCl100k": "ტოკენები (cl100k)",
+    "studioViews": "Studio views"
   },
   "omniglyph": {
     "preview": "წინასწარი დათვალიერება",
@@ -9532,7 +9560,9 @@
     "tooltipMinLength": "ამაზე მოკლე შეტყობინებები არ იკუმშება. ნაკლები = მეტი შეკუმშვა.",
     "tooltipMinSavings": "შეკუმშვა მხოლოდ იმ შემთხვევაში, თუ მინიმუმ ამდენ ტოკენს დაზოგავს.",
     "ultraSettings": "ულტრა პარამეტრები",
-    "ultraSettingsDesc": "SLM-ზე დაფუძნებული სემანტიკური შეკუმშვა"
+    "ultraSettingsDesc": "SLM-ზე დაფუძნებული სემანტიკური შეკუმშვა",
+    "viewMode": "View mode",
+    "defaultLanguage": "Default language"
   },
   "translator": {
     "title": "მთარგმნელი",
@@ -10356,7 +10386,10 @@
     "healthCdw": "ყოველკვირეული · ლოდინის პერიოდი",
     "healthRecentSuccessBypass": "მარშრუტიზაცია ამ ანგარიშს უშვებს, რადგან ახლახან მოთხოვნა წარმატებით შესრულდა.",
     "healthPurchasedBalanceBypass": "შეძენილი ბალანსი გამოყენების გაგრძელებას იძლევა ჩართული კვოტის ამოწურვის შემდეგ.",
-    "healthCutoffAtRequest": "რეალურ დროში კვოტის ზღვრები მოთხოვნის მარშრუტიზაციისას მოწმდება."
+    "healthCutoffAtRequest": "რეალურ დროში კვოტის ზღვრები მოთხოვნის მარშრუტიზაციისას მოწმდება.",
+    "statHealthy": "Healthy",
+    "statAlert": "Alert",
+    "statCritical": "Critical"
   },
   "modals": {
     "waitingAuth": "ავტორიზაციის მოლოდინი",
@@ -11143,7 +11176,8 @@
       "message": "შეტყობინება",
       "error": "შეცდომა",
       "completion": "დასრულება"
-    }
+    },
+    "statusFilter": "Status"
   },
   "templateNames": {
     "simple-chat": "მარტივი ჩატი",
@@ -11324,7 +11358,8 @@
     "minutesAgo": "{minutes} წთ-ის წინ",
     "hoursAgo": "{hours} სთ-ის წინ",
     "daysAgo": "{days} დღის წინ",
-    "entries": "ჩანაწერები"
+    "entries": "ჩანაწერები",
+    "viewSwitcherAria": "Cache view"
   },
   "proxyConfigModal": {
     "levelGlobal": "გლობალური",
@@ -11669,7 +11704,8 @@
     "notMeasured": "არ არის გაზომილი",
     "upstream4xx": "{count} ზედა კლიენტის შეცდომები",
     "upstream5xx": "{count} ზემოდან მომავალი სერვერის შეცდომები",
-    "uniformEgressLine": "{affected} {exits} ეგზიტიდან {provider}-ზე ერთად ვარდება (ბოლო {hours}სთ) — ეს ეგზიტის პრობლემა არ არის"
+    "uniformEgressLine": "{affected} {exits} ეგზიტიდან {provider}-ზე ერთად ვარდება (ბოლო {hours}სთ) — ეს ეგზიტის პრობლემა არ არის",
+    "moreActions": "More actions"
   },
   "playground": {
     "title": "მოდელების სატესტო გარემო",
@@ -11875,7 +11911,8 @@
       "nextButton": "შემდეგი",
       "runButton": "გაშვება",
       "promptPlaceholder": "შეიყვანეთ თქვენი შეტყობინება… (გასაგზავნად დააჭირეთ Enter-ს, ახალ ხაზზე გადასასვლელად — Shift+Enter-ს)"
-    }
+    },
+    "playgroundTabs": "Playground modes"
   },
   "miniPlayground": {
     "endpoint": "ენდპოინტი",
@@ -11946,7 +11983,8 @@
     "assistant": "ასისტენტი",
     "errorLabel": "შეცდომა",
     "requestFailed": "მოთხოვნა ვერ შესრულდა",
-    "stop": "შეჩერება"
+    "stop": "შეჩერება",
+    "messageInputAria": "Message"
   },
   "requestLogger": {
     "recording": "მიმდინარეობს ჩაწერა",
@@ -12133,8 +12171,18 @@
       "resilienceRotations": "ანგარიშის {count} როტაცია",
       "resilienceRetried": "ცარიელი სვლა ხელახლა ცადა",
       "resilienceContinued": "განახლდა ნაკადის შუაში",
-      "resilienceRecovered": "აღდგენილია მდგრადობის მოქმედებით"
-    }
+      "resilienceRecovered": "აღდგენილია მდგრადობის მოქმედებით",
+      "openConversation": "Open conversation {id}",
+      "goToBottom": "Go to bottom",
+      "liveRefresh": "Live refresh",
+      "conversationContext": "Conversation Context",
+      "viewConversation": "view conversation",
+      "continuesFromParent": "continues from parent",
+      "continuesFrom": "Continues from {id}",
+      "liveRefreshOn": "Live refresh: on",
+      "liveRefreshOff": "Live refresh: off"
+    },
+    "tableLabel": "Request logs"
   },
   "proxyLogger": {
     "filterAll": "ყველა",
@@ -12179,7 +12227,9 @@
     "colServedBy": "მომსახურებულია",
     "filterTraffic": "ტრაფიკი",
     "filterTests": "ტესტები",
-    "filterSource": "წყარო"
+    "filterSource": "წყარო",
+    "sortLogs": "Sort logs",
+    "tableLabel": "Proxy logs"
   },
   "endpointOptions": {
     "speech": "მეტყველება",
@@ -12264,7 +12314,8 @@
     "statusExhausted": "ამოწურულია",
     "statusAlerting": "გაფრთხილება",
     "statusError": "შეცდომა",
-    "moreSuffix": "+კიდევ {count}"
+    "moreSuffix": "+კიდევ {count}",
+    "feedFilterLabel": "Filter events"
   },
   "quotaShare": {
     "weightPercent": "წონა, %",
@@ -12431,7 +12482,10 @@
     "ungroupedTitle": "დაუჯგუფებელი",
     "ungroupedHint": "ეს პულები არცერთ ცნობილ ჯგუფს არ არის მიკუთვნებული. რეალურ ჯგუფში გადასატანად დაარედაქტირეთ პული.",
     "removeFailed": "ამ პულის წაშლა ვერ მოხერხდა.",
-    "dismiss": "დახურვა"
+    "dismiss": "დახურვა",
+    "wizardRemoveDimension": "Remove dimension",
+    "wizardRemoveKey": "Remove key",
+    "allocationsHeading": "Allocations"
   },
   "plugins": {
     "title": "პლაგინები",
@@ -12589,7 +12643,8 @@
       "settingsUpdateFailed": "პარამეტრების განახლება ვერ მოხერხდა",
       "serviceRevealApiKey": "{actor}-მა {target}-ის API გასაღები გამოაჩინა",
       "genericEvent": "{actor} {target}"
-    }
+    },
+    "dismissError": "Dismiss error"
   },
   "agentBridge": {
     "title": "AgentBridge",
@@ -12722,7 +12777,21 @@
       "goNow": "ახლავე გადასვლა",
       "message": "MITM Proxy ახლა AgentBridge-ის განყოფილებაშია.",
       "title": "ეს გვერდი გადატანილია"
-    }
+    },
+    "dnsOff": "DNS off",
+    "upstreamCaTesting": "Testing…",
+    "wizardAddModels": "Add {count, plural, one {# model} other {# models}}",
+    "removeMapping": "Remove mapping",
+    "dnsOn": "DNS on",
+    "wizardNoModelsHint": "Or close this wizard and add mappings manually in the agent card.",
+    "hideServerSettings": "Hide server settings",
+    "wizardSelectedModels": "{count, plural, one {# model} other {# models}} selected. You'll map them to OmniRoute models in the next screen.",
+    "showServerSettings": "Show server settings",
+    "mappingSourcePlaceholder": "e.g., gemini-3.6-flash-medium, or * for all unmapped",
+    "wizardDetectingModels": "Detecting models from intercepted traffic...",
+    "mappingWildcardHint": "Use * as the source to route every model without an explicit mapping through OmniRoute to the selected target. Exact source matches always win over *.",
+    "wizardNoModelsDetected": "No models detected yet. Use {agent} to make a request, then run this wizard again to auto-detect models from traffic.",
+    "wizardDetectedModels": "Found {count, plural, one {# model} other {# models}} in intercepted traffic. Select the ones you want to add:"
   },
   "providerStats": {
     "unknownError": "უცნობი შეცდომა",
@@ -12752,7 +12821,11 @@
     "avgTtft": "საშ. TTFT",
     "avgTotal": "საშ. ჯამური დრო",
     "requestTelemetry": "მოთხოვნების ტელემეტრია",
-    "requestTelemetryDescription": "7-ფაზიანი პროცესის დეტალიზაცია (ბოლო 5 წუთი)"
+    "requestTelemetryDescription": "7-ფაზიანი პროცესის დეტალიზაცია (ბოლო 5 წუთი)",
+    "description": "Per-provider and per-model traffic, latency and success rates",
+    "title": "Provider stats",
+    "toggleModels": "Show models for {provider}",
+    "combo": "Combo"
   },
   "relay": {
     "title": "უსერვერო რელე-პროქსიები",
@@ -12913,7 +12986,18 @@
     "noRequestBody": "მოთხოვნის სხეული არ არის.",
     "noResponseBody": "პასუხის სხეული არ არის.",
     "formatted": "ფორმატირებული",
-    "raw": "დაუმუშავებელი"
+    "raw": "დაუმუშავებელი",
+    "expandList": "Expand list",
+    "maskSecrets": "Mask secrets",
+    "llmStreamNo": "no",
+    "llmNotAvailable": "LLM metadata not available for this request.",
+    "llmStreamYes": "yes (SSE)",
+    "snippetLanguage": "Snippet language",
+    "showSecrets": "Show secrets",
+    "llmTotalTokens": "Total: {count} tokens",
+    "collapseList": "Collapse list",
+    "headersTable": "Headers",
+    "requestCount": "{count, plural, one {# request} other {# requests}}"
   },
   "cliCommon": {
     "companion": {
@@ -13372,7 +13456,8 @@
     "colReliabilityHelp": "ბოლო 24 საათში იმ გამოძახებების წილი, რომლებსაც ამ პროვაიდერმა რეალურად უპასუხა. ტირე ნიშნავს, რომ მაჩვენებლის დასადგენად მან არასაკმარისი ტრაფიკი დაამუშავა.",
     "reliabilitySample": "ბოლო {hours} სთ-ში {requests} გამოძახებიდან {successes} წარმატებით დასრულდა",
     "reliabilityTooFew": "ბოლო {hours} სთ-ში მხოლოდ {requests} გამოძახება — მაჩვენებლის დასადგენად არასაკმარისია",
-    "reliabilityNoTraffic": "ბოლო 24 სთ-ში გამოძახებები არ დაფიქსირებულა"
+    "reliabilityNoTraffic": "ბოლო 24 სთ-ში გამოძახებები არ დაფიქსირებულა",
+    "categoryFilter": "Task category"
   },
   "discovery": {
     "title": "პროვაიდერების აღმოჩენა",
@@ -13397,7 +13482,11 @@
     "method": "მეთოდი",
     "auth": "ავთენტიფიკაცია",
     "feasibility": "განხორციელებადობა",
-    "models": "მოდელები"
+    "models": "მოდელები",
+    "actions": "Actions",
+    "status": "Status",
+    "endpoint": "Endpoint",
+    "provider": "Provider"
   },
   "noAuthProvider": {
     "title": "ავთენტიფიკაცია საჭირო არ არის",
@@ -13446,7 +13535,8 @@
     "ownProxy": "საკუთარი პროქსი",
     "freeTierPause": "მოდელი {model} შეჩერებულია (429), დაბრუნდება {time}-ზე",
     "freeTierPauseProvider": "შეჩერებულია (429), დაბრუნდება {time}-ზე",
-    "freeTierPauseNote": "პროცესში შეჩერება ამ ინსტანციაზე"
+    "freeTierPauseNote": "პროცესში შეჩერება ამ ინსტანციაზე",
+    "proxyType": "Proxy type"
   },
   "gamification": {
     "leaderboardScopes": {
@@ -13619,7 +13709,10 @@
         "description": "ფარული მიღწევა გელოდებათ...",
         "criteria": "შეასრულეთ ფარული მიღწევა ამ სამკერდე ნიშნის გამოსავლენად."
       }
-    }
+    },
+    "leaderboardTitle": "Leaderboard",
+    "leaderboardDescription": "Rankings and achievements across your API keys",
+    "badgeLocked": "Locked"
   },
   "featureFlags": {
     "title": "ფუნქციების ალმები",
@@ -13914,7 +14007,8 @@
     "unknown": "უცნობი",
     "unknownProvider": "უცნობი პროვაიდერი",
     "unknownModel": "უცნობი მოდელი",
-    "resolvedTargetMetrics": "{requests} მოთხოვნა · {success} წარმატებული · {latency} · კვოტა {quota}"
+    "resolvedTargetMetrics": "{requests} მოთხოვნა · {success} წარმატებული · {latency} · კვოტა {quota}",
+    "timeRange": "Time range"
   },
   "usageLimits": {
     "usdUsageQuota": "USD-ის გამოყენების კვოტა",
@@ -14061,7 +14155,11 @@
     "learnMore": "გაიგეთ მეტი",
     "changelogLoadFailed": "ცვლილებების ჟურნალის ჩატვირთვა ვერ მოხერხდა. გთხოვთ, მოგვიანებით სცადოთ.",
     "retry": "ხელახლა ცდა",
-    "viewFullHistory": "სრული ისტორიის ნახვა GitHub-ზე"
+    "viewFullHistory": "სრული ისტორიის ნახვა GitHub-ზე",
+    "loadingNews": "Loading announcements...",
+    "viewLabel": "View",
+    "description": "Announcements from the OmniRoute team and the latest release notes",
+    "title": "News & changelog"
   },
   "reasoningRouting": {
     "editor": {
@@ -14612,7 +14710,9 @@
       "circuitBreakerState": "პროვაიდერის Circuit Breaker-ის მდგომარეობა",
       "lastUpdate": "ბოლო განახლება: {timestamp}",
       "uptimeMinutes": "{minutes} წთ",
-      "uptimeHoursMinutes": "{hours} სთ {minutes} წთ"
+      "uptimeHoursMinutes": "{hours} სთ {minutes} წთ",
+      "breakerNotClosed": "Open or half-open",
+      "breakerClosed": "Closed"
     },
     "statusPages": {
       "400": {
@@ -14687,6 +14787,9 @@
         "primaryAction": "ტექნიკური მომსახურების დეტალები",
         "secondaryAction": "სისტემის სტატუსი"
       }
+    },
+    "miniapp": {
+      "askAnything": "Ask anything…"
     }
   },
   "kiroAuthModal": {
@@ -14877,7 +14980,20 @@
     "mcp": "MCP",
     "mcpTool": "MCP tool",
     "scope": "Scope",
-    "apiKey": "API key"
+    "apiKey": "API key",
+    "visibleCount": "{visible} visible / {total} total",
+    "zoomOut": "Zoom out",
+    "autoRefreshUnit": "s",
+    "modeLabel": "View mode",
+    "zoomIn": "Zoom in",
+    "jumpToNow": "Jump to current time, NOW line resets to position {position}%",
+    "laneReuse": "Lane reuse",
+    "laneReuseUnit": "min",
+    "laneReuseHint": "Requests sharing a conversation id stay on the same timeline row as long as the gap between them is under this many minutes.",
+    "autoRefreshLabel": "Auto-refresh interval (seconds)",
+    "autoRefresh": "Auto-refresh",
+    "autoRefreshHint": "How often the timeline re-fetches the request list from the server.",
+    "laneReuseLabel": "Lane reuse window (minutes)"
   },
   "metadata": {
     "compressionTitle": "შეკუმშვა",

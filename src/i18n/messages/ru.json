@@ -1345,7 +1345,20 @@
       "open": "открыть",
       "close": "закрыть"
     },
-    "noResults": "Нет результатов"
+    "noResults": "Нет результатов",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Вебхуки",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "Расширенные правила обработки полезной нагрузки, ограничения запросов и настройки API прокси-сервера",
     "mitmProxyDescription": "Настройка MITM-прокси для анализа трафика и отладки",
     "oneProxyDescription": "Настройка 1Proxy для расширенного построения цепочек прокси-серверов",
-    "omniSkillsDescription": "Установите и управляйте песочными навыками для автоматизированного выполнения запросов и инструментов"
+    "omniSkillsDescription": "Установите и управляйте песочными навыками для автоматизированного выполнения запросов и инструментов",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "Синхронизировано",
@@ -8949,7 +8964,19 @@
       "statsTitle": "Обнаружения с момента перезапуска",
       "statsEmpty": "Пока нет обнаружений.",
       "statsRequest": "Запросы"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "RTK Engine",
@@ -10350,7 +10377,10 @@
     "healthCdw": "Еженедельно · Период ожидания",
     "healthRecentSuccessBypass": "Маршрутизация разрешает этот аккаунт, поскольку недавно запрос был успешным.",
     "healthPurchasedBalanceBypass": "Купленный баланс позволяет продолжить после исчерпания включённой квоты.",
-    "healthCutoffAtRequest": "Пороги квоты в реальном времени проверяются при маршрутизации запроса."
+    "healthCutoffAtRequest": "Пороги квоты в реальном времени проверяются при маршрутизации запроса.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "Ожидание авторизации",
@@ -11872,7 +11902,8 @@
       "runButton": "Запустить",
       "promptPlaceholder": "Введите ваше сообщение… (Enter для отправки, Shift+Enter для новой строки)"
     },
-    "playgroundTabs": "Режимы Playground"
+    "playgroundTabs": "Режимы Playground",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "Конечная точка",
@@ -15216,5 +15247,14 @@
     "importButton": "Импортировать",
     "importFailed": "Ошибка импорта.",
     "importSuccess": "Импортировано аккаунтов: {connections}, узлов провайдеров: {nodes}; пропущено: {skipped}."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

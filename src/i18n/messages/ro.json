@@ -1345,7 +1345,20 @@
       "open": "deschide",
       "close": "închide"
     },
-    "noResults": "Niciun rezultat"
+    "noResults": "Niciun rezultat",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Webhook-uri",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "Reguli avansate pentru sarcina utilă, limite pentru cereri și setări API pentru proxy",
     "mitmProxyDescription": "Configurați setările proxy-ului MITM pentru inspectarea traficului și depanare",
     "oneProxyDescription": "Configurați setările 1Proxy pentru înlănțuirea avansată a proxy-urilor",
-    "omniSkillsDescription": "Instalează și gestionează abilități sandbox pentru executarea automată a prompturilor și instrumentelor"
+    "omniSkillsDescription": "Instalează și gestionează abilități sandbox pentru executarea automată a prompturilor și instrumentelor",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "Sincronizat",
@@ -8949,7 +8964,19 @@
       "statsTitle": "Detecții de la repornire",
       "statsEmpty": "Nicio detecție încă.",
       "statsRequest": "Cereri"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "Motor RTK",
@@ -10350,7 +10377,10 @@
     "healthCdw": "Săptămânal · Perioadă de așteptare",
     "healthRecentSuccessBypass": "Rutarea permite acest cont deoarece o cerere a reușit recent.",
     "healthPurchasedBalanceBypass": "Soldul cumpărat permite continuarea după epuizarea cotei incluse.",
-    "healthCutoffAtRequest": "Pragurile cotei în timp real sunt verificate la rutarea unei cereri."
+    "healthCutoffAtRequest": "Pragurile cotei în timp real sunt verificate la rutarea unei cereri.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "În așteptarea autorizației",
@@ -11872,7 +11902,8 @@
       "runButton": "Rulează",
       "promptPlaceholder": "Introdu mesajul tău… (Enter pentru a trimite, Shift+Enter pentru rând nou)"
     },
-    "playgroundTabs": "Moduri Playground"
+    "playgroundTabs": "Moduri Playground",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "Punct final",
@@ -15216,5 +15247,14 @@
     "importButton": "Importă",
     "importFailed": "Importul a eșuat.",
     "importSuccess": "Au fost importate {connections} conturi și {nodes} noduri de furnizor; {skipped} omise."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

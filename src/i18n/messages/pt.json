@@ -1345,7 +1345,20 @@
       "open": "abrir",
       "close": "fechar"
     },
-    "noResults": "Sem resultados"
+    "noResults": "Sem resultados",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Webhooks",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "Regras avançadas de payload, limites de pedidos e definições de API de proxy",
     "mitmProxyDescription": "Configura definições de proxy MITM para inspeção de tráfego e depuração",
     "oneProxyDescription": "Configura definições do 1Proxy para encadeamento avançado de proxy",
-    "omniSkillsDescription": "Instalar e gerir competências de sandbox para execução automatizada de prompts e ferramentas"
+    "omniSkillsDescription": "Instalar e gerir competências de sandbox para execução automatizada de prompts e ferramentas",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "Sincronizado",
@@ -8949,7 +8964,19 @@
       "statsTitle": "Deteções desde o reinício",
       "statsEmpty": "Ainda sem deteções.",
       "statsRequest": "Pedidos"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "Motor RTK",
@@ -10350,7 +10377,10 @@
     "healthCdw": "Semanal · Tempo de espera",
     "healthRecentSuccessBypass": "O encaminhamento permite esta conta porque um pedido foi bem-sucedido recentemente.",
     "healthPurchasedBalanceBypass": "O saldo comprado permite continuar após esgotar a quota incluída.",
-    "healthCutoffAtRequest": "Os limiares de quota em tempo real são verificados ao encaminhar um pedido."
+    "healthCutoffAtRequest": "Os limiares de quota em tempo real são verificados ao encaminhar um pedido.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "Aguardando autorização",
@@ -11872,7 +11902,8 @@
       "runButton": "Executar",
       "promptPlaceholder": "Introduza a sua mensagem… (Enter para enviar, Shift+Enter para nova linha)"
     },
-    "playgroundTabs": "Modos do Playground"
+    "playgroundTabs": "Modos do Playground",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "Ponto final",
@@ -15216,5 +15247,14 @@
     "importButton": "Importar",
     "importFailed": "A importação falhou.",
     "importSuccess": "{connections} contas e {nodes} nós de fornecedor importados; {skipped} ignorados."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }

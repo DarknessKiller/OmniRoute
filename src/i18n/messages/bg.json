@@ -1345,7 +1345,20 @@
       "open": "отвори",
       "close": "затвори"
     },
-    "noResults": "Няма резултати"
+    "noResults": "Няма резултати",
+    "themeRed": "Red",
+    "themeBlue": "Blue",
+    "themeGreen": "Green",
+    "themeCyan": "Cyan",
+    "themeCreate": "Theme Create",
+    "themes": "Themes",
+    "themeAccentDesc": "Theme Accent Desc",
+    "themeCoral": "Coral",
+    "themeViolet": "Violet",
+    "themeCustom": "Theme Custom",
+    "presetColors": "Popular colors",
+    "themeAccent": "Theme Accent",
+    "themeOrange": "Orange"
   },
   "webhooks": {
     "title": "Уеб кукички",
@@ -1702,7 +1715,9 @@
     "settingsAdvancedDescription": "Разширени правила за полезния товар, ограничения на заявките и настройки на прокси API",
     "mitmProxyDescription": "Конфигурирайте настройките на MITM прокси сървъра за инспектиране на трафика и отстраняване на грешки",
     "oneProxyDescription": "Конфигурирайте настройките на 1Proxy за разширено свързване на прокси сървъри във верига",
-    "omniSkillsDescription": "Инсталиране и управление на умения в пясъчник за автоматизирано изпълнение на подкани и инструменти"
+    "omniSkillsDescription": "Инсталиране и управление на умения в пясъчник за автоматизирано изпълнение на подкани и инструменти",
+    "themesDescription": "Choose a color theme for the whole dashboard panel",
+    "themes": "Themes"
   },
   "cloudSyncStatus": {
     "synced": "Синхронизирано",
@@ -8949,7 +8964,19 @@
       "statsTitle": "Засичания от рестарта",
       "statsEmpty": "Все още няма засичания.",
       "statsRequest": "Заявки"
-    }
+    },
+    "themeGreen": "Green",
+    "themeBlue": "Blue",
+    "themeCreate": "Create theme",
+    "themeOrange": "Orange",
+    "themeCoral": "Coral",
+    "themeAccentDesc": "Choose a preset color or create your own theme with one color",
+    "themeCyan": "Cyan",
+    "themeCustom": "Custom theme",
+    "compressionOutputStylesPreviewNote": "A request injects one language only: the detected language, else the first pack. Blocks above are the per-pack variants, not a combined injection.",
+    "themeRed": "Red",
+    "themeAccent": "Theme color",
+    "themeViolet": "Violet"
   },
   "contextRtk": {
     "title": "RTK Engine",
@@ -10350,7 +10377,10 @@
     "healthCdw": "Ежеседмично · Период на изчакване",
     "healthRecentSuccessBypass": "Маршрутизирането допуска този акаунт, защото наскоро заявка е била успешна.",
     "healthPurchasedBalanceBypass": "Закупеният баланс позволява използване след изчерпване на включената квота.",
-    "healthCutoffAtRequest": "Праговете на квотата в реално време се проверяват при маршрутизиране на заявка."
+    "healthCutoffAtRequest": "Праговете на квотата в реално време се проверяват при маршрутизиране на заявка.",
+    "statHealthy": "Healthy",
+    "statCritical": "Critical",
+    "statAlert": "Alert"
   },
   "modals": {
     "waitingAuth": "Изчакване на разрешение",
@@ -11872,7 +11902,8 @@
       "runButton": "Изпълнение",
       "promptPlaceholder": "Въведете вашето съобщение… (Enter за изпращане, Shift+Enter за нов ред)"
     },
-    "playgroundTabs": "Режими на Playground"
+    "playgroundTabs": "Режими на Playground",
+    "closeExportModal": "Close export modal"
   },
   "miniPlayground": {
     "endpoint": "Крайна точка",
@@ -15216,5 +15247,14 @@
     "importButton": "Импортирай",
     "importFailed": "Импортът е неуспешен.",
     "importSuccess": "Импортирани {connections} акаунта и {nodes} възела на доставчици; пропуснати {skipped}."
+  },
+  "themesPage": {
+    "customTheme": "Custom theme",
+    "activePreset": "Active theme",
+    "title": "Themes",
+    "description": "Choose a preset theme or create your own with a single color",
+    "createTheme": "Create theme",
+    "customThemeDesc": "Click create theme and pick one color",
+    "presetColors": "Popular colors"
   }
 }
