@@ -10377,10 +10377,7 @@
     "healthCdw": "Недељно · Период чекања",
     "healthRecentSuccessBypass": "Усмеравање дозвољава овај налог јер је захтев недавно успео.",
     "healthPurchasedBalanceBypass": "Купљени салдо омогућава наставак након исцрпљивања укључене квоте.",
-    "healthCutoffAtRequest": "Прагови квоте у реалном времену проверавају се при усмеравању захтева.",
-    "statHealthy": "Healthy",
-    "statCritical": "Critical",
-    "statAlert": "Alert"
+    "healthCutoffAtRequest": "Прагови квоте у реалном времену проверавају се при усмеравању захтева."
   },
   "modals": {
     "waitingAuth": "Чекање на овлашћење",

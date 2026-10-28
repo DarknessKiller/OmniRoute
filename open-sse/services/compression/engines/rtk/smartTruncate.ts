@@ -102,7 +102,7 @@ export function smartTruncate(
     const tailChars = Math.max(0, rest - headChars);
     const headRaw = rest > 0 ? result.slice(0, headChars) : "";
     // Cut on line boundaries: a blind slice leaves a half line (a partial anchor or a partial
-    // grep hit) that still reads like a real result to the agent (retro 2026-10-26 #5).
+    // grep hit) that still reads like a real result to the agent.
     const headBreak = headRaw.lastIndexOf("\n");
     const headText = headBreak === -1 ? headRaw : headRaw.slice(0, headBreak + 1);
     const tailRaw = tailChars > 0 ? result.slice(-tailChars) : "";

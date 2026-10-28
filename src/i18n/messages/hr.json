@@ -10377,10 +10377,7 @@
     "healthCdw": "Tjedno · Razdoblje čekanja",
     "healthRecentSuccessBypass": "Usmjeravanje dopušta ovaj račun jer je zahtjev nedavno uspio.",
     "healthPurchasedBalanceBypass": "Kupljeni saldo omogućuje nastavak nakon iscrpljenja uključene kvote.",
-    "healthCutoffAtRequest": "Pragovi kvote u stvarnom vremenu provjeravaju se pri usmjeravanju zahtjeva.",
-    "statHealthy": "Healthy",
-    "statCritical": "Critical",
-    "statAlert": "Alert"
+    "healthCutoffAtRequest": "Pragovi kvote u stvarnom vremenu provjeravaju se pri usmjeravanju zahtjeva."
   },
   "modals": {
     "waitingAuth": "Čekanje na autorizaciju",

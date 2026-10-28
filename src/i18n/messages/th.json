@@ -10377,10 +10377,7 @@
     "healthCdw": "รายสัปดาห์ · ระยะเวลารอ",
     "healthRecentSuccessBypass": "ระบบกำหนดเส้นทางอนุญาตให้ใช้บัญชีนี้เพราะมีคำขอสำเร็จเมื่อไม่นานมานี้",
     "healthPurchasedBalanceBypass": "ยอดคงเหลือที่ซื้อไว้ช่วยให้ใช้งานต่อได้หลังจากโควตาที่รวมไว้หมด",
-    "healthCutoffAtRequest": "ระบบจะตรวจสอบเกณฑ์โควตาปัจจุบันเมื่อกำหนดเส้นทางคำขอ",
-    "statHealthy": "Healthy",
-    "statCritical": "Critical",
-    "statAlert": "Alert"
+    "healthCutoffAtRequest": "ระบบจะตรวจสอบเกณฑ์โควตาปัจจุบันเมื่อกำหนดเส้นทางคำขอ"
   },
   "modals": {
     "waitingAuth": "รอการอนุญาต",

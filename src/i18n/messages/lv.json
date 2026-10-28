@@ -10377,10 +10377,7 @@
     "healthCdw": "Iknedēļas · Nogaidīšanas periods",
     "healthRecentSuccessBypass": "Maršrutēšana atļauj šo kontu, jo nesen pieprasījums bija veiksmīgs.",
     "healthPurchasedBalanceBypass": "Iegādātais atlikums ļauj turpināt pēc iekļautās kvotas izsmelšanas.",
-    "healthCutoffAtRequest": "Reāllaika kvotas sliekšņi tiek pārbaudīti, maršrutējot pieprasījumu.",
-    "statHealthy": "Healthy",
-    "statCritical": "Critical",
-    "statAlert": "Alert"
+    "healthCutoffAtRequest": "Reāllaika kvotas sliekšņi tiek pārbaudīti, maršrutējot pieprasījumu."
   },
   "modals": {
     "waitingAuth": "Tiek gaidīta autorizācija",

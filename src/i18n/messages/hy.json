@@ -10386,10 +10386,7 @@
     "healthCdw": "Շաբաթական · Սպասման ժամանակ",
     "healthRecentSuccessBypass": "Երթուղավորումը թույլատրում է այս հաշիվը, քանի որ վերջերս հարցումը հաջողվել է։",
     "healthPurchasedBalanceBypass": "Գնված մնացորդը թույլ է տալիս շարունակել ներառված քվոտան սպառելուց հետո։",
-    "healthCutoffAtRequest": "Իրական ժամանակի քվոտայի շեմերը ստուգվում են հարցման երթուղավորման ժամանակ։",
-    "statHealthy": "Healthy",
-    "statAlert": "Alert",
-    "statCritical": "Critical"
+    "healthCutoffAtRequest": "Իրական ժամանակի քվոտայի շեմերը ստուգվում են հարցման երթուղավորման ժամանակ։"
   },
   "modals": {
     "waitingAuth": "Սպասում է լիազորմանը",

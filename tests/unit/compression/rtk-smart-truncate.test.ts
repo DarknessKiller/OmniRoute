@@ -42,8 +42,7 @@ describe("RTK smart truncate", () => {
   });
 
   // Char cap cut whole lines only, and the marker must name what was really dropped: a
-  // `[rtk:truncated 0 lines]` next to a halved grep result is worse than no marker at all
-  // (retro 2026-10-26 #6).
+  // `[rtk:truncated 0 lines]` next to a halved grep result is worse than no marker at all.
   it("reports the real dropped count and never cuts a line in half when maxChars binds", () => {
     const lines = Array.from(
       { length: 400 },

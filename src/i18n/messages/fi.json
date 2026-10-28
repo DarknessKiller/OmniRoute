@@ -10377,10 +10377,7 @@
     "healthCdw": "Viikoittain · Odotusaika",
     "healthRecentSuccessBypass": "Reititys sallii tämän tilin, koska pyyntö onnistui äskettäin.",
     "healthPurchasedBalanceBypass": "Ostettua saldoa voi käyttää sisältyvän kiintiön loputtua.",
-    "healthCutoffAtRequest": "Reaaliaikaiset kiintiörajat tarkistetaan pyyntöä reititettäessä.",
-    "statHealthy": "Healthy",
-    "statCritical": "Critical",
-    "statAlert": "Alert"
+    "healthCutoffAtRequest": "Reaaliaikaiset kiintiörajat tarkistetaan pyyntöä reititettäessä."
   },
   "modals": {
     "waitingAuth": "Odotetaan valtuutusta",

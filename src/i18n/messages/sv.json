@@ -10377,10 +10377,7 @@
     "healthCdw": "Varje vecka · Väntetid",
     "healthRecentSuccessBypass": "Routningen tillåter kontot eftersom en begäran nyligen lyckades.",
     "healthPurchasedBalanceBypass": "Köpt saldo kan användas när den inkluderade kvoten är slut.",
-    "healthCutoffAtRequest": "Kvotgränser i realtid kontrolleras när en begäran routas.",
-    "statHealthy": "Healthy",
-    "statCritical": "Critical",
-    "statAlert": "Alert"
+    "healthCutoffAtRequest": "Kvotgränser i realtid kontrolleras när en begäran routas."
   },
   "modals": {
     "waitingAuth": "Väntar på auktorisering",

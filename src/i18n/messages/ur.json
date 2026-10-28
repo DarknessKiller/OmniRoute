@@ -10377,10 +10377,7 @@
     "healthCdw": "ہفتہ وار · انتظار کی مدت",
     "healthRecentSuccessBypass": "حال ہی میں ایک درخواست کامیاب ہونے کی وجہ سے روٹنگ اس اکاؤنٹ کو اجازت دیتی ہے۔",
     "healthPurchasedBalanceBypass": "شامل کوٹا ختم ہونے کے بعد خریدے گئے بیلنس سے استعمال جاری رہ سکتا ہے۔",
-    "healthCutoffAtRequest": "لائیو کوٹا کی حدیں درخواست کو روٹ کرتے وقت جانچی جاتی ہیں۔",
-    "statHealthy": "Healthy",
-    "statCritical": "Critical",
-    "statAlert": "Alert"
+    "healthCutoffAtRequest": "لائیو کوٹا کی حدیں درخواست کو روٹ کرتے وقت جانچی جاتی ہیں۔"
   },
   "modals": {
     "waitingAuth": "اجازت کا انتظار ہے",

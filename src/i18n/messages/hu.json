@@ -10377,10 +10377,7 @@
     "healthCdw": "Heti · Várakozási idő",
     "healthRecentSuccessBypass": "Az útválasztás engedélyezi ezt a fiókot, mert nemrég sikeres volt egy kérés.",
     "healthPurchasedBalanceBypass": "A megvásárolt egyenleg a foglalt keret kimerülése után is használható.",
-    "healthCutoffAtRequest": "A valós idejű kvótaküszöbök ellenőrzése a kérés útválasztásakor történik.",
-    "statHealthy": "Healthy",
-    "statCritical": "Critical",
-    "statAlert": "Alert"
+    "healthCutoffAtRequest": "A valós idejű kvótaküszöbök ellenőrzése a kérés útválasztásakor történik."
   },
   "modals": {
     "waitingAuth": "Várakozás az engedélyezésre",

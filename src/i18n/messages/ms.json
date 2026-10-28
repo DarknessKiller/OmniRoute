@@ -10377,10 +10377,7 @@
     "healthCdw": "Mingguan · Tempoh menunggu",
     "healthRecentSuccessBypass": "Penghalaan membenarkan akaun ini kerana permintaan berjaya baru-baru ini.",
     "healthPurchasedBalanceBypass": "Baki yang dibeli membolehkan penggunaan diteruskan selepas kuota yang disertakan habis.",
-    "healthCutoffAtRequest": "Ambang kuota langsung diperiksa semasa menghalakan permintaan.",
-    "statHealthy": "Healthy",
-    "statCritical": "Critical",
-    "statAlert": "Alert"
+    "healthCutoffAtRequest": "Ambang kuota langsung diperiksa semasa menghalakan permintaan."
   },
   "modals": {
     "waitingAuth": "Menunggu Keizinan",
