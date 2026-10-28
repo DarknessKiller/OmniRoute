@@ -16,7 +16,6 @@ import {
   compareProviderGroups,
   type QuotaVisibilityScope,
 } from "./utils";
-import Icon from "@/shared/components/Icon";
 import { compareTr } from "@/shared/utils/turkishText";
 
 interface Props {
@@ -180,7 +179,9 @@ function ProviderQuotaHeader({
     : undefined;
   return (
     <summary className="flex items-center gap-3 px-3 py-2.5 cursor-pointer select-none hover:bg-surface-2 [&::-webkit-details-marker]:hidden">
-      <Icon name={open ? "expand_less" : "expand_more"} size={16} className="text-text-muted" />
+      <span className="material-symbols-outlined text-[16px] text-text-muted">
+        {open ? "expand_less" : "expand_more"}
+      </span>
       <div className="min-w-0 flex-1">
         <h3 className="text-sm font-semibold text-text-main leading-5 truncate">
           {group && (

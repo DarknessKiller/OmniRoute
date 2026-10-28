@@ -16,7 +16,6 @@ import {
   quotaStatusLevel,
 } from "./utils";
 import Button from "@/shared/components/Button";
-import Icon from "@/shared/components/Icon";
 import Card from "@/shared/components/Card";
 import Select from "@/shared/components/Select";
 import { CardSkeleton } from "@/shared/components/Loading";
@@ -835,7 +834,7 @@ export default function ProviderLimits({
     return (
       <Card padding="lg">
         <div className="text-center py-12">
-          <Icon name="cloud_off" size={64} className="opacity-15" />
+          <span className="material-symbols-outlined text-[64px] opacity-15">cloud_off</span>
           <h3 className="mt-4 text-lg font-semibold text-text-main">{t(emptyCard.title)}</h3>
           <p className="mt-2 text-sm text-text-muted max-w-[400px] mx-auto">{t(emptyCard.hint)}</p>
         </div>
@@ -868,11 +867,11 @@ export default function ProviderLimits({
               autoRefreshIntervalMs > 0 ? tr("autoRefreshing", "Auto-refreshing") : t("refreshAll")
             }
           >
-            <Icon
-              name={autoRefreshIntervalMs > 0 ? "schedule" : "refresh"}
-              size={16}
-              className={refreshingAll ? "animate-spin" : undefined}
-            />
+            <span
+              className={`material-symbols-outlined text-[16px] ${refreshingAll ? "animate-spin" : ""}`}
+            >
+              {autoRefreshIntervalMs > 0 ? "schedule" : "refresh"}
+            </span>
             {refreshingAll
               ? tr("refreshing", "Refreshing")
               : autoRefreshIntervalMs > 0
@@ -931,7 +930,7 @@ export default function ProviderLimits({
               const active = tierFilter === tier.key;
               return (
                 <FilterChip key={tier.key} active={active} onClick={() => setTierFilter(tier.key)}>
-                  <span>{tier.label || t(tier.labelKey!)}</span>
+                  <span>{t(tier.labelKey!)}</span>
                   <span className="opacity-85">{tierCounts[tier.key] || 0}</span>
                 </FilterChip>
               );
@@ -997,7 +996,7 @@ export default function ProviderLimits({
             <strong>
               {(() => {
                 const tier = TIER_FILTERS.find((tier) => tier.key === tierFilter);
-                return tier?.label || t(tier?.labelKey || "tierUnknown");
+                return t(tier?.labelKey || "tierUnknown");
               })()}
             </strong>
             .

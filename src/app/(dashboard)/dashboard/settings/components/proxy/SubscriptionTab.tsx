@@ -304,6 +304,7 @@ export default function SubscriptionTab() {
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<SubscriptionFieldErrors>({});
 
   const applyLoadResult = useCallback((result: SubscriptionsFetchResult) => {
     if (result.items) setSubs(result.items);
@@ -520,9 +521,14 @@ export default function SubscriptionTab() {
               <input
                 className="rounded border border-border bg-surface px-2 py-1.5 text-text outline-none focus:border-primary"
                 value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                onChange={(e) => {
+                  setForm({ ...form, name: e.target.value });
+                  if (fieldErrors.name) setFieldErrors({ ...fieldErrors, name: undefined });
+                }}
                 placeholder={t("proxySubscription.namePlaceholder")}
+                aria-invalid={Boolean(fieldErrors.name)}
               />
+              {fieldErrors.name && <span className="text-xs text-red-600">{fieldErrors.name}</span>}
             </label>
 
             <label className="flex flex-col gap-1 text-sm">
@@ -530,9 +536,14 @@ export default function SubscriptionTab() {
               <input
                 className="rounded border border-border bg-surface px-2 py-1.5 text-text outline-none focus:border-primary"
                 value={form.url}
-                onChange={(e) => setForm({ ...form, url: e.target.value })}
+                onChange={(e) => {
+                  setForm({ ...form, url: e.target.value });
+                  if (fieldErrors.url) setFieldErrors({ ...fieldErrors, url: undefined });
+                }}
                 placeholder={t("proxySubscription.urlPlaceholder")}
+                aria-invalid={Boolean(fieldErrors.url)}
               />
+              {fieldErrors.url && <span className="text-xs text-red-600">{fieldErrors.url}</span>}
               <span className="text-xs text-text-muted">
                 {t("proxySubscription.urlFeedlessHint")}
               </span>

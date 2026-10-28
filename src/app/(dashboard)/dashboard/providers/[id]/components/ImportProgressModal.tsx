@@ -10,6 +10,7 @@
  */
 
 import { Modal } from "@/shared/components";
+import { DiscoveryDegradedNotice } from "@/shared/components/DiscoveryDegradedNotice";
 import type { ImportProgress } from "../hooks/useModelImportHandlers";
 import type { ProviderMessageTranslator } from "../providerPageHelpers";
 

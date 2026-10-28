@@ -3,7 +3,6 @@
 import { useEffect, useId, useMemo, useState, type ReactNode } from "react";
 import { useNow } from "next-intl";
 import Button from "@/shared/components/Button";
-import Icon from "@/shared/components/Icon";
 import { pickDisplayValue } from "@/shared/utils/maskEmail";
 import {
   buildHealthAccount,
@@ -280,7 +279,7 @@ function OverviewHeader({
         </Button>
         {custom && (
           <Button variant="ghost" size="sm" data-reset-order className="text-xs" onClick={reset}>
-            <Icon name="restart_alt" size={14} /> {t("healthResetOrder")}
+            <span className="material-symbols-outlined text-[14px]">restart_alt</span> {t("healthResetOrder")}
           </Button>
         )}
       </div>
