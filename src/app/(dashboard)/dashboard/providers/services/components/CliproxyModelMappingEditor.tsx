@@ -5,11 +5,9 @@
  */
 "use client";
 
-import Icon from "@/shared/components/Icon";
-
 import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
-import { Button, Card, Textarea } from "@/shared/components";
+import { Card } from "@/shared/components";
 
 // ── Pure validator (exported for unit tests) ──────────────────────────────────
 
@@ -148,8 +146,8 @@ export function CliproxyModelMappingEditor() {
   return (
     <Card padding="md">
       <div className="flex items-center gap-3 mb-4">
-        <div className="size-8 rounded-lg flex items-center justify-center border border-border bg-bg-subtle text-text-main">
-          <Icon name="account_tree" size={20} />
+        <div className="size-8 rounded-lg flex items-center justify-center bg-violet-500/10">
+          <span className="material-symbols-outlined text-violet-500 text-xl">account_tree</span>
         </div>
         <div>
           <h3 className="font-medium text-sm">{t("modelMapping")}</h3>
@@ -168,17 +166,24 @@ export function CliproxyModelMappingEditor() {
       {msg && (
         <div
           className={`flex items-center gap-1.5 mb-3 px-2 py-1.5 rounded text-xs ${
-            msg.ok ? "bg-success/10 text-success" : "bg-error/10 text-error"
+            msg.ok
+              ? "bg-green-500/10 text-green-600 dark:text-green-400"
+              : "bg-red-500/10 text-red-600 dark:text-red-400"
           }`}
         >
-          <Icon name={msg.ok ? "check_circle" : "error"} size={12} />
+          <span className="material-symbols-outlined text-[12px]">
+            {msg.ok ? "check_circle" : "error"}
+          </span>
           {msg.text}
         </div>
       )}
 
-      <Textarea
-        className="min-h-[120px] resize-y font-mono text-xs"
-        error={!isValid && rawText !== EMPTY_MAPPING}
+      <textarea
+        className={`w-full font-mono text-xs rounded border px-3 py-2 resize-y min-h-[120px] bg-bg-subtle focus:outline-none focus:ring-1 transition-colors ${
+          !isValid && rawText !== EMPTY_MAPPING
+            ? "border-red-400 focus:ring-red-400"
+            : "border-border focus:ring-primary"
+        }`}
         value={rawText}
         onChange={(e) => {
           setRawText(e.target.value);
@@ -189,16 +194,29 @@ export function CliproxyModelMappingEditor() {
       />
 
       {validationMessage && rawText !== EMPTY_MAPPING && (
-        <p className="mt-1.5 text-xs text-error flex items-start gap-1">
-          <Icon name="error" size={12} className="mt-0.5" />
+        <p className="mt-1.5 text-xs text-red-600 dark:text-red-400 flex items-start gap-1">
+          <span className="material-symbols-outlined text-[12px] mt-0.5 shrink-0">error</span>
           {validationMessage}
         </p>
       )}
 
       <div className="mt-3 flex justify-end">
-        <Button size="sm" onClick={handleSave} disabled={!canSave} loading={saving}>
+        <button
+          onClick={handleSave}
+          disabled={!canSave}
+          className={`inline-flex items-center gap-1.5 rounded px-3 py-1.5 text-xs font-medium transition-colors ${
+            canSave
+              ? "bg-primary text-primary-foreground hover:bg-primary/90"
+              : "bg-bg-subtle text-text-muted cursor-not-allowed"
+          }`}
+        >
+          {saving && (
+            <span className="material-symbols-outlined animate-spin text-[14px]">
+              progress_activity
+            </span>
+          )}
           {t("save")}
-        </Button>
+        </button>
       </div>
     </Card>
   );

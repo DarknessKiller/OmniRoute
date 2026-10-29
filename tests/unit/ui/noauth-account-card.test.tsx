@@ -123,7 +123,7 @@ describe("NoAuthAccountCard compact grid", () => {
     for (const chip of chips) {
       const proxyBtn = chip.querySelector("button[title]");
       expect(proxyBtn).toBeTruthy();
-      expect(proxyBtn!.querySelector('svg.oi-icon[data-icon="shield"]')).toBeTruthy();
+      expect(proxyBtn!.textContent).toContain("shield");
     }
   });
 
@@ -136,12 +136,10 @@ describe("NoAuthAccountCard compact grid", () => {
     act(() => {
       proxyBtn.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     });
-    await waitForCondition(
-      () => document.body.textContent?.includes("Proxy for Account 1") ?? false
-    );
-    expect(document.body.textContent).toContain("Proxy for Account 1");
+    await waitForCondition(() => el.textContent?.includes("Proxy for Account 1") ?? false);
+    expect(el.textContent).toContain("Proxy for Account 1");
     // No saved proxies in this fixture → editor falls back to the custom inputs.
-    expect(document.body.querySelector("[role=dialog] input[placeholder='Host']")).toBeTruthy();
+    expect(el.querySelector("input[placeholder='Host']")).toBeTruthy();
   });
 });
 
@@ -193,15 +191,13 @@ describe("NoAuthAccountCard proxy pool dropdown (#5217 Gap 1)", () => {
       .querySelector<HTMLElement>("[data-account-id]")!
       .querySelector<HTMLButtonElement>("button[title]")!;
     act(() => proxyBtn.dispatchEvent(new MouseEvent("click", { bubbles: true })));
-    await waitForCondition(
-      () => document.body.textContent?.includes("Proxy for Account 1") ?? false
-    );
+    await waitForCondition(() => el.textContent?.includes("Proxy for Account 1") ?? false);
     // The saved dropdown lists every pool proxy by name; the manual Host input is hidden.
-    const select = document.body.querySelector<HTMLSelectElement>("[role=dialog] select")!;
+    const select = el.querySelector<HTMLSelectElement>("select")!;
     expect(select).toBeTruthy();
-    expect(document.body.textContent).toContain("US East");
-    expect(document.body.textContent).toContain("EU West");
-    expect(document.body.querySelector("[role=dialog] input[placeholder='Host']")).toBeNull();
+    expect(el.textContent).toContain("US East");
+    expect(el.textContent).toContain("EU West");
+    expect(el.querySelector("input[placeholder='Host']")).toBeNull();
   });
 
   it("persists a by-id reference {fingerprint, proxyId} when a pool proxy is selected", async () => {
@@ -213,9 +209,9 @@ describe("NoAuthAccountCard proxy pool dropdown (#5217 Gap 1)", () => {
       .querySelector<HTMLElement>("[data-account-id]")!
       .querySelector<HTMLButtonElement>("button[title]")!;
     act(() => proxyBtn.dispatchEvent(new MouseEvent("click", { bubbles: true })));
-    await waitForCondition(() => document.body.querySelector("[role=dialog] select") !== null);
+    await waitForCondition(() => el.querySelector("select") !== null);
 
-    const select = document.body.querySelector<HTMLSelectElement>("[role=dialog] select")!;
+    const select = el.querySelector<HTMLSelectElement>("select")!;
     const setter = Object.getOwnPropertyDescriptor(
       window.HTMLSelectElement.prototype,
       "value"
@@ -225,7 +221,7 @@ describe("NoAuthAccountCard proxy pool dropdown (#5217 Gap 1)", () => {
       select.dispatchEvent(new Event("change", { bubbles: true }));
     });
 
-    const saveBtn = Array.from(document.body.querySelectorAll("[role=dialog] button")).find(
+    const saveBtn = Array.from(el.querySelectorAll("button")).find(
       (b) => b.textContent?.trim() === "Save"
     )!;
     act(() => saveBtn.dispatchEvent(new MouseEvent("click", { bubbles: true })));
@@ -246,7 +242,7 @@ describe("NoAuthAccountCard proxy pool dropdown (#5217 Gap 1)", () => {
       .querySelector<HTMLButtonElement>("button[title]")!;
     // Tooltip is resolved from the referenced pool record, not an inline proxy.
     expect(firstShield.getAttribute("title")).toContain("1.2.3.4");
-    expect(firstShield.className).toContain("text-info");
+    expect(firstShield.className).toContain("text-blue-400");
   });
 });
 

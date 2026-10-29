@@ -1,9 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import Button from "@/shared/components/Button";
 import Card from "@/shared/components/Card";
-import Icon from "@/shared/components/Icon";
 import ProviderIcon from "@/shared/components/ProviderIcon";
 import useEmailPrivacyStore from "@/store/emailPrivacyStore";
 import { maskEmailLikeValue } from "@/shared/utils/maskEmail";
@@ -45,9 +43,9 @@ function computeStatus(usage: PoolUsageSnapshot | null): "green" | "amber" | "re
 }
 
 const STATUS_ICONS = {
-  green: { icon: "check_circle", cls: "text-success" },
-  amber: { icon: "warning", cls: "text-warning" },
-  red: { icon: "error", cls: "text-error" },
+  green: { icon: "check_circle", cls: "text-emerald-400" },
+  amber: { icon: "warning", cls: "text-amber-400" },
+  red: { icon: "error", cls: "text-red-400" },
 };
 
 export default function PoolCard({
@@ -103,7 +101,9 @@ export default function PoolCard({
           )}
           <div className="min-w-0">
             <div className="flex items-center gap-1.5">
-              <Icon name={statusIcon} size={16} className={statusCls} />
+              <span className={`material-symbols-outlined text-[16px] shrink-0 ${statusCls}`}>
+                {statusIcon}
+              </span>
               <span className="text-sm font-bold text-text-main truncate">
                 {displayName} · {displayConnectionLabel}
               </span>
@@ -115,26 +115,22 @@ export default function PoolCard({
           </div>
         </div>
         <div className="flex items-center gap-1">
-          <Button
-            variant="ghost"
-            size="icon-sm"
+          <button
+            type="button"
             onClick={onEdit}
             title={t("editAllocations")}
-            aria-label={t("editAllocations")}
-            className="text-text-muted"
+            className="p-1.5 rounded-md hover:bg-bg-subtle text-text-muted hover:text-text-main cursor-pointer"
           >
-            <Icon name="edit" size={16} />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon-sm"
+            <span className="material-symbols-outlined text-[16px]">edit</span>
+          </button>
+          <button
+            type="button"
             onClick={onRemove}
             title={t("removePool")}
-            aria-label={t("removePool")}
-            className="text-text-muted hover:bg-error/10 hover:text-error"
+            className="p-1.5 rounded-md hover:bg-red-500/10 text-text-muted hover:text-red-400 cursor-pointer"
           >
-            <Icon name="delete" size={16} />
-          </Button>
+            <span className="material-symbols-outlined text-[16px]">delete</span>
+          </button>
         </div>
       </div>
 
@@ -166,7 +162,7 @@ export default function PoolCard({
       {/* Allocation table */}
       <div className="mb-3">
         <h4 className="text-[10px] uppercase tracking-wide font-bold text-text-muted mb-1.5">
-          {t("allocationsHeading")}
+          Allocations
         </h4>
         <AllocationTable allocations={pool.allocations} usage={usage} keyLabels={keyLabels} />
       </div>
@@ -176,7 +172,7 @@ export default function PoolCard({
 
       {/* Burn rate chart */}
       {usage && (
-        <div className="pt-2 border-t border-border">
+        <div className="pt-2 border-t border-border/30">
           <BurnRateChart usage={usage} />
         </div>
       )}

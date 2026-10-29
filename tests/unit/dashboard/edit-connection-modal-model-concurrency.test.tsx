@@ -3,9 +3,6 @@ import React, { act } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 
-// The shared Modal is a kit Dialog (Radix) since KEA-7886: its content is portaled to
-// document.body, so queries start there (the container is a child of body).
-
 vi.mock("next-intl", () => ({
   useTranslations: () => (key: string) => key,
 }));
@@ -67,7 +64,7 @@ function renderModal(rateLimitOverrides: Record<string, unknown> | null, onSave 
       />
     );
   });
-  const toggle = document.body.querySelector(
+  const toggle = container.querySelector(
     'button[aria-controls="edit-connection-advanced-settings"]'
   ) as HTMLButtonElement | null;
   expect(toggle).not.toBeNull();
@@ -76,7 +73,7 @@ function renderModal(rateLimitOverrides: Record<string, unknown> | null, onSave 
 }
 
 function modelConcurrencyInput(): HTMLTextAreaElement {
-  const input = document.body.querySelector(
+  const input = container.querySelector(
     '[data-testid="model-concurrency-input"]'
   ) as HTMLTextAreaElement | null;
   expect(input).not.toBeNull();
@@ -95,7 +92,7 @@ async function typeInto(input: HTMLTextAreaElement, value: string) {
 }
 
 async function clickSave() {
-  const button = Array.from(document.body.querySelectorAll("button")).find(
+  const button = Array.from(container.querySelectorAll("button")).find(
     (b) => b.textContent === "save"
   );
   expect(button).toBeTruthy();
@@ -123,7 +120,7 @@ describe("EditConnectionModal — per-model concurrency caps", () => {
     await typeInto(modelConcurrencyInput(), "glm-5=0");
     await clickSave();
     expect(onSave).not.toHaveBeenCalled();
-    expect(document.body.textContent).toContain("rateLimitOverridesModelConcurrencyInvalid");
+    expect(container.textContent).toContain("rateLimitOverridesModelConcurrencyInvalid");
   });
 
   it("keeps an API-set executionMaxWaitMs when saving from the dashboard", async () => {

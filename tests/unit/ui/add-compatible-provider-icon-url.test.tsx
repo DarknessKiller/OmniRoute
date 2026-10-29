@@ -38,8 +38,7 @@ function render(props: Partial<ModalProps>) {
   };
   renderProps(props);
   containers.push({ root, el });
-  // Queries go through document.body: the dialog is portaled there (KEA-7886).
-  return { el: document.body, rerender: renderProps };
+  return { el, rerender: renderProps };
 }
 
 function inputByLabel(el: Element, label: string): HTMLInputElement {

@@ -1,10 +1,5 @@
 "use client";
 
-import Input from "@/shared/components/Input";
-import Textarea from "@/shared/components/Textarea";
-import Button from "@/shared/components/Button";
-import Icon from "@/shared/components/Icon";
-
 // src/app/(dashboard)/dashboard/playground/components/ToolsBuilder.tsx
 
 import { useState } from "react";
@@ -130,7 +125,9 @@ export default function ToolsBuilder({ toolsBuilder }: ToolsBuilderProps) {
                 {/* Tool header */}
                 <div className="flex items-center justify-between px-3 py-2 bg-bg-alt">
                   <div className="flex items-center gap-2">
-                    <Icon name="function" size={14} className="text-text-muted" />
+                    <span className="material-symbols-outlined text-[14px] text-text-muted">
+                      function
+                    </span>
                     <code className="text-xs font-mono text-text-main">{tool.function.name}</code>
                     {tool.function.description && (
                       <span className="text-[11px] text-text-muted truncate max-w-[200px]">
@@ -140,62 +137,64 @@ export default function ToolsBuilder({ toolsBuilder }: ToolsBuilderProps) {
                   </div>
                   <div className="flex items-center gap-1">
                     {!isEditing && (
-                      <Button
-                        variant="ghost"
-                        size="icon-sm"
+                      <button
                         onClick={() => startEdit(idx)}
-                        className="text-text-muted"
+                        className="p-1 rounded text-text-muted hover:text-text-main hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
                         aria-label={t("editTool", { name: tool.function.name })}
-                        icon="edit"
-                      />
+                      >
+                        <span className="material-symbols-outlined text-[14px]">edit</span>
+                      </button>
                     )}
-                    <Button
-                      variant="ghost"
-                      size="icon-sm"
+                    <button
                       onClick={() => remove(idx)}
-                      className="text-text-muted hover:text-error"
+                      className="p-1 rounded text-text-muted hover:text-destructive transition-colors"
                       aria-label={t("removeTool", { name: tool.function.name })}
-                      icon="delete"
-                    />
+                    >
+                      <span className="material-symbols-outlined text-[14px]">delete</span>
+                    </button>
                   </div>
                 </div>
 
                 {/* Edit form */}
                 {isEditing && editDraft != null && (
                   <div className="flex flex-col gap-2 p-3 bg-surface">
-                    <Input
+                    <input
                       type="text"
                       value={editDraft.name}
                       onChange={(e) => setEditDraft({ ...editDraft, name: e.target.value })}
                       placeholder={t("toolNamePlaceholder")}
-                      aria-label={t("toolNamePlaceholder")}
-                      inputClassName="text-xs"
+                      className="text-xs bg-bg-alt border border-border rounded px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-primary text-text-main"
                     />
-                    <Input
+                    <input
                       type="text"
                       value={editDraft.description}
                       onChange={(e) => setEditDraft({ ...editDraft, description: e.target.value })}
                       placeholder={t("toolDescPlaceholder")}
-                      aria-label={t("toolDescPlaceholder")}
-                      inputClassName="text-xs"
+                      className="text-xs bg-bg-alt border border-border rounded px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-primary text-text-main"
                     />
-                    <Textarea
+                    <textarea
                       value={editDraft.parametersRaw}
                       onChange={(e) =>
                         setEditDraft({ ...editDraft, parametersRaw: e.target.value })
                       }
                       rows={6}
+                      className="text-xs font-mono bg-bg-alt border border-border rounded px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-primary text-text-main resize-y"
                       aria-label={t("toolParamsJsonSchema")}
-                      className="text-xs font-mono resize-y"
                     />
-                    {toolError && <p className="text-xs text-error">{toolError}</p>}
+                    {toolError && <p className="text-xs text-destructive">{toolError}</p>}
                     <div className="flex items-center gap-2">
-                      <Button size="sm" onClick={() => handleUpdate(idx)}>
+                      <button
+                        onClick={() => handleUpdate(idx)}
+                        className="text-xs px-2.5 py-1 rounded bg-primary text-white hover:bg-primary/90 transition-colors"
+                      >
                         {t("save")}
-                      </Button>
-                      <Button variant="outline" size="sm" onClick={cancelEdit}>
+                      </button>
+                      <button
+                        onClick={cancelEdit}
+                        className="text-xs px-2.5 py-1 rounded border border-border text-text-muted hover:text-text-main transition-colors"
+                      >
                         {t("cancel")}
-                      </Button>
+                      </button>
                     </div>
                   </div>
                 )}
@@ -211,42 +210,43 @@ export default function ToolsBuilder({ toolsBuilder }: ToolsBuilderProps) {
           {t("addTool")}
         </span>
 
-        <Input
+        <input
           type="text"
           value={form.name}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
           placeholder={t("toolNameRequiredPlaceholder")}
-          aria-label={t("toolNameRequiredPlaceholder")}
-          inputClassName="text-xs"
+          className="text-xs bg-bg-alt border border-border rounded px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-primary text-text-main"
         />
 
-        <Input
+        <input
           type="text"
           value={form.description}
           onChange={(e) => setForm({ ...form, description: e.target.value })}
           placeholder={t("toolDescPlaceholder")}
-          aria-label={t("toolDescPlaceholder")}
-          inputClassName="text-xs"
+          className="text-xs bg-bg-alt border border-border rounded px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-primary text-text-main"
         />
 
         <div className="flex flex-col gap-1">
-          <span className="text-[10px] text-text-muted uppercase tracking-wider" aria-hidden="true">
+          <label className="text-[10px] text-text-muted uppercase tracking-wider">
             {t("toolParamsLabel")}
-          </span>
-          <Textarea
+          </label>
+          <textarea
             value={form.parametersRaw}
             onChange={(e) => setForm({ ...form, parametersRaw: e.target.value })}
             rows={6}
+            className="text-xs font-mono bg-bg-alt border border-border rounded px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-primary text-text-main resize-y"
             aria-label={t("toolParamsJsonSchema")}
-            className="text-xs font-mono resize-y"
           />
         </div>
 
-        {formError && <p className="text-xs text-error">{formError}</p>}
+        {formError && <p className="text-xs text-destructive">{formError}</p>}
 
-        <Button size="sm" icon="add" onClick={handleAdd} className="self-start">
-          {t("addTool")}
-        </Button>
+        <button
+          onClick={handleAdd}
+          className="text-xs px-3 py-1.5 rounded bg-primary text-white hover:bg-primary/90 transition-colors self-start"
+        >
+          + {t("addTool")}
+        </button>
       </div>
     </div>
   );

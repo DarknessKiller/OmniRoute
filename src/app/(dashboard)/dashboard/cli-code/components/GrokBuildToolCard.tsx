@@ -4,16 +4,11 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { useTranslations } from "next-intl";
 
-import Icon from "@/shared/components/Icon";
 import CliStatusBadge from "./CliStatusBadge";
 
 import { Button, Card, ManualConfigModal, ModelSelectModal } from "@/shared/components";
 import ProviderIcon from "@/shared/components/ProviderIcon";
 import type { ToolBatchStatus } from "@/shared/types/cliBatchStatus";
-import { cn } from "@/shared/utils/cn";
-import Input from "@/shared/components/Input";
-import Select from "@/shared/components/Select";
-import { CARD_TOGGLE_CLASS, cardToggleProps } from "./cardToggle";
 
 const SETTINGS_ENDPOINT = "/api/cli-tools/grok-build-settings";
 const PRESETS_KEY = "omniroute.grokBuildEndpointPresets";
@@ -364,14 +359,13 @@ export default function GrokBuildToolCard({
     : (batchStatus?.config.status ?? null);
   const rowClass = "flex items-center gap-2";
   const labelClass = "w-32 shrink-0 text-right text-sm font-semibold text-text-main";
+  const inputClass =
+    "min-w-0 flex-1 rounded border border-border bg-surface px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-primary/50";
 
   return (
     <Card padding="sm" className="overflow-hidden">
-      <div
-        className={cn("flex cursor-pointer items-center justify-between", CARD_TOGGLE_CLASS)}
-        {...cardToggleProps(isExpanded, onToggle)}
-      >
-        <div className="flex min-w-0 items-center gap-3">
+      <div className="flex cursor-pointer items-center justify-between" onClick={onToggle}>
+        <div className="flex items-center gap-3">
           <div className="flex size-8 shrink-0 items-center justify-center">
             <ProviderIcon providerId="grok" size={32} type="color" />
           </div>
@@ -387,27 +381,27 @@ export default function GrokBuildToolCard({
             <p className="truncate text-xs text-text-muted">{tool.description}</p>
           </div>
         </div>
-        <Icon
-          name="expand_more"
-          size={20}
-          className={cn("text-text-muted transition-transform", isExpanded && "rotate-180")}
-        />
+        <span
+          className={`material-symbols-outlined text-[20px] text-text-muted transition-transform ${isExpanded ? "rotate-180" : ""}`}
+        >
+          expand_more
+        </span>
       </div>
 
       {isExpanded && (
         <div className="mt-4 flex flex-col gap-4 border-t border-border pt-4">
           {checking && (
             <div className="flex items-center gap-2 text-text-muted">
-              <Icon name="progress_activity" className="animate-spin" />
+              <span className="material-symbols-outlined animate-spin">progress_activity</span>
               <span>{t("checkingCli", { tool: "Grok Build" })}</span>
             </div>
           )}
 
           {!checking && status && !cliReady && (
-            <div className="flex items-center gap-3 rounded-lg border border-warning/30 bg-warning/10 p-4">
-              <Icon name="warning" className="text-warning" />
+            <div className="flex items-center gap-3 rounded-lg border border-yellow-500/30 bg-yellow-500/10 p-4">
+              <span className="material-symbols-outlined text-yellow-500">warning</span>
               <div>
-                <p className="font-medium text-warning">
+                <p className="font-medium text-yellow-600 dark:text-yellow-400">
                   {status.installed
                     ? t("cliNotRunnable", { tool: "Grok Build" })
                     : t("cliNotInstalled", { tool: "Grok Build" })}
@@ -423,7 +417,9 @@ export default function GrokBuildToolCard({
           {status?.config?.model?.base_url && (
             <div className={rowClass}>
               <span className={labelClass}>{t("current")}</span>
-              <Icon name="arrow_forward" size={14} className="text-text-muted" />
+              <span className="material-symbols-outlined text-[14px] text-text-muted">
+                arrow_forward
+              </span>
               <span className="min-w-0 flex-1 truncate px-2 py-1.5 text-xs text-text-muted">
                 {status.config.model.base_url}
               </span>
@@ -431,15 +427,15 @@ export default function GrokBuildToolCard({
           )}
 
           <div className={rowClass}>
-            <span className={labelClass} id="grok-build-endpoint-label">
+            <label className={labelClass} htmlFor="grok-build-endpoint">
               {t("baseUrl")}
+            </label>
+            <span className="material-symbols-outlined text-[14px] text-text-muted">
+              arrow_forward
             </span>
-            <Icon name="arrow_forward" size={14} className="text-text-muted" />
-            <Select
+            <select
               id="grok-build-endpoint"
-              aria-labelledby="grok-build-endpoint-label"
-              className="min-w-0 w-auto flex-1"
-              selectClassName="text-xs"
+              className={inputClass}
               value={selectedEndpoint}
               onChange={(event) => setSelectedEndpoint(event.target.value)}
             >
@@ -448,16 +444,17 @@ export default function GrokBuildToolCard({
                   {endpoint.label}: {endpoint.url || "Enter a URL"}
                 </option>
               ))}
-            </Select>
+            </select>
           </div>
           {selectedEndpoint === CUSTOM_ENDPOINT && (
             <div className={rowClass}>
-              <span className={labelClass}>{t("customUrl")}</span>
-              <Icon name="arrow_forward" size={14} className="text-text-muted" />
-              <Input
-                aria-label={t("customEndpointAria")}
-                className="min-w-0 w-auto flex-1"
-                inputClassName="text-xs"
+              <span className={labelClass}>Custom URL</span>
+              <span className="material-symbols-outlined text-[14px] text-text-muted">
+                arrow_forward
+              </span>
+              <input
+                aria-label="Custom endpoint"
+                className={inputClass}
                 type="url"
                 value={customEndpoint}
                 onChange={(event) => setCustomEndpoint(event.target.value)}
@@ -467,30 +464,32 @@ export default function GrokBuildToolCard({
           )}
 
           <div className={rowClass}>
-            <span className={labelClass} id="grok-build-api-key-label">
+            <label className={labelClass} htmlFor="grok-build-api-key">
               {t("apiKey")}
+            </label>
+            <span className="material-symbols-outlined text-[14px] text-text-muted">
+              arrow_forward
             </span>
-            <Icon name="arrow_forward" size={14} className="text-text-muted" />
-            <Select
+            <select
               id="grok-build-api-key"
-              aria-labelledby="grok-build-api-key-label"
-              className="min-w-0 w-auto flex-1"
-              selectClassName="text-xs"
+              className={inputClass}
               value={effectiveKeyId}
               onChange={(event) => setSelectedKeyId(event.target.value)}
             >
-              <option value="">{t("useDefaultKey")}</option>
+              <option value="">Use the OmniRoute default key</option>
               {apiKeys.map((key) => (
                 <option key={key.id} value={key.id}>
                   {key.key || key.name || key.id}
                 </option>
               ))}
-            </Select>
+            </select>
           </div>
 
           <div className={rowClass}>
             <span className={labelClass}>{t("model")}</span>
-            <Icon name="arrow_forward" size={14} className="text-text-muted" />
+            <span className="material-symbols-outlined text-[14px] text-text-muted">
+              arrow_forward
+            </span>
             <Button
               variant="outline"
               size="sm"
@@ -499,25 +498,22 @@ export default function GrokBuildToolCard({
             >
               {t("selectModel")}
             </Button>
-            <Input
-              aria-label={t("mainModelAria")}
-              className="min-w-0 w-auto flex-1"
-              inputClassName="text-xs"
+            <input
+              aria-label="Main model"
+              className={inputClass}
               value={model}
               onChange={(event) => setModel(event.target.value)}
               placeholder={availableModels[0]?.value || "provider/model-id"}
             />
             {model && (
-              <Button
-                variant="ghost"
-                size="icon-sm"
+              <button
+                type="button"
+                className="rounded p-1 text-text-muted transition-colors hover:text-red-500"
                 title={t("clear")}
                 onClick={() => setModel("")}
-                aria-label={t("clear")}
-                className="text-text-muted hover:text-error"
               >
-                <Icon name="close" size={14} />
-              </Button>
+                <span className="material-symbols-outlined text-[14px]">close</span>
+              </button>
             )}
           </div>
 
@@ -530,11 +526,9 @@ export default function GrokBuildToolCard({
               <span className="w-32 shrink-0 truncate text-right text-[11px] font-mono text-text-main opacity-70 transition-opacity group-hover:opacity-100">
                 {modelLabel(type)}
               </span>
-              <Icon
-                name="arrow_forward"
-                size={14}
-                className="text-border transition-colors group-hover:text-primary"
-              />
+              <span className="material-symbols-outlined text-[14px] text-border transition-colors group-hover:text-primary">
+                arrow_forward
+              </span>
               <Button
                 variant="outline"
                 size="sm"
@@ -543,10 +537,9 @@ export default function GrokBuildToolCard({
               >
                 {t("selectModel")}
               </Button>
-              <Input
+              <input
                 aria-label={`${modelLabel(type)} model`}
-                className="min-w-0 w-auto flex-1"
-                inputClassName="text-xs"
+                className={inputClass}
                 value={subagentModels[type] ?? ""}
                 onChange={(event) =>
                   setSubagentModels((current) => ({ ...current, [type]: event.target.value }))
@@ -554,18 +547,16 @@ export default function GrokBuildToolCard({
                 placeholder={`Use ${model || "the main model"}`}
               />
               {subagentModels[type] && (
-                <Button
-                  variant="ghost"
-                  size="icon-sm"
+                <button
+                  type="button"
+                  className="rounded p-1 text-text-muted transition-colors hover:text-red-500"
                   title={t("clear")}
                   onClick={() =>
                     setSubagentModels((current) => ({ ...current, [type]: undefined }))
                   }
-                  aria-label={t("clear")}
-                  className="text-text-muted hover:text-error"
                 >
-                  <Icon name="close" size={14} />
-                </Button>
+                  <span className="material-symbols-outlined text-[14px]">close</span>
+                </button>
               )}
             </div>
           ))}
@@ -573,7 +564,7 @@ export default function GrokBuildToolCard({
           {message && (
             <p
               role="status"
-              className={`rounded px-2 py-1.5 text-xs ${message.type === "success" ? "bg-success/10 text-success" : "bg-error/10 text-error"}`}
+              className={`rounded px-2 py-1.5 text-xs ${message.type === "success" ? "bg-green-500/10 text-green-600" : "bg-red-500/10 text-red-600"}`}
             >
               {message.text}
             </p>
@@ -587,7 +578,7 @@ export default function GrokBuildToolCard({
               disabled={!cliReady || !model || !baseUrl}
               onClick={apply}
             >
-              <Icon name="save" size={14} className="mr-1" />
+              <span className="material-symbols-outlined mr-1 text-[14px]">save</span>
               {t("apply")}
             </Button>
             <Button
@@ -597,11 +588,11 @@ export default function GrokBuildToolCard({
               disabled={!configured}
               onClick={reset}
             >
-              <Icon name="restore" size={14} className="mr-1" />
+              <span className="material-symbols-outlined mr-1 text-[14px]">restore</span>
               {t("reset")}
             </Button>
             <Button variant="ghost" size="sm" onClick={() => setShowManual(true)}>
-              <Icon name="content_copy" size={14} className="mr-1" />
+              <span className="material-symbols-outlined mr-1 text-[14px]">content_copy</span>
               {t("manualConfig")}
             </Button>
             <div className="flex-1" />
@@ -613,7 +604,7 @@ export default function GrokBuildToolCard({
                 if (!showBackups) void refreshBackups();
               }}
             >
-              <Icon name="history" size={14} className="mr-1" />
+              <span className="material-symbols-outlined mr-1 text-[14px]">history</span>
               {t("backups")}
               {backups.length > 0 && ` (${backups.length})`}
             </Button>
@@ -622,7 +613,7 @@ export default function GrokBuildToolCard({
           {showBackups && (
             <div className="mt-2 rounded-lg border border-border bg-surface p-3">
               <h4 className="mb-2 flex items-center gap-1 text-xs font-semibold text-text-main">
-                <Icon name="history" size={14} />
+                <span className="material-symbols-outlined text-[14px]">history</span>
                 {t("configBackups")}
               </h4>
               {backups.length === 0 ? (
@@ -632,24 +623,25 @@ export default function GrokBuildToolCard({
                   {backups.map((backup) => (
                     <div
                       key={backup.id}
-                      className="flex items-center gap-2 rounded bg-bg-subtle px-2 py-1.5 text-xs"
+                      className="flex items-center gap-2 rounded bg-black/5 px-2 py-1.5 text-xs dark:bg-white/5"
                     >
-                      <Icon name="description" size={14} className="text-text-muted" />
+                      <span className="material-symbols-outlined text-[14px] text-text-muted">
+                        description
+                      </span>
                       <span className="flex-1 truncate font-mono" title={backup.id}>
                         {backup.id}
                       </span>
                       <span className="whitespace-nowrap text-text-muted">
                         {new Date(backup.createdAt).toLocaleString()}
                       </span>
-                      <Button
-                        variant="secondary"
-                        size="sm"
+                      <button
+                        type="button"
+                        className="rounded bg-primary/10 px-2 py-0.5 text-[10px] font-medium text-primary transition-colors hover:bg-primary/20 disabled:opacity-50"
                         disabled={restoringBackup === backup.id}
                         onClick={() => void restoreBackup(backup.id)}
-                        className="h-6 px-2 text-[10px]"
                       >
                         {restoringBackup === backup.id ? "..." : t("restore")}
-                      </Button>
+                      </button>
                     </div>
                   ))}
                 </div>
@@ -672,7 +664,7 @@ export default function GrokBuildToolCard({
       <ManualConfigModal
         isOpen={showManual}
         onClose={() => setShowManual(false)}
-        title={t("manualConfigTitle")}
+        title="Grok Build manual config"
         configs={[{ filename: "~/.grok/config.toml", content: manualToml }]}
       />
     </Card>

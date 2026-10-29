@@ -1,14 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
-import { Field } from "@omniroute/ui-kit/field";
-import Button from "@/shared/components/Button";
-import Checkbox from "@/shared/components/Checkbox";
-import Input from "@/shared/components/Input";
-import Modal from "@/shared/components/Modal";
-import Select from "@/shared/components/Select";
-import Textarea from "@/shared/components/Textarea";
+import { Button, Checkbox, Input, Modal } from "@/shared/components";
 import {
   SECRET_PLACEHOLDER,
   type LogExportDestination,
@@ -22,7 +15,6 @@ export interface DestinationSubmitPayload {
   enabled: boolean;
   config: Record<string, unknown>;
   batchSize: number;
-  startFromCurrentPosition?: boolean;
   includeBodies: boolean;
   maxBodyBytes: number;
   maxRowsPerRun: number;
@@ -40,19 +32,13 @@ interface DestinationFormModalProps {
 
 type FormValues = Record<string, string | boolean>;
 
-function numericFieldValue(value: string | boolean | undefined): number | undefined {
-  if (value === "" || value === undefined) return undefined;
-  const numeric = Number(value);
-  return Number.isFinite(numeric) ? numeric : undefined;
-}
-
 function initialValues(
   descriptor: LogExportTypeDescriptor | undefined,
   destination: LogExportDestination | null
 ): FormValues {
   const values: FormValues = {};
   for (const field of descriptor?.fields ?? []) {
-    const stored = destination?.config?.[field.key] ?? field.defaultValue;
+    const stored = destination?.config?.[field.key];
     if (field.type === "boolean") {
       values[field.key] = stored === undefined ? true : Boolean(stored);
     } else {
@@ -77,8 +63,6 @@ function DestinationForm({
   onClose,
   onSubmit,
 }: Omit<DestinationFormModalProps, "open">) {
-  const t = useTranslations("logExport");
-  const [startFromCurrentPosition, setStartFromCurrentPosition] = useState(false);
   const [name, setName] = useState(editing?.name ?? "");
   const [typeId, setTypeId] = useState(editing?.type ?? types[0]?.id ?? "");
   const [enabled, setEnabled] = useState(editing?.enabled ?? true);
@@ -118,8 +102,8 @@ function DestinationForm({
         continue;
       }
       if (field.type === "number") {
-        const numeric = numericFieldValue(value);
-        if (numeric !== undefined) config[field.key] = numeric;
+        const numeric = Number(value);
+        if (Number.isFinite(numeric)) config[field.key] = numeric;
         continue;
       }
       const text = typeof value === "string" ? value.trim() : "";
@@ -150,36 +134,44 @@ function DestinationForm({
     }
     if (field.type === "textarea") {
       return (
-        <Field
-          key={field.key}
-          htmlFor={`field-${field.key}`}
-          label={`${field.labelFallback}${field.required ? " *" : ""}`}
-          hint={field.helpFallback || undefined}
-        >
-          <Textarea
+        <div key={field.key} className="flex flex-col gap-1.5">
+          <label className="text-xs font-medium text-text-main" htmlFor={`field-${field.key}`}>
+            {field.labelFallback}
+            {field.required ? " *" : ""}
+          </label>
+          <textarea
             id={`field-${field.key}`}
             rows={6}
-            className="font-mono text-xs"
+            className="w-full rounded-control border border-border bg-surface p-2 font-mono text-xs text-text-main"
             placeholder={secretPlaceholder(field)}
             value={typeof value === "string" ? value : ""}
             onChange={(event) => setValue(field.key, event.target.value)}
           />
-        </Field>
+          {field.helpFallback ? (
+            <span className="text-[11px] text-text-muted">{field.helpFallback}</span>
+          ) : null}
+        </div>
       );
     }
     if (field.type === "select") {
       return (
-        <Select
-          key={field.key}
-          id={`field-${field.key}`}
-          label={field.labelFallback}
-          value={typeof value === "string" ? value : ""}
-          onChange={(event) => setValue(field.key, event.target.value)}
-          options={(field.options ?? []).map((option) => ({
-            value: option.value,
-            label: option.labelFallback,
-          }))}
-        />
+        <div key={field.key} className="flex flex-col gap-1.5">
+          <label className="text-xs font-medium text-text-main" htmlFor={`field-${field.key}`}>
+            {field.labelFallback}
+          </label>
+          <select
+            id={`field-${field.key}`}
+            className="h-9 rounded-control border border-border bg-surface px-2 text-sm text-text-main"
+            value={typeof value === "string" ? value : ""}
+            onChange={(event) => setValue(field.key, event.target.value)}
+          >
+            {(field.options ?? []).map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.labelFallback}
+              </option>
+            ))}
+          </select>
+        </div>
       );
     }
     return (
@@ -204,15 +196,27 @@ function DestinationForm({
         onChange={(event) => setName(event.target.value)}
       />
 
-      <Select
-        id="destination-type"
-        label="Destination type"
-        value={typeId}
-        disabled={Boolean(editing)}
-        onChange={(event) => handleTypeChange(event.target.value)}
-        options={types.map((type) => ({ value: type.id, label: type.label }))}
-        hint={descriptor ? descriptor.description : undefined}
-      />
+      <div className="flex flex-col gap-1.5">
+        <label className="text-xs font-medium text-text-main" htmlFor="destination-type">
+          Destination type
+        </label>
+        <select
+          id="destination-type"
+          className="h-9 rounded-control border border-border bg-surface px-2 text-sm text-text-main disabled:opacity-60"
+          value={typeId}
+          disabled={Boolean(editing)}
+          onChange={(event) => handleTypeChange(event.target.value)}
+        >
+          {types.map((type) => (
+            <option key={type.id} value={type.id}>
+              {type.label}
+            </option>
+          ))}
+        </select>
+        {descriptor ? (
+          <span className="text-[11px] text-text-muted">{descriptor.description}</span>
+        ) : null}
+      </div>
 
       {(descriptor?.fields ?? []).map(renderField)}
 
@@ -232,14 +236,6 @@ function DestinationForm({
           onChange={(event) => setMaxRowsPerRun(event.target.value)}
         />
       </div>
-
-      {!editing ? (
-        <Checkbox
-          label={t("startFromCurrentPosition")}
-          checked={startFromCurrentPosition}
-          onChange={(event) => setStartFromCurrentPosition(event.target.checked)}
-        />
-      ) : null}
 
       <Checkbox
         label="Export prompts and responses"
@@ -270,7 +266,7 @@ function DestinationForm({
       />
 
       {error ? (
-        <p role="alert" className="rounded-control bg-error-bg p-2 text-xs text-error">
+        <p className="rounded-control bg-red-500/10 p-2 text-xs text-red-600 dark:text-red-400">
           {error}
         </p>
       ) : null}
@@ -289,7 +285,6 @@ function DestinationForm({
               enabled,
               config: buildConfig(),
               batchSize: Number(batchSize) || 500,
-              ...(!editing ? { startFromCurrentPosition } : {}),
               includeBodies,
               maxBodyBytes: Number(maxBodyBytes) || 262144,
               maxRowsPerRun: Number(maxRowsPerRun) || 10000,

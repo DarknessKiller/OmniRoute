@@ -52,10 +52,9 @@ vi.mock("@/store/notificationStore", () => ({
   }),
 }));
 
-vi.mock("@/shared/components", async () => ({
-  // KEA-7886: form adapters (Button/Input/Checkbox/Select/FilterPills) as DOM-faithful stubs
-  ...(await import("../../../../../../../tests/helpers/sharedComponentStubs")).formStubs,
+vi.mock("@/shared/components", () => ({
   Badge: ({ children }: any) => <span>{children}</span>,
+  Button: ({ children, onClick }: any) => <button onClick={onClick}>{children}</button>,
 }));
 
 // ---------------------------------------------------------------------------

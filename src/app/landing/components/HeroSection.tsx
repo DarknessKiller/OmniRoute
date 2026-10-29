@@ -1,7 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import Icon from "@/shared/components/Icon";
 
 export default function HeroSection() {
   const t = useTranslations("landing");
@@ -36,7 +35,9 @@ export default function HeroSection() {
             onClick={() => router.push("/dashboard")}
             className="w-full sm:w-auto h-12 px-8 rounded-lg bg-[#E54D5E] hover:bg-[#C93D4E] text-white text-base font-bold transition-all shadow-[0_0_15px_rgba(229,77,94,0.4)] flex items-center justify-center gap-2"
           >
-            <Icon name="rocket_launch" size={20} />
+            <span className="material-symbols-outlined" aria-hidden="true">
+              rocket_launch
+            </span>
             {t("getStarted")}
           </button>
           <a
@@ -45,7 +46,9 @@ export default function HeroSection() {
             rel="noopener noreferrer"
             className="w-full sm:w-auto h-12 px-8 rounded-lg border border-[#2D333B] bg-[#111520] hover:bg-[#2D333B] text-white text-base font-bold transition-all flex items-center justify-center gap-2"
           >
-            <Icon name="code" size={20} />
+            <span className="material-symbols-outlined" aria-hidden="true">
+              code
+            </span>
             {t("viewOnGithub")}
           </a>
         </div>

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { Button, NoAuthAccountCard, NoAuthProviderCard } from "@/shared/components";
+import { NoAuthAccountCard, NoAuthProviderCard } from "@/shared/components";
 import { getProviderAlias, supportsNoAuthProviderProxy } from "@/shared/constants/providers";
 import { useNotificationStore } from "@/store/notificationStore";
 import { providerText } from "../providerPageHelpers";
@@ -125,20 +125,19 @@ export default function NoAuthProviderControls({
   const accountProviderName = ACCOUNT_PROVIDER_NAMES[providerId];
   const host = providerProxy?.host;
   const providerProxyControl = supportsNoAuthProviderProxy(providerId) ? (
-    <Button
-      variant="ghost"
-      size="sm"
-      icon="vpn_lock"
+    <button
+      type="button"
       onClick={onConfigureProviderProxy}
-      className={`h-auto min-h-0 gap-1 rounded px-2 py-1 text-xs font-medium ${
+      className={`inline-flex items-center gap-1 rounded px-2 py-1 text-xs font-medium transition-all ${
         host
-          ? "bg-warning/15 text-warning hover:bg-warning/25"
-          : "bg-bg-subtle text-text-muted/50 hover:bg-bg-subtle hover:text-text-muted"
+          ? "bg-amber-500/15 text-amber-500 hover:bg-amber-500/25"
+          : "bg-black/3 text-text-muted/50 hover:bg-black/6 hover:text-text-muted dark:bg-white/3 dark:hover:bg-white/6"
       }`}
       title={host ? t("providerProxyTitleConfigured", { host }) : t("providerProxyConfigureHint")}
     >
+      <span className="material-symbols-outlined text-[14px]">vpn_lock</span>
       <span className="max-w-30 truncate">{host || t("providerProxy")}</span>
-    </Button>
+    </button>
   ) : null;
 
   if (accountProviderName) {

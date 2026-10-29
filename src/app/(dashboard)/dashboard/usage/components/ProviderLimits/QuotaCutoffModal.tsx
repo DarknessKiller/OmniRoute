@@ -2,10 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import Icon from "@/shared/components/Icon";
 import Modal from "@/shared/components/Modal";
 import Button from "@/shared/components/Button";
-import Input from "@/shared/components/Input";
 import { translateUsageOrFallback, type UsageTranslationValues } from "./i18nFallback";
 
 export interface QuotaCutoffModalWindow {
@@ -198,7 +196,7 @@ export default function QuotaCutoffModal({
                 </div>
               </div>
               <div className="flex items-center gap-1">
-                <Input
+                <input
                   type="number"
                   min={0}
                   max={100}
@@ -206,10 +204,10 @@ export default function QuotaCutoffModal({
                   value={drafts[w.key] ?? ""}
                   placeholder={placeholder}
                   disabled={saving}
-                  aria-label={w.displayName}
                   onChange={(e) => setDrafts((prev) => ({ ...prev, [w.key]: e.target.value }))}
-                  className="w-20"
-                  inputClassName={`text-center ${isOverride ? "border-primary/40" : ""}`}
+                  className={`w-20 px-2 py-1 text-sm text-center rounded-md border bg-transparent text-text-main focus:outline-none focus:border-primary/60 disabled:opacity-50 ${
+                    isOverride ? "border-primary/40" : "border-border"
+                  }`}
                 />
                 <span className="text-xs text-text-muted">%</span>
               </div>
@@ -218,8 +216,8 @@ export default function QuotaCutoffModal({
         })}
       </div>
       {error && (
-        <div className="mt-3 text-sm text-error flex items-center gap-1.5">
-          <Icon name="error" size={16} />
+        <div className="mt-3 text-sm text-red-500 flex items-center gap-1.5">
+          <span className="material-symbols-outlined text-[16px]">error</span>
           {error}
         </div>
       )}

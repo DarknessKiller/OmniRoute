@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useState, useEffect, useCallback, useSyncExternalStore, useId } from "react";
+import { useState, useEffect, useRef, useCallback, useSyncExternalStore, useId } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/shared/utils/cn";
@@ -12,26 +12,10 @@ import {
   toggleExpandedSection,
 } from "@/shared/utils/sidebarExpansionState";
 import { APP_CONFIG } from "@/shared/constants/appConfig";
-import {
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarRail,
-  SidebarSeparator,
-  SidebarTrigger,
-  useSidebar,
-} from "@omniroute/ui-kit/sidebar";
-import OmniRouteLogo, { OmniRouteLockup } from "./OmniRouteLogo";
-import Icon from "./Icon";
+import OmniRouteLogo from "./OmniRouteLogo";
 import Button from "./Button";
 import Input from "./Input";
-import Modal, { ConfirmModal } from "./Modal";
+import { ConfirmModal } from "./Modal";
 import CloudSyncStatus from "./CloudSyncStatus";
 import { useTranslations } from "next-intl";
 import {
@@ -57,22 +41,6 @@ import {
   type SidebarItemOrder,
 } from "@/shared/constants/sidebarVisibility";
 
-function subscribeDir(callback: () => void) {
-  if (typeof document === "undefined") return () => {};
-  const observer = new MutationObserver(callback);
-  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["dir"] });
-  return () => observer.disconnect();
-}
-
-/** Kit Sidebar side: right-anchored under dir="rtl" (ar, fa, he, ur), left otherwise. */
-export function useSidebarSide(): "left" | "right" {
-  return useSyncExternalStore(
-    subscribeDir,
-    () => (document.documentElement.dir === "rtl" ? "right" : "left"),
-    () => "left"
-  );
-}
-
 const isE2EMode = process.env.NEXT_PUBLIC_OMNIROUTE_E2E_MODE === "1";
 const DEFAULT_EXPANDED: SidebarSectionId = "omni-proxy";
 const EXPANDED_SECTIONS_KEY = "sidebar-expanded-sections";
@@ -85,6 +53,8 @@ type SidebarProps = {
   onToggleCollapse?: () => void;
   isMacElectron?: boolean;
 };
+
+type HoveredItem = { id: string; label: string; x: number; y: number; isRtl?: boolean } | null;
 
 function parseStoredArray<T>(raw: string | null, fallback: T): T {
   try {
@@ -132,12 +102,12 @@ function readStoredPinnedItemsRaw() {
   }
 }
 
-/**
- * Dashboard navigation. Must render inside the kit `SidebarProvider` + `<Sidebar>` (DashboardShell
- * does that): the collapsed/mobile state comes from `useSidebar()`. `collapsed`, `onToggleCollapse`
- * and `onClose` stay in the props type for older callers and are ignored.
- */
-export default function Sidebar({ isMacElectron = false }: SidebarProps) {
+export default function Sidebar({
+  onClose,
+  collapsed = false,
+  onToggleCollapse,
+  isMacElectron = false,
+}: SidebarProps) {
   const navigationId = useId();
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({});
   const pathname = usePathname();
@@ -148,8 +118,7 @@ export default function Sidebar({ isMacElectron = false }: SidebarProps) {
   }
   const t = useTranslations("sidebar");
   const tc = useTranslations("common");
-  const { state: sidebarState, isMobile } = useSidebar();
-  const collapsed = sidebarState === "collapsed" && !isMobile;
+  const sidebarRef = useRef<HTMLElement>(null);
   const [showShutdownModal, setShowShutdownModal] = useState(false);
   const [showRestartModal, setShowRestartModal] = useState(false);
   const [isShuttingDown, setIsShuttingDown] = useState(false);
@@ -176,6 +145,7 @@ export default function Sidebar({ isMacElectron = false }: SidebarProps) {
   const [pinnedSectionCollapsed, setPinnedSectionCollapsed] = useState(false);
   const [sidebarExpansionLoaded, setSidebarExpansionLoaded] = useState(false);
   const [skipInitialActiveExpansion, setSkipInitialActiveExpansion] = useState(false);
+  const [hoveredItem, setHoveredItem] = useState<HoveredItem>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
   // Load persisted state once the client has hydrated. A stored [] intentionally
@@ -495,7 +465,7 @@ export default function Sidebar({ isMacElectron = false }: SidebarProps) {
     setIsShuttingDown(true);
     try {
       await fetch("/api/shutdown", { method: "POST" });
-    } catch {
+    } catch (e) {
       // Expected to fail as server shuts down
     }
     setIsShuttingDown(false);
@@ -507,7 +477,7 @@ export default function Sidebar({ isMacElectron = false }: SidebarProps) {
     setIsRestarting(true);
     try {
       await fetch("/api/restart", { method: "POST" });
-    } catch {
+    } catch (e) {
       // Expected to fail as server restarts
     }
     setIsRestarting(false);
@@ -516,190 +486,258 @@ export default function Sidebar({ isMacElectron = false }: SidebarProps) {
     setTimeout(() => globalThis.location.reload(), 3000);
   };
 
+  const handleMouseEnter = useCallback(
+    (e: React.MouseEvent<HTMLElement>, id: string, label: string) => {
+      if (!collapsed) return;
+      const rect = e.currentTarget.getBoundingClientRect();
+      const isRtl = typeof document !== "undefined" && document.documentElement.dir === "rtl";
+      const sidebarRect = sidebarRef.current?.getBoundingClientRect();
+      setHoveredItem({
+        id,
+        label,
+        x: isRtl
+          ? typeof window !== "undefined"
+            ? window.innerWidth - (sidebarRect?.left ?? 0) + 8
+            : 72
+          : (sidebarRect?.right ?? 64) + 8,
+        y: rect.top + rect.height / 2,
+        isRtl,
+      });
+    },
+    [collapsed]
+  );
+
+  const handleMouseLeave = useCallback(() => setHoveredItem(null), []);
+
   const renderNavLink = (item: any, keyPrefix?: string) => {
     const active = !item.external && activeHref === item.href;
     const isItemPinned = pinnedItems.has(item.id);
     const itemKey = keyPrefix ? `${keyPrefix}-${item.href}` : item.href;
-    const showPin = !collapsed && item.id !== "home";
-    const title = item.subtitle ? `${item.label} — ${item.subtitle}` : item.label;
-    // On the active (accent) row the subtitle inherits the accent ink; elsewhere it is muted.
-    const subtitleClassName = active
-      ? "truncate text-[10px]"
-      : "truncate text-[10px] text-text-muted";
+    const className = cn(
+      "relative flex min-h-10 items-center gap-3 rounded-lg transition-colors group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-main",
+      collapsed ? "justify-center px-2 py-2.5" : "px-3 py-2",
+      active
+        ? "bg-surface text-text-main shadow-sm ring-1 ring-border before:absolute before:start-0 before:inset-y-2.5 before:w-0.5 before:rounded-full before:bg-primary"
+        : "text-text-main/75 hover:bg-surface/70 hover:text-text-main"
+    );
+    const iconClassName = cn(
+      "material-symbols-outlined text-[18px] shrink-0",
+      active ? "fill-1" : "group-hover/nav-item:text-primary transition-colors"
+    );
     const content = (
       <>
-        <Icon name={item.icon} size={18} fill={active} />
-        {/* Icon rail: the label lives in the tooltip/aria-label. (The kit hides non-svg children
-            when collapsed, but this span's `flex` utility would out-rank that rule.) */}
+        <span aria-hidden="true" className={iconClassName}>
+          {item.icon}
+        </span>
         {!collapsed && (
           <span className="flex min-w-0 flex-1 flex-col">
-            <span className={cn("truncate text-sm", active ? "font-semibold" : "font-medium")}>
+            <span
+              className={cn(
+                "min-w-0 truncate text-sm leading-5",
+                active ? "font-semibold" : "font-medium"
+              )}
+            >
               {item.label}
             </span>
-            {item.subtitle && <span className={subtitleClassName}>{item.subtitle}</span>}
+            {item.subtitle && (
+              <span className="truncate text-[10px] text-text-main/65">{item.subtitle}</span>
+            )}
           </span>
         )}
       </>
     );
-    const linkClassName = cn(showPin && "pe-8");
+    const sharedProps = {
+      "aria-label": item.label,
+      title: item.subtitle ? `${item.label} — ${item.subtitle}` : item.label,
+      onMouseEnter: (e: React.MouseEvent<HTMLElement>) => handleMouseEnter(e, item.id, item.label),
+      onMouseLeave: handleMouseLeave,
+    };
+
+    if (collapsed) {
+      if (item.external) {
+        return (
+          <a
+            key={itemKey}
+            href={item.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={onClose}
+            className={className}
+            {...sharedProps}
+          >
+            {content}
+          </a>
+        );
+      }
+
+      return (
+        <Link
+          key={itemKey}
+          href={item.href}
+          prefetch={false}
+          aria-current={active ? "page" : undefined}
+          onClick={onClose}
+          className={className}
+          {...sharedProps}
+        >
+          {content}
+        </Link>
+      );
+    }
+
+    const pinButton = item.id !== "home" && (
+      <button
+        type="button"
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          togglePinItem(item.id);
+        }}
+        title={isItemPinned ? t("unpinItem") : t("pinItem")}
+        aria-label={isItemPinned ? t("unpinItem") : t("pinItem")}
+        className={cn(
+          "mr-1.5 p-0.5 rounded transition-all shrink-0",
+          isItemPinned
+            ? "text-primary opacity-100 hover:text-primary/80"
+            : "text-text-muted/30 opacity-0 group-hover/nav-item:opacity-100 hover:text-text-muted/80"
+        )}
+      >
+        <span
+          className="material-symbols-outlined text-[13px]"
+          style={{
+            fontSize: "13px",
+            ...(isItemPinned ? { fontVariationSettings: "'FILL' 1" } : {}),
+          }}
+        >
+          push_pin
+        </span>
+      </button>
+    );
+
+    const containerClassName = cn(
+      "group/nav-item flex items-center rounded-lg transition-all",
+      active
+        ? "bg-primary/10 text-primary"
+        : "text-text-main/75 hover:bg-surface/50 hover:text-text-main"
+    );
+    const innerLinkClassName = "flex min-w-0 flex-1 items-center gap-3 px-3 py-1.5";
+
+    if (item.external) {
+      return (
+        <div key={itemKey} className={containerClassName}>
+          <a
+            href={item.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={onClose}
+            className={innerLinkClassName}
+            {...sharedProps}
+          >
+            {content}
+          </a>
+          {pinButton}
+        </div>
+      );
+    }
 
     return (
-      <SidebarMenuItem key={itemKey} className="group/nav-item relative">
-        <SidebarMenuButton asChild isActive={active} tooltip={item.label}>
-          {item.external ? (
-            <a
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={item.label}
-              title={title}
-              className={linkClassName}
-            >
-              {content}
-            </a>
-          ) : (
-            <Link
-              href={item.href}
-              prefetch={false}
-              aria-label={item.label}
-              title={title}
-              className={linkClassName}
-            >
-              {content}
-            </Link>
-          )}
-        </SidebarMenuButton>
-        {showPin && (
-          // kit-exception: Native button on kit tokens (track F): the pin overlays the kit SidebarMenuButton
-          // (absolute, hover-revealed); the kit has no SidebarMenuAction slot.
-          <button
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              togglePinItem(item.id);
-            }}
-            title={isItemPinned ? t("unpinItem") : t("pinItem")}
-            aria-label={isItemPinned ? t("unpinItem") : t("pinItem")}
-            className={cn(
-              "absolute end-1 top-1/2 flex size-7 -translate-y-1/2 items-center justify-center rounded-control transition-opacity focus-visible:opacity-100",
-              active
-                ? "text-accent-foreground"
-                : isItemPinned
-                  ? "text-text-main"
-                  : "text-text-muted",
-              !isItemPinned && "opacity-0 group-hover/nav-item:opacity-100"
-            )}
-          >
-            <Icon name="push_pin" size={13} fill={isItemPinned} />
-          </button>
-        )}
-      </SidebarMenuItem>
+      <div key={itemKey} className={containerClassName}>
+        <Link
+          href={item.href}
+          prefetch={false}
+          aria-current={active ? "page" : undefined}
+          onClick={onClose}
+          className={innerLinkClassName}
+          {...sharedProps}
+        >
+          {content}
+        </Link>
+        {pinButton}
+      </div>
     );
   };
-
-  const renderGroupChild = (child: any, sectionId: string) => {
-    const keyPrefix = sectionId === "pinned" ? "pinned" : undefined;
-    if (child.type !== "group") return renderNavLink(child, keyPrefix);
-    if (child.items.length === 0) return null;
-    const separatorHidden = child.separatorHidden === true;
-    const groupExpanded =
-      separatorHidden ||
-      isSearching ||
-      (expandedGroups[child.id] ?? child.items.some((item) => item.href === activeHref));
-    return (
-      <SidebarMenuItem key={child.id} className="mt-1">
-        {!separatorHidden && (
-          // kit-exception: Native disclosure button on kit tokens (track F): full-width subgroup header row.
-          <button
-            type="button"
-            aria-expanded={groupExpanded}
-            aria-controls={`${navigationId}-${child.id}`}
-            onClick={() =>
-              setExpandedGroups((previous) => ({
-                ...previous,
-                [child.id]: !groupExpanded,
-              }))
-            }
-            className="flex min-h-9 w-full items-center justify-between gap-2 rounded-control px-3 text-start text-xs font-semibold text-text-muted hover:bg-surface hover:text-text-main"
-          >
-            {child.title}
-            <Icon
-              name="chevron_right"
-              size={16}
-              className={cn("transition-transform", groupExpanded && "rotate-90")}
-            />
-          </button>
-        )}
-        {groupExpanded && (
-          <SidebarMenu
-            id={`${navigationId}-${child.id}`}
-            className={cn(!separatorHidden && "ms-3 border-s border-border ps-2")}
-          >
-            {child.items.map((item: any) => renderNavLink(item, keyPrefix))}
-          </SidebarMenu>
-        )}
-      </SidebarMenuItem>
-    );
-  };
-
-  const brandName = customAppName || APP_CONFIG.name;
 
   return (
     <>
-      {/* The skip link lives in DashboardShell, before the sidebar: below the mobile breakpoint
-          this aside exists only inside the closed Sheet. */}
-      <SidebarHeader>
-        <div className={cn("flex items-center gap-2", collapsed && "flex-col")}>
+      <aside
+        ref={sidebarRef}
+        className={cn(
+          "flex h-full min-h-0 flex-col border-r border-black/5 bg-sidebar transition-all duration-300 ease-in-out dark:border-white/5",
+          collapsed ? "w-16" : "w-[264px] max-w-[calc(100vw-48px)]"
+        )}
+        style={{ paddingTop: isMacElectron ? "var(--desktop-safe-top)" : undefined }}
+      >
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-3 focus:bg-primary focus:text-white focus:rounded-md focus:m-2"
+        >
+          {t("skipToContent")}
+        </a>
+
+        <div
+          className={cn(
+            "flex shrink-0 items-center gap-2 py-5",
+            collapsed ? "flex-col px-2" : "px-5"
+          )}
+        >
           <Link
             href="/home"
             prefetch={false}
-            aria-label={brandName}
-            title={`${brandName} v${APP_CONFIG.version}`}
+            aria-label={customAppName || APP_CONFIG.name}
             className={cn(
-              "flex min-w-0 items-center rounded-control focus-visible:outline-2 focus-visible:outline-offset-4",
-              collapsed ? "justify-center" : "flex-1 flex-col items-start gap-0.5"
+              "flex min-w-0 items-center rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4",
+              collapsed ? "justify-center" : "flex-1 gap-3"
             )}
           >
-            {collapsed ? (
-              customLogo ? (
-                // eslint-disable-next-line @next/next/no-img-element -- operator-supplied white-label logo (data: or remote URL), not a static/known asset
+            <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-primary text-white shadow-sm">
+              {customLogo ? (
                 <img src={customLogo} alt="" className="size-6 object-contain" />
               ) : (
                 <OmniRouteLogo size={22} />
-              )
-            ) : (
-              <>
-                <OmniRouteLockup
-                  name={customAppName}
-                  logoSrc={customLogo}
-                  className="max-w-full flex-nowrap gap-1.5 whitespace-nowrap [&>.ci-keak-logo]:text-[1.1rem] [&>.ci-keak-product-icon]:size-7 [&_.ci-keak-product]:text-[0.95rem]"
-                />
-                <span className="text-xs text-text-muted">v{APP_CONFIG.version}</span>
-              </>
+              )}
+            </div>
+            {!collapsed && (
+              <div className="min-w-0">
+                <h1 className="truncate text-base font-semibold tracking-tight text-text-main">
+                  {customAppName || APP_CONFIG.name}
+                </h1>
+                <span className="text-xs text-text-main/70">v{APP_CONFIG.version}</span>
+              </div>
             )}
           </Link>
-          {/* The shell Header owns the collapse/expand trigger (one per page). Only the mobile
-              drawer needs its own control: the modal Sheet hides the header while it is open. */}
-          {isMobile && (
-            <SidebarTrigger
-              aria-label={tc("close")}
-              title={tc("close")}
-              className={cn("shrink-0", isMacElectron && "ms-auto")}
+          {onToggleCollapse && (
+            <button
+              type="button"
+              onClick={onToggleCollapse}
+              aria-expanded={!collapsed}
+              aria-label={collapsed ? t("expandSidebar") : t("collapseSidebar")}
+              title={collapsed ? t("expandSidebar") : t("collapseSidebar")}
+              className={cn(
+                "flex size-8 shrink-0 items-center justify-center rounded-lg text-text-muted hover:bg-surface hover:text-text-main focus-visible:outline-2 focus-visible:outline-offset-2",
+                isMacElectron && "ms-auto"
+              )}
             >
-              <Icon name="close" />
-            </SidebarTrigger>
+              <span aria-hidden="true" className="material-symbols-outlined text-[18px]">
+                {collapsed ? "left_panel_open" : "left_panel_close"}
+              </span>
+            </button>
+          )}
+          {onClose && (
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label={tc("close")}
+              className="flex size-11 shrink-0 items-center justify-center rounded-lg text-text-main hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2"
+            >
+              <span aria-hidden="true" className="material-symbols-outlined text-[20px]">
+                close
+              </span>
+            </button>
           )}
         </div>
-      </SidebarHeader>
 
-      <SidebarContent className="custom-scrollbar">
-        {/* Search at the top of the content (spec §3.7), sticky: SidebarContent is the scroll
-            container, so the box stays in view while the 100+ items scroll under it. */}
         {!collapsed && (
-          // -top-2 / -mt-2 pt-2 cover the content's 8 px top padding, so scrolled rows do not
-          // peek through a strip above the box.
-          <div className="sticky -top-2 z-10 -mt-2 bg-[var(--ci-color-background)] pt-2 pb-1">
+          <div className="px-4 pb-4">
             <Input
               type="search"
               value={searchQuery}
@@ -708,17 +746,20 @@ export default function Sidebar({ isMacElectron = false }: SidebarProps) {
               aria-label={tc("search")}
               icon="search"
               className="gap-0"
-              inputClassName="min-h-10 py-2 text-sm"
+              inputClassName="min-h-10 py-2 text-sm bg-surface/70"
             />
           </div>
         )}
-        {/* scroll-mt-14 (≈ the sticky search box) keeps a focused row clear of it on Shift+Tab. */}
+
         <nav
           aria-label={t("mainNavigation")}
-          className="flex flex-col gap-3 [&_a]:scroll-mt-14 [&_button]:scroll-mt-14"
+          className={cn(
+            "min-h-0 flex-1 overflow-y-auto pb-4 custom-scrollbar",
+            collapsed ? "px-2 space-y-0.5" : "px-3"
+          )}
         >
           {isSearching && displaySections.length === 0 && (
-            <p className="px-2 py-3 text-xs text-text-muted">{tc("noResults")}</p>
+            <p className="px-2 py-3 text-xs text-text-main/70">{tc("noResults")}</p>
           )}
           {displaySections.map((section, idx) => {
             const sectionId = section.id as SidebarSectionId;
@@ -730,53 +771,58 @@ export default function Sidebar({ isMacElectron = false }: SidebarProps) {
             const sectionItems = section.children.flatMap((child: any) =>
               child.type === "group" ? child.items : [child]
             );
-            const keyPrefix = section.id === "pinned" ? "pinned" : undefined;
 
-            // Collapsed (icon rail): flat items, a separator between sections.
+            // Collapsed (mini) mode: flat items with dividers between sections
             if (collapsed) {
               return (
-                <Fragment key={section.id}>
-                  {!isFirst && <SidebarSeparator />}
-                  <SidebarMenu>
-                    {sectionItems.map((item: any) => renderNavLink(item, keyPrefix))}
-                  </SidebarMenu>
-                </Fragment>
+                <div key={section.id}>
+                  {!isFirst && (
+                    <div className="border-t border-black/5 dark:border-white/5 my-1.5" />
+                  )}
+                  {sectionItems.map((item: any) =>
+                    renderNavLink(item, section.id === "pinned" ? "pinned" : undefined)
+                  )}
+                </div>
               );
             }
 
-            // Sections without a visible title (e.g. Home) render their items directly.
+            // Sections without a visible title (e.g. Home) render items directly
             if (section.showTitle === false) {
               return (
-                <SidebarGroup key={section.id}>
-                  <SidebarMenu>
-                    {sectionItems.map((item: any) => renderNavLink(item, keyPrefix))}
-                  </SidebarMenu>
-                </SidebarGroup>
+                <div key={section.id} className={cn("space-y-0.5", !isFirst && "mt-1")}>
+                  {sectionItems.map((item: any) =>
+                    renderNavLink(item, section.id === "pinned" ? "pinned" : undefined)
+                  )}
+                </div>
               );
             }
 
+            // Expanded mode: collapsible section with pin
             return (
-              <SidebarGroup key={section.id}>
-                <SidebarGroupLabel className="group/header h-auto gap-1 px-0">
-                  {/* kit-exception: Native disclosure button on kit tokens (track F): a full-width section header
-                      inside the kit SidebarGroupLabel (the kit Button is a fixed-height pill). */}
+              <div
+                key={section.id}
+                className={isFirst ? "space-y-1" : "mt-4 border-t border-border pt-3"}
+              >
+                <div className="group/header flex items-center gap-1">
                   <button
                     type="button"
                     onClick={() => toggleSection(sectionId)}
                     aria-expanded={isExpanded}
                     aria-controls={`${navigationId}-${section.id}`}
-                    className="flex min-h-9 min-w-0 flex-1 items-center justify-between gap-2 rounded-control px-2 text-start uppercase hover:bg-surface hover:text-text-main"
+                    className="flex min-h-11 min-w-0 flex-1 items-center justify-between gap-2 rounded-lg px-3 text-start text-xs font-semibold tracking-wide text-text-main/80 hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2"
                   >
                     <span className="truncate">{section.title}</span>
-                    <Icon
-                      name="expand_more"
-                      size={16}
-                      className={cn("transition-transform", isExpanded && "rotate-180")}
-                    />
+                    <span
+                      aria-hidden="true"
+                      className={cn(
+                        "material-symbols-outlined text-[16px] transition-transform",
+                        isExpanded && "rotate-180"
+                      )}
+                    >
+                      expand_more
+                    </span>
                   </button>
                   {sectionId !== "pinned" && (
-                    // kit-exception: Native button on kit tokens (track F): a hover-revealed pin inside the kit
-                    // SidebarGroupLabel; the kit has no SidebarGroupAction slot.
                     <button
                       type="button"
                       onClick={() => togglePin(sectionId)}
@@ -784,70 +830,155 @@ export default function Sidebar({ isMacElectron = false }: SidebarProps) {
                       aria-pressed={isPinned}
                       title={isPinned ? t("unpinSection") : t("pinSectionOpen")}
                       className={cn(
-                        "flex size-8 shrink-0 items-center justify-center rounded-control transition-opacity hover:bg-surface focus-visible:opacity-100",
+                        "flex size-8 shrink-0 items-center justify-center rounded-lg transition-opacity hover:bg-surface focus-visible:opacity-100 focus-visible:outline-2",
                         isPinned
                           ? "text-text-main"
                           : "text-text-muted opacity-0 group-hover/header:opacity-100 group-focus-within/header:opacity-100"
                       )}
                     >
-                      <Icon name="push_pin" size={14} fill={isPinned} />
+                      <span
+                        aria-hidden="true"
+                        className="material-symbols-outlined text-[14px]"
+                        style={isPinned ? { fontVariationSettings: "'FILL' 1" } : undefined}
+                      >
+                        push_pin
+                      </span>
                     </button>
                   )}
-                </SidebarGroupLabel>
+                </div>
 
                 {isExpanded && (
-                  <SidebarGroupContent id={`${navigationId}-${section.id}`}>
-                    <SidebarMenu>
-                      {section.children.map((child: any) => renderGroupChild(child, section.id))}
-                    </SidebarMenu>
-                  </SidebarGroupContent>
+                  <div id={`${navigationId}-${section.id}`} className="mt-1 space-y-1">
+                    {section.children.map((child: any) => {
+                      if (child.type === "group") {
+                        if (child.items.length === 0) return null;
+                        const separatorHidden = child.separatorHidden === true;
+                        const groupExpanded =
+                          separatorHidden ||
+                          isSearching ||
+                          (expandedGroups[child.id] ??
+                            child.items.some((item) => item.href === activeHref));
+                        return (
+                          <div key={child.id} className="mt-2">
+                            {!separatorHidden && (
+                              <button
+                                type="button"
+                                aria-expanded={groupExpanded}
+                                aria-controls={`${navigationId}-${child.id}`}
+                                onClick={() =>
+                                  setExpandedGroups((previous) => ({
+                                    ...previous,
+                                    [child.id]: !groupExpanded,
+                                  }))
+                                }
+                                className="flex min-h-10 w-full items-center justify-between gap-2 rounded-lg px-3 text-start text-xs font-semibold text-text-main/80 hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2"
+                              >
+                                {child.title}
+                                <span
+                                  aria-hidden="true"
+                                  className={cn(
+                                    "material-symbols-outlined text-[16px] transition-transform",
+                                    groupExpanded && "rotate-90"
+                                  )}
+                                >
+                                  chevron_right
+                                </span>
+                              </button>
+                            )}
+                            {groupExpanded && (
+                              <div
+                                id={`${navigationId}-${child.id}`}
+                                className={cn(
+                                  "space-y-1",
+                                  !separatorHidden && "ms-3 border-s border-border ps-2"
+                                )}
+                              >
+                                {child.items.map((item: any) =>
+                                  renderNavLink(
+                                    item,
+                                    section.id === "pinned" ? "pinned" : undefined
+                                  )
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      }
+                      return renderNavLink(child, section.id === "pinned" ? "pinned" : undefined);
+                    })}
+                  </div>
                 )}
-              </SidebarGroup>
+              </div>
             );
           })}
         </nav>
-      </SidebarContent>
 
-      <SidebarFooter
-        style={{
-          paddingBottom: isMacElectron ? "calc(0.5rem + var(--desktop-safe-bottom))" : undefined,
-        }}
-      >
         {!isE2EMode && <CloudSyncStatus collapsed={collapsed} />}
-        {/* One full-width row per action: side by side, "Shutdown" truncated at the 16 rem width
-            (and longer locales truncate both). */}
-        <div className="flex flex-col gap-1">
-          <Button
-            variant="ghost"
-            size="sm"
-            icon="restart_alt"
+
+        <div
+          className={cn(
+            "shrink-0 border-t border-black/5 dark:border-white/5",
+            collapsed ? "p-2 flex flex-col gap-1" : "p-2 flex gap-2"
+          )}
+          style={{
+            paddingBottom: isMacElectron ? "calc(0.5rem + var(--desktop-safe-bottom))" : undefined,
+          }}
+        >
+          <button
             onClick={() => setShowRestartModal(true)}
             title={t("restart")}
             aria-label={t("restart")}
-            className={cn("w-full", collapsed ? "px-0" : "justify-start")}
+            className={cn(
+              "flex items-center justify-center gap-2 rounded-lg font-medium transition-all",
+              "text-text-main/70 hover:bg-surface hover:text-text-main",
+              collapsed ? "min-h-10 p-2" : "flex-1 min-h-11 min-w-0 px-2 py-2 text-xs"
+            )}
           >
-            {!collapsed && t("restart")}
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            icon="power_settings_new"
+            <span aria-hidden="true" className="material-symbols-outlined text-[16px]">
+              restart_alt
+            </span>
+            {!collapsed && <span className="truncate">{t("restart")}</span>}
+          </button>
+          <button
             onClick={() => setShowShutdownModal(true)}
             title={t("shutdown")}
             aria-label={t("shutdown")}
-            className={cn("w-full hover:text-error", collapsed ? "px-0" : "justify-start")}
+            className={cn(
+              "flex items-center justify-center gap-2 rounded-lg font-medium transition-all",
+              "text-text-main/70 hover:bg-red-500/10 hover:text-red-700 dark:hover:text-red-300",
+              collapsed ? "min-h-10 p-2" : "flex-1 min-h-11 min-w-0 px-2 py-2 text-xs"
+            )}
           >
-            {!collapsed && t("shutdown")}
-          </Button>
+            <span aria-hidden="true" className="material-symbols-outlined text-[16px]">
+              power_settings_new
+            </span>
+            {!collapsed && <span className="truncate">{t("shutdown")}</span>}
+          </button>
         </div>
-      </SidebarFooter>
+      </aside>
 
-      {/* The kit rail straddles the outer edge (right: -0.25rem), which overflows the clipped aside
-          (scrollWidth > clientWidth): keep it inside, on the edge that faces the content. `right-0`
-          is that edge in LTR; under dir=rtl globals.css mirrors it to `inset-inline-end: 0` (the
-          aside's left = content edge, the aside itself kept on the right by DashboardShell's
-          `rtl:order-none`). */}
-      <SidebarRail className="right-0" />
+      {/* Styled tooltip for collapsed (mini) sidebar */}
+      {collapsed && hoveredItem && (
+        <div
+          className="fixed z-[200] pointer-events-none flex items-center"
+          style={
+            hoveredItem.isRtl
+              ? { right: hoveredItem.x, top: hoveredItem.y, transform: "translateY(-50%)" }
+              : { left: hoveredItem.x, top: hoveredItem.y, transform: "translateY(-50%)" }
+          }
+        >
+          <div
+            className={
+              hoveredItem.isRtl
+                ? "w-0 h-0 border-t-[5px] border-b-[5px] border-l-[6px] border-t-transparent border-b-transparent border-l-sidebar dark:border-l-sidebar"
+                : "w-0 h-0 border-t-[5px] border-b-[5px] border-r-[6px] border-t-transparent border-b-transparent border-r-sidebar dark:border-r-sidebar"
+            }
+          />
+          <div className="px-2.5 py-1.5 bg-sidebar text-text-main text-xs font-medium rounded-md shadow-lg border border-black/10 dark:border-white/10 whitespace-nowrap">
+            {hoveredItem.label}
+          </div>
+        </div>
+      )}
 
       <ConfirmModal
         isOpen={showShutdownModal}
@@ -873,26 +1004,20 @@ export default function Sidebar({ isMacElectron = false }: SidebarProps) {
         loading={isRestarting}
       />
 
-      {/* Blocking notice after shutdown: a kit dialog (focus trap, aria-modal) that cannot be
-          dismissed — Escape and the overlay are no-ops, reloading is the only way out. */}
-      <Modal
-        isOpen={isDisconnected}
-        onClose={() => {}}
-        title={t("serverDisconnected")}
-        closeOnOverlay={false}
-        showCloseButton={false}
-        size="sm"
-      >
-        <div className="text-center">
-          <div className="flex items-center justify-center size-16 rounded-full bg-error-bg text-error mx-auto mb-4">
-            <Icon name="power_off" size={32} />
+      {isDisconnected && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+          <div className="text-center p-8">
+            <div className="flex items-center justify-center size-16 rounded-full bg-red-500/20 text-red-500 mx-auto mb-4">
+              <span className="material-symbols-outlined text-[32px]">power_off</span>
+            </div>
+            <h2 className="text-xl font-semibold text-white mb-2">{t("serverDisconnected")}</h2>
+            <p className="text-text-muted mb-6">{t("serverDisconnectedMsg")}</p>
+            <Button variant="secondary" onClick={() => globalThis.location.reload()}>
+              {t("reloadPage")}
+            </Button>
           </div>
-          <p className="text-text-muted mb-6">{t("serverDisconnectedMsg")}</p>
-          <Button variant="secondary" onClick={() => globalThis.location.reload()}>
-            {t("reloadPage")}
-          </Button>
         </div>
-      </Modal>
+      )}
     </>
   );
 }

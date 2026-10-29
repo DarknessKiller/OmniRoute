@@ -46,15 +46,15 @@ export function HomeProviderTopologySection({
         </div>
         <div className="flex items-center gap-3 text-[11px] text-text-muted">
           <span className="flex items-center gap-1.5">
-            <span className="size-2 rounded-full bg-success" />
+            <span className="size-2 rounded-full bg-green-500" />
             {t("topologyLegendActive")}
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="size-2 rounded-full bg-warning" />
+            <span className="size-2 rounded-full bg-amber-500" />
             {t("topologyLegendRecent")}
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="size-2 rounded-full bg-error" />
+            <span className="size-2 rounded-full bg-red-500" />
             {t("topologyLegendError")}
           </span>
         </div>

@@ -78,10 +78,14 @@ describe("ConsoleLogViewer accessibility", () => {
     );
 
     expect(refresh).not.toBeNull();
-    expect(refresh?.querySelector("svg.oi-icon")?.getAttribute("aria-hidden")).toBe("true");
+    expect(refresh?.querySelector(".material-symbols-outlined")?.getAttribute("aria-hidden")).toBe(
+      "true"
+    );
     expect(copy).not.toBeNull();
     expect(copy?.className).toContain("focus-visible:opacity-100");
-    expect(copy?.querySelector("svg.oi-icon")?.getAttribute("aria-hidden")).toBe("true");
+    expect(copy?.querySelector(".material-symbols-outlined")?.getAttribute("aria-hidden")).toBe(
+      "true"
+    );
 
     await act(async () => {
       copy?.click();

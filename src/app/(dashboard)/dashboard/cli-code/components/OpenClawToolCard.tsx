@@ -1,15 +1,10 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import Icon from "@/shared/components/Icon";
 import { Card, Button, ModelSelectModal, ManualConfigModal } from "@/shared/components";
-import Input from "@/shared/components/Input";
-import Select from "@/shared/components/Select";
 import Image from "next/image";
 import CliStatusBadge from "./CliStatusBadge";
 import { useTranslations } from "next-intl";
-import { cn } from "@/shared/utils/cn";
-import { CARD_TOGGLE_CLASS, cardToggleProps } from "./cardToggle";
 
 const CLOUD_URL = process.env.NEXT_PUBLIC_CLOUD_URL;
 
@@ -294,11 +289,8 @@ export default function OpenClawToolCard({
 
   return (
     <Card padding="sm" className="overflow-hidden">
-      <div
-        className={cn("flex items-center justify-between hover:cursor-pointer", CARD_TOGGLE_CLASS)}
-        {...cardToggleProps(isExpanded, onToggle)}
-      >
-        <div className="flex min-w-0 items-center gap-3">
+      <div className="flex items-center justify-between hover:cursor-pointer" onClick={onToggle}>
+        <div className="flex items-center gap-3">
           <div className="size-8 flex items-center justify-center shrink-0">
             <Image
               src="/providers/openclaw.svg"
@@ -324,27 +316,27 @@ export default function OpenClawToolCard({
             <p className="text-xs text-text-muted truncate">{t("toolDescriptions.openclaw")}</p>
           </div>
         </div>
-        <Icon
-          name="expand_more"
-          size={20}
-          className={cn("text-text-muted transition-transform", isExpanded && "rotate-180")}
-        />
+        <span
+          className={`material-symbols-outlined text-text-muted text-[20px] transition-transform ${isExpanded ? "rotate-180" : ""}`}
+        >
+          expand_more
+        </span>
       </div>
 
       {isExpanded && (
         <div className="mt-4 pt-4 border-t border-border flex flex-col gap-4">
           {checkingOpenclaw && (
             <div className="flex items-center gap-2 text-text-muted">
-              <Icon name="progress_activity" className="animate-spin" />
+              <span className="material-symbols-outlined animate-spin">progress_activity</span>
               <span>{t("checkingCli", { tool: "Open Claw" })}</span>
             </div>
           )}
 
           {!checkingOpenclaw && openclawStatus && !cliReady && (
-            <div className="flex items-center gap-3 p-4 bg-warning/10 border border-warning/30 rounded-lg">
-              <Icon name="warning" className="text-warning" />
+            <div className="flex items-center gap-3 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
+              <span className="material-symbols-outlined text-yellow-500">warning</span>
               <div className="flex-1">
-                <p className="font-medium text-warning">
+                <p className="font-medium text-yellow-600 dark:text-yellow-400">
                   {openclawStatus.installed
                     ? t("cliNotRunnable", { tool: "Open Claw" })
                     : t("cliNotInstalled", { tool: "Open Claw" })}
@@ -365,7 +357,7 @@ export default function OpenClawToolCard({
                 not on the server. Upstream report: #579.
               */}
               <Button variant="ghost" size="sm" onClick={() => setShowManualConfigModal(true)}>
-                <Icon name="content_copy" size={14} className="mr-1" />
+                <span className="material-symbols-outlined text-[14px] mr-1">content_copy</span>
                 {t("manualConfig")}
               </Button>
             </div>
@@ -380,7 +372,9 @@ export default function OpenClawToolCard({
                     <span className="w-32 shrink-0 text-sm font-semibold text-text-main text-right">
                       {t("current")}
                     </span>
-                    <Icon name="arrow_forward" size={14} className="text-text-muted" />
+                    <span className="material-symbols-outlined text-text-muted text-[14px]">
+                      arrow_forward
+                    </span>
                     <span className="flex-1 px-2 py-1.5 text-xs text-text-muted truncate">
                       {openclawStatus.settings.models.providers["omniroute"].baseUrl}
                     </span>
@@ -392,26 +386,24 @@ export default function OpenClawToolCard({
                   <span className="w-32 shrink-0 text-sm font-semibold text-text-main text-right">
                     {t("baseUrl")}
                   </span>
-                  <Icon name="arrow_forward" size={14} className="text-text-muted" />
-                  <Input
+                  <span className="material-symbols-outlined text-text-muted text-[14px]">
+                    arrow_forward
+                  </span>
+                  <input
+                    type="text"
                     value={getDisplayUrl()}
                     onChange={(e) => setCustomBaseUrl(e.target.value)}
                     placeholder={t("baseUrlPlaceholder")}
-                    aria-label={t("baseUrl")}
-                    className="min-w-0 w-auto flex-1"
-                    inputClassName="text-xs"
+                    className="flex-1 px-2 py-1.5 bg-surface rounded border border-border text-xs focus:outline-none focus:ring-1 focus:ring-primary/50"
                   />
                   {customBaseUrl && customBaseUrl !== baseUrl && (
-                    <Button
-                      variant="ghost"
-                      size="icon-sm"
+                    <button
                       onClick={() => setCustomBaseUrl("")}
+                      className="p-1 text-text-muted hover:text-primary rounded transition-colors"
                       title={t("resetToDefault")}
-                      aria-label={t("resetToDefault")}
-                      className="text-text-muted hover:text-primary"
                     >
-                      <Icon name="restart_alt" size={14} />
-                    </Button>
+                      <span className="material-symbols-outlined text-[14px]">restart_alt</span>
+                    </button>
                   )}
                 </div>
 
@@ -420,21 +412,21 @@ export default function OpenClawToolCard({
                   <span className="w-32 shrink-0 text-sm font-semibold text-text-main text-right">
                     {t("apiKey")}
                   </span>
-                  <Icon name="arrow_forward" size={14} className="text-text-muted" />
+                  <span className="material-symbols-outlined text-text-muted text-[14px]">
+                    arrow_forward
+                  </span>
                   {apiKeys.length > 0 ? (
-                    <Select
+                    <select
                       value={effectiveApiKeyId}
                       onChange={(e) => setSelectedApiKeyId(e.target.value)}
-                      aria-label={t("apiKey")}
-                      className="min-w-0 w-auto flex-1"
-                      selectClassName="text-xs"
+                      className="flex-1 px-2 py-1.5 bg-surface rounded text-xs border border-border focus:outline-none focus:ring-1 focus:ring-primary/50"
                     >
                       {apiKeys.map((key) => (
                         <option key={key.id} value={key.id}>
                           {key.key}
                         </option>
                       ))}
-                    </Select>
+                    </select>
                   ) : (
                     <span className="flex-1 text-xs text-text-muted px-2 py-1.5">
                       {cloudEnabled ? t("noApiKeysCreateOne") : t("defaultOmnirouteKey")}
@@ -447,44 +439,42 @@ export default function OpenClawToolCard({
                   <span className="w-32 shrink-0 text-sm font-semibold text-text-main text-right">
                     {t("model")}
                   </span>
-                  <Icon name="arrow_forward" size={14} className="text-text-muted" />
-                  <Input
+                  <span className="material-symbols-outlined text-text-muted text-[14px]">
+                    arrow_forward
+                  </span>
+                  <input
+                    type="text"
                     value={selectedModel}
                     onChange={(e) => setSelectedModel(e.target.value)}
                     placeholder={t("providerModelPlaceholder")}
-                    aria-label={t("model")}
-                    className="min-w-0 w-auto flex-1"
-                    inputClassName="text-xs"
+                    className="flex-1 px-2 py-1.5 bg-surface rounded border border-border text-xs focus:outline-none focus:ring-1 focus:ring-primary/50"
                   />
-                  <Button
-                    variant="outline"
-                    size="sm"
+                  <button
                     onClick={() => setModalOpen(true)}
                     disabled={!hasActiveProviders}
-                    className="shrink-0 whitespace-nowrap text-xs"
+                    className={`px-2 py-1.5 rounded border text-xs transition-colors shrink-0 whitespace-nowrap ${hasActiveProviders ? "bg-surface border-border text-text-main hover:border-primary cursor-pointer" : "opacity-50 cursor-not-allowed border-border"}`}
                   >
                     {t("selectModel")}
-                  </Button>
+                  </button>
                   {selectedModel && (
-                    <Button
-                      variant="ghost"
-                      size="icon-sm"
+                    <button
                       onClick={() => setSelectedModel("")}
+                      className="p-1 text-text-muted hover:text-red-500 rounded transition-colors"
                       title={t("clear")}
-                      aria-label={t("clear")}
-                      className="text-text-muted hover:text-error"
                     >
-                      <Icon name="close" size={14} />
-                    </Button>
+                      <span className="material-symbols-outlined text-[14px]">close</span>
+                    </button>
                   )}
                 </div>
               </div>
 
               {message && (
                 <div
-                  className={`flex items-center gap-2 px-2 py-1.5 rounded text-xs ${message.type === "success" ? "bg-success/10 text-success" : "bg-error/10 text-error"}`}
+                  className={`flex items-center gap-2 px-2 py-1.5 rounded text-xs ${message.type === "success" ? "bg-green-500/10 text-green-600" : "bg-red-500/10 text-red-600"}`}
                 >
-                  <Icon name={message.type === "success" ? "check_circle" : "error"} size={14} />
+                  <span className="material-symbols-outlined text-[14px]">
+                    {message.type === "success" ? "check_circle" : "error"}
+                  </span>
                   <span>{message.text}</span>
                 </div>
               )}
@@ -497,7 +487,7 @@ export default function OpenClawToolCard({
                   disabled={!selectedModel}
                   loading={applying}
                 >
-                  <Icon name="save" size={14} className="mr-1" />
+                  <span className="material-symbols-outlined text-[14px] mr-1">save</span>
                   {t("apply")}
                 </Button>
                 <Button
@@ -507,11 +497,11 @@ export default function OpenClawToolCard({
                   disabled={!openclawStatus?.hasOmniRoute}
                   loading={restoring}
                 >
-                  <Icon name="restore" size={14} className="mr-1" />
+                  <span className="material-symbols-outlined text-[14px] mr-1">restore</span>
                   {t("reset")}
                 </Button>
                 <Button variant="ghost" size="sm" onClick={() => setShowManualConfigModal(true)}>
-                  <Icon name="content_copy" size={14} className="mr-1" />
+                  <span className="material-symbols-outlined text-[14px] mr-1">content_copy</span>
                   {t("manualConfig")}
                 </Button>
                 <div className="flex-1" />
@@ -523,7 +513,7 @@ export default function OpenClawToolCard({
                     if (!showBackups) fetchBackups();
                   }}
                 >
-                  <Icon name="history" size={14} className="mr-1" />
+                  <span className="material-symbols-outlined text-[14px] mr-1">history</span>
                   {t("backups")}
                   {backups.length > 0 && ` (${backups.length})`}
                 </Button>
@@ -532,7 +522,7 @@ export default function OpenClawToolCard({
               {showBackups && (
                 <div className="mt-2 p-3 bg-surface border border-border rounded-lg">
                   <h4 className="text-xs font-semibold text-text-main mb-2 flex items-center gap-1">
-                    <Icon name="history" size={14} />
+                    <span className="material-symbols-outlined text-[14px]">history</span>
                     {t("configBackups")}
                   </h4>
                   {backups.length === 0 ? (
@@ -542,24 +532,24 @@ export default function OpenClawToolCard({
                       {backups.map((b) => (
                         <div
                           key={b.id}
-                          className="flex items-center gap-2 px-2 py-1.5 bg-bg-subtle rounded text-xs"
+                          className="flex items-center gap-2 px-2 py-1.5 bg-black/5 dark:bg-white/5 rounded text-xs"
                         >
-                          <Icon name="description" size={14} className="text-text-muted" />
+                          <span className="material-symbols-outlined text-[14px] text-text-muted">
+                            description
+                          </span>
                           <span className="flex-1 truncate font-mono" title={b.id}>
                             {b.id}
                           </span>
                           <span className="text-text-muted whitespace-nowrap">
                             {new Date(b.createdAt).toLocaleString()}
                           </span>
-                          <Button
-                            variant="secondary"
-                            size="sm"
+                          <button
                             onClick={() => handleRestoreBackup(b.id)}
                             disabled={restoringBackup === b.id}
-                            className="h-6 px-2 text-[10px]"
+                            className="px-2 py-0.5 bg-primary/10 text-primary rounded text-[10px] font-medium hover:bg-primary/20 transition-colors disabled:opacity-50"
                           >
                             {restoringBackup === b.id ? "..." : t("restore")}
-                          </Button>
+                          </button>
                         </div>
                       ))}
                     </div>

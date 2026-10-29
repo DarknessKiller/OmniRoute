@@ -1,9 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import Button from "@/shared/components/Button";
-import Icon from "@/shared/components/Icon";
-import { Skeleton } from "@/shared/components/Loading";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -35,9 +32,11 @@ function StatCard({
   valueClass?: string;
 }) {
   return (
-    <div className="flex flex-col gap-1 p-4 rounded-lg bg-bg-subtle border border-border">
+    <div className="flex flex-col gap-1 p-4 rounded-xl bg-surface-raised border border-border/40">
       <div className="flex items-center gap-1.5 text-text-muted text-xs">
-        <Icon name={icon} size={16} />
+        <span className="material-symbols-outlined text-base leading-none" aria-hidden="true">
+          {icon}
+        </span>
         {label}
       </div>
       <div className={`text-2xl font-semibold tabular-nums ${valueClass}`}>{value}</div>
@@ -49,7 +48,12 @@ function StatCard({
 // ─── Skeleton card ────────────────────────────────────────────────────────────
 
 function SkeletonCard() {
-  return <Skeleton data-testid="skeleton" className="h-24 rounded-lg" />;
+  return (
+    <div
+      data-testid="skeleton"
+      className="h-24 rounded-xl bg-surface-raised border border-border/40 animate-pulse"
+    />
+  );
 }
 
 // ─── MemoryCards ──────────────────────────────────────────────────────────────
@@ -85,14 +89,19 @@ export default function MemoryCards({
     return (
       <div
         data-testid="memory-cards"
-        className="flex flex-col items-center gap-3 p-6 rounded-lg bg-bg-subtle border border-border text-center transition-opacity duration-200"
+        className="flex flex-col items-center gap-3 p-6 rounded-xl bg-surface-raised border border-border/40 text-center transition-opacity duration-200"
       >
-        <Icon name="error_outline" size={30} className="text-error" />
+        <span className="material-symbols-outlined text-3xl text-red-400" aria-hidden="true">
+          error_outline
+        </span>
         <p className="text-sm text-text-muted">{error}</p>
         {onRetry && (
-          <Button variant="primary" size="sm" className="mt-1" onClick={onRetry}>
-            {t("retry")}
-          </Button>
+          <button
+            onClick={onRetry}
+            className="mt-1 px-4 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-medium hover:opacity-90 transition-opacity"
+          >
+            Retry
+          </button>
         )}
       </div>
     );
@@ -115,14 +124,14 @@ export default function MemoryCards({
         label={t("cacheHits")}
         value={hits}
         sub={hitRate ?? ""}
-        valueClass="text-success"
+        valueClass="text-green-500"
       />
       <StatCard
         icon="token"
         label={t("tokensSaved")}
         value={tokensSaved}
         sub={t("tokensSavedSub")}
-        valueClass="text-info"
+        valueClass="text-blue-400"
       />
     </div>
   );

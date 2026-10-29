@@ -2,13 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Alert } from "@omniroute/ui-kit/alert";
-import { buttonVariants } from "@omniroute/ui-kit/button";
-import Badge from "@/shared/components/Badge";
-import Button from "@/shared/components/Button";
-import Card from "@/shared/components/Card";
-import Collapsible from "@/shared/components/Collapsible";
-import Icon from "@/shared/components/Icon";
+import { AgentIcon } from "./shared/AgentIcon";
 import { DnsStatusBadge } from "./shared/DnsStatusBadge";
 import { ModelMappingTable } from "./ModelMappingTable";
 import { SetupWizard } from "./SetupWizard";
@@ -52,7 +46,7 @@ export function AgentCard({
   onReset,
 }: AgentCardProps) {
   const t = useTranslations("agentBridge");
-  const tc = useTranslations("common");
+  const [expanded, setExpanded] = useState(false);
   const [wizardOpen, setWizardOpen] = useState(false);
   const [dnsLoading, setDnsLoading] = useState(false);
   const [riskModalOpen, setRiskModalOpen] = useState(false);
@@ -70,29 +64,33 @@ export function AgentCard({
   const getStatusBadge = () => {
     if (isInvestigating) {
       return (
-        <Badge size="sm" icon="search">
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-zinc-500/10 text-zinc-500 dark:text-zinc-400 text-xs font-medium">
+          <span className="material-symbols-outlined text-[12px]">search</span>
           {t("statusInvestigating") || "Investigating"}
-        </Badge>
+        </span>
       );
     }
     if (setupCompleted && dnsEnabled) {
       return (
-        <Badge variant="success" size="sm" dot>
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-medium">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
           {t("statusActive") || "Active"}
-        </Badge>
+        </span>
       );
     }
     if (!setupCompleted) {
       return (
-        <Badge size="sm" icon="settings">
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-zinc-500/10 text-zinc-500 text-xs font-medium">
+          <span className="material-symbols-outlined text-[12px]">settings</span>
           {t("statusSetupRequired") || "Setup required"}
-        </Badge>
+        </span>
       );
     }
     return (
-      <Badge variant="warning" size="sm" icon="warning">
+      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-medium">
+        <span className="material-symbols-outlined text-[12px]">warning</span>
         {t("statusDnsOff") || "DNS off"}
-      </Badge>
+      </span>
     );
   };
 
@@ -136,34 +134,40 @@ export function AgentCard({
 
   return (
     <>
-      <Card
-        padding="none"
-        className="overflow-hidden"
-        // The agent's brand colour (target registry data) marks the card edge.
+      <div
+        className="rounded-xl border border-border/50 bg-card overflow-hidden transition-all hover:border-border/80"
         style={{ borderLeftWidth: 3, borderLeftColor: target.color }}
       >
-        {/* Card header: the Collapsible adapter (kit Accordion) owns the single native trigger
-            (aria-expanded); the status badges sit outside it as `trailing`. */}
-        <Collapsible
-          variant="inline"
-          className="px-4 py-1"
-          icon={target.icon}
-          title={target.name}
-          subtitle={
-            <>
-              {target.hosts.slice(0, 2).join(", ")}
-              {target.hosts.length > 2 && ` +${target.hosts.length - 2}`}
-            </>
-          }
-          trailing={
-            <>
-              {getStatusBadge()}
-              <DnsStatusBadge enabled={dnsEnabled} />
-            </>
-          }
+        {/* Card header */}
+        <button
+          type="button"
+          className="w-full flex items-center justify-between gap-3 px-4 py-3 text-left hover:bg-surface/30 transition-colors"
+          onClick={() => setExpanded((v) => !v)}
+          aria-expanded={expanded}
         >
-          {/* Expanded content */}
-          <div className="flex flex-col gap-4 border-t border-border pt-4 pb-4">
+          <div className="flex items-center gap-3 min-w-0">
+            <AgentIcon icon={target.icon} color={target.color} size={18} />
+            <div className="min-w-0">
+              <p className="text-sm font-medium text-text-main truncate">{target.name}</p>
+              <p className="text-xs text-text-muted truncate">
+                {target.hosts.slice(0, 2).join(", ")}
+                {target.hosts.length > 2 && ` +${target.hosts.length - 2}`}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 shrink-0">
+            {getStatusBadge()}
+            <DnsStatusBadge enabled={dnsEnabled} />
+            <span className="material-symbols-outlined text-[16px] text-text-muted">
+              {expanded ? "expand_less" : "expand_more"}
+            </span>
+          </div>
+        </button>
+
+        {/* Expanded content */}
+        {expanded && (
+          <div className="px-4 pb-4 border-t border-border/20 pt-4 flex flex-col gap-4">
             {/* Hosts */}
             <div>
               <p className="text-xs font-medium text-text-muted mb-1.5">
@@ -171,20 +175,23 @@ export function AgentCard({
               </p>
               <div className="flex flex-wrap gap-1.5">
                 {target.hosts.map((h) => (
-                  <Badge key={h} size="sm" className="font-mono">
+                  <span
+                    key={h}
+                    className="inline-flex items-center px-2 py-0.5 rounded-full bg-surface text-xs font-mono text-text-muted border border-border/40"
+                  >
                     {h}
-                  </Badge>
+                  </span>
                 ))}
               </div>
             </div>
 
             {/* Cert status */}
             <div className="flex items-center gap-2 text-xs text-text-muted">
-              <Icon
-                name={certTrusted ? "verified_user" : "lock_open"}
-                size={14}
-                className={certTrusted ? "text-success" : "text-text-muted"}
-              />
+              <span
+                className={`material-symbols-outlined text-[14px] ${certTrusted ? "text-emerald-500" : "text-zinc-400"}`}
+              >
+                {certTrusted ? "verified_user" : "lock_open"}
+              </span>
               {certTrusted
                 ? t("certTrusted") || "Certificate trusted"
                 : t("certNotTrusted") || "Certificate not trusted"}
@@ -192,7 +199,7 @@ export function AgentCard({
 
             {/* Investigating notice */}
             {isInvestigating && (
-              <div className="rounded-control border border-border bg-bg-subtle p-3">
+              <div className="rounded-lg border border-zinc-500/20 bg-zinc-500/5 p-3">
                 <p className="text-xs text-text-muted">
                   {t("investigatingNotice") ||
                     "This agent is under investigation. Hosts and API surface are still being confirmed. Setup will be available once the upstream API is documented."}
@@ -216,101 +223,101 @@ export function AgentCard({
 
             {/* Restore-default success banner */}
             {resetDone && (
-              <Alert
-                variant="success"
-                icon={<Icon name="check_circle" size={16} />}
-                description={(
-                  t("resetDone") ||
-                  "Default DNS restored for {agent}. Fully quit the app (not just minimize) and reopen it for the change to take effect."
-                ).replace("{agent}", target.name)}
-                dismissLabel={tc("close")}
-                onDismiss={() => setResetDone(false)}
-              />
+              <div className="flex items-start gap-2 rounded-lg border border-emerald-500/30 bg-emerald-500/5 px-3 py-2 text-xs text-emerald-700 dark:text-emerald-400">
+                <span className="material-symbols-outlined text-[16px] shrink-0">check_circle</span>
+                <span>
+                  {(
+                    t("resetDone") ||
+                    "Default DNS restored for {agent}. Fully quit the app (not just minimize) and reopen it for the change to take effect."
+                  ).replace("{agent}", target.name)}
+                </span>
+              </div>
             )}
 
             {/* Action buttons */}
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-wrap gap-2">
               {!isInvestigating && (
-                <Button
-                  size="sm"
-                  variant="secondary"
-                  icon="play_arrow"
+                <button
+                  type="button"
                   onClick={() => setWizardOpen(true)}
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-primary/10 text-primary px-3 py-1.5 text-xs font-medium hover:bg-primary/20 transition-colors"
                 >
+                  <span className="material-symbols-outlined text-[14px]">play_arrow</span>
                   {t("setupWizard") || "Setup wizard"}
-                </Button>
+                </button>
               )}
 
               {!isInvestigating && (
-                <Button
-                  size="sm"
-                  variant={dnsEnabled ? "danger" : "primary"}
-                  icon={dnsEnabled ? "stop" : "play_arrow"}
+                <button
+                  type="button"
                   onClick={handleDnsToggle}
                   disabled={dnsLoading}
+                  className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors disabled:opacity-50 ${
+                    dnsEnabled
+                      ? "bg-red-500/10 text-red-600 hover:bg-red-500/20"
+                      : "bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20"
+                  }`}
                 >
+                  <span className="material-symbols-outlined text-[14px]">
+                    {dnsEnabled ? "stop" : "play_arrow"}
+                  </span>
                   {dnsLoading
                     ? t("toggling") || "Toggling…"
                     : dnsEnabled
                       ? t("stopDns") || "Stop DNS"
                       : t("startDns") || "Start DNS"}
-                </Button>
+                </button>
               )}
 
               <a
                 href={`/dashboard/tools/traffic-inspector?agent=${target.id}`}
-                className={buttonVariants({ variant: "outline", size: "sm" })}
+                className="inline-flex items-center gap-1.5 rounded-lg bg-zinc-500/10 text-text-muted px-3 py-1.5 text-xs font-medium hover:bg-zinc-500/20 transition-colors"
               >
-                <Icon name="network_check" size={14} />
+                <span className="material-symbols-outlined text-[14px]">network_check</span>
                 {t("viewTraffic") || "View traffic"}
               </a>
 
               {!isInvestigating &&
                 hasConfiguredState &&
                 (confirmReset ? (
-                  <span
-                    role="group"
-                    aria-label={t("resetAgentConfirm") || "Restore default?"}
-                    className="inline-flex items-center gap-1 rounded-control border border-error/30 bg-error-bg px-2 py-1 text-xs"
-                  >
-                    <span className="text-error">
+                  <span className="inline-flex items-center gap-1 rounded-lg bg-red-500/5 border border-red-500/30 px-2 py-1 text-xs">
+                    <span className="text-red-600 dark:text-red-400">
                       {t("resetAgentConfirm") || "Restore default?"}
                     </span>
-                    <Button
-                      size="sm"
-                      variant="danger"
+                    <button
+                      type="button"
                       onClick={handleResetConfirm}
                       disabled={resetLoading}
+                      className="rounded bg-red-500/15 text-red-600 px-2 py-0.5 font-medium hover:bg-red-500/25 disabled:opacity-50"
                     >
                       {resetLoading ? t("resetting") || "Restoring…" : t("confirm") || "Confirm"}
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="ghost"
+                    </button>
+                    <button
+                      type="button"
                       onClick={() => setConfirmReset(false)}
                       disabled={resetLoading}
+                      className="rounded text-text-muted px-2 py-0.5 hover:text-text-main disabled:opacity-50"
                     >
                       {t("cancel") || "Cancel"}
-                    </Button>
+                    </button>
                   </span>
                 ) : (
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    icon="restart_alt"
-                    className="text-error"
+                  <button
+                    type="button"
                     onClick={() => {
                       setResetDone(false);
                       setConfirmReset(true);
                     }}
+                    className="inline-flex items-center gap-1.5 rounded-lg bg-red-500/10 text-red-600 px-3 py-1.5 text-xs font-medium hover:bg-red-500/20 transition-colors"
                   >
+                    <span className="material-symbols-outlined text-[14px]">restart_alt</span>
                     {t("resetAgent") || "Restore default"}
-                  </Button>
+                  </button>
                 ))}
             </div>
           </div>
-        </Collapsible>
-      </Card>
+        )}
+      </div>
 
       {wizardOpen && (
         <SetupWizard

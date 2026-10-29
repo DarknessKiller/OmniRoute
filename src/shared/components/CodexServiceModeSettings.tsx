@@ -75,7 +75,7 @@ export default function CodexServiceModeSettings({ apiKeyId }: { apiKeyId: strin
       />
       <p className="text-xs text-text-muted">{t("warning")}</p>
       {error && (
-        <p role="alert" className="text-sm text-error">
+        <p role="alert" className="text-sm text-red-500">
           {t(error)}
         </p>
       )}
@@ -105,7 +105,7 @@ export default function CodexServiceModeSettings({ apiKeyId }: { apiKeyId: strin
           <>
             {t("confirm", { mode: t(pending ?? mode) })}
             {error === "saveError" && (
-              <span role="alert" className="block text-error">
+              <span role="alert" className="block text-red-500">
                 {t(error)}
               </span>
             )}

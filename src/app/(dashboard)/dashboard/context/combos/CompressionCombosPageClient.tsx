@@ -8,14 +8,6 @@ import { useTranslations } from "next-intl";
 import { STACKED_PIPELINE_ENGINE_INTENSITIES } from "@/shared/validation/compressionConfigSchemas";
 import { CompressionPipelineEditor } from "@/shared/components/compression/CompressionPipelineEditor";
 import { ComboCompressionModeSelect } from "@/shared/components/compression/ComboCompressionModeSelect";
-import { Alert } from "@omniroute/ui-kit/alert";
-import { SectionHeader } from "@omniroute/ui-kit/page-header";
-import Badge from "@/shared/components/Badge";
-import Button from "@/shared/components/Button";
-import Card from "@/shared/components/Card";
-import Checkbox from "@/shared/components/Checkbox";
-import Input from "@/shared/components/Input";
-import Select from "@/shared/components/Select";
 import CompressionHub from "./CompressionHub";
 
 type PipelineStep = { engine: string; intensity?: string };
@@ -212,56 +204,57 @@ function NamedCombosManager() {
 
   if (loadFailed) {
     return (
-      <Card padding="sm" className="flex items-center justify-between gap-4">
-        <p role="alert" className="text-sm text-error">
+      <div className="flex items-center justify-between gap-4 rounded-lg border border-border bg-surface p-4">
+        <p role="alert" className="text-sm text-red-600 dark:text-red-400">
           {tSettings("compressionTitle")}: {tCommon("failedToLoad")}
         </p>
-        <Button
-          variant="outline"
-          size="sm"
+        <button
+          type="button"
           onClick={() => setLoadAttempt((attempt) => attempt + 1)}
-          className="shrink-0"
+          className="shrink-0 rounded-lg border border-border px-3 py-1.5 text-xs text-text-main hover:bg-bg"
         >
           {tSettings("retry")}
-        </Button>
-      </Card>
+        </button>
+      </div>
     );
   }
 
   return (
     <div className="flex flex-col gap-4">
-      <SectionHeader title={t("namedCombos")} description={t("namedCombosDescription")} />
+      <div>
+        <h2 className="text-lg font-semibold text-text-main">{t("namedCombos")}</h2>
+        <p className="text-sm text-text-muted">{t("namedCombosDescription")}</p>
+      </div>
 
       {/* #12063: the master "Prompt Compression" switch (Settings page) is a hard kill that
           runs BEFORE an active profile is even considered (strategySelector.ts resolveBasePlan).
           Surface that dependency here so a selected profile is never silently inert. */}
       {!compressionEnabled && activeComboId && (
-        <Alert
-          variant="warning"
+        <div
           role="alert"
           data-testid="compression-master-switch-warning"
-          className="[&>.ci-alert__dismiss]:hidden"
+          className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-3 text-sm text-amber-600 dark:text-amber-400"
         >
           {t("activeProfileMasterSwitchOffWarning")}{" "}
           <Link href="/dashboard/context/settings" className="font-medium underline">
             {t("activeProfileMasterSwitchOffCta")}
           </Link>
-        </Alert>
+        </div>
       )}
 
-      <Card padding="sm">
+      <section className="rounded-lg border border-border bg-surface p-4">
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-          <Input
-            label={t("name")}
+          <input
             value={name}
             onChange={(event) => setName(event.target.value)}
             placeholder={t("comboNamePlaceholder")}
+            className="rounded-lg border border-border bg-bg px-3 py-2 text-sm text-text-main"
           />
-          <Input
-            label={t("descriptionField")}
+          <input
             value={description}
             onChange={(event) => setDescription(event.target.value)}
             placeholder={t("descriptionPlaceholder")}
+            className="rounded-lg border border-border bg-bg px-3 py-2 text-sm text-text-main"
           />
         </div>
 
@@ -278,32 +271,39 @@ function NamedCombosManager() {
             <h3 className="mb-2 text-sm font-semibold text-text-main">{t("languagePacks")}</h3>
             <div className="space-y-2 text-sm text-text-main">
               {languagePacks.map((pack) => (
-                <Checkbox
-                  key={pack.language}
-                  label={`${pack.language} (${pack.ruleCount})`}
-                  checked={selectedPacks.includes(pack.language)}
-                  disabled={pack.language === "en"}
-                  onChange={(event) => togglePack(pack.language, event.target.checked)}
-                />
+                <label key={pack.language} className="flex items-center justify-between gap-2">
+                  <span>
+                    {pack.language} ({pack.ruleCount})
+                  </span>
+                  <input
+                    type="checkbox"
+                    checked={selectedPacks.includes(pack.language)}
+                    disabled={pack.language === "en"}
+                    onChange={(event) => togglePack(pack.language, event.target.checked)}
+                  />
+                </label>
               ))}
             </div>
           </div>
           <div className="space-y-2 text-sm text-text-main">
             <h3 className="text-sm font-semibold text-text-main">{t("outputMode")}</h3>
-            <Checkbox
-              label={t("enabled")}
-              checked={outputMode}
-              onChange={(event) => setOutputMode(event.target.checked)}
-            />
-            <Select
-              aria-label={t("intensity")}
+            <label className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={outputMode}
+                onChange={(event) => setOutputMode(event.target.checked)}
+              />
+              {t("enabled")}
+            </label>
+            <select
               value={outputModeIntensity}
               onChange={(event) => setOutputModeIntensity(event.target.value)}
+              className="w-full rounded-lg border border-border bg-bg px-3 py-2 text-sm"
             >
               <option value="lite">{t("intensityLite")}</option>
               <option value="full">{t("intensityFull")}</option>
               <option value="ultra">{t("intensityUltra")}</option>
-            </Select>
+            </select>
           </div>
           <div>
             <h3 className="mb-2 text-sm font-semibold text-text-main">{t("assignToRouting")}</h3>
@@ -316,17 +316,19 @@ function NamedCombosManager() {
                   if (!id) return null;
                   return (
                     <div key={id} className="flex items-center justify-between gap-2">
-                      <Checkbox
-                        className="min-w-0 flex-1"
-                        label={<span className="truncate">{combo.name ?? id}</span>}
-                        checked={assignmentIds.includes(id)}
-                        onChange={(event) => toggleAssignment(id, event.target.checked)}
-                      />
+                      <label className="flex min-w-0 flex-1 items-center justify-between gap-2">
+                        <span className="truncate">{combo.name ?? id}</span>
+                        <input
+                          type="checkbox"
+                          checked={assignmentIds.includes(id)}
+                          onChange={(event) => toggleAssignment(id, event.target.checked)}
+                        />
+                      </label>
                       <ComboCompressionModeSelect
                         combo={{ id, config: combo.config }}
                         disabled={!compressionEnabled}
-                        title={t("compressionOverride")}
-                        className="ci-select-native--sm w-24 shrink-0 text-xs"
+                        title="Compression override"
+                        className="w-24 shrink-0 rounded-lg border border-border bg-bg px-2 py-1 text-xs text-text-main disabled:opacity-50"
                       />
                     </div>
                   );
@@ -337,65 +339,78 @@ function NamedCombosManager() {
         </div>
 
         {error && (
-          <p className="mt-4 text-sm text-error" role="alert">
+          <p className="mt-4 text-sm text-danger" role="alert">
             {error}
           </p>
         )}
 
         <div className="mt-4 flex flex-wrap gap-2">
-          <Button onClick={saveCombo} loading={saving} disabled={saving}>
+          <button
+            onClick={saveCombo}
+            disabled={saving}
+            className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white"
+          >
             {editingId ? t("save") : t("createCombo")}
-          </Button>
+          </button>
           {editingId && (
-            <Button variant="ghost" onClick={resetForm}>
+            <button
+              onClick={resetForm}
+              className="rounded-lg border border-border px-4 py-2 text-sm text-text-main"
+            >
               {t("cancel")}
-            </Button>
+            </button>
           )}
         </div>
-      </Card>
+      </section>
 
       <section className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         {combos.map((combo) => (
-          <Card key={combo.id} padding="sm">
+          <div key={combo.id} className="rounded-lg border border-border bg-surface p-4">
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
                 <h3 className="truncate text-base font-semibold text-text-main">{combo.name}</h3>
                 <p className="mt-1 text-sm text-text-muted">{combo.description}</p>
               </div>
               {combo.id === activeComboId && (
-                <Badge data-testid={`active-badge-${combo.id}`} variant="success" dot>
-                  {t("active")}
-                </Badge>
+                <span
+                  data-testid={`active-badge-${combo.id}`}
+                  className="rounded-full bg-green-500/10 px-2 py-1 text-xs font-medium text-green-500"
+                >
+                  ● {t("active")}
+                </span>
               )}
             </div>
             <div className="mt-4 flex flex-wrap gap-2">
               {combo.pipeline.map((step, index) => (
-                <Badge key={`${combo.id}-${index}`} size="sm" className="font-mono">
+                <span
+                  key={`${combo.id}-${index}`}
+                  className="rounded-lg border border-border bg-bg px-2 py-1 font-mono text-xs text-text-muted"
+                >
                   {index + 1}. {step.engine}
                   {step.intensity ? `:${step.intensity}` : ""}
-                </Badge>
+                </span>
               ))}
             </div>
             <p className="mt-3 text-xs text-text-muted">
               {t("languagePacksList", { packs: combo.languagePacks.join(", ") })}
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
-              <Button variant="outline" size="sm" icon="edit" onClick={() => editCombo(combo)}>
+              <button
+                onClick={() => editCombo(combo)}
+                className="rounded-lg border border-border px-3 py-1.5 text-xs text-text-main"
+              >
                 {t("editCombo")}
-              </Button>
+              </button>
               {!combo.isDefault && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  icon="delete"
+                <button
                   onClick={() => deleteCombo(combo)}
-                  className="border-error/40 text-error hover:bg-error/10"
+                  className="rounded-lg border border-danger/40 px-3 py-1.5 text-xs text-danger"
                 >
                   {t("deleteCombo")}
-                </Button>
+                </button>
               )}
             </div>
-          </Card>
+          </div>
         ))}
       </section>
     </div>

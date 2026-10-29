@@ -1,7 +1,5 @@
 "use client";
 
-import { Button } from "@/shared/components";
-
 import { useState } from "react";
 import type { CodexAccountPoolProjection } from "@omniroute/open-sse/services/codexAccount/index.ts";
 import { useLocale, useTranslations } from "next-intl";
@@ -70,7 +68,7 @@ export default function CodexAccountDetails({ pool }: CodexAccountDetailsProps) 
             >
               <div className="flex items-center justify-between gap-2">
                 <span className="font-medium">Codex</span>
-                <span className={limited ? "text-warning" : "text-text-muted"}>
+                <span className={limited ? "text-amber-500" : "text-text-muted"}>
                   {limited && child.quota.exhaustedWindow
                     ? t("codexPoolQuotaExhausted")
                     : limited && child.cooldown.active
@@ -83,7 +81,7 @@ export default function CodexAccountDetails({ pool }: CodexAccountDetailsProps) 
                 <span>7d: {formatQuota(child.quota.windows["7d"], t("codexPoolUsed"))}</span>
               </div>
               {limited && child.cooldown.rateLimitedUntil ? (
-                <div className="mt-1 text-[11px] text-warning">
+                <div className="mt-1 text-[11px] text-amber-500">
                   {t("codexPoolUntil", {
                     value: new Intl.DateTimeFormat(locale, {
                       dateStyle: "short",
@@ -96,16 +94,15 @@ export default function CodexAccountDetails({ pool }: CodexAccountDetailsProps) 
           ))}
       </div>
       {limited && (
-        <Button
-          variant="ghost"
-          size="sm"
+        <button
+          type="button"
           disabled={busy}
           onClick={release}
-          className="mt-2 h-auto min-h-0 px-0 text-xs text-primary"
+          className="mt-2 text-xs text-primary disabled:opacity-50"
           title={t("codexReleaseCooldownHint")}
         >
           {busy ? t("codexReleasingCooldown") : t("codexReleaseCooldown")}
-        </Button>
+        </button>
       )}
       {released && (
         <p role="status" className="mt-2 text-xs text-text-muted">
@@ -113,7 +110,7 @@ export default function CodexAccountDetails({ pool }: CodexAccountDetailsProps) 
         </p>
       )}
       {failed && (
-        <p role="alert" className="mt-2 text-xs text-error">
+        <p role="alert" className="mt-2 text-xs text-red-500">
           {t("codexCooldownReleaseFailed")}
         </p>
       )}

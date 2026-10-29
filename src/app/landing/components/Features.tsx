@@ -1,6 +1,5 @@
 "use client";
 import { useTranslations } from "next-intl";
-import Icon from "@/shared/components/Icon";
 
 const FEATURES = [
   {
@@ -121,7 +120,9 @@ export default function Features() {
               <div
                 className={`w-10 h-10 rounded-lg ${feature.colors.iconBg} flex items-center justify-center mb-4 ${feature.colors.iconText} group-hover:scale-110 transition-transform duration-300`}
               >
-                <Icon name={feature.icon} size={24} />
+                <span className="material-symbols-outlined" aria-hidden="true">
+                  {feature.icon}
+                </span>
               </div>
               <h3
                 className={`text-lg font-bold mb-2 break-words ${feature.colors.titleHover} transition-colors`}

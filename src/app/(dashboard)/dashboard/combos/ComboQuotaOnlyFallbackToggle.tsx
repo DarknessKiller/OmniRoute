@@ -1,5 +1,3 @@
-import Badge from "@/shared/components/Badge";
-import Checkbox from "@/shared/components/Checkbox";
 import type { ComboStep } from "@/lib/combos/steps";
 
 type Translate = (key: string, fallback: string) => string;
@@ -24,10 +22,12 @@ export function ComboTargetOptions({
   return (
     <>
       {strategy === "cost-optimized" && (
-        <Badge
-          size="sm"
-          variant={hasPricing ? "success" : "warning"}
-          className="uppercase font-semibold"
+        <span
+          className={`text-[9px] px-1.5 py-0.5 rounded-full uppercase font-semibold ${
+            hasPricing
+              ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
+              : "bg-amber-500/15 text-amber-600 dark:text-amber-400"
+          }`}
           title={translate(
             hasPricing ? "pricingAvailable" : "pricingMissing",
             hasPricing ? "Pricing available" : "No pricing"
@@ -37,23 +37,23 @@ export function ComboTargetOptions({
             hasPricing ? "pricingAvailableShort" : "pricingMissingShort",
             hasPricing ? "priced" : "no-price"
           )}
-        </Badge>
+        </span>
       )}
       {strategy === "priority" && (entry.kind === "model" || entry.kind === "combo-ref") && (
-        <Checkbox
-          className="shrink-0 text-xs text-text-muted"
-          checked={entry.fallbackOnlyOnQuotaExhaustion === true}
-          onChange={(event) => onCheckedChange(index, event.target.checked)}
-          aria-label={translate(
-            "fallbackOnlyOnQuotaExhaustion",
-            "Only advance on quota exhaustion"
-          )}
-          label={
-            <span className="hidden lg:inline">
-              {translate("fallbackOnlyOnQuotaExhaustionShort", "quota-only fallback")}
-            </span>
-          }
-        />
+        <label className="flex items-center gap-1 text-[10px] text-text-muted shrink-0">
+          <input
+            type="checkbox"
+            checked={entry.fallbackOnlyOnQuotaExhaustion === true}
+            onChange={(event) => onCheckedChange(index, event.target.checked)}
+            aria-label={translate(
+              "fallbackOnlyOnQuotaExhaustion",
+              "Only advance on quota exhaustion"
+            )}
+          />
+          <span className="hidden lg:inline">
+            {translate("fallbackOnlyOnQuotaExhaustionShort", "quota-only fallback")}
+          </span>
+        </label>
       )}
     </>
   );

@@ -2,15 +2,9 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useTranslations } from "next-intl";
-import { buttonVariants } from "@omniroute/ui-kit/button";
-import { PageHeader } from "@omniroute/ui-kit/page-header";
-import { Tabs, TabsList, TabsTrigger } from "@omniroute/ui-kit/tabs";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import Icon from "@/shared/components/Icon";
 import { Card } from "@/shared/components";
-import Button from "@/shared/components/Button";
-import Input from "@/shared/components/Input";
 import { shouldAutoSyncOnOpen } from "@/lib/radar/autoSync";
 import { isValidSupporterKeyFormat } from "@/lib/radar/supporterKey";
 import { RadarAccessExplainer } from "./RadarAccessExplainer";
@@ -325,44 +319,48 @@ export default function RadarPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <PageHeader
-        compact
-        title={t("title")}
-        description={t("subtitle")}
-        actions={
-          <div className="flex flex-wrap items-center gap-2">
-            {(pageState === "empty" || pageState === "populated") && (
-              <Link
-                href="/dashboard/radar/intel"
-                className={buttonVariants({ variant: "outline", size: "sm" })}
-              >
-                {t("intel")}
-              </Link>
-            )}
-            {(pageState === "empty" || pageState === "populated") && (
-              <Link
-                href="/dashboard/radar/offers"
-                className={buttonVariants({ variant: "outline", size: "sm" })}
-              >
-                {t("offers")}
-              </Link>
-            )}
-            {(pageState === "empty" || pageState === "populated") && (
-              <Link
-                href="/dashboard/radar/combos"
-                className={buttonVariants({ variant: "outline", size: "sm" })}
-              >
-                {t("guidedCombos")}
-              </Link>
-            )}
-            {pageState === "populated" && (
-              <Button variant="outline" size="sm" onClick={handleSync} disabled={syncing}>
-                {syncing ? t("syncing") : t("syncNow")}
-              </Button>
-            )}
-          </div>
-        }
-      />
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold">{t("title")}</h1>
+          <p className="text-sm text-text-muted mt-1">{t("subtitle")}</p>
+        </div>
+        <div className="flex items-center gap-2">
+          {(pageState === "empty" || pageState === "populated") && (
+            <Link
+              href="/dashboard/radar/intel"
+              className="px-4 py-2 text-sm font-medium rounded-lg border border-border text-text-main hover:border-violet-500 hover:text-violet-400 transition-colors"
+            >
+              {t("intel")}
+            </Link>
+          )}
+          {(pageState === "empty" || pageState === "populated") && (
+            <Link
+              href="/dashboard/radar/offers"
+              className="px-4 py-2 text-sm font-medium rounded-lg border border-border text-text-main hover:border-violet-500 hover:text-violet-400 transition-colors"
+            >
+              {t("offers")}
+            </Link>
+          )}
+          {(pageState === "empty" || pageState === "populated") && (
+            <Link
+              href="/dashboard/radar/combos"
+              className="px-4 py-2 text-sm font-medium rounded-lg border border-border text-text-main hover:border-violet-500 hover:text-violet-400 transition-colors"
+            >
+              {t("guidedCombos")}
+            </Link>
+          )}
+          {pageState === "populated" && (
+            <button
+              onClick={handleSync}
+              disabled={syncing}
+              className="px-4 py-2 text-sm font-medium rounded-lg border border-violet-500 text-violet-400 hover:bg-violet-500/10 transition-colors disabled:opacity-50"
+            >
+              {syncing ? t("syncing") : t("syncNow")}
+            </button>
+          )}
+        </div>
+      </div>
 
       {/* Feed freshness header */}
       {meta && (
@@ -372,7 +370,7 @@ export default function RadarPage() {
           </span>
           <span>
             {t("feedTier")}:{" "}
-            <span className={meta.tier === "live" ? "text-success" : "text-warning"}>
+            <span className={meta.tier === "live" ? "text-green-400" : "text-amber-400"}>
               {meta.tier === "live" ? t("tierLive") : t("tierCommunity")}
             </span>
           </span>
@@ -382,7 +380,7 @@ export default function RadarPage() {
         </div>
       )}
 
-      {error && <div className="p-3 rounded-lg bg-error/10 text-error text-sm">{error}</div>}
+      {error && <div className="p-3 rounded-lg bg-red-500/10 text-red-400 text-sm">{error}</div>}
 
       {loading ? (
         <div className="flex items-center justify-center min-h-[200px]">
@@ -394,7 +392,12 @@ export default function RadarPage() {
           {pageState === "optin_pending" && (
             <Card>
               <div className="mx-auto flex max-w-5xl flex-col items-center gap-6 py-8 text-center">
-                <Icon name="radar" size={36} className="text-primary" />
+                <span
+                  aria-hidden="true"
+                  className="material-symbols-outlined text-4xl text-violet-400"
+                >
+                  radar
+                </span>
                 <h2 className="text-xl font-semibold">{t("activateTitle")}</h2>
                 <p className="max-w-2xl text-text-muted">{t("activateDescription")}</p>
 
@@ -410,7 +413,7 @@ export default function RadarPage() {
                         href={contributorClaimUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={buttonVariants({ variant: "outline", className: "flex-1" })}
+                        className="flex-1 rounded-lg border border-violet-500 px-4 py-2 text-center text-sm font-medium text-violet-400 transition-colors hover:bg-violet-500/10"
                       >
                         {t("contributorButton")}
                       </a>
@@ -418,7 +421,7 @@ export default function RadarPage() {
                         href={supporterPlansUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={buttonVariants({ variant: "outline", className: "flex-1" })}
+                        className="flex-1 rounded-lg border border-violet-500 px-4 py-2 text-center text-sm font-medium text-violet-400 transition-colors hover:bg-violet-500/10"
                       >
                         {t("supporterButton")}
                       </a>
@@ -440,42 +443,45 @@ export default function RadarPage() {
                       <span className="font-mono text-sm text-text-muted">
                         {supporterKeyMasked}
                       </span>
-                      <Button
-                        variant="ghost"
-                        size="sm"
+                      <button
+                        type="button"
                         onClick={() => setShowKeyForm(true)}
-                        className="shrink-0 text-primary"
+                        className="text-sm text-violet-400 hover:underline shrink-0"
                       >
                         {t("changeKeyButton")}
-                      </Button>
+                      </button>
                     </div>
                   ) : (
                     <div className="flex flex-col sm:flex-row gap-2">
-                      <Input
+                      <input
                         type="text"
                         value={keyInput}
                         onChange={(e) => setKeyInput(e.target.value)}
                         placeholder="omr_..."
                         aria-label={t("keySectionTitle")}
-                        className="flex-1"
-                        inputClassName="font-mono"
+                        className="flex-1 px-3 py-2 text-sm font-mono rounded-lg border border-border bg-transparent focus:outline-none focus:ring-2 focus:ring-violet-500"
                       />
-                      <Button
+                      <button
+                        type="button"
                         onClick={handleSubmitKey}
                         disabled={keySubmitting || keyInput.trim().length === 0}
-                        className="shrink-0"
+                        className="px-6 py-2 bg-violet-500 hover:bg-violet-600 text-white font-medium rounded-lg transition-colors disabled:opacity-50 shrink-0"
                       >
                         {keySubmitting ? t("activating") : t("activateWithKeyButton")}
-                      </Button>
+                      </button>
                     </div>
                   )}
                 </div>
 
                 <div className="w-full h-px bg-border" />
 
-                <Button size="lg" onClick={handleActivate} disabled={activating}>
+                <button
+                  onClick={handleActivate}
+                  disabled={activating}
+                  className="px-6 py-3 bg-violet-500 hover:bg-violet-600 text-white font-medium rounded-lg transition-colors disabled:opacity-50"
+                >
                   {activating ? t("activating") : t("activateButton")}
-                </Button>
+                </button>
               </div>
             </Card>
           )}
@@ -483,21 +489,32 @@ export default function RadarPage() {
           {/* D28 — tab bar. Only shown once opted in (empty/populated) — the
               activation gate above is a single full-screen step, not a tab. */}
           {(pageState === "empty" || pageState === "populated") && (
-            <Tabs
-              variant="underline"
-              value={activeTab}
-              onValueChange={(next) => setActiveTab(next as typeof activeTab)}
-            >
-              <TabsList aria-label={t("catalogTab")}>
-                {/* The panels below are rendered by the page itself (no TabsContent). */}
-                <TabsTrigger value="catalog" aria-controls={undefined}>
-                  {t("catalogTab")}
-                </TabsTrigger>
-                <TabsTrigger value="referrals" aria-controls={undefined}>
-                  {t("freeCreditsTab")}
-                </TabsTrigger>
-              </TabsList>
-            </Tabs>
+            <div className="flex gap-2 border-b border-border" role="tablist">
+              <button
+                role="tab"
+                aria-selected={activeTab === "catalog"}
+                onClick={() => setActiveTab("catalog")}
+                className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+                  activeTab === "catalog"
+                    ? "border-violet-500 text-violet-400"
+                    : "border-transparent text-text-muted hover:text-text-main"
+                }`}
+              >
+                {t("catalogTab")}
+              </button>
+              <button
+                role="tab"
+                aria-selected={activeTab === "referrals"}
+                onClick={() => setActiveTab("referrals")}
+                className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+                  activeTab === "referrals"
+                    ? "border-violet-500 text-violet-400"
+                    : "border-transparent text-text-muted hover:text-text-main"
+                }`}
+              >
+                {t("freeCreditsTab")}
+              </button>
+            </div>
           )}
 
           {/* Free credits tab (D28 — referral links) */}
@@ -524,10 +541,10 @@ export default function RadarPage() {
                           href={referral.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline w-fit"
+                          className="inline-flex items-center gap-1 text-sm font-medium text-violet-400 hover:underline w-fit"
                         >
                           {t("claimButton")}
-                          <Icon name="open_in_new" size={14} />
+                          <span className="material-symbols-outlined text-sm">open_in_new</span>
                         </a>
                       </div>
                     </Card>
@@ -557,7 +574,7 @@ export default function RadarPage() {
                             </p>
                           )}
                           {referral.validUntil && (
-                            <p className="text-xs text-warning">
+                            <p className="text-xs text-amber-400">
                               {t("campaignsValidUntil", {
                                 date: new Date(referral.validUntil).toLocaleDateString(),
                               })}
@@ -567,10 +584,10 @@ export default function RadarPage() {
                             href={referral.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline w-fit"
+                            className="inline-flex items-center gap-1 text-sm font-medium text-violet-400 hover:underline w-fit"
                           >
                             {t("claimButton")}
-                            <Icon name="open_in_new" size={14} />
+                            <span className="material-symbols-outlined text-sm">open_in_new</span>
                           </a>
                         </div>
                       </Card>
@@ -586,9 +603,13 @@ export default function RadarPage() {
             <Card>
               <div className="flex flex-col items-center gap-4 py-12 text-center">
                 <p className="text-text-muted">{t("emptyState")}</p>
-                <Button size="lg" onClick={handleSync} disabled={syncing}>
+                <button
+                  onClick={handleSync}
+                  disabled={syncing}
+                  className="px-6 py-3 bg-violet-500 hover:bg-violet-600 text-white font-medium rounded-lg transition-colors disabled:opacity-50"
+                >
                   {syncing ? t("syncing") : t("syncCta")}
-                </Button>
+                </button>
               </div>
             </Card>
           )}

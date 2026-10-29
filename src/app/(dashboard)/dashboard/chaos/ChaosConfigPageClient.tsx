@@ -16,8 +16,6 @@
  */
 "use client";
 
-import { PageHeader } from "@omniroute/ui-kit/page-header";
-import { Spinner } from "@/shared/components/Loading";
 import { useChaosConfigPage } from "./useChaosConfigPage";
 import { ChaosModeSelector } from "./components/ChaosModeSelector";
 import { ChaosTestResultsPanel } from "./components/ChaosTestResultsPanel";
@@ -47,9 +45,8 @@ export default function ChaosConfigPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center gap-2 h-64 text-text-muted">
-        <Spinner label={t("loadingProviderModels")} />
-        <span aria-hidden="true">{t("loadingProviderModels")}</span>
+      <div className="flex items-center justify-center h-64">
+        <div className="text-text-muted animate-pulse">{t("loadingProviderModels")}</div>
       </div>
     );
   }
@@ -57,7 +54,10 @@ export default function ChaosConfigPage() {
   return (
     <div className="max-w-3xl mx-auto p-4 sm:p-6 space-y-6">
       {/* Header */}
-      <PageHeader compact title={t("pageTitle")} description={t("pageSubtitle")} />
+      <div>
+        <h1 className="text-2xl font-bold text-text-main">{t("pageTitle")}</h1>
+        <p className="text-sm text-text-muted mt-1">{t("pageSubtitle")}</p>
+      </div>
 
       {/* Status Message */}
       <ChaosStatusMessage message={message} />

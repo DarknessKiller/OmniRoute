@@ -13,10 +13,13 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 // modal']` never matched and the truncation-warning text check failed.
 
 // Lazy import of MarkdownMessage via ScrapeResult's dynamic import — mock it
-vi.mock("../../../src/app/(dashboard)/dashboard/playground/components/MarkdownMessage", () => ({
-  default: ({ content }: { content: string }) =>
-    React.createElement("div", { "data-testid": "markdown-render" }, content),
-}));
+vi.mock(
+  "../../../src/app/(dashboard)/dashboard/playground/components/MarkdownMessage",
+  () => ({
+    default: ({ content }: { content: string }) =>
+      React.createElement("div", { "data-testid": "markdown-render" }, content),
+  }),
+);
 
 // ── Fixtures ──────────────────────────────────────────────────────────────────
 
@@ -37,8 +40,9 @@ function makeScrapeResult(content: string) {
 
 // ── Import component after mocks ──────────────────────────────────────────────
 
-const { default: ScrapeResult } =
-  await import("../../../src/app/(dashboard)/dashboard/search-tools/components/ScrapeResult");
+const { default: ScrapeResult } = await import(
+  "../../../src/app/(dashboard)/dashboard/search-tools/components/ScrapeResult"
+);
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -50,7 +54,7 @@ function renderScrapeResult(content: string, latencyMs?: number): HTMLDivElement
   const root = createRoot(el);
   act(() => {
     root.render(
-      React.createElement(ScrapeResult, { result: makeScrapeResult(content), latencyMs })
+      React.createElement(ScrapeResult, { result: makeScrapeResult(content), latencyMs }),
     );
   });
   containers.push({ root, el });
@@ -61,9 +65,7 @@ function renderScrapeResult(content: string, latencyMs?: number): HTMLDivElement
 
 describe("ScrapeResult", () => {
   beforeEach(() => {
-    (
-      globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }
-    ).IS_REACT_ACT_ENVIRONMENT = true;
+    (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
   });
 
   afterEach(() => {
@@ -104,8 +106,7 @@ describe("ScrapeResult", () => {
   it("defaults to markdown preview mode", () => {
     const el = renderScrapeResult(CONTENT_UNDER_CAP);
     const markdownToggle = el.querySelector("[data-testid='toggle-markdown']");
-    // The active view is the kit Button's pressed state (aria-pressed), no longer a colour class.
-    expect(markdownToggle?.getAttribute("aria-pressed")).toBe("true");
+    expect(markdownToggle?.classList.contains("text-primary")).toBe(true);
     // Markdown render area should exist
     const markdownPreview = el.querySelector("[data-testid='markdown-preview']");
     expect(markdownPreview).toBeTruthy();
@@ -161,8 +162,6 @@ describe("ScrapeResult", () => {
     expect(warning?.textContent).toContain("256 KB");
   });
 
-  // The raw modal is the kit Dialog (Modal adapter), portalled to document.body (KEA-7886):
-  // its nodes are looked up in the document instead of the render container.
   it("D21 — 'View raw' button opens raw modal for truncated content", () => {
     const el = renderScrapeResult(CONTENT_OVER_CAP);
     const viewRawBtn = el.querySelector("[data-testid='view-raw-button']") as HTMLButtonElement;
@@ -170,7 +169,7 @@ describe("ScrapeResult", () => {
     act(() => {
       viewRawBtn.click();
     });
-    const rawModal = document.querySelector("[data-testid='raw-modal']");
+    const rawModal = el.querySelector("[data-testid='raw-modal']");
     expect(rawModal).toBeTruthy();
   });
 
@@ -181,9 +180,7 @@ describe("ScrapeResult", () => {
     act(() => {
       viewRawBtn.click();
     });
-    const rawModalContent = document.querySelector(
-      "[data-testid='raw-modal-content']"
-    ) as HTMLTextAreaElement;
+    const rawModalContent = el.querySelector("[data-testid='raw-modal-content']") as HTMLTextAreaElement;
     expect(rawModalContent).toBeTruthy();
     // Full content is in the modal
     expect(rawModalContent.value.length).toBe(longContent.length);
@@ -195,15 +192,15 @@ describe("ScrapeResult", () => {
     act(() => {
       viewRawBtn.click();
     });
-    expect(document.querySelector("[data-testid='raw-modal']")).toBeTruthy();
+    expect(el.querySelector("[data-testid='raw-modal']")).toBeTruthy();
 
-    const closeBtn = document
+    const closeBtn = el
       .querySelector("[data-testid='raw-modal']")
       ?.querySelector("button[aria-label='Close raw content modal']") as HTMLButtonElement;
     act(() => {
       closeBtn.click();
     });
-    expect(document.querySelector("[data-testid='raw-modal']")).toBeNull();
+    expect(el.querySelector("[data-testid='raw-modal']")).toBeNull();
   });
 
   it("size display in meta bar shows KB for large content", () => {

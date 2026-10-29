@@ -2,13 +2,8 @@
 
 import { useEffect, useId, useState } from "react";
 import { useTranslations } from "next-intl";
-import Select from "./Select";
-import { DiscoveryDegradedNotice } from "./DiscoveryDegradedNotice";
-import { readDiscoveryDegradation } from "@/shared/discovery/degradedCause";
 
 type Model = { id: string; name?: string };
-/** Whether the proposed list comes from the built-in catalog, and why. */
-type CatalogDegradation = { degraded: boolean; cause?: string };
 
 /** Draft-only field: the enclosing connection form owns persistence. */
 export default function ConnectionTestModelField({
@@ -24,7 +19,6 @@ export default function ConnectionTestModelField({
   const id = useId();
   const [modelId, setModelId] = useState("");
   const [models, setModels] = useState<Model[]>([]);
-  const [degradation, setDegradation] = useState<CatalogDegradation>({ degraded: false });
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState(false);
   useEffect(() => {
@@ -40,9 +34,6 @@ export default function ConnectionTestModelField({
         if (controller.signal.aborted) return;
         setModelId(config.modelId || "");
         setModels((catalog.models || []).filter((model: Model) => typeof model.id === "string"));
-        // The proposed list may come from the built-in catalog: the operator
-        // must know it before choosing a model from it.
-        setDegradation(readDiscoveryDegradation(catalog));
       })
       .catch(() => {
         if (!controller.signal.aborted) setFailed(true);
@@ -55,12 +46,14 @@ export default function ConnectionTestModelField({
   const available = models.some((model) => model.id === modelId);
   return (
     <div>
-      <Select
+      <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-text-main">
+        {t("defaultModel")}
+      </label>
+      <select
         id={id}
-        label={t("defaultModel")}
-        hint={t("defaultModelHint")}
         value={modelId}
         disabled={disabled || loading || failed}
+        className="w-full rounded-lg border border-border bg-bg-main p-2.5 text-sm disabled:opacity-50"
         onChange={(event) => {
           setModelId(event.target.value);
           onChange(event.target.value);
@@ -77,10 +70,10 @@ export default function ConnectionTestModelField({
             {model.name || model.id}
           </option>
         ))}
-      </Select>
-      <DiscoveryDegradedNotice degraded={degradation.degraded} cause={degradation.cause} />
+      </select>
+      <p className="mt-1 text-xs text-text-muted">{t("defaultModelHint")}</p>
       {failed && (
-        <p role="alert" className="mt-1 text-xs text-error">
+        <p role="alert" className="mt-1 text-xs text-red-500">
           {t("failed")}
         </p>
       )}

@@ -4,9 +4,6 @@ import { createRoot, type Root } from "react-dom/client";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import AccountProxyResetButton from "@/app/(dashboard)/dashboard/providers/[id]/components/AccountProxyResetButton";
 
-// The shared Modal is a kit Dialog (Radix) since KEA-7886: its content is portaled to
-// document.body, so queries start there (the container is a child of body).
-
 const notify = { success: vi.fn(), error: vi.fn(), warning: vi.fn() };
 vi.mock("@/store/notificationStore", () => ({ useNotificationStore: () => notify }));
 
@@ -47,7 +44,7 @@ describe("Account proxy reset", () => {
   }
 
   async function click(label: string) {
-    const button = Array.from(document.body.querySelectorAll("button")).find((item) =>
+    const button = Array.from(container.querySelectorAll("button")).find((item) =>
       item.textContent?.includes(label)
     );
     expect(button).toBeTruthy();
@@ -58,7 +55,7 @@ describe("Account proxy reset", () => {
     const { fetchMock, onReset } = await mount();
     await click("Remove account proxies");
     expect(fetchMock).not.toHaveBeenCalled();
-    expect(document.body.textContent).toContain("2");
+    expect(container.textContent).toContain("2");
     await click("Cancel");
     expect(fetchMock).not.toHaveBeenCalled();
     await click("Remove account proxies");

@@ -2,11 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { buttonVariants } from "@omniroute/ui-kit/button";
-import { PageHeader } from "@omniroute/ui-kit/page-header";
-import Icon from "@/shared/components/Icon";
 import { Card, Button, Input } from "@/shared/components";
-import Badge from "@/shared/components/Badge";
 import ProviderIcon from "@/shared/components/ProviderIcon";
 import { CliConceptCard, CliComparisonCard } from "@/shared/components/cli";
 import { useTranslations } from "next-intl";
@@ -150,8 +146,8 @@ export default function AgentsPage() {
 
   if (loading) {
     return (
-      <div role="status" className="flex flex-col items-center justify-center min-h-[400px] gap-3">
-        <Icon name="progress_activity" size={32} className="animate-spin text-primary" />
+      <div className="flex flex-col items-center justify-center min-h-[400px] gap-3">
+        <div className="animate-spin rounded-full h-8 w-8 border-2 border-primary border-t-transparent" />
         <p className="text-sm text-text-muted">{t("scanning")}</p>
       </div>
     );
@@ -159,17 +155,12 @@ export default function AgentsPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <PageHeader
-        compact
-        title={t("pageTitle")}
-        description={t("pageSubtitle")}
-        actions={
-          <Button variant="secondary" onClick={handleRefresh} loading={refreshing}>
-            <Icon name="refresh" size={16} className="mr-1" />
-            {t("refresh")}
-          </Button>
-        }
-      />
+      <div className="flex justify-end">
+        <Button variant="secondary" onClick={handleRefresh} loading={refreshing}>
+          <span className="material-symbols-outlined text-[16px] mr-1">refresh</span>
+          {t("refresh")}
+        </Button>
+      </div>
 
       <CliConceptCard currentType="acp" />
       <CliComparisonCard currentType="acp" />
@@ -177,22 +168,22 @@ export default function AgentsPage() {
       {/* Summary Cards */}
       {summary && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <Card padding="sm" className="text-center">
+          <div className="rounded-xl border border-border/50 bg-card p-4 text-center">
             <div className="text-2xl font-bold text-primary">{summary.installed}</div>
             <div className="text-xs text-text-muted mt-1">{t("installed")}</div>
-          </Card>
-          <Card padding="sm" className="text-center">
+          </div>
+          <div className="rounded-xl border border-border/50 bg-card p-4 text-center">
             <div className="text-2xl font-bold text-text-muted">{summary.notFound}</div>
             <div className="text-xs text-text-muted mt-1">{t("notFound")}</div>
-          </Card>
-          <Card padding="sm" className="text-center">
+          </div>
+          <div className="rounded-xl border border-border/50 bg-card p-4 text-center">
             <div className="text-2xl font-bold">{summary.builtIn}</div>
             <div className="text-xs text-text-muted mt-1">{t("builtIn")}</div>
-          </Card>
-          <Card padding="sm" className="text-center">
-            <div className="text-2xl font-bold text-warning">{summary.custom}</div>
+          </div>
+          <div className="rounded-xl border border-border/50 bg-card p-4 text-center">
+            <div className="text-2xl font-bold text-amber-500">{summary.custom}</div>
             <div className="text-xs text-text-muted mt-1">{t("custom")}</div>
-          </Card>
+          </div>
         </div>
       )}
 
@@ -200,46 +191,50 @@ export default function AgentsPage() {
       <Card>
         <div className="flex items-center justify-between gap-3 mb-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-info/10 text-info">
-              <Icon name="support" size={20} />
+            <div className="p-2 rounded-lg bg-blue-500/10 text-blue-500">
+              <span className="material-symbols-outlined text-[20px]" aria-hidden="true">
+                support
+              </span>
             </div>
             <h3 className="text-lg font-semibold">{t("setupGuideTitle")}</h3>
           </div>
           <Link
             href="/dashboard/cli-code"
-            className={buttonVariants({ variant: "outline", size: "sm", className: "text-xs" })}
+            className="text-xs px-2.5 py-1.5 rounded-lg border border-border/60 hover:bg-surface/40 transition-colors"
           >
             {t("cliCodeRedirectCta")}
           </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <div className="rounded-lg border border-border/50 bg-bg-subtle p-3">
+          <div className="rounded-lg border border-border/50 bg-black/[0.02] dark:bg-white/[0.02] p-3">
             <div className="flex items-center gap-2 mb-1.5">
-              <Icon name="radar" size={16} className="text-info" />
+              <span className="material-symbols-outlined text-[16px] text-blue-500">radar</span>
               <p className="text-sm font-medium">{t("setupGuideDetectCliTitle")}</p>
             </div>
             <p className="text-xs text-text-muted">{t("setupGuideDetectCliDesc")}</p>
           </div>
-          <div className="rounded-lg border border-border/50 bg-bg-subtle p-3">
+          <div className="rounded-lg border border-border/50 bg-black/[0.02] dark:bg-white/[0.02] p-3">
             <div className="flex items-center gap-2 mb-1.5">
-              <Icon name="build" size={16} className="text-warning" />
+              <span className="material-symbols-outlined text-[16px] text-amber-500">build</span>
               <p className="text-sm font-medium">{t("setupGuideCustomAgentTitle")}</p>
             </div>
             <p className="text-xs text-text-muted">{t("setupGuideCustomAgentDesc")}</p>
           </div>
-          <div className="rounded-lg border border-border/50 bg-bg-subtle p-3">
+          <div className="rounded-lg border border-border/50 bg-black/[0.02] dark:bg-white/[0.02] p-3">
             <div className="flex items-center gap-2 mb-1.5">
-              <Icon name="terminal" size={16} className="text-success" />
+              <span className="material-symbols-outlined text-[16px] text-emerald-500">
+                terminal
+              </span>
               <p className="text-sm font-medium">{t("setupGuideCommandMissingTitle")}</p>
             </div>
             <p className="text-xs text-text-muted">{t("setupGuideCommandMissingDesc")}</p>
           </div>
         </div>
-        <div className="mt-3 flex items-center gap-2 rounded-lg border border-border/30 bg-bg-subtle p-3">
-          <Icon name="fingerprint" size={14} className="text-text-muted" />
+        <div className="mt-3 flex items-center gap-2 rounded-lg border border-border/30 bg-surface/20 p-3">
+          <span className="material-symbols-outlined text-[14px] text-text-muted">fingerprint</span>
           <p className="text-xs text-text-muted">
             {t("fingerprintSettingsHint")}{" "}
-            <Link href="/dashboard/settings?tab=routing" className="text-primary underline">
+            <Link href="/dashboard/settings?tab=routing" className="text-primary hover:underline">
               {t("settingsRoutingLink")}
             </Link>
           </p>
@@ -255,23 +250,25 @@ export default function AgentsPage() {
                 <div
                   className={`p-2 rounded-lg ${
                     agent.installed
-                      ? "bg-success/10 text-success "
-                      : "bg-surface-2/10 text-text-muted"
+                      ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                      : "bg-zinc-500/10 text-zinc-400"
                   }`}
                 >
                   {getAgentIconId(agent.id) ? (
                     <ProviderIcon providerId={getAgentIconId(agent.id)!} size={20} type="color" />
                   ) : (
-                    <Icon name={agent.installed ? "smart_toy" : "block"} size={20} />
+                    <span className="material-symbols-outlined text-[20px]">
+                      {agent.installed ? "smart_toy" : "block"}
+                    </span>
                   )}
                 </div>
                 <div>
                   <div className="font-semibold text-sm flex items-center gap-1.5">
                     {agent.name}
                     {agent.isCustom && (
-                      <Badge variant="warning" size="sm">
+                      <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 font-medium">
                         {t("custom")}
-                      </Badge>
+                      </span>
                     )}
                   </div>
                   <code className="text-xs text-text-muted">{agent.binary}</code>
@@ -279,36 +276,36 @@ export default function AgentsPage() {
               </div>
               <div className="flex items-center gap-1">
                 {agent.installed ? (
-                  <Badge variant="success" size="sm" icon="check_circle">
+                  <span className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-medium">
+                    <span className="material-symbols-outlined text-[12px]">check_circle</span>
                     {agent.version || t("installed")}
-                  </Badge>
+                  </span>
                 ) : (
-                  <Badge size="sm" icon="cancel">
+                  <span className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-zinc-500/10 text-zinc-500 font-medium">
+                    <span className="material-symbols-outlined text-[12px]">cancel</span>
                     {t("notFound")}
-                  </Badge>
+                  </span>
                 )}
               </div>
             </div>
             <div className="flex items-center justify-between mt-3 pt-3 border-t border-border/30">
               <div>
-                <Badge variant="info" size="sm" className="font-mono">
+                <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-500 font-mono">
                   {agent.protocol}
-                </Badge>
+                </span>
                 {agent.installed && (
                   <p className="mt-1 text-[10px] text-text-muted">{t("agentUseCaseHint")}</p>
                 )}
               </div>
               {agent.isCustom && (
-                <Button
-                  variant="ghost"
-                  size="sm"
+                <button
                   onClick={() => handleRemoveAgent(agent.id)}
-                  className="gap-0.5 text-xs text-error hover:bg-error/10 hover:text-error"
+                  className="text-xs text-red-500 hover:text-red-400 transition-colors flex items-center gap-0.5"
                   title={t("remove")}
                 >
-                  <Icon name="delete" size={14} />
+                  <span className="material-symbols-outlined text-[14px]">delete</span>
                   {t("remove")}
-                </Button>
+                </button>
               )}
             </div>
           </Card>
@@ -319,22 +316,18 @@ export default function AgentsPage() {
       <Card>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-warning/10 text-warning">
-              <Icon name="add_circle" size={20} />
+            <div className="p-2 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400">
+              <span className="material-symbols-outlined text-[20px]">add_circle</span>
             </div>
             <div>
               <h3 className="text-lg font-semibold">{t("addCustomAgent")}</h3>
               <p className="text-sm text-text-muted">{t("addCustomAgentDesc")}</p>
             </div>
           </div>
-          <Button
-            variant="secondary"
-            size="icon"
-            onClick={() => setShowAddForm(!showAddForm)}
-            aria-expanded={showAddForm}
-            aria-label={t("addCustomAgent")}
-          >
-            <Icon name={showAddForm ? "expand_less" : "expand_more"} size={16} />
+          <Button variant="secondary" onClick={() => setShowAddForm(!showAddForm)}>
+            <span className="material-symbols-outlined text-[16px]">
+              {showAddForm ? "expand_less" : "expand_more"}
+            </span>
           </Button>
         </div>
 
@@ -375,7 +368,7 @@ export default function AgentsPage() {
             </div>
             <div className="flex justify-end">
               <Button type="submit" variant="primary" loading={addLoading}>
-                <Icon name="add" size={16} className="mr-1" />
+                <span className="material-symbols-outlined text-[16px] mr-1">add</span>
                 {t("addAgent")}
               </Button>
             </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import { Handle, Position, type NodeProps } from "@xyflow/react";
-import { flowColorAlpha } from "@/shared/components/flow/edgeStyles";
 
 // ── Node data shape ───────────────────────────────────────────────────────
 
@@ -19,15 +18,14 @@ export interface RequestNodeData {
  */
 export function RequestNode({ data }: NodeProps) {
   const { comboName } = data as RequestNodeData;
-  // Entry-node identity colour from the kit chart palette (purple, theme-aware).
-  const color = "var(--color-chart-3)";
+  const color = "#6366f1"; // indigo — matches IoNode input color
 
   return (
     <div
       className="rounded-xl border-2 bg-bg px-4 py-3 min-w-[110px] text-center transition-all duration-200"
       style={{
         borderColor: color,
-        boxShadow: `0 0 12px ${flowColorAlpha(color, 15)}`,
+        boxShadow: `0 0 12px ${color}25`,
       }}
       data-testid="request-node"
     >
@@ -41,7 +39,7 @@ export function RequestNode({ data }: NodeProps) {
         Request
       </div>
       <div
-        className="text-[11px] font-mono text-text-muted truncate max-w-[130px]"
+        className="text-[11px] font-mono text-muted truncate max-w-[130px]"
         title={comboName as string}
       >
         {comboName as string}

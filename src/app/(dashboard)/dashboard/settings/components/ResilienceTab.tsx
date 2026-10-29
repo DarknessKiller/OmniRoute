@@ -1,8 +1,7 @@
 "use client";
 
 import { type ReactNode, useCallback, useEffect, useState } from "react";
-import { Button, Card, Select } from "@/shared/components";
-import Icon from "@/shared/components/Icon";
+import { Button, Card } from "@/shared/components";
 import { useNotificationStore } from "@/store/notificationStore";
 import { useTranslations } from "next-intl";
 import AutoDisableCard from "./AutoDisableCard";
@@ -141,7 +140,7 @@ function ProfileColumn({
   return (
     <div className="rounded-xl border border-border bg-bg-subtle p-4">
       <div className="mb-4 flex items-center gap-2">
-        <Icon name={icon} size={16} className="text-primary" />
+        <span className="material-symbols-outlined text-base text-primary">{icon}</span>
         <h3 className="text-sm font-semibold uppercase tracking-wide text-text-main">{title}</h3>
       </div>
       <div className="space-y-3">{children}</div>
@@ -207,7 +206,7 @@ function RequestQueueCard({
       <div className="mb-4 flex items-start justify-between gap-4">
         <div className="space-y-2">
           <div className="flex items-center gap-2">
-            <Icon name="speed" size={20} className="text-primary" />
+            <span className="material-symbols-outlined text-xl text-primary">speed</span>
             <h2 className="text-lg font-bold">{t("resilienceRequestQueueTitle")}</h2>
           </div>
           <SectionDescription
@@ -393,40 +392,45 @@ function ConnectionCooldownCard({
                 }))
               }
             />
-            <Select
-              compact
-              label={t("resilienceUseUpstream429BreakerHints")}
-              hint={t("resilienceUseUpstream429BreakerHintsDesc")}
-              value={
-                current.useUpstream429BreakerHints === true
-                  ? "on"
-                  : current.useUpstream429BreakerHints === false
-                    ? "off"
-                    : "default"
-              }
-              onChange={(e) => {
-                const v = e.target.value;
-                const next: boolean | undefined =
-                  v === "on" ? true : v === "off" ? false : undefined;
-                setDraft((prev) => {
-                  const profile = { ...prev[key] };
-                  if (next === undefined) {
-                    delete (profile as { useUpstream429BreakerHints?: boolean })
-                      .useUpstream429BreakerHints;
-                  } else {
-                    (
-                      profile as { useUpstream429BreakerHints?: boolean }
-                    ).useUpstream429BreakerHints = next;
+            <div className="flex flex-col gap-1">
+              <label className="flex items-center justify-between gap-2 text-sm">
+                <span className="text-text-muted">{t("resilienceUseUpstream429BreakerHints")}</span>
+                <select
+                  className="rounded border border-border-default bg-surface-1 px-2 py-1 text-sm font-mono"
+                  value={
+                    current.useUpstream429BreakerHints === true
+                      ? "on"
+                      : current.useUpstream429BreakerHints === false
+                        ? "off"
+                        : "default"
                   }
-                  return { ...prev, [key]: profile };
-                });
-              }}
-              options={[
-                { value: "default", label: t("resilienceDefaultPerProvider") },
-                { value: "on", label: t("resilienceAlwaysOn") },
-                { value: "off", label: t("resilienceAlwaysOff") },
-              ]}
-            />
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    const next: boolean | undefined =
+                      v === "on" ? true : v === "off" ? false : undefined;
+                    setDraft((prev) => {
+                      const profile = { ...prev[key] };
+                      if (next === undefined) {
+                        delete (profile as { useUpstream429BreakerHints?: boolean })
+                          .useUpstream429BreakerHints;
+                      } else {
+                        (
+                          profile as { useUpstream429BreakerHints?: boolean }
+                        ).useUpstream429BreakerHints = next;
+                      }
+                      return { ...prev, [key]: profile };
+                    });
+                  }}
+                >
+                  <option value="default">{t("resilienceDefaultPerProvider")}</option>
+                  <option value="on">{t("resilienceAlwaysOn")}</option>
+                  <option value="off">{t("resilienceAlwaysOff")}</option>
+                </select>
+              </label>
+              <p className="text-xs text-text-muted">
+                {t("resilienceUseUpstream429BreakerHintsDesc")}
+              </p>
+            </div>
             <NumberField
               label={t("resilienceMaxBackoffSteps")}
               value={current.maxBackoffSteps}
@@ -475,7 +479,7 @@ function ConnectionCooldownCard({
       <div className="mb-4 flex items-start justify-between gap-4">
         <div className="space-y-2">
           <div className="flex items-center gap-2">
-            <Icon name="timer_off" size={20} className="text-primary" />
+            <span className="material-symbols-outlined text-xl text-primary">timer_off</span>
             <h2 className="text-lg font-bold">{t("resilienceConnectionCooldownTitle")}</h2>
           </div>
           <SectionDescription
@@ -604,7 +608,9 @@ function ProviderBreakerCard({
       <div className="mb-4 flex items-start justify-between gap-4">
         <div className="space-y-2">
           <div className="flex items-center gap-2">
-            <Icon name="electrical_services" size={20} className="text-primary" />
+            <span className="material-symbols-outlined text-xl text-primary">
+              electrical_services
+            </span>
             <h2 className="text-lg font-bold">{t("resilienceProviderBreakerTitle")}</h2>
           </div>
           <SectionDescription
@@ -662,7 +668,7 @@ function WaitForCooldownCard({
       <div className="mb-4 flex items-start justify-between gap-4">
         <div className="space-y-2">
           <div className="flex items-center gap-2">
-            <Icon name="hourglass_top" size={20} className="text-primary" />
+            <span className="material-symbols-outlined text-xl text-primary">hourglass_top</span>
             <h2 className="text-lg font-bold">{t("resilienceWaitForCooldownTitle")}</h2>
           </div>
           <SectionDescription
@@ -764,7 +770,7 @@ function ComboCooldownWaitCard({
     <Card className="p-6">
       <div className="mb-4 flex items-start justify-between gap-4">
         <div className="flex items-center gap-2">
-          <Icon name="timer" size={20} className="text-primary" />
+          <span className="material-symbols-outlined text-xl text-primary">timer</span>
           <h2 className="text-lg font-bold">{title}</h2>
         </div>
         <ActionRow
@@ -876,7 +882,7 @@ function QuotaShareConcurrencyLimitCard({
     <Card className="p-6">
       <div className="mb-4 flex items-start justify-between gap-4">
         <div className="flex items-center gap-2">
-          <Icon name="filter_list" size={20} className="text-primary" />
+          <span className="material-symbols-outlined text-xl text-primary">filter_list</span>
           <h2 className="text-lg font-bold">{title}</h2>
         </div>
         <ActionRow
@@ -944,7 +950,7 @@ export function ProviderCooldownCard({
       <div className="mb-4 flex items-start justify-between gap-4">
         <div className="space-y-2">
           <div className="flex items-center gap-2">
-            <Icon name="timer" size={20} className="text-primary" />
+            <span className="material-symbols-outlined text-xl text-primary">timer</span>
             <h2 className="text-lg font-bold">{t("resilienceProviderCooldownTitle")}</h2>
           </div>
           <SectionDescription
@@ -1055,7 +1061,9 @@ function CredentialHealthCheckCard({
       <div className="mb-4 flex items-start justify-between gap-4">
         <div className="space-y-2">
           <div className="flex items-center gap-2">
-            <Icon name="health_and_safety" size={20} className="text-primary" />
+            <span className="material-symbols-outlined text-xl text-primary">
+              health_and_safety
+            </span>
             <h2 className="text-lg font-bold">{t("resilienceCredentialHealthTitle")}</h2>
           </div>
           <SectionDescription
@@ -1193,7 +1201,7 @@ export default function ResilienceTab() {
     return (
       <Card className="p-6">
         <div className="flex items-center gap-2 text-sm text-text-muted">
-          <Icon name="progress_activity" className="animate-spin" />
+          <span className="material-symbols-outlined animate-spin">progress_activity</span>
           {tx("loadingResilience", "Loading resilience settings...")}
         </div>
       </Card>

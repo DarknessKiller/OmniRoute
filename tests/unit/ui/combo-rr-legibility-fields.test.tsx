@@ -2,7 +2,6 @@
 import { describe, it, expect, afterEach } from "vitest";
 import { cleanup, fireEvent, render } from "@testing-library/react";
 import ComboRrLegibilityFields from "@/app/(dashboard)/dashboard/combos/ComboRrLegibilityFields";
-import { chooseKitSelectValue, kitSelectValue } from "../../helpers/kitSelect";
 
 function t(key: string, values?: Record<string, unknown>): string {
   if (key === "stickyLimitEffective" && values) {
@@ -39,7 +38,9 @@ describe("ComboRrLegibilityFields", () => {
     );
     expect(getByTestId("combo-sticky-limit-effective").textContent).toContain("3");
     expect(getByTestId("combo-sticky-limit-effective").textContent).toContain("global");
-    expect((getByTestId("combo-sticky-round-robin-limit") as HTMLInputElement).min).toBe("1");
+    expect(
+      (getByTestId("combo-sticky-round-robin-limit") as HTMLInputElement).min
+    ).toBe("1");
   });
 
   it("shows a stored 0 as the clamped 1 so the field is not invalid", () => {
@@ -53,7 +54,9 @@ describe("ComboRrLegibilityFields", () => {
         t={t}
       />
     );
-    expect((getByTestId("combo-sticky-round-robin-limit") as HTMLInputElement).value).toBe("1");
+    expect(
+      (getByTestId("combo-sticky-round-robin-limit") as HTMLInputElement).value
+    ).toBe("1");
     expect(getByTestId("combo-sticky-limit-effective").textContent).toContain("1");
   });
 
@@ -89,10 +92,9 @@ describe("ComboRrLegibilityFields", () => {
         t={t}
       />
     );
-    // KEA-7886: kit (Radix) Select — the root carries the controlled value as data-value.
-    const select = getByTestId("combo-connection-aware-expansion");
-    expect(kitSelectValue(select)).toBe("inherit");
-    chooseKitSelectValue(select, "on");
+    const select = getByTestId("combo-connection-aware-expansion") as HTMLSelectElement;
+    expect(select.value).toBe("inherit");
+    fireEvent.change(select, { target: { value: "on" } });
     expect(captured.at(-1)?.connectionAwareExpansion).toBe(true);
   });
 
@@ -121,9 +123,7 @@ describe("ComboRrLegibilityFields", () => {
         t={t}
       />
     );
-    expect(getByTestId("combo-prompt-cache-affinity-hint").textContent).toMatch(
-      /prompt-cache|locality/i
-    );
+    expect(getByTestId("combo-prompt-cache-affinity-hint").textContent).toMatch(/prompt-cache|locality/i);
   });
 
   it("hides the affinity hint when only one account is pinned", () => {

@@ -95,7 +95,7 @@ export function getStatusPresentation(
       statusLabel: t("statusRuntimeIssue"),
       errorType,
       errorBadge,
-      errorTextClass: "text-warning",
+      errorTextClass: "text-yellow-600 dark:text-yellow-400",
     };
   }
 
@@ -105,7 +105,7 @@ export function getStatusPresentation(
       statusLabel: providerText(t, "statusDeactivated", "Deactivated"),
       errorType,
       errorBadge,
-      errorTextClass: "text-error font-bold",
+      errorTextClass: "text-red-600 font-bold",
     };
   }
 
@@ -120,7 +120,7 @@ export function getStatusPresentation(
       statusLabel: t("statusAuthFailed"),
       errorType,
       errorBadge,
-      errorTextClass: "text-error",
+      errorTextClass: "text-red-500",
     };
   }
 
@@ -130,7 +130,7 @@ export function getStatusPresentation(
       statusLabel: t("statusRateLimited"),
       errorType,
       errorBadge,
-      errorTextClass: "text-warning",
+      errorTextClass: "text-yellow-600 dark:text-yellow-400",
     };
   }
 
@@ -140,7 +140,7 @@ export function getStatusPresentation(
       statusLabel: t("statusNetworkIssue"),
       errorType,
       errorBadge,
-      errorTextClass: "text-warning",
+      errorTextClass: "text-yellow-600 dark:text-yellow-400",
     };
   }
 
@@ -160,7 +160,7 @@ export function getStatusPresentation(
       statusLabel: providerText(t, "statusBanned", "Banned (403)"),
       errorType,
       errorBadge,
-      errorTextClass: "text-error font-bold",
+      errorTextClass: "text-red-600 font-bold",
     };
   }
 
@@ -170,7 +170,7 @@ export function getStatusPresentation(
       statusLabel: providerText(t, "statusCreditsExhausted", "Out of Credits"),
       errorType,
       errorBadge,
-      errorTextClass: "text-warning",
+      errorTextClass: "text-amber-500",
     };
   }
 
@@ -185,6 +185,6 @@ export function getStatusPresentation(
     statusLabel: fallbackStatusMap[effectiveStatus ?? ""] || effectiveStatus || t("statusError"),
     errorType,
     errorBadge,
-    errorTextClass: "text-error",
+    errorTextClass: "text-red-500",
   };
 }

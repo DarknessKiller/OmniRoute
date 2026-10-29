@@ -1,33 +1,38 @@
 "use client";
 
-import { forwardRef } from "react";
-import { Checkbox as KitCheckbox } from "@omniroute/ui-kit/checkbox";
+import { cn } from "@/shared/utils/cn";
 
-interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
+interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: React.ReactNode;
-  /** The kit's "–" mixed state (a DOM property applied via ref, not an HTML attribute). */
-  indeterminate?: boolean;
 }
 
 /**
- * Checkbox — adapter over the kit Checkbox (a real <input type="checkbox"> behind a styled
- * box). Optional `label` renders the kit's clickable row; without it, just the control.
- * `className` lands on the kit label row (or on the control when there is no label), not on
- * the native <input> as in the legacy Checkbox.
+ * Checkbox — token-driven native checkbox (brand accent + keyboard focus ring).
+ * Replaces the ad-hoc `<input type="checkbox" style={{ accentColor: "#6366f1" }}>`
+ * pattern scattered across the dashboard. Optional `label` wraps it in a clickable row.
  */
-const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
-  { label, className, indeterminate, ...props },
-  ref
-) {
-  return (
-    <KitCheckbox
-      ref={ref}
-      label={label}
-      className={className}
-      indeterminate={indeterminate}
+export default function Checkbox({ label, className, id, ...props }: CheckboxProps) {
+  const box = (
+    <input
+      type="checkbox"
+      id={id}
+      className={cn(
+        "h-4 w-4 shrink-0 cursor-pointer rounded-[4px] accent-[var(--color-accent)]",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30",
+        "disabled:cursor-not-allowed disabled:opacity-50",
+        className
+      )}
       {...props}
     />
   );
-});
-
-export default Checkbox;
+  if (!label) return box;
+  return (
+    <label
+      htmlFor={id}
+      className="inline-flex items-center gap-2 cursor-pointer text-sm text-text-main"
+    >
+      {box}
+      <span>{label}</span>
+    </label>
+  );
+}

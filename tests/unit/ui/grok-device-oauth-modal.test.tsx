@@ -52,8 +52,7 @@ function renderModal(isOpen: boolean, reauthConnection?: { id: string }) {
       />
     );
   });
-  // Queries go through document.body: the dialog is portaled there (KEA-7886).
-  return { root, element: document.body };
+  return { root, element };
 }
 
 describe("OAuthModal Grok Device Code", () => {
@@ -334,9 +333,13 @@ describe("OAuthModal Grok Build paste-import auth.json (#7610)", () => {
     });
     await flushEffects();
 
-    expect(element.textContent).toContain('Do not paste only the JWT "key" field');
+    expect(element.textContent).toContain(
+      'Do not paste only the JWT "key" field'
+    );
     // No import-token request should have been fired — validation must short-circuit.
-    expect(fetchMock.mock.calls.some(([url]) => String(url).includes("/import-token"))).toBe(false);
+    expect(
+      fetchMock.mock.calls.some(([url]) => String(url).includes("/import-token"))
+    ).toBe(false);
   });
 
   it("rejects a full auth.json missing refresh_token", async () => {
@@ -357,7 +360,9 @@ describe("OAuthModal Grok Build paste-import auth.json (#7610)", () => {
     await flushEffects();
 
     expect(element.textContent).toContain("auth.json is missing refresh_token");
-    expect(fetchMock.mock.calls.some(([url]) => String(url).includes("/import-token"))).toBe(false);
+    expect(
+      fetchMock.mock.calls.some(([url]) => String(url).includes("/import-token"))
+    ).toBe(false);
   });
 
   it("accepts a valid full auth.json and POSTs the parsed object to import-token", async () => {
@@ -388,7 +393,9 @@ describe("OAuthModal Grok Build paste-import auth.json (#7610)", () => {
     });
     await flushEffects();
 
-    expect(fetchMock.mock.calls.some(([url]) => String(url).includes("/import-token"))).toBe(true);
+    expect(
+      fetchMock.mock.calls.some(([url]) => String(url).includes("/import-token"))
+    ).toBe(true);
     expect(element.textContent).not.toContain("auth.json is missing refresh_token");
     expect(element.textContent).not.toContain('Do not paste only the JWT "key"');
   });
@@ -427,6 +434,8 @@ describe("OAuthModal Grok Build paste-import auth.json (#7610)", () => {
     await flushEffects();
 
     expect(element.textContent).not.toContain("auth.json is missing refresh_token");
-    expect(fetchMock.mock.calls.some(([url]) => String(url).includes("/import-token"))).toBe(true);
+    expect(
+      fetchMock.mock.calls.some(([url]) => String(url).includes("/import-token"))
+    ).toBe(true);
   });
 });

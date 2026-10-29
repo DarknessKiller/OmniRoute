@@ -1,18 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { SortableTableHead } from "@omniroute/ui-kit/data-table-shell";
-import { ModelIdentity } from "@omniroute/ui-kit/model-identity";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHeader,
-  TableRow,
-} from "@omniroute/ui-kit/table";
-import ProviderIcon from "@/shared/components/ProviderIcon";
-import { Badge, Button, Icon } from "@/shared/components";
+import { Badge, Button } from "@/shared/components";
 import CatalogTestBadge from "./CatalogTestBadge";
 import {
   ActionsHeading,
@@ -73,17 +62,25 @@ function SortableHeading({
   onSort: (field: CatalogSortField) => void;
 }) {
   const active = field === activeField;
-  // The page's onSort owns the flip rule (same field flips, a new field starts "asc").
   return (
-    <SortableTableHead
+    <th
       scope="col"
-      className="px-4"
-      direction={active ? direction : undefined}
-      defaultDirection="asc"
-      onDirectionChange={() => onSort(field)}
+      aria-sort={active ? (direction === "asc" ? "ascending" : "descending") : "none"}
+      className="whitespace-nowrap px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-text-muted"
     >
-      {label}
-    </SortableTableHead>
+      <button
+        type="button"
+        onClick={() => onSort(field)}
+        className="inline-flex min-h-8 items-center gap-1 rounded-sm text-left hover:text-text-main focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+      >
+        {label}
+        {active && (
+          <span className="material-symbols-outlined text-base text-primary" aria-hidden="true">
+            {direction === "asc" ? "arrow_upward" : "arrow_downward"}
+          </span>
+        )}
+      </button>
+    </th>
   );
 }
 
@@ -110,7 +107,6 @@ function ModelCatalogTableHead({
   someOnPageSelected,
   onToggleSelectAll,
   showActions,
-  showVisibility,
 }: {
   labels: ModelCatalogLabels;
   sortField: CatalogSortField;
@@ -120,12 +116,11 @@ function ModelCatalogTableHead({
   someOnPageSelected: boolean;
   onToggleSelectAll?: () => void;
   showActions: boolean;
-  showVisibility: boolean;
 }) {
   const t = useTranslations("modelCatalog");
   return (
-    <TableHeader>
-      <TableRow>
+    <thead className="border-b border-border bg-black/[0.02] dark:bg-white/[0.02]">
+      <tr>
         {onToggleSelectAll && (
           <SelectAllHeaderCell
             checked={allOnPageSelected}
@@ -171,11 +166,10 @@ function ModelCatalogTableHead({
           onSort={onSort}
         />
         <PlainHeading>{labels.flags || t("flags")}</PlainHeading>
-        {showVisibility && <PlainHeading>{t("visibleColumn")}</PlainHeading>}
         <PlainHeading>{t("healthTest")}</PlainHeading>
         {showActions && <ActionsHeading />}
-      </TableRow>
-    </TableHeader>
+      </tr>
+    </thead>
   );
 }
 
@@ -188,13 +182,9 @@ function ModelProviderCell({
 }) {
   const t = useTranslations("modelCatalog");
   return (
-    <TableCell className="h-auto px-4 py-3 align-top">
+    <td className="px-4 py-3">
       <div className="flex items-center gap-1.5">
-        <ModelIdentity
-          name={model.provider}
-          provider={model.provider}
-          logo={<ProviderIcon providerId={model.providerId} size={18} type="color" />}
-        />
+        <span className="font-medium text-text-main">{model.provider}</span>
         {providerHealth && providerHealth !== "healthy" && (
           <Badge size="sm" variant={providerHealth === "degraded" ? "warning" : "error"} dot>
             {providerHealth === "degraded" ? t("degraded") : t("down")}
@@ -202,18 +192,18 @@ function ModelProviderCell({
         )}
       </div>
       <span className="mt-0.5 block font-mono text-xs text-text-muted">{model.providerId}</span>
-    </TableCell>
+    </td>
   );
 }
 
 function ModelTypeCell({ model }: { model: CatalogModelRow }) {
   return (
-    <TableCell className="h-auto px-4 py-3 align-top text-text-main">
+    <td className="px-4 py-3 text-text-main">
       {humanize(model.type)}
       {model.subtype && (
         <span className="mt-0.5 block text-xs text-text-muted">{humanize(model.subtype)}</span>
       )}
-    </TableCell>
+    </td>
   );
 }
 
@@ -222,7 +212,7 @@ function ModelCapabilitiesCell({ capabilities }: { capabilities: string[] }) {
   const t = useTranslations("modelCatalog");
   const additionalCapabilities = capabilities.slice(3);
   return (
-    <TableCell className="h-auto max-w-xs whitespace-normal px-4 py-3 align-top">
+    <td className="max-w-xs px-4 py-3">
       {capabilities.length > 0 ? (
         <div className="flex flex-wrap gap-1.5">
           {capabilities.slice(0, 3).map((capability) => (
@@ -249,14 +239,14 @@ function ModelCapabilitiesCell({ capabilities }: { capabilities: string[] }) {
           —
         </span>
       )}
-    </TableCell>
+    </td>
   );
 }
 
 function ModelFlagsCell({ model, labels }: { model: CatalogModelRow; labels: ModelCatalogLabels }) {
   const t = useTranslations("modelCatalog");
   return (
-    <TableCell className="h-auto px-4 py-3 align-top">
+    <td className="px-4 py-3">
       <div className="flex flex-wrap gap-1.5">
         {model.custom === true && (
           <Badge size="sm" variant="info">
@@ -268,57 +258,13 @@ function ModelFlagsCell({ model, labels }: { model: CatalogModelRow; labels: Mod
             {labels.free || t("free")}
           </Badge>
         )}
-        {model.hidden === true && (
-          <Badge size="sm" variant="warning">
-            {t("hiddenBadge")}
-          </Badge>
-        )}
-        {model.custom !== true && model.free !== true && model.hidden !== true && (
+        {model.custom !== true && model.free !== true && (
           <span className="text-text-muted" title={t("noFlags")}>
             —
           </span>
         )}
       </div>
-    </TableCell>
-  );
-}
-
-/** Eye toggle: shows/hides the model in `/v1/models` via the provider-models store. */
-function ModelVisibilityCell({
-  model,
-  busy,
-  onToggle,
-}: {
-  model: CatalogModelRow;
-  busy: boolean;
-  onToggle: (model: CatalogModelRow) => void;
-}) {
-  const t = useTranslations("modelCatalog");
-  const hidden = model.hidden === true;
-  return (
-    <TableCell className="h-auto px-4 py-3 align-top">
-      <Button
-        type="button"
-        variant="ghost"
-        size="icon-sm"
-        role="switch"
-        aria-checked={!hidden}
-        aria-label={
-          hidden ? t("showModel", { name: model.name }) : t("hideModel", { name: model.name })
-        }
-        title={hidden ? t("showModel", { name: model.name }) : t("hideModel", { name: model.name })}
-        disabled={busy || !model.visibility}
-        onClick={() => onToggle(model)}
-        data-testid={`toggle-visibility-${model.id}`}
-        className="text-text-muted hover:text-text-main"
-      >
-        <Icon
-          name={hidden ? "visibility_off" : "visibility"}
-          size={18}
-          className={hidden ? undefined : "text-primary"}
-        />
-      </Button>
-    </TableCell>
+    </td>
   );
 }
 
@@ -330,11 +276,8 @@ function ModelCatalogTableRow({
   activeTestingKeys,
   providerHealthMap,
   onToggleSelect,
-  renderKeyAccess,
   onTestModel,
   bulkRunning,
-  onToggleVisibility,
-  visibilityBusy,
 }: {
   model: CatalogModelRow;
   labels: ModelCatalogLabels;
@@ -343,11 +286,8 @@ function ModelCatalogTableRow({
   activeTestingKeys: ReadonlySet<string>;
   providerHealthMap: Record<string, ProviderHealth>;
   onToggleSelect?: (id: string) => void;
-  renderKeyAccess?: (model: CatalogModelRow) => import("react").ReactNode;
   onTestModel?: (providerId: string, modelId: string) => void;
   bulkRunning: boolean;
-  onToggleVisibility?: (model: CatalogModelRow) => void;
-  visibilityBusy: boolean;
 }) {
   const t = useTranslations("modelCatalog");
   const common = useTranslations("common");
@@ -362,9 +302,10 @@ function ModelCatalogTableRow({
     output: common("output"),
   });
   return (
-    <TableRow
-      data-state={isSelected ? "selected" : undefined}
-      className={`align-top ${model.hidden === true ? "opacity-60" : ""}`}
+    <tr
+      className={`align-top transition-colors hover:bg-black/[0.02] dark:hover:bg-white/[0.02] ${
+        isSelected ? "bg-primary/[0.03]" : ""
+      }`}
     >
       {onToggleSelect && (
         <SelectRowCell
@@ -374,28 +315,24 @@ function ModelCatalogTableRow({
         />
       )}
       <ModelProviderCell model={model} providerHealth={providerHealthMap[model.providerId]} />
-      <TableCell className="h-auto max-w-sm whitespace-normal px-4 py-3 align-top">
+      <td className="max-w-sm px-4 py-3">
         <span className="block break-words font-medium text-text-main">{model.name}</span>
         <span className="mt-0.5 block break-all font-mono text-xs text-text-muted">{model.id}</span>
-      </TableCell>
+      </td>
       <ModelTypeCell model={model} />
       <ModelCapabilitiesCell capabilities={capabilities} />
-      <TableCell className="h-auto px-4 py-3 align-top tabular-nums text-text-main">
+      <td className="whitespace-nowrap px-4 py-3 tabular-nums text-text-main">
         {formatOptionalCount(model.context_length)}
-      </TableCell>
-      <TableCell className="h-auto px-4 py-3 align-top tabular-nums text-text-main">
+      </td>
+      <td className="whitespace-nowrap px-4 py-3 tabular-nums text-text-main">
         {formatOptionalCount(model.max_output_tokens)}
-      </TableCell>
+      </td>
       <ModelFlagsCell model={model} labels={labels} />
-      {onToggleVisibility && (
-        <ModelVisibilityCell model={model} busy={visibilityBusy} onToggle={onToggleVisibility} />
-      )}
-      <TableCell className="h-auto px-4 py-3 align-top">
+      <td className="whitespace-nowrap px-4 py-3">
         <CatalogTestBadge result={result} loading={isTesting} />
-      </TableCell>
+      </td>
       {onTestModel && (
-        <TableCell className="h-auto whitespace-nowrap px-4 py-3 text-right align-top">
-          {renderKeyAccess?.(model)}
+        <td className="whitespace-nowrap px-4 py-3 text-right">
           <Button
             variant="secondary"
             size="sm"
@@ -405,9 +342,9 @@ function ModelCatalogTableRow({
           >
             {t("test")}
           </Button>
-        </TableCell>
+        </td>
       )}
-    </TableRow>
+    </tr>
   );
 }
 
@@ -430,13 +367,10 @@ interface ModelCatalogTableProps {
   onToggleSelectAll?: () => void;
   testResults?: Record<string, CatalogTestResult>;
   activeTestingKeys?: ReadonlySet<string>;
-  renderKeyAccess?: (model: CatalogModelRow) => import("react").ReactNode;
   onTestModel?: (providerId: string, modelId: string) => void;
   providerHealthMap?: Record<string, "healthy" | "degraded" | "down">;
   /** A bulk run owns the runner; per-row tests wait until it ends. */
   bulkRunning?: boolean;
-  onToggleVisibility?: (model: CatalogModelRow) => void;
-  visibilityBusy?: boolean;
 }
 
 export default function ModelCatalogTable({
@@ -458,12 +392,9 @@ export default function ModelCatalogTable({
   onToggleSelectAll,
   testResults = {},
   activeTestingKeys = new Set<string>(),
-  renderKeyAccess,
   onTestModel,
   providerHealthMap = {},
   bulkRunning = false,
-  onToggleVisibility,
-  visibilityBusy = false,
 }: ModelCatalogTableProps) {
   const t = useTranslations("modelCatalog");
   const firstResult = startIndex + 1;
@@ -475,13 +406,9 @@ export default function ModelCatalogTable({
 
   return (
     <>
-      <div role="region" aria-label={t("tableRegion")}>
-        <Table
-          scrollbarLabel={t("tableRegion")}
-          containerClassName="rounded-none border-0"
-          className="min-w-[1100px]"
-        >
-          <TableCaption className="sr-only">{t("tableCaption")}</TableCaption>
+      <div className="overflow-x-auto" role="region" aria-label={t("tableRegion")} tabIndex={0}>
+        <table className="min-w-[1100px] w-full border-collapse text-sm">
+          <caption className="sr-only">{t("tableCaption")}</caption>
           <ModelCatalogTableHead
             labels={labels}
             sortField={sortField}
@@ -491,9 +418,8 @@ export default function ModelCatalogTable({
             someOnPageSelected={someOnPageSelected}
             onToggleSelectAll={onToggleSelectAll}
             showActions={Boolean(onTestModel)}
-            showVisibility={Boolean(onToggleVisibility)}
           />
-          <TableBody>
+          <tbody className="divide-y divide-border">
             {rows.map((model) => (
               <ModelCatalogTableRow
                 key={`${model.providerId}:${model.id}`}
@@ -504,15 +430,12 @@ export default function ModelCatalogTable({
                 activeTestingKeys={activeTestingKeys}
                 providerHealthMap={providerHealthMap}
                 onToggleSelect={onToggleSelect}
-                renderKeyAccess={renderKeyAccess}
                 onTestModel={onTestModel}
                 bulkRunning={bulkRunning}
-                onToggleVisibility={onToggleVisibility}
-                visibilityBusy={visibilityBusy}
               />
             ))}
-          </TableBody>
-        </Table>
+          </tbody>
+        </table>
       </div>
 
       <CatalogTableFooter page={page} pageCount={pageCount} onPrevious={onPrevious} onNext={onNext}>
@@ -522,7 +445,7 @@ export default function ModelCatalogTable({
           total: formatCount(totalCount),
         })}
         {loading && <span className="ml-2">{t("refreshing")}</span>}
-        {error && <span className="ml-2 text-error">{t("refreshFailed")}</span>}
+        {error && <span className="ml-2 text-red-500">{t("refreshFailed")}</span>}
       </CatalogTableFooter>
     </>
   );

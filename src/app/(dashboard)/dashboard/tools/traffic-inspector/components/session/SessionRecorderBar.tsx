@@ -1,7 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import Button from "@/shared/components/Button";
 import { cn } from "@/shared/utils/cn";
 import type { SessionInfo } from "../../hooks/useSessionRecorder";
 
@@ -31,50 +30,41 @@ export function SessionRecorderBar({
   const t = useTranslations("trafficInspector");
   return (
     <div
-      data-testid="session-recorder-bar"
       className={cn(
-        "flex items-center gap-2 rounded-control border px-3 py-1 text-sm",
+        "flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm border",
         recording
-          ? "border-error/40 bg-error-bg text-text-main"
+          ? "border-red-500/40 bg-red-900/20 text-red-200"
           : "border-border bg-bg-subtle text-text-muted"
       )}
     >
       {recording ? (
         <>
-          <span
-            data-testid="rec-indicator"
-            aria-hidden="true"
-            className="inline-block h-2 w-2 rounded-full bg-error animate-pulse"
-          />
+          <span className="inline-block h-2 w-2 rounded-full bg-red-500 animate-pulse" />
           <span className="font-mono text-xs">{formatElapsed(elapsed)}</span>
           {session?.name && (
             <span className="text-xs opacity-70 truncate max-w-[120px]">{session.name}</span>
           )}
-          <Button
-            variant="danger"
-            size="sm"
-            icon="stop"
-            className="ml-auto"
+          <button
+            type="button"
             onClick={onStop}
             aria-label={t("stopSession")}
+            className="ml-auto rounded border border-red-500/50 px-2 py-0.5 text-xs hover:bg-red-800/30 focus-ring"
           >
             {t("stopSession")}
-          </Button>
+          </button>
         </>
       ) : (
         <>
-          <span aria-hidden="true" className="inline-block h-2 w-2 rounded-full bg-text-muted" />
+          <span className="inline-block h-2 w-2 rounded-full bg-gray-500" />
           <span className="text-xs">{t("notRecording")}</span>
-          <Button
-            variant="outline"
-            size="sm"
-            icon="fiber_manual_record"
-            className="ml-auto"
+          <button
+            type="button"
             onClick={() => onStart()}
             aria-label={t("recordSession")}
+            className="ml-auto rounded border border-border px-2 py-0.5 text-xs hover:bg-surface focus-ring"
           >
             {t("recordSession")}
-          </Button>
+          </button>
         </>
       )}
     </div>

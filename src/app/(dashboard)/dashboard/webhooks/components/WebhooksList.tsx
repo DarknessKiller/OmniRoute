@@ -1,6 +1,5 @@
 "use client";
 
-import EmptyState from "@/shared/components/EmptyState";
 import { WebhookCard, type WebhookItem } from "./WebhookCard";
 
 interface WebhooksListProps {
@@ -29,7 +28,12 @@ export function WebhooksList({
   }
 
   if (webhooks.length === 0) {
-    return <EmptyState icon="webhook" title={t("noWebhooks")} />;
+    return (
+      <div className="flex flex-col items-center gap-3 py-14 text-center">
+        <span className="material-symbols-outlined text-[48px] text-text-muted">webhook</span>
+        <p className="text-sm text-text-muted">{t("noWebhooks")}</p>
+      </div>
+    );
   }
 
   return (

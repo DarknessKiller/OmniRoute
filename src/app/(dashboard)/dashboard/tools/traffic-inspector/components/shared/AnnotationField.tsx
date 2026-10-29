@@ -2,7 +2,6 @@
 
 import { useCallback, useState } from "react";
 import { useTranslations } from "next-intl";
-import Textarea from "@/shared/components/Textarea";
 import { useAnnotations } from "../../hooks/useAnnotations";
 
 interface AnnotationFieldProps {
@@ -25,14 +24,13 @@ export function AnnotationField({ requestId, initialValue = "" }: AnnotationFiel
 
   return (
     <div className="relative">
-      <Textarea
+      <textarea
         value={value}
         onChange={handleChange}
         placeholder={t("annotationPlaceholder")}
-        aria-label={t("annotationPlaceholder")}
         rows={3}
         maxLength={10_000}
-        className="w-full resize-none text-sm"
+        className="w-full rounded border border-border bg-bg-subtle px-3 py-2 text-sm text-text-main resize-none focus:outline-none focus:ring-1 focus:ring-blue-500"
       />
       {saving && (
         <span className="absolute right-2 bottom-2 text-xs text-text-muted animate-pulse">

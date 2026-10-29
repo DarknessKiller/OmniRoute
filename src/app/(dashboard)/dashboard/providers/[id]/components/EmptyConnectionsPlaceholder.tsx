@@ -1,7 +1,5 @@
 "use client";
 
-import Icon from "@/shared/components/Icon";
-
 // Phase 1t.6 extraction — Issue #3501
 import { Button } from "@/shared/components";
 import type { ProviderMessageTranslator } from "../providerPageHelpers";
@@ -53,7 +51,7 @@ export default function EmptyConnectionsPlaceholder({
   return (
     <div className="text-center py-12">
       <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 text-primary mb-4">
-        <Icon name={isOAuth ? "lock" : "key"} size={32} />
+        <span className="material-symbols-outlined text-[32px]">{isOAuth ? "lock" : "key"}</span>
       </div>
       <p className="text-text-main font-medium mb-1">{t("noConnectionsYet")}</p>
       <p className="text-sm text-text-muted mb-4">{t("addFirstConnectionHint")}</p>

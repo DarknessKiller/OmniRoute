@@ -389,11 +389,6 @@
       "disposition": "separately-invoked"
     },
     {
-      "name": "check:test-tla-order",
-      "command": "node scripts/check/check-test-tla-order.mjs",
-      "disposition": "separately-invoked"
-    },
-    {
       "name": "check:test-masking",
       "command": "node scripts/check/check-test-masking.mjs",
       "disposition": "separately-invoked"
@@ -599,11 +594,6 @@
       "disposition": "separately-invoked"
     },
     {
-      "name": "test:opencode:smoke",
-      "command": "node scripts/test/opencode-chatgpt-web-smoke.mjs",
-      "disposition": "separately-invoked"
-    },
-    {
       "name": "test:plan3",
       "command": "cross-env DISABLE_SQLITE_AUTO_BACKUP=true node --import tsx/esm --import ./open-sse/utils/setupPolyfill.ts --import ./tests/_setup/isolateDataDir.ts --test tests/unit/plan3-p0.test.ts",
       "disposition": "separately-invoked"
@@ -712,16 +702,6 @@
       "name": "check:free-catalog-evidence",
       "command": "node scripts/check/check-free-catalog-evidence.mjs",
       "disposition": "separately-invoked"
-    },
-    {
-      "name": "check:ui-kit-snapshot",
-      "command": "node scripts/check/check-ui-kit-snapshot.mjs",
-      "disposition": "separately-invoked"
-    },
-    {
-      "name": "check:ui-kit-upstream",
-      "command": "node scripts/check/check-ui-kit-upstream.mjs",
-      "disposition": "separately-invoked"
     }
   ],
   "profiles": {
@@ -748,7 +728,6 @@
         "check:known-symbols",
         "check:route-guard-membership",
         "check:test-discovery",
-        "check:test-tla-order",
         "check:test-masking",
         "check:duplication",
         "check:cycles:ratchet",
@@ -778,7 +757,6 @@
         "check:known-symbols",
         "check:route-guard-membership",
         "check:test-discovery",
-        "check:test-tla-order",
         "check:test-masking"
       ]
     }

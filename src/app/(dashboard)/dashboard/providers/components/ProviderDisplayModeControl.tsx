@@ -1,7 +1,5 @@
 "use client";
 
-import Icon from "@/shared/components/Icon";
-
 import type { ProviderDisplayMode } from "../providerPageStorage";
 
 type ProviderMessageTranslator = ((key: string, values?: Record<string, unknown>) => string) & {
@@ -100,8 +98,6 @@ export default function ProviderDisplayModeControl({
                 : "text-text-muted hover:bg-bg-primary/70 hover:text-text-main"
             } ${option.disabled ? "cursor-not-allowed opacity-50" : ""}`}
           >
-            {/* kit-exception: Visually hidden native radio: the label is the visible control and the radio
-                carries the radiogroup semantics and keyboard model (kit-faithful exception). */}
             <input
               type="radio"
               name="provider-display-mode"
@@ -112,7 +108,9 @@ export default function ProviderDisplayModeControl({
               className="sr-only"
               aria-label={option.title}
             />
-            <Icon name={option.icon} size={14} />
+            <span className="material-symbols-outlined text-[14px]" aria-hidden="true">
+              {option.icon}
+            </span>
             <span>{option.label}</span>
           </label>
         );

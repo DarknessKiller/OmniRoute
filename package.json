@@ -66,8 +66,7 @@
   ],
   "workspaces": [
     "open-sse",
-    "packages/browser-pool",
-    "packages/ui-kit"
+    "packages/browser-pool"
   ],
   "engines": {
     "node": ">=22.22.2 <23 || >=24.0.0 <27"
@@ -322,8 +321,6 @@
     "i18n:check-keys": "node scripts/i18n/check-key-completeness.mjs",
     "i18n:check-keys:cli": "node scripts/i18n/check-key-completeness.mjs --catalog=cli",
     "check:free-catalog-evidence": "node scripts/check/check-free-catalog-evidence.mjs",
-    "check:ui-kit-snapshot": "node scripts/check/check-ui-kit-snapshot.mjs",
-    "gen:icon-map": "node scripts/dev/gen-icon-map.mjs",
     "docs:readme-hero": "node scripts/docs/gen-readme-hero.mjs",
     "docs:readme-diagrams": "node --import tsx/esm scripts/docs/gen-readme-diagrams.mjs"
   },

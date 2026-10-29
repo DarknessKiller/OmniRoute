@@ -1,8 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import Icon from "@/shared/components/Icon";
-import Button from "@/shared/components/Button";
 import type { MemoryEngineStatus } from "@/shared/schemas/memory";
 
 type ConfigureTarget = "embedding" | "qdrant" | "rerank";
@@ -16,9 +14,9 @@ type ChipColor = "green" | "gray" | "red";
 
 function StatusChip({ color }: { color: ChipColor }) {
   const colorMap: Record<ChipColor, string> = {
-    green: "bg-success",
+    green: "bg-emerald-500",
     gray: "bg-border",
-    red: "bg-error",
+    red: "bg-red-500",
   };
   return (
     <span
@@ -38,16 +36,15 @@ function ConfigureLink({
   testId: string;
 }) {
   return (
-    <Button
-      variant="ghost"
-      size="sm"
+    <button
+      type="button"
       data-testid={testId}
       onClick={onClick}
-      className="mt-1 h-auto gap-0.5 px-0 text-xs text-primary underline-offset-2 hover:underline"
+      className="text-xs text-violet-400 hover:text-violet-300 underline-offset-2 hover:underline mt-1 inline-flex items-center gap-0.5"
     >
       {label}
       <span aria-hidden="true">→</span>
-    </Button>
+    </button>
   );
 }
 
@@ -88,13 +85,13 @@ export default function MemoryEngineStatus({ status, onConfigure }: Props) {
       reason: status.vectorStore.reason,
       cta:
         status.vectorStore.backend === "none" ? (
-          <span className="text-xs text-warning flex items-center gap-1">
-            <Icon name="terminal" size={12} />
+          <span className="text-xs text-amber-400 flex items-center gap-1">
+            <span className="material-symbols-outlined text-[12px]">terminal</span>
             {t("engine.vectorStoreInstallHint")}
           </span>
         ) : status.vectorStore.needsReindex > 0 ? (
-          <span className="text-xs text-warning flex items-center gap-1">
-            <Icon name="warning" size={12} />
+          <span className="text-xs text-amber-400 flex items-center gap-1">
+            <span className="material-symbols-outlined text-[12px]">warning</span>
             {t("engine.needsReindex", { count: status.vectorStore.needsReindex })}
           </span>
         ) : undefined,

@@ -287,8 +287,7 @@ describe("AutoComboCatalog", { timeout: 60_000 }, () => {
     await expand(container);
     const geminiCard = findCard(container, "auto/gemini");
     const testButton = geminiCard?.querySelector('button[title="testCombo"]');
-    // KEA-7886: icons are Lucide <svg data-icon> instead of Material ligature text.
-    expect(testButton?.querySelector('[data-icon="progress_activity"]')).toBeTruthy();
+    expect(testButton?.textContent).toContain("progress_activity");
     expect((testButton as HTMLButtonElement | null)?.disabled).toBe(true);
   });
 

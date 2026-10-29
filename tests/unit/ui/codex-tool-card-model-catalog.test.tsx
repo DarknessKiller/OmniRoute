@@ -59,9 +59,7 @@ const catalogCheckbox = (container: HTMLElement): HTMLInputElement | null =>
 
 const applyButton = (container: HTMLElement) =>
   Array.from(container.querySelectorAll("button")).find(
-    (button) =>
-      button.textContent?.trim() === "apply" &&
-      button.querySelector('svg.oi-icon[data-icon="save"]') !== null
+    (button) => button.textContent?.trim() === "saveapply"
   );
 
 afterEach(() => {
@@ -147,6 +145,6 @@ describe("CodexToolCard model catalog", () => {
     });
     await waitFor(() => !!container.textContent?.includes("codexCatalogWarning"));
     expect(container.textContent).toContain("settingsApplied codexCatalogWarning");
-    expect(container.querySelector(".text-warning")).not.toBeNull();
+    expect(container.querySelector(".text-amber-600")).not.toBeNull();
   });
 });

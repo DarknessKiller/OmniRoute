@@ -1,15 +1,9 @@
 "use client";
 
-import Icon from "@/shared/components/Icon";
-
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import { buttonVariants } from "@omniroute/ui-kit/button";
-import Badge from "@/shared/components/Badge";
-import Button from "@/shared/components/Button";
-import Card from "@/shared/components/Card";
-import { cn } from "@/shared/utils/cn";
+import { Card } from "@/shared/components";
 import { AUTO_COMBO_TEMPLATES, type AutoComboTemplate } from "@/domain/assessment/types";
 import AutoComboTosControl from "./AutoComboTosControl";
 
@@ -79,49 +73,38 @@ function CatalogItemActions({
     <div className="absolute bottom-1.5 right-1.5 flex items-center gap-0.5">
       <Link
         href={`/dashboard/combos/${encodeURIComponent(item.id)}`}
-        className={buttonVariants({
-          variant: "ghost",
-          size: "icon-sm",
-          className: "text-text-muted",
-        })}
+        className="p-0.5 hover:bg-black/5 dark:hover:bg-white/5 rounded text-text-muted hover:text-primary transition-colors"
         title={t("controlCenter")}
-        aria-label={t("controlCenter")}
       >
-        <Icon name="monitoring" size={14} />
+        <span className="material-symbols-outlined text-[14px]">monitoring</span>
       </Link>
       {onTestCombo && (
-        <Button
-          variant="ghost"
-          size="icon-sm"
+        <button
           onClick={() => onTestCombo({ name: item.id })}
           disabled={testing}
-          className="text-text-muted hover:text-success"
+          className="p-0.5 hover:bg-black/5 dark:hover:bg-white/5 rounded text-text-muted hover:text-emerald-500 transition-colors disabled:opacity-50"
           title={t("testCombo")}
-          aria-label={t("testCombo")}
         >
-          <Icon
-            name={testing ? "progress_activity" : "play_arrow"}
-            size={14}
-            className={cn(testing && "animate-spin")}
-          />
-        </Button>
+          <span
+            className={`material-symbols-outlined text-[14px] ${testing ? "animate-spin" : ""}`}
+          >
+            {testing ? "progress_activity" : "play_arrow"}
+          </span>
+        </button>
       )}
       {item.id !== "auto" && (
-        <Button
-          variant="ghost"
-          size="icon-sm"
+        <button
           onClick={() => onDuplicate(item)}
           disabled={duplicatingName !== null}
-          className="text-text-muted hover:text-text-main"
+          className="p-0.5 hover:bg-black/5 dark:hover:bg-white/5 rounded text-text-muted hover:text-primary transition-colors"
           title={t("duplicateAutoComboTitle", { name: item.id })}
-          aria-label={t("duplicateAutoComboTitle", { name: item.id })}
         >
-          <Icon
-            name={duplicatingName === item.id ? "progress_activity" : "content_copy"}
-            size={14}
-            className={cn(duplicatingName === item.id && "animate-spin")}
-          />
-        </Button>
+          <span
+            className={`material-symbols-outlined text-[14px] ${duplicatingName === item.id ? "animate-spin" : ""}`}
+          >
+            {duplicatingName === item.id ? "progress_activity" : "content_copy"}
+          </span>
+        </button>
       )}
     </div>
   );
@@ -154,32 +137,44 @@ function CatalogItemCard({
       />
       <div className="flex items-center justify-between gap-2">
         <code className="font-mono text-sm text-text-main">{item.id}</code>
-        <Badge size="sm" className="uppercase">
+        <span className="rounded bg-black/5 px-1.5 py-0.5 text-[10px] uppercase tracking-wide text-text-muted dark:bg-white/5">
           {item.template?.strategy ?? t(KIND_LABEL_KEYS[item.kind])}
-        </Badge>
+        </span>
       </div>
       <p className="mt-1 text-[11px] font-semibold text-text-main">{item.displayName}</p>
       <div className="mt-2 flex flex-wrap gap-1">
         {item.template ? (
           <>
             {item.template.categories.map((cat) => (
-              <Badge key={cat} size="sm" variant="primary">
+              <span
+                key={cat}
+                className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] text-primary"
+              >
                 {cat}
-              </Badge>
+              </span>
             ))}
             {item.template.tiers.map((tier) => (
-              <Badge key={tier} size="sm">
+              <span
+                key={tier}
+                className="rounded-full bg-black/[0.04] px-2 py-0.5 text-[10px] text-text-muted dark:bg-white/[0.04]"
+              >
                 {tier}
-              </Badge>
+              </span>
             ))}
           </>
         ) : (
           item.candidateCount !== null && (
-            <Badge size="sm" variant={item.candidateCount > 0 ? "success" : "default"}>
+            <span
+              className={`rounded-full px-2 py-0.5 text-[10px] ${
+                item.candidateCount > 0
+                  ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                  : "bg-black/[0.04] text-text-muted dark:bg-white/[0.04]"
+              }`}
+            >
               {item.candidateCount > 0
                 ? t("autoCatalogCandidates", { count: item.candidateCount })
                 : t("autoCatalogNoCandidates")}
-            </Badge>
+            </span>
           )
         )}
       </div>
@@ -309,29 +304,28 @@ export default function AutoComboCatalog({
 
   return (
     <Card className="p-4">
-      {/* kit-exception: Raw <button> on purpose: a full-width disclosure header that carries the section
-          heading — the kit Button is a fixed-height control, not a disclosure region. Focus
-          ring comes from the global :focus-visible rule (globals.css). */}
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className="flex w-full items-start justify-between gap-3 rounded-md text-start"
+        className="flex w-full items-start justify-between gap-3 text-left"
         aria-expanded={open}
         aria-label={open ? t("autoCatalogCollapse") : t("autoCatalogExpand")}
       >
         <div className="min-w-0">
           <div className="flex items-center gap-2">
-            <Icon name="auto_awesome" size={20} className="text-primary" />
+            <span className="material-symbols-outlined text-xl text-primary">auto_awesome</span>
             <h2 className="text-base font-bold text-text-main">{t("autoCatalogTitle")}</h2>
-            <Badge size="sm" variant="primary" className="font-semibold">
+            <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold text-primary">
               {liveItems
                 ? t("autoCatalogComboCount", { count: liveItems.length })
                 : t("autoCatalogTemplateCount", { count: FALLBACK_ITEMS.length })}
-            </Badge>
+            </span>
           </div>
           <p className="mt-1 text-xs text-text-muted">{t("autoCatalogDescription")}</p>
         </div>
-        <Icon name={open ? "expand_less" : "expand_more"} size={16} className="text-text-muted" />
+        <span className="material-symbols-outlined text-base text-text-muted">
+          {open ? "expand_less" : "expand_more"}
+        </span>
       </button>
 
       <AutoComboTosControl onPolicyChange={refreshCatalog} />

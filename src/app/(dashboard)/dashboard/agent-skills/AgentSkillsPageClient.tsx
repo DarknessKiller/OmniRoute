@@ -2,14 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { useTranslations } from "next-intl";
-import { PageHeader } from "@omniroute/ui-kit/page-header";
-import Icon from "@/shared/components/Icon";
-import Button from "@/shared/components/Button";
-import Card from "@/shared/components/Card";
-import EmptyState from "@/shared/components/EmptyState";
-import Input from "@/shared/components/Input";
 import { SkillsConceptCard } from "@/shared/components/SkillsConceptCard";
-import { cn } from "@/shared/utils/cn";
 import { matchesSearch } from "@/shared/utils/turkishText";
 import { CoverageBar } from "./components/CoverageBar";
 import { McpA2aLinksBar } from "./components/McpA2aLinksBar";
@@ -57,7 +50,6 @@ function CoverageBarSkeleton(): JSX.Element {
 
 export function AgentSkillsPageClient(): JSX.Element {
   const t = useTranslations("agentSkills");
-  const tSidebar = useTranslations("sidebar");
 
   // State
   const [catalog, setCatalog] = useState<AgentSkill[]>([]);
@@ -210,17 +202,11 @@ export function AgentSkillsPageClient(): JSX.Element {
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Page title (lote 7 pendência 12): the shell title hides when a PageHeader is present. */}
-      <PageHeader
-        compact
-        title={tSidebar("agentSkills")}
-        description={tSidebar("agentSkillsSubtitle")}
-      />
       {/* Concept card — full width */}
       <SkillsConceptCard variant="agent" />
 
       {/* Header: coverage + MCP/A2A bar + generate button */}
-      <Card padding="sm" className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 rounded-xl border border-border bg-bg p-4">
         {/* Coverage */}
         <div>
           <div className="mb-2 flex items-center justify-between gap-2">
@@ -228,21 +214,19 @@ export function AgentSkillsPageClient(): JSX.Element {
               {t("coverageLabel")}
             </span>
             {showGenerateButton && (
-              <Button
-                variant="outline"
-                size="sm"
+              <button
                 onClick={() => void handleGenerate()}
                 disabled={generatingSkills}
-                className="gap-1.5 border-primary/30 bg-primary/10 text-xs text-primary hover:bg-primary/15"
+                className="flex items-center gap-1.5 rounded-lg border border-primary/30 bg-primary/5 px-3 py-1.5 text-xs font-medium text-primary hover:bg-primary/10 transition-colors disabled:opacity-60"
                 data-testid="generate-button"
               >
-                <Icon
-                  name={generatingSkills ? "refresh" : "auto_fix_high"}
-                  size={14}
-                  className={generatingSkills ? "animate-spin" : undefined}
-                />
+                <span
+                  className={`material-symbols-outlined text-[14px] ${generatingSkills ? "animate-spin" : ""}`}
+                >
+                  {generatingSkills ? "refresh" : "auto_fix_high"}
+                </span>
                 {generatingSkills ? t("regenerateRunning") : t("generateButton")}
-              </Button>
+              </button>
             )}
           </div>
           {coverage ? <CoverageBar coverage={coverage} /> : <CoverageBarSkeleton />}
@@ -250,35 +234,34 @@ export function AgentSkillsPageClient(): JSX.Element {
 
         {/* MCP + A2A links */}
         <McpA2aLinksBar />
-      </Card>
+      </div>
 
       {/* Search + filters */}
       <div className="flex flex-col sm:flex-row gap-2">
-        <Input
-          type="search"
-          icon="search"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder={t("filters.searchPlaceholder")}
-          aria-label={t("filters.searchPlaceholder")}
-          className="flex-1"
-          data-testid="search-input"
-        />
+        <div className="relative flex-1">
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[16px] text-text-muted pointer-events-none">
+            search
+          </span>
+          <input
+            type="search"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder={t("filters.searchPlaceholder")}
+            className="w-full rounded-lg border border-border bg-bg py-2 pl-9 pr-3 text-sm text-text-main placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary/40"
+            data-testid="search-input"
+          />
+        </div>
         <div className="flex gap-1" role="group" aria-label={t("filters.category")}>
           {(["all", "api", "cli", "config"] as FilterCategory[]).map((cat) => (
-            <Button
+            <button
               key={cat}
-              variant="outline"
-              size="sm"
-              aria-pressed={filter === cat}
               onClick={() => setFilter(cat)}
               data-testid={`filter-${cat}`}
-              className={cn(
-                "text-xs",
+              className={`rounded-lg px-3 py-2 text-xs font-medium transition-colors border ${
                 filter === cat
                   ? "bg-primary/10 text-primary border-primary/30"
-                  : "text-text-muted hover:text-text-main"
-              )}
+                  : "bg-bg text-text-muted border-border hover:bg-bg-subtle hover:text-text-main"
+              }`}
             >
               {cat === "all"
                 ? t("filterAll")
@@ -287,7 +270,7 @@ export function AgentSkillsPageClient(): JSX.Element {
                   : cat === "cli"
                     ? t("categoryCli")
                     : t("categoryConfig")}
-            </Button>
+            </button>
           ))}
         </div>
       </div>
@@ -299,7 +282,12 @@ export function AgentSkillsPageClient(): JSX.Element {
           {loadingCatalog ? (
             Array.from({ length: 6 }).map((_, i) => <SkillCardSkeleton key={i} />)
           ) : filteredSkills.length === 0 ? (
-            <EmptyState icon="search_off" title={t("noSkillsFound")} />
+            <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border p-8 text-center">
+              <span className="material-symbols-outlined text-[32px] text-text-muted mb-3">
+                search_off
+              </span>
+              <p className="text-sm text-text-muted">{t("noSkillsFound")}</p>
+            </div>
           ) : (
             filteredSkills.map((skill) => (
               <SkillCard

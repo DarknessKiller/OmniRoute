@@ -1,8 +1,5 @@
 "use client";
 
-import Icon from "@/shared/components/Icon";
-import { Button } from "@/shared/components";
-
 /**
  * ConnectionQuotaPanel — per-account usage/limits strip rendered under each
  * connection row on the provider detail page.
@@ -180,24 +177,24 @@ export default function ConnectionQuotaPanel({
   }
 
   const refreshControl = onRefresh ? (
-    <Button
-      variant="ghost"
-      size="icon-sm"
+    <button
+      type="button"
       onClick={onRefresh}
       disabled={refreshing}
-      className="size-6 min-h-6 rounded text-text-muted"
+      className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[11px] font-medium text-text-muted hover:text-primary disabled:opacity-50 disabled:cursor-not-allowed"
       title={t("quotaRefresh")}
-      aria-label={t("quotaRefresh")}
     >
-      <Icon name="refresh" size={13} className={refreshing ? "animate-spin" : undefined} />
-    </Button>
+      <span className={`material-symbols-outlined text-[13px] ${refreshing ? "animate-spin" : ""}`}>
+        refresh
+      </span>
+    </button>
   ) : null;
 
   // No cached data at all — offer the first fetch inline instead of an empty strip.
   if (!cache) {
     return (
       <div className="mt-2 flex items-center gap-2 text-xs text-text-muted">
-        <Icon name="data_usage" size={13} className="opacity-60" />
+        <span className="material-symbols-outlined text-[13px] opacity-60">data_usage</span>
         <span>{t("quotaNoData")}</span>
         {refreshControl}
       </div>
@@ -208,7 +205,7 @@ export default function ConnectionQuotaPanel({
     <div className="mt-2">
       <div className="flex flex-wrap items-center gap-1.5 text-xs">
         {messageText ? (
-          <span className="text-warning" title={messageText}>
+          <span className="text-amber-500" title={messageText}>
             {messageText}
           </span>
         ) : (
@@ -249,7 +246,7 @@ export default function ConnectionQuotaPanel({
             className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-medium text-text-muted"
             style={{ background: "rgba(120,120,120,0.12)" }}
           >
-            <Icon name="toll" size={13} />
+            <span className="material-symbols-outlined text-[13px]">toll</span>
             {renderUsedText(row)}
           </span>
         ))}
@@ -282,16 +279,17 @@ export default function ConnectionQuotaPanel({
           <span className="text-[11px] text-text-muted/70">{updatedAgo}</span>
         ) : null}
         {hasDetails && (
-          <Button
-            variant="ghost"
-            size="icon-sm"
-            icon={expanded ? "expand_less" : "expand_more"}
+          <button
+            type="button"
             aria-expanded={expanded}
             onClick={() => setExpanded((v) => !v)}
-            className="size-6 min-h-6 rounded text-text-muted"
+            className="inline-flex items-center px-1 py-0.5 rounded text-[11px] font-medium text-text-muted hover:text-primary"
             title={t("quotaDetails")}
-            aria-label={t("quotaDetails")}
-          />
+          >
+            <span className="material-symbols-outlined text-[14px]">
+              {expanded ? "expand_less" : "expand_more"}
+            </span>
+          </button>
         )}
       </div>
 
@@ -320,7 +318,7 @@ export default function ConnectionQuotaPanel({
                 {isCreditRow || remaining === null ? (
                   <span className="flex-1" />
                 ) : (
-                  <span className="h-1.5 flex-1 rounded-full overflow-hidden bg-bg-subtle">
+                  <span className="h-1.5 flex-1 rounded-full overflow-hidden bg-black/[0.06] dark:bg-white/[0.06]">
                     <span
                       className="block h-full rounded-full"
                       style={{

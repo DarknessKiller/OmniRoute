@@ -2,7 +2,6 @@
 
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import Icon from "@/shared/components/Icon";
 import { Card } from "@/shared/components";
 
 interface DiversityProviderStat {
@@ -61,17 +60,17 @@ export default function DiversityScoreCard() {
 
   const scorePercentage = Math.round((data.score || 0) * 100);
 
-  let riskColor = "text-success";
-  let gaugeColor = "bg-success";
+  let riskColor = "text-green-500";
+  let gaugeColor = "bg-green-500";
   let riskLabel = t("diversityHealthy");
 
   if (scorePercentage < 40) {
-    riskColor = "text-error";
-    gaugeColor = "bg-error";
+    riskColor = "text-red-500";
+    gaugeColor = "bg-red-500";
     riskLabel = t("diversityRiskHigh");
   } else if (scorePercentage < 70) {
-    riskColor = "text-warning";
-    gaugeColor = "bg-warning";
+    riskColor = "text-amber-500";
+    gaugeColor = "bg-amber-500";
     riskLabel = t("diversityRiskModerate");
   }
 
@@ -84,7 +83,7 @@ export default function DiversityScoreCard() {
       {/* Header */}
       <div className="flex items-center justify-between gap-3 mb-4">
         <div className="flex items-center gap-2">
-          <Icon name="pie_chart" size={20} className="text-primary" />
+          <span className="material-symbols-outlined text-[20px] text-primary">pie_chart</span>
           <h3 className="font-semibold text-text-main">{t("diversityScoreTitle")}</h3>
           <span className="text-xs text-text-muted hidden sm:inline">
             — {t("diversityScoreDesc")}
@@ -100,10 +99,10 @@ export default function DiversityScoreCard() {
           <span
             className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-medium ${
               scorePercentage < 40
-                ? "bg-error/10 text-error"
+                ? "bg-red-500/10 text-red-500"
                 : scorePercentage < 70
-                  ? "bg-warning/10 text-warning"
-                  : "bg-success/10 text-success"
+                  ? "bg-amber-500/10 text-amber-500"
+                  : "bg-green-500/10 text-green-500"
             }`}
           >
             {t("diversityShannonEntropy")}

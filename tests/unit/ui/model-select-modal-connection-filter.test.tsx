@@ -20,8 +20,7 @@ async function render(
     root.render(<ModelSelectModal {...props} />);
   });
   roots.push({ root, el });
-  // Queries go through document.body: the dialog is portaled there (KEA-7886).
-  return document.body;
+  return el;
 }
 
 beforeEach(() => {

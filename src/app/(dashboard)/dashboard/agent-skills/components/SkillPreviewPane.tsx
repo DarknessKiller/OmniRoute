@@ -3,9 +3,6 @@
 import { useCallback } from "react";
 import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
-import { buttonVariants } from "@omniroute/ui-kit/button";
-import Icon from "@/shared/components/Icon";
-import Button from "@/shared/components/Button";
 
 // Lazy-load react-markdown to reduce initial bundle size.
 const ReactMarkdown = dynamic(() => import("react-markdown"), {
@@ -65,7 +62,7 @@ export function SkillPreviewPane({
         className="flex flex-col items-center justify-center h-full min-h-[300px] rounded-xl border border-dashed border-border bg-bg-subtle/30 p-8 text-center"
         data-testid="skill-preview-empty"
       >
-        <Icon name="article" size={32} className="text-text-muted mb-3" />
+        <span className="material-symbols-outlined text-[32px] text-text-muted mb-3">article</span>
         <p className="text-sm text-text-muted">{t("previewEmpty")}</p>
       </div>
     );
@@ -83,42 +80,38 @@ export function SkillPreviewPane({
         </span>
         <div className="flex items-center gap-1 shrink-0">
           {onRefresh && (
-            <Button
-              variant="ghost"
-              size="icon-sm"
+            <button
               onClick={onRefresh}
               disabled={loading}
-              className="text-text-muted hover:text-text-main"
+              className="flex items-center gap-1 rounded px-2 py-1 text-xs text-text-muted hover:text-text-main hover:bg-bg-subtle transition-colors disabled:opacity-50"
               aria-label={t("refresh")}
             >
-              <Icon name="refresh" size={14} className={loading ? "animate-spin" : undefined} />
-            </Button>
+              <span
+                className={`material-symbols-outlined text-[14px] ${loading ? "animate-spin" : ""}`}
+              >
+                refresh
+              </span>
+            </button>
           )}
-          <Button
-            variant="ghost"
-            size="icon-sm"
+          <button
             onClick={() => void handleCopyRawUrl()}
             disabled={!skillId}
-            className="text-text-muted hover:text-text-main"
+            className="flex items-center gap-1 rounded px-2 py-1 text-xs text-text-muted hover:text-text-main hover:bg-bg-subtle transition-colors"
             title={t("copyUrl")}
             aria-label={t("copyUrl")}
           >
-            <Icon name="content_copy" size={14} />
-          </Button>
+            <span className="material-symbols-outlined text-[14px]">content_copy</span>
+          </button>
           {githubUrl && (
             <a
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className={buttonVariants({
-                variant: "ghost",
-                size: "icon-sm",
-                className: "text-text-muted hover:text-text-main",
-              })}
+              className="flex items-center gap-1 rounded px-2 py-1 text-xs text-text-muted hover:text-text-main hover:bg-bg-subtle transition-colors"
               title={t("viewOnGithub")}
               aria-label={t("viewOnGithub")}
             >
-              <Icon name="open_in_new" size={14} />
+              <span className="material-symbols-outlined text-[14px]">open_in_new</span>
             </a>
           )}
         </div>
@@ -137,10 +130,10 @@ export function SkillPreviewPane({
           </div>
         ) : (
           <div
-            className="flex items-center gap-2 rounded-lg border border-error/30 bg-error/10 p-3 text-xs text-error"
+            className="flex items-center gap-2 rounded-lg border border-red-300 bg-red-50 dark:bg-red-950/30 p-3 text-xs text-red-700 dark:text-red-400"
             data-testid="skill-preview-error"
           >
-            <Icon name="error" size={16} />
+            <span className="material-symbols-outlined text-[16px]">error</span>
             {t("previewError")}
           </div>
         )}

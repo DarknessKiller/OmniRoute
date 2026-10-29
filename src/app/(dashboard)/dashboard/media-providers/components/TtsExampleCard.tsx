@@ -1,19 +1,11 @@
 "use client";
 
-import { useId, useRef, useState } from "react";
+import { useState, useRef } from "react";
 import { useTranslations } from "next-intl";
-import Button from "@/shared/components/Button";
-import { Slider } from "@omniroute/ui-kit/slider";
-import { Field } from "@omniroute/ui-kit/field";
-import Select from "@/shared/components/Select";
-import Textarea from "@/shared/components/Textarea";
 import { useApiKey } from "../../providers/hooks/useApiKey";
 import { useProviderModels } from "../../providers/hooks/useProviderModels";
 import { buildCurl } from "../../providers/utils/buildCurl";
-import {
-  PLAYGROUND_KEY_ID_HEADER,
-  resolvePlaygroundKeyId,
-} from "../../providers/utils/playgroundAuth";
+import { PLAYGROUND_KEY_ID_HEADER, resolvePlaygroundKeyId } from "../../providers/utils/playgroundAuth";
 import { PlaygroundCard } from "./PlaygroundCard";
 
 interface Props {
@@ -35,7 +27,6 @@ function extractError(data: unknown): string | null {
 
 export function TtsExampleCard({ providerId }: Props) {
   const t = useTranslations("miniPlayground");
-  const textareaId = useId();
   const { apiKey, keys } = useApiKey();
   const { models } = useProviderModels(providerId);
 
@@ -134,9 +125,14 @@ export function TtsExampleCard({ providerId }: Props) {
         {audioSize !== null && (
           <span className="text-xs text-text-muted">{Math.round(audioSize / 1024)}KB</span>
         )}
-        <Button variant="ghost" size="sm" icon="download" onClick={handleDownload}>
+        <button
+          type="button"
+          onClick={handleDownload}
+          className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+        >
+          <span className="material-symbols-outlined text-[13px]">download</span>
           {t("download")} .mp3
-        </Button>
+        </button>
       </div>
     </div>
   );
@@ -156,40 +152,61 @@ export function TtsExampleCard({ providerId }: Props) {
     >
       {/* Model + Voice row */}
       <div className="grid grid-cols-2 gap-2">
-        <Select
-          label={t("model")}
-          value={model || firstModel}
-          onChange={(e) => setModel(e.target.value)}
-          options={modelOptions.map((m) => ({ value: m.id, label: m.id }))}
-        />
-        <Select
-          label={t("voice")}
-          value={voice}
-          onChange={(e) => setVoice(e.target.value)}
-          options={VOICES.map((v) => ({ value: v, label: v }))}
-        />
+        <div>
+          <label className="block text-xs text-text-muted mb-1">{t("model")}</label>
+          <select
+            value={model || firstModel}
+            onChange={(e) => setModel(e.target.value)}
+            className="w-full rounded-md border border-border bg-bg-subtle text-sm px-2 py-1.5 text-text-main focus:outline-none focus:ring-1 focus:ring-primary"
+          >
+            {modelOptions.map((m) => (
+              <option key={m.id} value={m.id}>
+                {m.id}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className="block text-xs text-text-muted mb-1">{t("voice")}</label>
+          <select
+            value={voice}
+            onChange={(e) => setVoice(e.target.value)}
+            className="w-full rounded-md border border-border bg-bg-subtle text-sm px-2 py-1.5 text-text-main focus:outline-none focus:ring-1 focus:ring-primary"
+          >
+            {VOICES.map((v) => (
+              <option key={v} value={v}>
+                {v}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
       {/* Speed */}
-      <Slider
-        label={t("speed")}
-        min={0.25}
-        max={4.0}
-        step={0.25}
-        value={Number(speed)}
-        onValueChange={(next) => setSpeed(String(next))}
-        formatValue={(next) => `${next}×`}
-      />
+      <div>
+        <label className="block text-xs text-text-muted mb-1">
+          {t("speed")} ({speed}×)
+        </label>
+        <input
+          type="range"
+          min="0.25"
+          max="4.0"
+          step="0.25"
+          value={speed}
+          onChange={(e) => setSpeed(e.target.value)}
+          className="w-full"
+        />
+      </div>
       {/* Input */}
-      <Field label={t("input")} htmlFor={textareaId}>
-        <Textarea
-          id={textareaId}
+      <div>
+        <label className="block text-xs text-text-muted mb-1">{t("input")}</label>
+        <textarea
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           rows={2}
           placeholder={t("ttsSample")}
-          className="resize-none"
+          className="w-full rounded-md border border-border bg-bg-subtle text-sm px-2 py-1.5 text-text-main focus:outline-none focus:ring-1 focus:ring-primary resize-none"
         />
-      </Field>
+      </div>
     </PlaygroundCard>
   );
 }

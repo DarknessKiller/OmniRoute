@@ -7,10 +7,6 @@ import { copyToClipboard } from "@/shared/utils/clipboard";
 import { formatApiKeyLabel } from "@/shared/utils/formatting";
 import { MCP_TOOL_SCOPES } from "@/shared/constants/mcpScopes";
 import RequestLoggerDetail from "@/shared/components/RequestLoggerDetail";
-import Badge from "@/shared/components/Badge";
-import Button from "@/shared/components/Button";
-import Input from "@/shared/components/Input";
-import Select from "@/shared/components/Select";
 import useEmailPrivacyStore from "@/store/emailPrivacyStore";
 import {
   type TimelineLog,
@@ -40,7 +36,6 @@ import {
   nextTimelineLogs,
   getTimelineBarColor,
   MCP_BAR_COLOR,
-  TIMELINE_BAR_COLORS,
 } from "@/shared/components/RequestTimeline.utils";
 
 export type { TimelineLog } from "@/shared/components/RequestTimeline.utils";
@@ -564,52 +559,48 @@ export default function RequestTimeline({
 
   return (
     <div className="flex flex-col h-full min-h-0 select-none">
-      {/* Header — HEADER_HEIGHT is a minimum, not a fixed height: below ~1100 px the controls
-          wrap to a second row instead of being clipped (390 px, F4). Nothing in the canvas
-          maths reads the header height (the canvas is the flex-1 sibling). */}
+      {/* Header */}
       <div
-        className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 px-4 py-2 border-b border-border shrink-0"
-        style={{ minHeight: HEADER_HEIGHT }}
+        className="flex items-center justify-between px-4 py-2 border-b border-border shrink-0"
+        style={{ height: HEADER_HEIGHT }}
       >
         <div className="flex items-center gap-3">
           <h2 className="text-sm font-semibold text-text-main">{t("title")}</h2>
           <span className="text-[10px] text-text-muted font-mono">
-            {t("visibleCount", { visible: visibleLogs.length, total: logs.length })}
+            {visibleLogs.length} visible / {logs.length} total
           </span>
         </div>
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex items-center gap-2">
           {/* Mode selector */}
-          <div role="group" aria-label={t("modeLabel")} className="flex items-center gap-0.5">
+          <div className="flex items-center rounded-lg border border-border overflow-hidden">
             {(["follow", "live", "pan"] as ViewMode[]).map((m) => (
-              <Button
+              <button
                 key={m}
                 data-testid={`timeline-mode-${m}`}
-                variant={mode === m ? "primary" : "ghost"}
-                size="sm"
-                aria-pressed={mode === m}
                 onClick={() => handleModeChange(m)}
                 title={t(`modes.${MODE_META[m].descriptionKey}`)}
-                className="h-7 min-h-7 px-2.5 text-[11px]"
+                className={`px-2.5 py-1 text-[11px] font-medium transition-colors ${
+                  mode === m
+                    ? "bg-primary text-white"
+                    : "bg-bg-subtle text-text-muted hover:text-text-main"
+                }`}
               >
                 {t(`modes.${MODE_META[m].labelKey}`)}
-              </Button>
+              </button>
             ))}
           </div>
-          <Button
-            variant="outline"
-            size="sm"
+          <button
             onClick={handleReset}
-            title={t("jumpToNow", { position: Math.round(nowLineX) })}
-            className="h-7 min-h-7 px-2 text-[11px]"
+            title={`Jump to current time, NOW line resets to position ${Math.round(nowLineX)}%`}
+            className="px-2 py-1 text-[11px] text-text-muted hover:text-text-main bg-bg-subtle rounded-md border border-border transition-colors"
           >
             {t("reset")}
-          </Button>
-          <Select
+          </button>
+          <select
             value={selectedApiKey}
             onChange={(e) => setSelectedApiKey(e.target.value)}
             aria-label={t("apiKey")}
-            compact
-            className="w-auto"
+            className="px-2 py-1 text-[11px] text-text-muted bg-bg-subtle rounded-md border border-border"
             data-testid="timeline-api-key-filter"
           >
             <option value="">{t("allApiKeys")}</option>
@@ -621,19 +612,18 @@ export default function RequestTimeline({
                 </option>
               );
             })}
-          </Select>
+          </select>
           {/* Conversation lane-reuse window: how long a lane stays reserved
               for its conversation before falling back to normal packing. */}
-          <div
-            className="flex items-center gap-1 whitespace-nowrap text-[11px] text-text-muted"
-            title={t("laneReuseHint")}
+          <label
+            className="flex items-center gap-1 px-2 py-1 text-[11px] text-text-muted bg-bg-subtle rounded-md border border-border"
+            title="Requests sharing a conversation id stay on the same timeline row as long as the gap between them is under this many minutes."
           >
-            <span aria-hidden="true">{t("laneReuse")}</span>
-            <Input
+            <span>Lane reuse</span>
+            <input
               type="number"
               min={1}
               step={1}
-              aria-label={t("laneReuseLabel")}
               value={conversationLaneReuseMinutes}
               onChange={(e) => {
                 const next = Math.max(1, Number(e.target.value) || 1);
@@ -642,22 +632,20 @@ export default function RequestTimeline({
                   localStorage.setItem(CONVERSATION_LANE_REUSE_STORAGE_KEY, String(next));
                 } catch {}
               }}
-              className="w-auto min-w-0 shrink-0"
-              inputClassName="h-7 min-h-7 w-12 px-1 text-center font-mono text-[11px]"
+              className="w-10 bg-transparent text-center font-mono focus:outline-none"
             />
-            <span aria-hidden="true">{t("laneReuseUnit")}</span>
-          </div>
+            <span>min</span>
+          </label>
           {/* How often the timeline re-polls /api/usage/call-logs for new rows. */}
-          <div
-            className="flex items-center gap-1 whitespace-nowrap text-[11px] text-text-muted"
-            title={t("autoRefreshHint")}
+          <label
+            className="flex items-center gap-1 px-2 py-1 text-[11px] text-text-muted bg-bg-subtle rounded-md border border-border"
+            title="How often the timeline re-fetches the request list from the server."
           >
-            <span aria-hidden="true">{t("autoRefresh")}</span>
-            <Input
+            <span>Auto-refresh</span>
+            <input
               type="number"
               min={1}
               step={1}
-              aria-label={t("autoRefreshLabel")}
               value={listPollSeconds}
               onChange={(e) => {
                 const next = Math.max(1, Number(e.target.value) || 1);
@@ -666,34 +654,27 @@ export default function RequestTimeline({
                   localStorage.setItem(TIMELINE_LIST_POLL_STORAGE_KEY, String(next));
                 } catch {}
               }}
-              className="w-auto min-w-0 shrink-0"
-              inputClassName="h-7 min-h-7 w-12 px-1 text-center font-mono text-[11px]"
+              className="w-10 bg-transparent text-center font-mono focus:outline-none"
             />
-            <span aria-hidden="true">{t("autoRefreshUnit")}</span>
-          </div>
+            <span>s</span>
+          </label>
           {/* Zoom */}
-          <div className="flex items-center gap-0.5">
-            <Button
-              variant="ghost"
-              size="icon-sm"
+          <div className="flex items-center gap-1 rounded-lg border border-border overflow-hidden">
+            <button
               onClick={() => setZoom((z) => Math.max(0.001, z * 0.5))}
-              aria-label={t("zoomOut")}
-              title={t("zoomOut")}
+              className="px-2 py-1 text-[11px] text-text-muted hover:text-text-main bg-bg-subtle transition-colors"
             >
-              <span aria-hidden="true">-</span>
-            </Button>
-            <span className="min-w-[36px] px-1 text-center font-mono text-[10px] text-text-muted">
+              -
+            </button>
+            <span className="px-1 text-[10px] text-text-muted font-mono min-w-[36px] text-center">
               {zoom >= 1 ? `${zoom}x` : `${zoom * 100}%`}
             </span>
-            <Button
-              variant="ghost"
-              size="icon-sm"
+            <button
               onClick={() => setZoom((z) => Math.min(8, z * 2))}
-              aria-label={t("zoomIn")}
-              title={t("zoomIn")}
+              className="px-2 py-1 text-[11px] text-text-muted hover:text-text-main bg-bg-subtle transition-colors"
             >
-              <span aria-hidden="true">+</span>
-            </Button>
+              +
+            </button>
           </div>
         </div>
       </div>
@@ -766,9 +747,7 @@ export default function RequestTimeline({
               onMouseLeave={handleBarLeave}
             >
               <div className="w-full h-full flex items-center px-1.5 overflow-hidden">
-                {/* text-bg inverts with the theme: light ink on the deep light-mode fills, dark ink
-                    on the pastel dark-mode fills (white on the pastels is ~1.5:1). */}
-                <span className="text-[11px] font-mono text-bg truncate whitespace-nowrap">
+                <span className="text-[11px] font-mono text-white/90 truncate whitespace-nowrap">
                   {truncateModel(log.model)}
                 </span>
               </div>
@@ -826,8 +805,8 @@ export default function RequestTimeline({
             bottom: 0,
           }}
         >
-          <div className="w-px h-full bg-error shadow-[0_0_8px_var(--color-error)] -translate-x-1/2" />
-          <div className="absolute top-[2px] -translate-x-1/2 bg-error text-bg text-[8px] font-mono px-1.5 py-0.5 rounded-b-sm font-bold tracking-wider">
+          <div className="w-px h-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)] -translate-x-1/2" />
+          <div className="absolute top-[2px] -translate-x-1/2 bg-red-500 text-white text-[8px] font-mono px-1.5 py-0.5 rounded-b-sm font-bold tracking-wider">
             NOW
           </div>
         </div>
@@ -842,10 +821,10 @@ export default function RequestTimeline({
               width: axisTick.kind === "day" ? 2 : 1,
               backgroundColor:
                 axisTick.kind === "day"
-                  ? "color-mix(in srgb, var(--color-chart-3) 50%, transparent)"
+                  ? "rgba(99,102,241,0.5)"
                   : axisTick.kind === "hour"
-                    ? "color-mix(in srgb, var(--color-text-muted) 45%, transparent)"
-                    : "color-mix(in srgb, var(--color-text-muted) 15%, transparent)",
+                    ? "rgba(148,163,184,0.45)"
+                    : "rgba(148,163,184,0.15)",
               zIndex: 1,
             }}
           />
@@ -872,9 +851,9 @@ export default function RequestTimeline({
                 : hoveredLog.model || t("unknownModel")}
             </span>
             {hoveredLog.active && (
-              <Badge size="sm" className="border-chart-3/30 bg-chart-3/20 text-[9px] text-chart-3">
+              <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400 font-medium">
                 {t("active")}
-              </Badge>
+              </span>
             )}
           </div>
           <div className="space-y-0.5 text-[10px] text-text-muted font-mono">
@@ -944,7 +923,7 @@ export default function RequestTimeline({
               </>
             )}
             {hoveredLog.error && (
-              <div className="mt-1 text-error text-[9px] break-all">{hoveredLog.error}</div>
+              <div className="mt-1 text-red-400 text-[9px] break-all">{hoveredLog.error}</div>
             )}
           </div>
         </div>
@@ -953,38 +932,23 @@ export default function RequestTimeline({
       {/* Legend */}
       <div className="flex items-center gap-3 px-4 py-1.5 border-t border-border text-[9px] shrink-0">
         <div className="flex items-center gap-1">
-          <div
-            className="w-2.5 h-2.5 rounded-sm"
-            style={{ backgroundColor: TIMELINE_BAR_COLORS.success }}
-          />
+          <div className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: "#059669" }} />
           <span className="text-text-muted">2xx</span>
         </div>
         <div className="flex items-center gap-1">
-          <div
-            className="w-2.5 h-2.5 rounded-sm"
-            style={{ backgroundColor: TIMELINE_BAR_COLORS.warning }}
-          />
+          <div className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: "#D97706" }} />
           <span className="text-text-muted">4xx</span>
         </div>
         <div className="flex items-center gap-1">
-          <div
-            className="w-2.5 h-2.5 rounded-sm"
-            style={{ backgroundColor: TIMELINE_BAR_COLORS.error }}
-          />
+          <div className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: "#DC2626" }} />
           <span className="text-text-muted">5xx</span>
         </div>
         <div className="flex items-center gap-1">
-          <div
-            className="w-2.5 h-2.5 rounded-sm"
-            style={{ backgroundColor: TIMELINE_BAR_COLORS.active }}
-          />
+          <div className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: "#6366F1" }} />
           <span className="text-text-muted">{t("active")}</span>
         </div>
         <div className="flex items-center gap-1">
-          <div
-            className="w-2.5 h-2.5 rounded-sm"
-            style={{ backgroundColor: TIMELINE_BAR_COLORS.other }}
-          />
+          <div className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: "#6B7280" }} />
           <span className="text-text-muted">{t("other")}</span>
         </div>
         <div className="flex items-center gap-1">
@@ -992,11 +956,11 @@ export default function RequestTimeline({
           <span className="text-text-muted">{t("mcp")}</span>
         </div>
         <div className="ml-4 flex items-center gap-1.5 text-text-muted">
-          <div className="w-3 border-t border-dashed border-text-muted/40" />
+          <div className="w-3 border-t border-dashed border-slate-400/40" />
           <span>{t("tenMinutes")}</span>
-          <div className="w-3 border-t border-text-muted/60 ml-2" />
+          <div className="w-3 border-t border-slate-400/60 ml-2" />
           <span>{t("hour")}</span>
-          <div className="w-3 border-t-2 border-chart-3/50 ml-2" />
+          <div className="w-3 border-t-2 border-accent/40 ml-2" />
           <span>{t("day")}</span>
         </div>
         <div

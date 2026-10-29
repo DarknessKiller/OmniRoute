@@ -1,7 +1,5 @@
 "use client";
 
-import Icon from "@/shared/components/Icon";
-
 import { Modal, Button } from "@/shared/components";
 import { useTranslations } from "next-intl";
 
@@ -47,10 +45,10 @@ export default function ExternalLinkModal({
             {text("codexExternalLinkGenerating", "Generating link...")}
           </p>
         ) : error ? (
-          <p className="text-sm text-error">{error}</p>
+          <p className="text-sm text-red-500">{error}</p>
         ) : url ? (
           <>
-            <div className="rounded-lg border border-border bg-bg-subtle p-3 break-all text-sm text-text-main">
+            <div className="rounded-lg border border-border bg-bg-base p-3 break-all text-sm text-text-main">
               {url}
             </div>
             <div className="flex gap-2">
@@ -70,7 +68,7 @@ export default function ExternalLinkModal({
               </Button>
             </div>
             <p className="flex items-center gap-2 text-xs text-text-muted">
-              <Icon name="sync" size={16} className="animate-spin" />
+              <span className="material-symbols-outlined animate-spin text-[16px]">sync</span>
               {text(
                 "codexExternalLinkWaiting",
                 "Waiting for browser authentication. This window refreshes automatically."

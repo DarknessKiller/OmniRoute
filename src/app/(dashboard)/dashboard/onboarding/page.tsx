@@ -3,17 +3,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { Alert } from "@omniroute/ui-kit/alert";
-import { CodePreview } from "@omniroute/ui-kit/code-preview";
-import { ChoiceCard } from "@omniroute/ui-kit/onboarding-patterns";
-import { RadioGroup } from "@omniroute/ui-kit/radio-group";
-import Button from "@/shared/components/Button";
-import Card from "@/shared/components/Card";
-import Checkbox from "@/shared/components/Checkbox";
-import Icon from "@/shared/components/Icon";
-import Input from "@/shared/components/Input";
-import { Spinner } from "@/shared/components/Loading";
-import { cn } from "@/shared/utils/cn";
 import { useDisplayBaseUrl } from "@/shared/hooks";
 import { FreeProviderOnboardingCard } from "./steps/FreeProviderOnboardingCard";
 import { TierTour } from "./steps/TierTour";
@@ -43,6 +32,7 @@ export default function OnboardingWizard() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [skipSecurity, setSkipSecurity] = useState(false);
+  const [capsLockOn, setCapsLockOn] = useState(false);
 
   // #14296: fresh Docker/NAT-forwarded installs (peer isn't 127.0.0.1) hit a
   // 401 on the bootstrap writes below until the operator supplies the
@@ -270,7 +260,7 @@ export default function OnboardingWizard() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <Spinner label={tc("loading")} />
+        <div className="animate-pulse text-text-muted">{tc("loading")}</div>
       </div>
     );
   }
@@ -279,57 +269,47 @@ export default function OnboardingWizard() {
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-lg">
         {/* Progress Indicator */}
-        {/* Narrow below sm: 6 dots + 5 connectors must fit 390 px (F4). */}
-        <ol
-          aria-label={t("stepProgress")}
-          className="flex items-center justify-center gap-1 sm:gap-2 mb-8"
-        >
+        <div className="flex items-center justify-center gap-2 mb-8">
           {STEPS.map((s, i) => (
-            <li
-              key={s.id}
-              className="flex items-center gap-1 sm:gap-2"
-              aria-current={i === step ? "step" : undefined}
-            >
-              <span
-                className={cn(
-                  "w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-all duration-300",
+            <div key={s.id} className="flex items-center gap-2">
+              <div
+                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-all duration-300 ${
                   i < step
-                    ? "bg-success-bg text-success"
+                    ? "bg-green-500/20 text-green-400"
                     : i === step
                       ? "bg-primary/20 text-primary ring-2 ring-primary/40"
-                      : "bg-surface-2 text-text-muted"
-                )}
+                      : "bg-white/5 text-text-muted"
+                }`}
               >
-                {i < step ? <Icon name="check" size={16} /> : i + 1}
-                <span className="sr-only">{s.title}</span>
-              </span>
+                {i < step ? (
+                  <span className="material-symbols-outlined text-[16px]">check</span>
+                ) : (
+                  i + 1
+                )}
+              </div>
               {i < STEPS.length - 1 && (
-                <span
-                  aria-hidden="true"
-                  className={cn(
-                    "w-3 sm:w-8 h-0.5 rounded-full transition-colors",
-                    i < step ? "bg-success/40" : "bg-border"
-                  )}
+                <div
+                  className={`w-8 h-0.5 rounded-full transition-colors ${
+                    i < step ? "bg-green-500/40" : "bg-white/10"
+                  }`}
                 />
               )}
-            </li>
+            </div>
           ))}
-        </ol>
+        </div>
 
         {/* Card */}
-        <Card padding="lg" className="shadow-xl">
+        <div className="bg-surface rounded-2xl border border-white/[0.06] p-8 shadow-xl">
           {/* Step Header */}
           <div className="text-center mb-6">
-            <Icon
-              name={currentStep.icon}
-              size={48}
-              className={cn(
-                "mx-auto mb-3 block",
-                currentStep.id === "done" ? "text-success" : "text-primary"
-              )}
-            />
-            {/* The step title is the page heading (the wizard has no PageHeader). */}
-            <h1 className="text-2xl font-bold text-text-main">{currentStep.title}</h1>
+            <span
+              className={`material-symbols-outlined text-[48px] mb-3 block ${
+                currentStep.id === "done" ? "text-green-400" : "text-primary"
+              }`}
+            >
+              {currentStep.icon}
+            </span>
+            <h2 className="text-2xl font-bold text-text-main">{currentStep.title}</h2>
             {currentStep.id === "tiers" && (
               <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-text-muted text-balance">
                 {t("tier.subtitle")}
@@ -342,32 +322,27 @@ export default function OnboardingWizard() {
               which step's write actually failed (security step or the
               Finish/Skip-wizard buttons). */}
           {errorMessage && (
-            <Alert
-              variant="warning"
-              className="mb-4"
-              dismissLabel={tc("close")}
-              onDismiss={() => setErrorMessage("")}
-            >
-              <p className="text-sm">{errorMessage}</p>
+            <div className="mb-4 p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg text-center animate-in fade-in duration-200">
+              <p className="text-sm text-amber-400">{errorMessage}</p>
               {needsBootstrapToken && (
                 <div className="mt-3 space-y-2">
-                  <Input
+                  <input
                     type="text"
                     placeholder={t("bootstrapTokenLabel")}
-                    aria-label={t("bootstrapTokenLabel")}
                     value={bootstrapToken}
                     onChange={(e) => setBootstrapToken(e.target.value)}
+                    className="w-full px-4 py-2.5 bg-white/[0.04] border border-white/10 rounded-lg text-text-main text-sm placeholder:text-text-muted/50 focus:outline-none focus:ring-2 focus:ring-primary/40"
                   />
-                  <Button
-                    variant="primary"
+                  <button
                     onClick={isLastStep ? handleFinish : handleSetPassword}
                     disabled={!bootstrapToken}
+                    className="px-6 py-2 bg-primary rounded-lg text-white font-medium text-sm hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                   >
                     {t("retry")}
-                  </Button>
+                  </button>
                 </div>
               )}
-            </Alert>
+            </div>
           )}
 
           {/* Step Content */}
@@ -384,10 +359,12 @@ export default function OnboardingWizard() {
                   ].map((f) => (
                     <div
                       key={f.icon}
-                      className="h-full bg-surface-2 rounded-xl p-3 text-center border border-border"
+                      className="h-full bg-white/[0.03] rounded-xl p-3 text-center border border-white/[0.06]"
                     >
                       <div className="flex h-full flex-col items-center justify-center">
-                        <Icon name={f.icon} size={24} className="text-primary mb-1 block" />
+                        <span className="material-symbols-outlined text-primary text-[24px] mb-1 block">
+                          {f.icon}
+                        </span>
                         <span className="text-xs text-text-muted">{f.label}</span>
                       </div>
                     </div>
@@ -403,38 +380,51 @@ export default function OnboardingWizard() {
             {currentStep.id === "security" && (
               <div className="space-y-4">
                 <p className="text-sm text-text-muted text-center">{t("securityDesc")}</p>
-                <Checkbox
-                  label={t("skipPassword")}
-                  checked={skipSecurity}
-                  onChange={(e) => setSkipSecurity(e.target.checked)}
-                />
+                <label className="flex items-center gap-2 cursor-pointer text-sm text-text-muted">
+                  <input
+                    type="checkbox"
+                    checked={skipSecurity}
+                    onChange={(e) => setSkipSecurity(e.target.checked)}
+                    className="accent-primary"
+                  />
+                  {t("skipPassword")}
+                </label>
                 {skipSecurity && (
-                  <p className="text-xs text-warning text-center animate-in fade-in duration-200">
+                  <p className="text-xs text-amber-400 text-center animate-in fade-in duration-200">
                     {t("securityDescSkipWarning")}
                   </p>
                 )}
                 {!skipSecurity && (
                   <div className="space-y-3">
-                    {/* Caps Lock warning comes from the Input adapter (common.capsLockOn). */}
-                    <Input
+                    <input
                       type="password"
                       placeholder={t("enterPassword")}
-                      aria-label={t("enterPassword")}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
+                      onKeyDown={(e) => setCapsLockOn(e.getModifierState("CapsLock"))}
+                      onKeyUp={(e) => setCapsLockOn(e.getModifierState("CapsLock"))}
+                      className="w-full px-4 py-2.5 bg-white/[0.04] border border-white/10 rounded-lg text-text-main text-sm placeholder:text-text-muted/50 focus:outline-none focus:ring-2 focus:ring-primary/40"
                     />
-                    <Input
+                    <input
                       type="password"
                       placeholder={t("confirmPasswordPlaceholder")}
-                      aria-label={t("confirmPasswordPlaceholder")}
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
-                      error={
-                        password && confirmPassword && password !== confirmPassword
-                          ? t("passwordsMismatch")
-                          : undefined
-                      }
+                      onKeyDown={(e) => setCapsLockOn(e.getModifierState("CapsLock"))}
+                      onKeyUp={(e) => setCapsLockOn(e.getModifierState("CapsLock"))}
+                      className="w-full px-4 py-2.5 bg-white/[0.04] border border-white/10 rounded-lg text-text-main text-sm placeholder:text-text-muted/50 focus:outline-none focus:ring-2 focus:ring-primary/40"
                     />
+                    {capsLockOn && (
+                      <p className="text-xs text-amber-500 dark:text-amber-400 flex items-center gap-1 animate-in fade-in duration-200">
+                        <span className="material-symbols-outlined text-[14px]" aria-hidden="true">
+                          keyboard_capslock
+                        </span>
+                        Caps Lock is on
+                      </p>
+                    )}
+                    {password && confirmPassword && password !== confirmPassword && (
+                      <p className="text-xs text-red-400">{t("passwordsMismatch")}</p>
+                    )}
                   </div>
                 )}
               </div>
@@ -445,58 +435,53 @@ export default function OnboardingWizard() {
               <div className="space-y-4">
                 <p className="text-sm text-text-muted text-center">{t("providerDesc")}</p>
                 {skipSecurity && (
-                  <p
-                    role="status"
-                    className="rounded-lg border border-warning/30 bg-warning-bg p-3 text-center text-sm text-warning animate-in fade-in duration-200"
-                  >
-                    {t("providerRequiresPassword")}
-                  </p>
+                  <div className="text-center p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg animate-in fade-in duration-200">
+                    <p className="text-sm text-amber-400">{t("providerRequiresPassword")}</p>
+                  </div>
                 )}
                 {!skipSecurity && <FreeProviderOnboardingCard />}
                 {!skipSecurity && (
                   <div className="flex items-center gap-3 text-[11px] text-text-muted">
-                    <span className="h-px flex-1 bg-border" />
+                    <span className="h-px flex-1 bg-white/10" />
                     <span>{t("freeProviders.orUseApiKey")}</span>
-                    <span className="h-px flex-1 bg-border" />
+                    <span className="h-px flex-1 bg-white/10" />
                   </div>
                 )}
                 {!skipSecurity && (
-                  <RadioGroup
-                    aria-label={t("providerDesc")}
-                    value={selectedProvider ?? ""}
-                    onValueChange={(id) => {
-                      const provider = COMMON_PROVIDERS.find((p) => p.id === id);
-                      setSelectedProvider(id);
-                      if (provider) setProviderName(provider.name);
-                    }}
-                    className="[&_.ci-radio-group__items]:grid-cols-2 sm:[&_.ci-radio-group__items]:grid-cols-3 [&_.ci-radio-group__items]:gap-2"
-                  >
+                  <div className="grid grid-cols-3 gap-2">
                     {COMMON_PROVIDERS.map((p) => (
-                      <ChoiceCard
+                      <button
                         key={p.id}
-                        value={p.id}
-                        title={p.name}
-                        tone="accent"
-                        className="text-xs"
-                      />
+                        onClick={() => {
+                          setSelectedProvider(p.id);
+                          setProviderName(p.name);
+                        }}
+                        className={`p-3 rounded-xl border text-center text-xs font-medium transition-all cursor-pointer ${
+                          selectedProvider === p.id
+                            ? "border-primary/60 bg-primary/10 text-primary"
+                            : "border-white/10 bg-white/[0.03] text-text-muted hover:border-white/20"
+                        }`}
+                      >
+                        {p.name}
+                      </button>
                     ))}
-                  </RadioGroup>
+                  </div>
                 )}
                 {!skipSecurity && selectedProvider && (
                   <div className="space-y-3 mt-4">
-                    <Input
+                    <input
                       type="password"
                       placeholder={t("apiKeyRequired")}
-                      aria-label={t("apiKeyRequired")}
                       value={providerKey}
                       onChange={(e) => setProviderKey(e.target.value)}
+                      className="w-full px-4 py-2.5 bg-white/[0.04] border border-white/10 rounded-lg text-text-main text-sm placeholder:text-text-muted/50 focus:outline-none focus:ring-2 focus:ring-primary/40"
                     />
-                    <Input
+                    <input
                       type="text"
                       placeholder={t("customUrlOptional")}
-                      aria-label={t("customUrlOptional")}
                       value={providerUrl}
                       onChange={(e) => setProviderUrl(e.target.value)}
+                      className="w-full px-4 py-2.5 bg-white/[0.04] border border-white/10 rounded-lg text-text-main text-sm placeholder:text-text-muted/50 focus:outline-none focus:ring-2 focus:ring-primary/40"
                     />
                   </div>
                 )}
@@ -508,31 +493,39 @@ export default function OnboardingWizard() {
               <div className="text-center space-y-4">
                 <p className="text-sm text-text-muted">{t("testDesc")}</p>
                 {testStatus === "idle" && (
-                  <Button variant="primary" onClick={handleTestProvider}>
+                  <button
+                    onClick={handleTestProvider}
+                    className="px-6 py-2.5 bg-primary rounded-lg text-white font-medium text-sm hover:bg-primary/90 transition-colors cursor-pointer"
+                  >
                     {t("runTest")}
-                  </Button>
+                  </button>
                 )}
                 {testStatus === "testing" && (
                   <div className="flex items-center justify-center gap-2 text-text-muted">
-                    <Icon name="progress_activity" size={20} className="animate-spin" />
+                    <span className="material-symbols-outlined animate-spin text-[20px]">
+                      progress_activity
+                    </span>
                     <span className="text-sm">{testMessage}</span>
                   </div>
                 )}
                 {testStatus === "success" && (
-                  <div className="flex items-center justify-center gap-2 text-success">
-                    <Icon name="check_circle" size={20} />
+                  <div className="flex items-center justify-center gap-2 text-green-400">
+                    <span className="material-symbols-outlined text-[20px]">check_circle</span>
                     <span className="text-sm">{testMessage}</span>
                   </div>
                 )}
                 {testStatus === "error" && (
                   <div className="space-y-3">
-                    <div className="flex items-center justify-center gap-2 text-warning">
-                      <Icon name="warning" size={20} />
+                    <div className="flex items-center justify-center gap-2 text-amber-400">
+                      <span className="material-symbols-outlined text-[20px]">warning</span>
                       <span className="text-sm">{testMessage}</span>
                     </div>
-                    <Button variant="ghost" size="sm" onClick={handleTestProvider}>
+                    <button
+                      onClick={handleTestProvider}
+                      className="text-xs text-text-muted underline cursor-pointer"
+                    >
                       {t("retry")}
-                    </Button>
+                    </button>
                   </div>
                 )}
               </div>
@@ -542,82 +535,98 @@ export default function OnboardingWizard() {
             {currentStep.id === "done" && (
               <div className="text-center space-y-4">
                 <p className="text-text-muted">{t("doneDesc")}</p>
-                <CodePreview
-                  variant="surface"
-                  filename={t("yourEndpoint")}
-                  language=""
-                  code={apiEndpoint}
-                  copyLabel={tc("copy")}
-                  copiedLabel={tc("copied")}
-                  className="text-left"
-                />
+                <div className="bg-white/[0.03] rounded-xl p-4 border border-white/[0.06] text-left">
+                  <p className="text-xs text-text-muted mb-2 font-medium">{t("yourEndpoint")}</p>
+                  <code className="text-sm text-primary">{apiEndpoint}</code>
+                </div>
               </div>
             )}
           </div>
 
           {/* Footer Actions */}
-          <div className="flex items-center justify-between mt-8 pt-6 border-t border-border">
+          <div className="flex items-center justify-between mt-8 pt-6 border-t border-white/[0.06]">
             <div>
               {step > 0 && !isLastStep && (
-                <Button variant="ghost" onClick={handleBack}>
+                <button
+                  onClick={handleBack}
+                  className="px-4 py-2 text-sm text-text-muted hover:text-text-main transition-colors cursor-pointer"
+                >
                   {tc("back")}
-                </Button>
+                </button>
               )}
             </div>
             <div className="flex items-center gap-3">
               {!isLastStep && step > 0 && (
-                <Button variant="ghost" onClick={handleNext}>
+                <button
+                  onClick={handleNext}
+                  className="px-4 py-2 text-sm text-text-muted hover:text-text-main transition-colors cursor-pointer"
+                >
                   {t("skip")}
-                </Button>
+                </button>
               )}
               {currentStep.id === "welcome" && (
-                <Button variant="primary" onClick={handleNext}>
+                <button
+                  onClick={handleNext}
+                  className="px-6 py-2.5 bg-primary rounded-lg text-white font-medium text-sm hover:bg-primary/90 transition-colors cursor-pointer"
+                >
                   {t("getStarted")}
-                </Button>
+                </button>
               )}
               {currentStep.id === "tiers" && (
-                <Button variant="primary" onClick={handleNext}>
+                <button
+                  onClick={handleNext}
+                  className="px-6 py-2.5 bg-primary rounded-lg text-white font-medium text-sm hover:bg-primary/90 transition-colors cursor-pointer"
+                >
                   {t("continue")}
-                </Button>
+                </button>
               )}
               {currentStep.id === "security" && (
-                <Button
-                  variant="primary"
+                <button
                   onClick={handleSetPassword}
                   disabled={!skipSecurity && (!password || password !== confirmPassword)}
+                  className="px-6 py-2.5 bg-primary rounded-lg text-white font-medium text-sm hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
                   {skipSecurity ? t("skipAndContinue") : t("setPassword")}
-                </Button>
+                </button>
               )}
               {currentStep.id === "provider" && !skipSecurity ? (
-                <Button
-                  variant="primary"
+                <button
                   onClick={handleAddProvider}
                   disabled={!selectedProvider || !providerKey}
+                  className="px-6 py-2.5 bg-primary rounded-lg text-white font-medium text-sm hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
                   {t("addProvider")}
-                </Button>
+                </button>
               ) : null}
               {currentStep.id === "test" && (
-                <Button variant="primary" onClick={handleNext}>
+                <button
+                  onClick={handleNext}
+                  className="px-6 py-2.5 bg-primary rounded-lg text-white font-medium text-sm hover:bg-primary/90 transition-colors cursor-pointer"
+                >
                   {testStatus === "success" ? t("continue") : t("skip")}
-                </Button>
+                </button>
               )}
               {isLastStep && (
-                <Button variant="primary" onClick={handleFinish}>
+                <button
+                  onClick={handleFinish}
+                  className="px-6 py-2.5 bg-green-500 rounded-lg text-white font-medium text-sm hover:bg-green-500/90 transition-colors cursor-pointer"
+                >
                   {t("goToDashboard")}
-                </Button>
+                </button>
               )}
             </div>
           </div>
-        </Card>
+        </div>
 
         {/* Skip Wizard */}
         {!isLastStep && (
           <div className="text-center mt-4">
-            <Button variant="ghost" size="sm" className="text-text-muted" onClick={handleFinish}>
+            <button
+              onClick={handleFinish}
+              className="text-xs text-text-muted/60 hover:text-text-muted transition-colors cursor-pointer"
+            >
               {t("skipWizard")}
-            </Button>
+            </button>
           </div>
         )}
       </div>

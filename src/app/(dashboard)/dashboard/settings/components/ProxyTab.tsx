@@ -2,7 +2,6 @@
 import { useMemo } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@omniroute/ui-kit/tabs";
 import GlobalConfigTab from "./proxy/GlobalConfigTab";
 import ProxyPoolTab from "./proxy/ProxyPoolTab";
 import FreePoolTab from "./proxy/FreePoolTab";
@@ -39,38 +38,36 @@ export default function ProxyTab() {
   };
 
   return (
-    <Tabs
-      variant="underline"
-      value={activeTab}
-      onValueChange={(next) => handleTabChange(next as TabId)}
-      className="flex flex-col gap-4"
-    >
-      <TabsList
+    <div className="flex flex-col gap-4">
+      <div
+        className="flex gap-1 border-b border-border overflow-x-auto"
+        role="tablist"
         aria-label={translateOrFallback("proxySubTabsAria", "Proxy sections")}
-        className="max-w-full overflow-x-auto"
       >
         {TABS.map((tab) => (
-          <TabsTrigger key={tab.id} value={tab.id} className="whitespace-nowrap">
+          <button
+            key={tab.id}
+            role="tab"
+            aria-selected={activeTab === tab.id}
+            onClick={() => handleTabChange(tab.id)}
+            className={`px-4 py-2 text-sm font-medium border-b-2 whitespace-nowrap transition-colors ${
+              activeTab === tab.id
+                ? "border-primary text-primary"
+                : "border-transparent text-text-muted hover:text-text"
+            }`}
+          >
             {translateOrFallback(tab.labelKey, tab.fallback)}
-          </TabsTrigger>
+          </button>
         ))}
-      </TabsList>
+      </div>
 
-      <TabsContent value="global-config">
-        <GlobalConfigTab />
-      </TabsContent>
-      <TabsContent value="proxy-pool">
-        <ProxyPoolTab />
-      </TabsContent>
-      <TabsContent value="free-pool">
-        <FreePoolTab />
-      </TabsContent>
-      <TabsContent value="documentation">
-        <DocumentationTab />
-      </TabsContent>
-      <TabsContent value="subscriptions">
-        <SubscriptionTab />
-      </TabsContent>
-    </Tabs>
+      <div role="tabpanel">
+        {activeTab === "global-config" && <GlobalConfigTab />}
+        {activeTab === "proxy-pool" && <ProxyPoolTab />}
+        {activeTab === "free-pool" && <FreePoolTab />}
+        {activeTab === "documentation" && <DocumentationTab />}
+        {activeTab === "subscriptions" && <SubscriptionTab />}
+      </div>
+    </div>
   );
 }

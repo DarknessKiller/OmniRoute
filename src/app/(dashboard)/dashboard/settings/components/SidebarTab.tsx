@@ -16,16 +16,7 @@ import {
   arrayMove,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@omniroute/ui-kit/accordion";
-import { Checkbox } from "@omniroute/ui-kit/checkbox";
-import { RadioGroup, RadioGroupItem } from "@omniroute/ui-kit/radio-group";
-import { Badge, Button, Card, Toggle } from "@/shared/components";
-import Icon from "@/shared/components/Icon";
+import { Card, Toggle } from "@/shared/components";
 import { cn } from "@/shared/utils/cn";
 import { useTranslations } from "next-intl";
 import {
@@ -68,7 +59,6 @@ import {
 
 interface SortableSectionProps {
   section: SidebarSectionDefinition & { title: string };
-  open: boolean;
   hiddenSet: Set<HideableSidebarItemId>;
   sectionHiddenList: SidebarSectionId[];
   hiddenGroupLabelsSet: Set<HideableSidebarGroupId>;
@@ -80,23 +70,8 @@ interface SortableSectionProps {
   getLabel: (key: string, fallback: string) => string;
 }
 
-function LockedMarker() {
-  const tSidebar = useTranslations("sidebar");
-  return (
-    <span className="inline-flex shrink-0" title={tSidebar("cannotHide")}>
-      <Icon
-        name="lock"
-        size={16}
-        className="text-text-muted"
-        ariaLabel={tSidebar("alwaysVisible")}
-      />
-    </span>
-  );
-}
-
 function SortableSection({
   section,
-  open,
   hiddenSet,
   sectionHiddenList,
   hiddenGroupLabelsSet,
@@ -118,6 +93,8 @@ function SortableSection({
     id: section.id,
   });
   const style = { transform: CSS.Transform.toString(transform), transition };
+
+  const [expanded, setExpanded] = useState(true);
 
   const canToggleSection = isSidebarSectionHideable(section);
   const sectionHidden = isSidebarSectionHidden(section.id as SidebarSectionId, sectionHiddenList);
@@ -141,93 +118,111 @@ function SortableSection({
     onItemReorder(section.id as SidebarSectionId, arrayMove(childIds, oldIdx, newIdx));
   };
 
-  const sectionToggleLabel = sectionHidden
-    ? getSettingsLabel("sidebarSectionShow", "Show all items in this section")
-    : getSettingsLabel("sidebarSectionHide", "Hide all items in this section");
-
   return (
-    <AccordionItem
+    <div
       ref={setNodeRef}
       style={style}
-      value={section.id}
-      className={cn("bg-surface", isDragging && "relative z-10 shadow-lg opacity-80")}
+      className={cn(
+        "rounded-lg border border-border bg-surface/40 transition-shadow",
+        isDragging && "shadow-lg opacity-80"
+      )}
     >
-      {/* Section header: drag handle · accordion trigger · section visibility */}
-      <div className="flex items-center gap-1 pl-2 pr-4">
-        <Button
-          variant="ghost"
-          size="icon-sm"
+      {/* Section header */}
+      <div className="flex items-center gap-2 px-4 py-3 border-b border-border/70">
+        <button
           {...listeners}
           {...attributes}
-          className="shrink-0 cursor-grab touch-none text-text-muted active:cursor-grabbing"
+          className="text-text-muted/40 hover:text-text-muted/80 cursor-grab active:cursor-grabbing touch-none shrink-0"
           title={tSidebar("dragReorderSection")}
           aria-label={tSidebar("dragReorderSection")}
         >
-          <Icon name="drag_indicator" size={18} />
-        </Button>
-        <div className="min-w-0 flex-1">
-          <AccordionTrigger className="px-2 text-xs font-semibold uppercase tracking-wider">
+          <span className="material-symbols-outlined text-[18px]">drag_indicator</span>
+        </button>
+        <button
+          onClick={() => setExpanded((p) => !p)}
+          className="flex-1 flex items-center gap-2 text-left"
+        >
+          <span className="text-xs font-semibold uppercase tracking-wider text-text-muted/70">
             {section.title}
-          </AccordionTrigger>
-        </div>
+          </span>
+          <span
+            className={cn(
+              "material-symbols-outlined text-[14px] text-text-muted/40 transition-transform ml-auto",
+              expanded && "rotate-180"
+            )}
+          >
+            expand_more
+          </span>
+        </button>
         {canToggleSection ? (
           <Toggle
             checked={!sectionHidden}
             onChange={() => onToggleSection(section)}
-            title={sectionToggleLabel}
-            ariaLabel={sectionToggleLabel}
+            title={
+              sectionHidden
+                ? getSettingsLabel("sidebarSectionShow", "Show all items in this section")
+                : getSettingsLabel("sidebarSectionHide", "Hide all items in this section")
+            }
+            ariaLabel={
+              sectionHidden
+                ? getSettingsLabel("sidebarSectionShow", "Show all items in this section")
+                : getSettingsLabel("sidebarSectionHide", "Hide all items in this section")
+            }
           />
         ) : (
-          <LockedMarker />
+          <span
+            className="material-symbols-outlined text-[16px] text-text-muted/40"
+            title={tSidebar("cannotHide")}
+            aria-label={tSidebar("alwaysVisible")}
+          >
+            lock
+          </span>
         )}
       </div>
 
-      {/* Section children with inner DnD — mounted only while open, so the collapsed
-          (aria-hidden) panel never keeps focusable controls. */}
-      <AccordionContent>
-        {open && (
-          <DndContext
-            id={dndContextId}
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragEnd={handleItemDragEnd}
-          >
-            <SortableContext items={childIds} strategy={verticalListSortingStrategy}>
-              <div className="divide-y divide-border">
-                {orderedChildren.map((child) => {
-                  if ("type" in child && child.type === "group") {
-                    const group = child as SidebarItemGroup;
-                    return (
-                      <SortableChildRow key={group.id} id={group.id}>
-                        <GroupRow
-                          group={group}
-                          hiddenSet={hiddenSet}
-                          hiddenGroupLabelsSet={hiddenGroupLabelsSet}
-                          onToggleItem={onToggleItem}
-                          onToggleGroupLabel={onToggleGroupLabel}
-                          getLabel={getLabel}
-                        />
-                      </SortableChildRow>
-                    );
-                  }
-                  const item = child as SidebarItemDefinition;
+      {/* Section children with inner DnD */}
+      {expanded && (
+        <DndContext
+          id={dndContextId}
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleItemDragEnd}
+        >
+          <SortableContext items={childIds} strategy={verticalListSortingStrategy}>
+            <div className="divide-y divide-border/70">
+              {orderedChildren.map((child) => {
+                if ("type" in child && child.type === "group") {
+                  const group = child as SidebarItemGroup;
                   return (
-                    <SortableChildRow key={item.id} id={item.id}>
-                      <ItemRow
-                        item={item}
+                    <SortableChildRow key={group.id} id={group.id}>
+                      <GroupRow
+                        group={group}
                         hiddenSet={hiddenSet}
+                        hiddenGroupLabelsSet={hiddenGroupLabelsSet}
                         onToggleItem={onToggleItem}
+                        onToggleGroupLabel={onToggleGroupLabel}
                         getLabel={getLabel}
                       />
                     </SortableChildRow>
                   );
-                })}
-              </div>
-            </SortableContext>
-          </DndContext>
-        )}
-      </AccordionContent>
-    </AccordionItem>
+                }
+                const item = child as SidebarItemDefinition;
+                return (
+                  <SortableChildRow key={item.id} id={item.id}>
+                    <ItemRow
+                      item={item}
+                      hiddenSet={hiddenSet}
+                      onToggleItem={onToggleItem}
+                      getLabel={getLabel}
+                    />
+                  </SortableChildRow>
+                );
+              })}
+            </div>
+          </SortableContext>
+        </DndContext>
+      )}
+    </div>
   );
 }
 
@@ -243,19 +238,17 @@ function SortableChildRow({ id, children }: { id: string; children: React.ReactN
     <div
       ref={setNodeRef}
       style={style}
-      className={cn("flex items-start gap-1", isDragging && "opacity-60")}
+      className={cn("flex items-start gap-2", isDragging && "opacity-60")}
     >
-      <Button
-        variant="ghost"
-        size="icon-sm"
+      <button
         {...listeners}
         {...attributes}
-        className="mt-2 shrink-0 cursor-grab touch-none text-text-muted active:cursor-grabbing"
+        className="mt-3.5 ml-4 text-text-muted/30 hover:text-text-muted/70 cursor-grab active:cursor-grabbing touch-none shrink-0"
         title={tSidebar("dragReorderItem")}
         aria-label={tSidebar("dragReorderItem")}
       >
-        <Icon name="drag_indicator" size={14} />
-      </Button>
+        <span className="material-symbols-outlined text-[14px]">drag_indicator</span>
+      </button>
       <div className="flex-1 min-w-0">{children}</div>
     </div>
   );
@@ -274,58 +267,64 @@ function isHideableSidebarItemId(id: SidebarItemId): id is HideableSidebarItemId
   return HIDEABLE_SIDEBAR_ITEM_IDS.includes(id as HideableSidebarItemId);
 }
 
-/** One sidebar entry: a visibility checkbox (box on the right), or a lock when it cannot hide. */
-function ItemVisibilityRow({
+function GroupItemVisibilityControl({
   item,
   hiddenSet,
   onToggleItem,
-  label,
-  compact = false,
 }: {
   item: SidebarItemDefinition;
   hiddenSet: Set<HideableSidebarItemId>;
   onToggleItem: (id: HideableSidebarItemId) => void;
-  label: string;
-  compact?: boolean;
 }) {
+  const tSidebar = useTranslations("sidebar");
   const hideableId = isHideableSidebarItemId(item.id) ? item.id : null;
-  const isProtected = hideableId === null || PROTECTED_SIDEBAR_ITEM_IDS.has(item.id);
-  const text = (
-    <span className="flex min-w-0 items-center gap-2">
-      <Icon name={item.icon} size={compact ? 14 : 16} className="text-text-muted" />
-      <span className={cn("truncate font-medium text-text-main", compact && "text-sm")}>
-        {label}
-      </span>
-    </span>
-  );
-  const rowPadding = compact ? "px-2 py-2" : "px-2 py-2.5";
-  if (isProtected) {
+  if (hideableId !== null) {
     return (
-      <div className={cn("flex items-center justify-between gap-4", rowPadding)}>
-        {text}
-        <LockedMarker />
-      </div>
+      <Toggle
+        size="sm"
+        checked={!hiddenSet.has(hideableId)}
+        onChange={() => onToggleItem(hideableId)}
+      />
     );
   }
+
   return (
-    <Checkbox
-      side="right"
-      className={cn("w-full justify-between", rowPadding)}
-      checked={!hiddenSet.has(hideableId)}
-      onChange={() => onToggleItem(hideableId)}
-      label={text}
-    />
+    <span
+      className="material-symbols-outlined text-[16px] text-text-muted/40"
+      title={tSidebar("cannotHide")}
+      aria-label={tSidebar("alwaysVisible")}
+    >
+      lock
+    </span>
   );
 }
 
 function ItemRow({ item, hiddenSet, onToggleItem, getLabel }: ItemRowProps) {
+  const tSidebar = useTranslations("sidebar");
+  const hideableId = isHideableSidebarItemId(item.id) ? item.id : null;
+  const isProtected = PROTECTED_SIDEBAR_ITEM_IDS.has(item.id) || hideableId === null;
   return (
-    <ItemVisibilityRow
-      item={item}
-      hiddenSet={hiddenSet}
-      onToggleItem={onToggleItem}
-      label={getLabel(item.i18nKey, item.labelFallback ?? item.id)}
-    />
+    <div className="flex items-center justify-between gap-4 px-4 py-3">
+      <div className="flex items-center gap-2 min-w-0">
+        <span className="material-symbols-outlined text-[16px] text-text-muted/50 shrink-0">
+          {item.icon}
+        </span>
+        <p className="font-medium truncate">
+          {getLabel(item.i18nKey, item.labelFallback ?? item.id)}
+        </p>
+      </div>
+      {isProtected ? (
+        <span
+          className="material-symbols-outlined text-[16px] text-text-muted/40"
+          title={tSidebar("cannotHide")}
+          aria-label={tSidebar("alwaysVisible")}
+        >
+          lock
+        </span>
+      ) : (
+        <Toggle checked={!hiddenSet.has(hideableId)} onChange={() => onToggleItem(hideableId)} />
+      )}
+    </div>
   );
 }
 
@@ -353,39 +352,35 @@ function GroupRow({
   const canToggleSeparator = HIDEABLE_SIDEBAR_GROUP_IDS.includes(groupId);
   const separatorVisible = !hiddenGroupLabelsSet.has(groupId);
   const separatorLabel = getLabel("groupSeparatorLabel", "Separator");
-  const groupTitle = getLabel(group.titleKey, group.titleFallback);
-  const panelId = useId();
 
   return (
     <div className="w-full">
-      <div className="flex items-center gap-2 px-2 py-1.5">
-        <Button
-          variant="ghost"
-          size="sm"
+      <div className="flex items-center gap-2 px-4 py-2.5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+        <button
           onClick={() => setOpen((p) => !p)}
-          aria-expanded={open}
-          aria-controls={panelId}
-          className="min-w-0 flex-1 justify-start gap-2 px-1"
+          className="flex min-w-0 flex-1 items-center gap-2 text-left"
         >
-          <Icon
-            name="chevron_right"
-            size={14}
-            className={cn("text-text-muted transition-transform", open && "rotate-90")}
-          />
-          <span className="truncate text-[10px] font-semibold uppercase tracking-widest text-text-muted">
-            {groupTitle}
+          <span
+            className={cn(
+              "material-symbols-outlined text-[12px] text-text-muted/40 transition-transform",
+              open && "rotate-90"
+            )}
+          >
+            chevron_right
           </span>
-        </Button>
-        <span className="text-xs text-text-muted">
+          <span className="truncate text-[10px] font-semibold uppercase tracking-widest text-text-muted/50">
+            {getLabel(group.titleKey, group.titleFallback)}
+          </span>
+        </button>
+        <span className="text-xs text-text-muted/40">
           {group.items.filter((i) => !isHideableSidebarItemId(i.id) || !hiddenSet.has(i.id)).length}
           /{group.items.length}
         </span>
         {canToggleSeparator && (
-          <div className="flex items-center gap-2 border-l border-border pl-3">
-            <span className="text-[10px] font-medium text-text-muted">{separatorLabel}</span>
+          <div className="flex items-center gap-2 border-l border-border/60 pl-3">
+            <span className="text-[10px] font-medium text-text-muted/50">{separatorLabel}</span>
             <Toggle
               size="sm"
-              ariaLabel={`${separatorLabel} · ${groupTitle}`}
               checked={separatorVisible}
               onChange={() => onToggleGroupLabel(groupId)}
             />
@@ -393,16 +388,23 @@ function GroupRow({
         )}
       </div>
       {open && (
-        <div id={panelId} className="divide-y divide-border pl-4">
+        <div className="divide-y divide-border/50 pl-2">
           {group.items.map((item) => (
-            <ItemVisibilityRow
-              key={item.id}
-              compact
-              item={item}
-              hiddenSet={hiddenSet}
-              onToggleItem={onToggleItem}
-              label={getLabel(item.i18nKey, item.labelFallback ?? item.id)}
-            />
+            <div key={item.id} className="flex items-center justify-between gap-4 px-4 py-2.5">
+              <div className="flex items-center gap-2 min-w-0">
+                <span className="material-symbols-outlined text-[14px] text-text-muted/40 shrink-0">
+                  {item.icon}
+                </span>
+                <p className="text-sm font-medium truncate">
+                  {getLabel(item.i18nKey, item.labelFallback ?? item.id)}
+                </p>
+              </div>
+              <GroupItemVisibilityControl
+                item={item}
+                hiddenSet={hiddenSet}
+                onToggleItem={onToggleItem}
+              />
+            </div>
           ))}
         </div>
       )}
@@ -536,9 +538,6 @@ export default function SidebarTab() {
   }));
 
   const sectionIds = orderedSections.map((s) => s.id);
-  // Sections start expanded; the accordion tracks the ones the user collapsed.
-  const [collapsedSections, setCollapsedSections] = useState<string[]>([]);
-  const openSections = sectionIds.filter((id) => !collapsedSections.includes(id));
 
   const sensors = useSensors(useSensor(PointerSensor));
   // Same id on server and client; dnd-kit's default comes from a process-wide counter.
@@ -606,93 +605,132 @@ export default function SidebarTab() {
     admin: getSettingsLabel("presetAdminDesc", "Monitoring & audit"),
   };
 
-  const confirmMessage = confirmPreset
-    ? getSettingsLabel(
-        "presetConfirmWarning",
-        `Applying "${presetLabels[confirmPreset]}" will replace your current visibility and order settings.`
-      )
-    : "";
-
   return (
-    <Card
-      icon="view_sidebar"
-      title={getSettingsLabel("settingsSidebarTitle", "Sidebar Customization")}
-      subtitle={getSettingsLabel(
-        "settingsSidebarDesc",
-        "Control which items appear in the sidebar and their order"
-      )}
-    >
+    <Card>
+      <div className="flex items-center gap-3 mb-4">
+        <div className="p-2 rounded-lg bg-indigo-500/10 text-indigo-500">
+          <span className="material-symbols-outlined text-[20px]" aria-hidden="true">
+            view_sidebar
+          </span>
+        </div>
+        <div>
+          <h3 className="text-lg font-semibold">
+            {getSettingsLabel("settingsSidebarTitle", "Sidebar Customization")}
+          </h3>
+          <p className="text-sm text-text-muted">
+            {getSettingsLabel(
+              "settingsSidebarDesc",
+              "Control which items appear in the sidebar and their order"
+            )}
+          </p>
+        </div>
+      </div>
+
       <div className="flex flex-col gap-6">
         {/* Presets */}
         <div>
+          <div className="mb-3">
+            <p className="font-medium">{getSettingsLabel("sidebarPresets", "Presets")}</p>
+            <p className="text-sm text-text-muted">
+              {getSettingsLabel(
+                "sidebarPresetsDesc",
+                "Start from a role-based layout. Any change after applying a preset switches to Custom."
+              )}
+            </p>
+          </div>
+
           {/* Active preset badge */}
           <div className="mb-3 flex items-center gap-2 text-sm">
             <span className="text-text-muted">
               {getSettingsLabel("activePresetLabel", "Active:")}
             </span>
-            <Badge variant={activePreset ? "primary" : "default"} size="sm">
+            <span
+              className={cn(
+                "px-2 py-0.5 rounded-full text-xs font-medium",
+                activePreset
+                  ? "bg-primary/10 text-primary"
+                  : "bg-surface border border-border text-text-muted"
+              )}
+            >
               {activePreset
                 ? presetLabels[activePreset]
                 : getSettingsLabel("presetCustom", "Custom")}
-            </Badge>
+            </span>
           </div>
 
-          <RadioGroup
-            label={getSettingsLabel("sidebarPresets", "Presets")}
-            description={getSettingsLabel(
-              "sidebarPresetsDesc",
-              "Start from a role-based layout. Any change after applying a preset switches to Custom."
-            )}
-            value={activePreset ?? ""}
-            disabled={loading}
-            onValueChange={(next) => {
-              const presetId = next as SidebarPresetId;
-              if (activePreset === presetId) return;
-              if (
-                activePreset !== null ||
-                hiddenSidebarItems.length > 0 ||
-                hiddenSidebarGroupLabels.length > 0 ||
-                sectionOrder.length > 0
-              ) {
-                setConfirmPreset(presetId);
-              } else {
-                applyPreset(presetId);
-              }
-            }}
-          >
-            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-              {SIDEBAR_PRESETS.map((preset) => (
-                <RadioGroupItem
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            {SIDEBAR_PRESETS.map((preset) => {
+              const isActive = activePreset === preset.id;
+              return (
+                <button
                   key={preset.id}
-                  card
-                  value={preset.id}
-                  label={
-                    <span className="inline-flex items-center gap-1.5">
-                      <Icon name={preset.icon} size={18} fill={activePreset === preset.id} />
-                      {presetLabels[preset.id]}
-                    </span>
-                  }
-                  description={presetDescriptions[preset.id]}
-                />
-              ))}
-            </div>
-          </RadioGroup>
+                  disabled={loading}
+                  onClick={() => {
+                    if (activePreset === preset.id) return;
+                    if (
+                      activePreset !== null ||
+                      hiddenSidebarItems.length > 0 ||
+                      hiddenSidebarGroupLabels.length > 0 ||
+                      sectionOrder.length > 0
+                    ) {
+                      setConfirmPreset(preset.id);
+                    } else {
+                      applyPreset(preset.id);
+                    }
+                  }}
+                  className={cn(
+                    "flex flex-col items-center gap-1.5 p-3 rounded-lg border transition-colors disabled:opacity-60",
+                    isActive
+                      ? "border-primary bg-primary/10 text-primary"
+                      : "border-border hover:border-primary/40 bg-surface/40 text-text-main"
+                  )}
+                >
+                  <span
+                    className="material-symbols-outlined text-[22px]"
+                    style={isActive ? { fontVariationSettings: "'FILL' 1" } : {}}
+                    aria-hidden="true"
+                  >
+                    {preset.icon}
+                  </span>
+                  <span className="text-sm font-semibold">{presetLabels[preset.id]}</span>
+                  <span
+                    className={cn(
+                      "text-[10px] text-center",
+                      isActive ? "text-primary/70" : "text-text-muted"
+                    )}
+                  >
+                    {presetDescriptions[preset.id]}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
 
-          {/* Confirm preset */}
+          {/* Confirm preset dialog */}
           {confirmPreset && (
-            <div
-              role="alert"
-              className="mt-3 flex flex-col gap-3 rounded-lg border border-warning/30 bg-warning-bg p-3 sm:flex-row sm:items-center"
-            >
-              <Icon name="warning" size={18} className="text-warning" />
-              <p className="flex-1 text-sm text-text-main">{confirmMessage}</p>
-              <div className="flex shrink-0 gap-2">
-                <Button variant="outline" size="sm" onClick={() => setConfirmPreset(null)}>
+            <div className="mt-3 p-3 rounded-lg border border-amber-500/30 bg-amber-500/5 flex items-center gap-3">
+              <span className="material-symbols-outlined text-amber-500 text-[18px] shrink-0">
+                warning
+              </span>
+              <p className="text-sm flex-1">
+                {getSettingsLabel(
+                  "presetConfirmWarning",
+                  `Applying "${presetLabels[confirmPreset]}" will replace your current visibility and order settings.`
+                )}
+              </p>
+              <div className="flex gap-2 shrink-0">
+                <button
+                  onClick={() => setConfirmPreset(null)}
+                  className="px-3 py-1.5 text-sm rounded-md border border-border hover:bg-surface/80 transition-colors"
+                >
                   {getSettingsLabel("cancelLabel", "Cancel")}
-                </Button>
-                <Button size="sm" onClick={() => applyPreset(confirmPreset)}>
+                </button>
+                <button
+                  onClick={() => applyPreset(confirmPreset)}
+                  className="px-3 py-1.5 text-sm rounded-md bg-primary text-white hover:bg-primary/90 transition-colors"
+                >
                   {getSettingsLabel("applyLabel", "Apply")}
-                </Button>
+                </button>
               </div>
             </div>
           )}
@@ -700,7 +738,7 @@ export default function SidebarTab() {
 
         {/* Visibility & order */}
         <div>
-          <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+          <div className="mb-3 flex items-start justify-between gap-4">
             <div>
               <p className="font-medium">
                 {getSettingsLabel("sidebarOrder", "Visibility & Order")}
@@ -712,37 +750,27 @@ export default function SidebarTab() {
                 )}
               </p>
             </div>
-            <Button
-              variant="outline"
-              size="sm"
-              className="shrink-0"
+            <button
               onClick={resetToDefault}
               disabled={loading}
+              className="shrink-0 text-sm text-text-muted hover:text-text-main border border-border rounded-md px-3 py-1.5 hover:bg-surface/80 transition-colors disabled:opacity-50"
             >
               {getSettingsLabel("resetDefault", "Reset to default")}
-            </Button>
+            </button>
           </div>
 
-          <DndContext
-            id={dndContextId}
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragEnd={handleSectionDragEnd}
-          >
-            <SortableContext items={sectionIds} strategy={verticalListSortingStrategy}>
-              <Accordion
-                type="multiple"
-                variant="bordered"
-                value={openSections}
-                onValueChange={(next) =>
-                  setCollapsedSections(sectionIds.filter((id) => !(next as string[]).includes(id)))
-                }
-              >
+          <div className="flex flex-col gap-3">
+            <DndContext
+              id={dndContextId}
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleSectionDragEnd}
+            >
+              <SortableContext items={sectionIds} strategy={verticalListSortingStrategy}>
                 {orderedSections.map((section) => (
                   <SortableSection
                     key={section.id}
                     section={section}
-                    open={openSections.includes(section.id)}
                     hiddenSet={hiddenSet}
                     sectionHiddenList={hiddenSectionList}
                     hiddenGroupLabelsSet={hiddenGroupLabelsSet}
@@ -754,9 +782,9 @@ export default function SidebarTab() {
                     getLabel={getLabel}
                   />
                 ))}
-              </Accordion>
-            </SortableContext>
-          </DndContext>
+              </SortableContext>
+            </DndContext>
+          </div>
 
           <p className="mt-3 text-xs text-text-muted">
             {getSettingsLabel(

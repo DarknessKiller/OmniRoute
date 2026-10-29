@@ -2,11 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import Badge from "@/shared/components/Badge";
-import Button from "@/shared/components/Button";
-import Card from "@/shared/components/Card";
-import Icon from "@/shared/components/Icon";
-import Modal from "@/shared/components/Modal";
+import { Card, Badge } from "@/shared/components";
 import { cumulativeXpForLevel, getLevelTier, getLevelTitle } from "@/lib/gamification/xp";
 
 interface UserLevel {
@@ -40,11 +36,11 @@ interface UserBadge {
 }
 
 const TIER_CONFIG: Record<string, { labelKey: string; color: string; bg: string }> = {
-  bronze: { labelKey: "tiers.bronze", color: "text-chart-5", bg: "bg-chart-5/10" },
-  silver: { labelKey: "tiers.silver", color: "text-text-muted", bg: "bg-text-muted/10" },
-  gold: { labelKey: "tiers.gold", color: "text-warning", bg: "bg-warning/10" },
-  platinum: { labelKey: "tiers.platinum", color: "text-chart-2", bg: "bg-chart-2/10" },
-  diamond: { labelKey: "tiers.diamond", color: "text-chart-3", bg: "bg-chart-3/10" },
+  bronze: { labelKey: "tiers.bronze", color: "text-amber-600", bg: "bg-amber-600/10" },
+  silver: { labelKey: "tiers.silver", color: "text-gray-300", bg: "bg-gray-300/10" },
+  gold: { labelKey: "tiers.gold", color: "text-yellow-400", bg: "bg-yellow-400/10" },
+  platinum: { labelKey: "tiers.platinum", color: "text-cyan-300", bg: "bg-cyan-300/10" },
+  diamond: { labelKey: "tiers.diamond", color: "text-violet-400", bg: "bg-violet-400/10" },
 };
 
 const BADGE_ICONS: Record<string, string> = {
@@ -75,7 +71,9 @@ const BADGE_ICONS: Record<string, string> = {
 function BadgeIcon({ icon, earned }: { icon: string | null; earned: boolean }) {
   const materialIcon = icon ? BADGE_ICONS[icon] : null;
   return materialIcon ? (
-    <Icon name={materialIcon} size={32} />
+    <span className="material-symbols-outlined text-[32px]" aria-hidden="true">
+      {materialIcon}
+    </span>
   ) : (
     <span aria-hidden="true">{earned ? "🏅" : "🔒"}</span>
   );
@@ -90,11 +88,11 @@ function readStreakCount(data: { streak?: { current?: unknown } | null }): numbe
 }
 
 const RARITY_COLORS: Record<string, string> = {
-  common: "text-text-muted border-border",
-  uncommon: "text-success border-success/30",
-  rare: "text-info border-info/30",
-  epic: "text-chart-3 border-chart-3/30",
-  legendary: "text-warning border-warning/30",
+  common: "text-gray-400 border-gray-500/30",
+  uncommon: "text-green-400 border-green-500/30",
+  rare: "text-blue-400 border-blue-500/30",
+  epic: "text-purple-400 border-purple-500/30",
+  legendary: "text-amber-400 border-amber-500/30",
 };
 
 export default function ProfilePage() {
@@ -199,7 +197,7 @@ export default function ProfilePage() {
     <div className="flex flex-col gap-6">
       <h1 className="sr-only lg:hidden">{t("profile")}</h1>
       {error && (
-        <div role="alert" className="p-3 rounded-lg bg-error-bg text-error text-sm">
+        <div role="alert" className="p-3 rounded-lg bg-red-500/10 text-red-400 text-sm">
           {error}
         </div>
       )}
@@ -222,7 +220,7 @@ export default function ProfilePage() {
                   {tg("tierLabel", { tier: tg(tierConfig.labelKey) })}
                 </Badge>
                 {streak > 0 && (
-                  <span className="text-sm text-warning flex items-center gap-1">
+                  <span className="text-sm text-orange-400 flex items-center gap-1">
                     🔥 {tg("dayStreak", { count: streak })}
                   </span>
                 )}
@@ -248,7 +246,7 @@ export default function ProfilePage() {
               className="w-full h-3 rounded-full bg-border overflow-hidden"
             >
               <div
-                className="h-full rounded-full bg-gradient-to-r from-chart-3 to-chart-5 transition-all duration-500"
+                className="h-full rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 transition-all duration-500"
                 style={{ width: `${Math.min(xpProgress, 100)}%` }}
               />
             </div>
@@ -291,30 +289,17 @@ export default function ProfilePage() {
               const rarityColor = RARITY_COLORS[badge.rarity] || RARITY_COLORS.common;
 
               return (
-                // kit-exception: Multi-line badge tile (icon, name, description, date, progress): the kit Button
-                // is a single-line pill, so the tile stays a native <button> on kit tokens.
                 <button
                   key={badge.id}
-                  type="button"
                   onClick={() => !isHiddenAndLocked && setSelectedBadge(badge)}
                   disabled={isHiddenAndLocked}
-                  // Locked: dashed border, muted surface, dimmed glyph and a lock mark. The text
-                  // keeps full token ink — the old tile-wide opacity-50 + grayscale put names and
-                  // descriptions under AA (36 axe color-contrast nodes, F4).
-                  className={`relative p-4 rounded-xl border transition-all text-start ${
+                  className={`relative p-4 rounded-xl border transition-all text-left ${
                     isEarned
                       ? `${rarityColor} bg-surface hover:shadow-md`
-                      : "border-dashed border-border bg-bg-subtle enabled:hover:border-text-muted disabled:cursor-default"
+                      : "border-border/50 bg-surface/50 opacity-50 grayscale enabled:hover:opacity-70 disabled:cursor-default"
                   }`}
-                  data-locked={isEarned ? undefined : "true"}
                 >
-                  {!isEarned && (
-                    <span className="absolute top-2 end-2 text-text-muted">
-                      <Icon name="lock" size={14} />
-                      <span className="ci-sr-only">{tg("badgeLocked")}</span>
-                    </span>
-                  )}
-                  <div className={`text-3xl mb-2 ${isEarned ? "" : "opacity-50 grayscale"}`}>
+                  <div className="text-3xl mb-2">
                     <BadgeIcon icon={isHiddenAndLocked ? null : badge.icon} earned={isEarned} />
                   </div>
                   <p className="font-semibold text-sm truncate">
@@ -335,7 +320,7 @@ export default function ProfilePage() {
                   {!isEarned && badge.criteria && (
                     <div className="mt-2">
                       <div className="w-full h-1.5 rounded-full bg-border overflow-hidden">
-                        <div className="h-full w-0 rounded-full bg-chart-3/50" />
+                        <div className="h-full w-0 rounded-full bg-violet-500/50" />
                       </div>
                     </div>
                   )}
@@ -347,28 +332,38 @@ export default function ProfilePage() {
       </div>
 
       {/* Badge Detail Modal */}
-      <Modal
-        isOpen={Boolean(selectedBadge)}
-        onClose={() => setSelectedBadge(null)}
-        title={selectedBadge ? translateBadge(selectedBadge, "name") : undefined}
-        size="md"
-        footer={
-          <Button variant="outline" onClick={() => setSelectedBadge(null)}>
-            {t("close")}
-          </Button>
-        }
-      >
-        {selectedBadge && (
-          <>
-            <div className="mb-4 flex items-center gap-3">
-              <span className="text-4xl">
-                <BadgeIcon icon={selectedBadge.icon} earned={earnedIds.has(selectedBadge.id)} />
-              </span>
-              <span
-                className={`text-xs px-2 py-0.5 rounded border ${RARITY_COLORS[selectedBadge.rarity] || RARITY_COLORS.common} bg-surface`}
+      {selectedBadge && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="badge-dialog-title"
+            className="bg-surface border border-border rounded-xl p-6 w-full max-w-md mx-4"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <span className="text-4xl">
+                  <BadgeIcon icon={selectedBadge.icon} earned={earnedIds.has(selectedBadge.id)} />
+                </span>
+                <div>
+                  <h2 id="badge-dialog-title" className="text-lg font-semibold">
+                    {translateBadge(selectedBadge, "name")}
+                  </h2>
+                  <span
+                    className={`text-xs px-2 py-0.5 rounded ${RARITY_COLORS[selectedBadge.rarity] || RARITY_COLORS.common} bg-surface`}
+                  >
+                    {translateRarity(selectedBadge.rarity)}
+                  </span>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedBadge(null)}
+                className="text-text-muted hover:text-text-main text-xl"
+                aria-label={t("close")}
               >
-                {translateRarity(selectedBadge.rarity)}
-              </span>
+                ×
+              </button>
             </div>
 
             {selectedBadge.description && (
@@ -385,14 +380,14 @@ export default function ProfilePage() {
             )}
 
             {selectedBadge.criteria && (
-              <div className="p-3 rounded-lg bg-bg-subtle border border-border">
+              <div className="p-3 rounded-lg bg-surface/50 border border-border/50">
                 <p className="text-xs font-medium text-text-muted mb-1">{t("profileHowToEarn")}</p>
                 <p className="text-sm">{translateBadge(selectedBadge, "criteria")}</p>
               </div>
             )}
 
             {earnedIds.has(selectedBadge.id) && (
-              <div className="mt-4 p-3 rounded-lg bg-success-bg text-success text-sm">
+              <div className="mt-4 p-3 rounded-lg bg-emerald-500/10 text-emerald-400 text-sm">
                 ✓{" "}
                 {tg("earnedOn", {
                   date: new Date(
@@ -401,9 +396,19 @@ export default function ProfilePage() {
                 })}
               </div>
             )}
-          </>
-        )}
-      </Modal>
+
+            <div className="mt-4 flex justify-end">
+              <button
+                type="button"
+                onClick={() => setSelectedBadge(null)}
+                className="px-4 py-2 text-sm rounded-lg border border-border text-text-muted hover:text-text-main transition-colors"
+              >
+                {t("close")}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

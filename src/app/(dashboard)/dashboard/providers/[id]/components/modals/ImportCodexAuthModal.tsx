@@ -1,19 +1,8 @@
 "use client";
-
-import Icon from "@/shared/components/Icon";
 import { useState } from "react";
 import { useNotificationStore } from "@/store/notificationStore";
 import { useTranslations } from "next-intl";
-import { Field } from "@omniroute/ui-kit/field";
-import {
-  Button,
-  Checkbox,
-  Input,
-  Modal,
-  SegmentedControl,
-  Select,
-  Textarea,
-} from "@/shared/components";
+import { Button, Modal, Select } from "@/shared/components";
 interface ImportCodexAuthModalProps {
   onClose: () => void;
   onSuccess: () => void;
@@ -343,44 +332,63 @@ export function ImportCodexAuthModal({ onClose, onSuccess }: ImportCodexAuthModa
     >
       <div className="flex flex-col gap-4">
         {/* Top-level Single / Bulk tabs */}
-        <SegmentedControl
-          size="sm"
-          value={topTab}
-          onChange={(next) => {
-            setTopTab(next as typeof topTab);
-            setBulkResult(null);
-            setSingleError(null);
-          }}
-          options={TOP_TABS.map(({ id, label }) => ({ value: id, label }))}
-        />
+        <div className="flex border-b border-border">
+          {TOP_TABS.map(({ id, label }) => (
+            <button
+              key={id}
+              onClick={() => {
+                setTopTab(id);
+                setBulkResult(null);
+                setSingleError(null);
+              }}
+              className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+                topTab === id
+                  ? "border-primary text-primary"
+                  : "border-transparent text-text-muted hover:text-text-main"
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
 
         {/* ── Single tab ── */}
         {topTab === "single" && (
           <>
             {/* Source sub-tabs */}
-            <SegmentedControl
-              size="sm"
-              value={singleTab}
-              onChange={(next) => {
-                setSingleTab(next as "upload" | "paste");
-                setSingleParsedJson(null);
-                setSingleParseError(null);
-                setSingleDetectedEmail(null);
-              }}
-              options={[
-                { value: "upload", label: t("codexImportTabUpload") || "Upload file" },
-                { value: "paste", label: t("codexImportTabPaste") || "Paste JSON" },
-              ]}
-            />
+            <div className="flex border-b border-border">
+              {(["upload", "paste"] as const).map((id) => (
+                <button
+                  key={id}
+                  onClick={() => {
+                    setSingleTab(id);
+                    setSingleParsedJson(null);
+                    setSingleParseError(null);
+                    setSingleDetectedEmail(null);
+                  }}
+                  className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+                    singleTab === id
+                      ? "border-primary text-primary"
+                      : "border-transparent text-text-muted hover:text-text-main"
+                  }`}
+                >
+                  {id === "upload"
+                    ? t("codexImportTabUpload") || "Upload file"
+                    : t("codexImportTabPaste") || "Paste JSON"}
+                </button>
+              ))}
+            </div>
 
             {singleTab === "upload" && (
               <div className="flex flex-col gap-2">
-                <Input
-                  label={t("codexImportFileLabel") || "Choose auth.json"}
+                <label className="text-sm font-medium text-text-main">
+                  {t("codexImportFileLabel") || "Choose auth.json"}
+                </label>
+                <input
                   type="file"
                   accept=".json"
                   onChange={handleSingleFileChange}
-                  inputClassName="cursor-pointer py-1 file:mr-3 file:rounded file:border-0 file:bg-bg-subtle file:px-3 file:py-1 file:text-sm file:font-medium file:text-text-main"
+                  className="text-sm text-text-muted file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border file:border-border file:text-xs file:bg-bg-subtle file:text-text-main hover:file:bg-bg-hover cursor-pointer"
                 />
                 <p className="text-xs text-text-muted">
                   {t("codexImportFileHint") ||
@@ -391,23 +399,20 @@ export function ImportCodexAuthModal({ onClose, onSuccess }: ImportCodexAuthModa
 
             {singleTab === "paste" && (
               <div className="flex flex-col gap-2">
-                <Field
-                  htmlFor="codex-import-single-paste"
-                  label={t("codexImportPasteLabel") || "Paste the JSON content"}
-                >
-                  <Textarea
-                    id="codex-import-single-paste"
-                    value={singlePasteText}
-                    onChange={(e) => handleSinglePasteChange(e.target.value)}
-                    rows={7}
-                    placeholder='{ "auth_mode": "chatgpt", ... }'
-                    className="resize-none font-mono text-xs"
-                  />
-                </Field>
+                <label className="text-sm font-medium text-text-main">
+                  {t("codexImportPasteLabel") || "Paste the JSON content"}
+                </label>
+                <textarea
+                  value={singlePasteText}
+                  onChange={(e) => handleSinglePasteChange(e.target.value)}
+                  rows={7}
+                  placeholder='{ "auth_mode": "chatgpt", ... }'
+                  className="w-full rounded-lg border border-border bg-bg-subtle px-3 py-2 text-xs font-mono text-text-main placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary/40 resize-none"
+                />
               </div>
             )}
 
-            {singleParseError && <p className="text-sm text-error">{singleParseError}</p>}
+            {singleParseError && <p className="text-sm text-red-500">{singleParseError}</p>}
             {singleDetectedEmail && !singleParseError && (
               <p className="text-xs text-text-muted">
                 {t("codexImportDetectedEmail", { email: singleDetectedEmail }) ||
@@ -417,38 +422,48 @@ export function ImportCodexAuthModal({ onClose, onSuccess }: ImportCodexAuthModa
 
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-1">
-                <Input
-                  label={t("codexImportEmailLabel") || "Account email"}
+                <label className="text-sm font-medium text-text-main">
+                  {t("codexImportEmailLabel") || "Account email"}
+                </label>
+                <input
                   type="email"
                   value={singleEmail}
                   onChange={(e) => setSingleEmail(e.target.value)}
                   placeholder="user@example.com"
+                  className="rounded-lg border border-border bg-bg-subtle px-3 py-2 text-sm text-text-main placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary/40"
                 />
                 <p className="text-xs text-text-muted">
                   {t("codexImportEmailHint") || "Auto-detected from the file; edit if needed."}
                 </p>
               </div>
               <div className="flex flex-col gap-1">
-                <Input
-                  label={t("codexImportNameLabel") || "Connection name (optional)"}
+                <label className="text-sm font-medium text-text-main">
+                  {t("codexImportNameLabel") || "Connection name (optional)"}
+                </label>
+                <input
                   type="text"
                   value={singleName}
                   onChange={(e) => setSingleName(e.target.value)}
                   placeholder={singleEmail || "Codex (imported)"}
+                  className="rounded-lg border border-border bg-bg-subtle px-3 py-2 text-sm text-text-main placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary/40"
                 />
               </div>
-              <Checkbox
-                label={
-                  t("codexImportOverwriteLabel") ||
-                  "Replace existing connection if account already exists"
-                }
-                checked={singleOverwrite}
-                onChange={(e) => setSingleOverwrite(e.target.checked)}
-              />
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={singleOverwrite}
+                  onChange={(e) => setSingleOverwrite(e.target.checked)}
+                  className="rounded border-border"
+                />
+                <span className="text-sm text-text-main">
+                  {t("codexImportOverwriteLabel") ||
+                    "Replace existing connection if account already exists"}
+                </span>
+              </label>
             </div>
 
             {singleError && (
-              <div className="rounded-lg bg-error/10 border border-error/20 px-4 py-3 text-sm text-error">
+              <div className="rounded-lg bg-red-500/10 border border-red-500/20 px-4 py-3 text-sm text-red-400">
                 {singleError}
               </div>
             )}
@@ -473,29 +488,37 @@ export function ImportCodexAuthModal({ onClose, onSuccess }: ImportCodexAuthModa
         {topTab === "bulk" && (
           <>
             {/* Sub-mode selector */}
-            <SegmentedControl
-              size="sm"
-              value={bulkMode}
-              onChange={(next) => {
-                setBulkMode(next as typeof bulkMode);
-                setBulkEntries([]);
-                setBulkZipError(null);
-                setBulkPasteText("");
-                setBulkResult(null);
-              }}
-              options={BULK_MODES.map(({ id, label }) => ({ value: id, label }))}
-            />
+            <div className="flex gap-1 p-1 bg-bg-subtle rounded-lg">
+              {BULK_MODES.map(({ id, label }) => (
+                <button
+                  key={id}
+                  onClick={() => {
+                    setBulkMode(id);
+                    setBulkEntries([]);
+                    setBulkZipError(null);
+                    setBulkPasteText("");
+                    setBulkResult(null);
+                  }}
+                  className={`flex-1 px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
+                    bulkMode === id
+                      ? "bg-bg-primary text-text-main shadow-sm"
+                      : "text-text-muted hover:text-text-main"
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
 
             {/* Upload mode */}
             {bulkMode === "upload" && (
               <div className="flex flex-col gap-2">
-                <Input
+                <input
                   type="file"
                   accept=".json"
                   multiple
-                  aria-label={t("codexImportBulkModeUpload") || "Upload files"}
                   onChange={handleBulkFilesChange}
-                  inputClassName="cursor-pointer py-1 file:mr-3 file:rounded file:border-0 file:bg-bg-subtle file:px-3 file:py-1 file:text-sm file:font-medium file:text-text-main"
+                  className="text-sm text-text-muted file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border file:border-border file:text-xs file:bg-bg-subtle file:text-text-main hover:file:bg-bg-hover cursor-pointer"
                 />
                 <p className="text-xs text-text-muted">
                   {t("codexImportBulkUploadHint") || "Select multiple .json files"}
@@ -506,13 +529,12 @@ export function ImportCodexAuthModal({ onClose, onSuccess }: ImportCodexAuthModa
             {/* Paste mode */}
             {bulkMode === "paste" && (
               <div className="flex flex-col gap-2">
-                <Textarea
+                <textarea
                   value={bulkPasteText}
                   onChange={(e) => handleBulkPasteChange(e.target.value)}
                   rows={7}
-                  aria-label={t("codexImportBulkModePaste") || "Paste list"}
                   placeholder={'[{ "auth_mode": "chatgpt", ... }, ...]'}
-                  className="resize-none font-mono text-xs"
+                  className="w-full rounded-lg border border-border bg-bg-subtle px-3 py-2 text-xs font-mono text-text-main placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary/40 resize-none"
                 />
                 <p className="text-xs text-text-muted">
                   {t("codexImportBulkPasteHint") || "JSON array or multiple JSONs separated by ---"}
@@ -523,20 +545,19 @@ export function ImportCodexAuthModal({ onClose, onSuccess }: ImportCodexAuthModa
             {/* ZIP mode */}
             {bulkMode === "zip" && (
               <div className="flex flex-col gap-2">
-                <Input
+                <input
                   type="file"
                   accept=".zip"
-                  aria-label={t("codexImportBulkModeZip") || "ZIP archive"}
                   onChange={handleZipUpload}
                   disabled={bulkZipExtracting}
-                  inputClassName="cursor-pointer py-1 file:mr-3 file:rounded file:border-0 file:bg-bg-subtle file:px-3 file:py-1 file:text-sm file:font-medium file:text-text-main"
+                  className="text-sm text-text-muted file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border file:border-border file:text-xs file:bg-bg-subtle file:text-text-main hover:file:bg-bg-hover cursor-pointer disabled:opacity-50"
                 />
                 {bulkZipExtracting && (
                   <p className="text-xs text-text-muted animate-pulse">
                     {t("codexImportBulkZipExtracting") || "Extracting ZIP…"}
                   </p>
                 )}
-                {bulkZipError && <p className="text-sm text-error">{bulkZipError}</p>}
+                {bulkZipError && <p className="text-sm text-red-500">{bulkZipError}</p>}
                 <p className="text-xs text-text-muted">
                   {t("codexImportBulkZipHint") ||
                     "Upload a .zip containing auth.json files (max 50 files, 10 MB)"}
@@ -552,14 +573,14 @@ export function ImportCodexAuthModal({ onClose, onSuccess }: ImportCodexAuthModa
                 </p>
                 {bulkEntries.map((entry, i) => (
                   <div key={i} className="flex items-center gap-2 px-2 py-1 rounded">
-                    <Icon
-                      name={entry.parseError ? "error" : "check_circle"}
-                      size={14}
-                      className={entry.parseError ? "text-error" : "text-success"}
-                    />
+                    <span
+                      className={`material-symbols-outlined text-[14px] ${entry.parseError ? "text-red-500" : "text-emerald-500"}`}
+                    >
+                      {entry.parseError ? "error" : "check_circle"}
+                    </span>
                     <span className="text-xs text-text-main flex-1 truncate">{entry.name}</span>
                     {entry.parseError && (
-                      <span className="text-xs text-error">{entry.parseError}</span>
+                      <span className="text-xs text-red-400">{entry.parseError}</span>
                     )}
                   </div>
                 ))}
@@ -567,22 +588,26 @@ export function ImportCodexAuthModal({ onClose, onSuccess }: ImportCodexAuthModa
             )}
 
             {/* Overwrite checkbox */}
-            <Checkbox
-              label={
-                t("codexImportOverwriteLabel") ||
-                "Replace existing connections if accounts already exist"
-              }
-              checked={bulkOverwrite}
-              onChange={(e) => setBulkOverwrite(e.target.checked)}
-            />
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={bulkOverwrite}
+                onChange={(e) => setBulkOverwrite(e.target.checked)}
+                className="rounded border-border"
+              />
+              <span className="text-sm text-text-main">
+                {t("codexImportOverwriteLabel") ||
+                  "Replace existing connections if accounts already exist"}
+              </span>
+            </label>
 
             {/* Result panel */}
             {bulkResult && (
               <div
                 className={`rounded-lg border px-4 py-3 text-sm ${
                   bulkResult.failed === 0
-                    ? "bg-success/10 border-success/20 text-success"
-                    : "bg-warning/10 border-warning/20 text-warning"
+                    ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400"
+                    : "bg-amber-500/10 border-amber-500/20 text-amber-400"
                 }`}
               >
                 <p className="font-medium">
@@ -674,7 +699,7 @@ export function ApplyCodexAuthModal({
       <div className="flex flex-col gap-4">
         <div>
           <div className="text-xs uppercase text-text-muted mb-1">{targetLabel}</div>
-          <code className="block rounded bg-bg-subtle px-2 py-1.5 text-xs font-mono text-text-main">
+          <code className="block rounded bg-sidebar px-2 py-1.5 text-xs font-mono text-text-main">
             ~/.codex/auth.json
           </code>
           <p className="mt-1 text-xs text-text-muted">{t("providerDetailPathAutoDetectedAllOs")}</p>
@@ -689,17 +714,23 @@ export function ApplyCodexAuthModal({
             <li>Centralized backup history (audit trail)</li>
           </ul>
         </div>
-        <div className="rounded-lg border border-warning/25 bg-warning/10 px-3 py-2 text-sm text-warning">
+        <div className="rounded-lg border border-amber-500/25 bg-amber-500/10 px-3 py-2 text-sm text-amber-200">
           <div className="flex items-start gap-2">
-            <Icon name="warning" size={18} className="mt-0.5 text-warning" />
+            <span className="material-symbols-outlined mt-0.5 text-[18px] text-amber-500">
+              warning
+            </span>
             <span>{warning}</span>
           </div>
         </div>
-        <Checkbox
-          label={confirmText}
-          checked={confirmed}
-          onChange={(e) => setConfirmed(e.target.checked)}
-        />
+        <label className="flex items-center gap-2 text-sm text-text-muted cursor-pointer">
+          <input
+            type="checkbox"
+            checked={confirmed}
+            onChange={(e) => setConfirmed(e.target.checked)}
+            className="rounded border-border"
+          />
+          {confirmText}
+        </label>
         <div className="flex gap-2">
           <Button
             onClick={() => void onConfirm(connectionId)}

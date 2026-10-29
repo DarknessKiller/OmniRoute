@@ -1,9 +1,7 @@
 "use client";
-
-import Icon from "@/shared/components/Icon";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { OmniRouteLockup } from "@/shared/components/OmniRouteLogo";
+import OmniRouteLogo from "@/shared/components/OmniRouteLogo";
 
 export default function Footer() {
   const t = useTranslations("landing");
@@ -16,7 +14,10 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2 lg:col-span-2">
             <div className="flex items-center gap-3 mb-6">
-              <OmniRouteLockup className="text-white [&_.ci-keak-logo]:text-white" />
+              <div className="size-6 rounded bg-[#E54D5E] flex items-center justify-center text-white">
+                <OmniRouteLogo size={16} className="text-white" />
+              </div>
+              <h3 className="text-white text-lg font-bold">{t("brandName")}</h3>
             </div>
             <p className="text-gray-500 text-sm max-w-xs mb-6 break-words">{t("footerTagline")}</p>
             <div className="flex gap-4">
@@ -25,9 +26,10 @@ export default function Footer() {
                 href="https://github.com/cheaper-inference/OmniRoute"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={t("github")}
               >
-                <Icon name="code" size={24} />
+                <span className="material-symbols-outlined" aria-hidden="true">
+                  code
+                </span>
               </a>
             </div>
           </div>

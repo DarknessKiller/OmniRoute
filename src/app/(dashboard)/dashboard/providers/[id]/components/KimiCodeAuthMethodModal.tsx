@@ -1,8 +1,6 @@
 "use client";
 
-import Icon from "@/shared/components/Icon";
-
-import { Button, Modal } from "@/shared/components";
+import { Modal } from "@/shared/components";
 import { providerText, type ProviderMessageTranslator } from "../providerPageHelpers";
 
 type KimiCodeAuthMethodModalProps = {
@@ -30,27 +28,27 @@ export default function KimiCodeAuthMethodModal({
       <div className="space-y-3">
         <p className="mb-4 text-sm text-text-muted">{t("authMethod")}</p>
 
-        <Button
-          variant="outline"
+        <button
+          type="button"
           onClick={onSelectOAuth}
-          className="h-auto w-full justify-start whitespace-normal p-4 text-left font-normal"
+          className="w-full rounded-lg border border-border p-4 text-left transition-colors hover:bg-sidebar"
         >
           <div className="flex items-start gap-3">
-            <Icon name="passkey" className="mt-0.5 text-primary" />
+            <span className="material-symbols-outlined mt-0.5 text-primary">passkey</span>
             <div className="min-w-0 flex-1">
               <h3 className="mb-1 font-semibold">{t("oauthLabel")}</h3>
               <p className="text-sm text-text-muted">{t("oauth2Desc")}</p>
             </div>
           </div>
-        </Button>
+        </button>
 
-        <Button
-          variant="outline"
+        <button
+          type="button"
           onClick={onSelectApiKey}
-          className="h-auto w-full justify-start whitespace-normal p-4 text-left font-normal"
+          className="w-full rounded-lg border border-border p-4 text-left transition-colors hover:bg-sidebar"
         >
           <div className="flex items-start gap-3">
-            <Icon name="key" className="mt-0.5 text-primary" />
+            <span className="material-symbols-outlined mt-0.5 text-primary">key</span>
             <div className="min-w-0 flex-1">
               <h3 className="mb-1 font-semibold">
                 {providerText(t, "kimiCodeApiKeyLabel", "Kimi Code API Key")}
@@ -58,7 +56,7 @@ export default function KimiCodeAuthMethodModal({
               <p className="text-sm text-text-muted">{t("apiKeySecure")}</p>
             </div>
           </div>
-        </Button>
+        </button>
       </div>
     </Modal>
   );

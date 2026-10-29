@@ -2,9 +2,6 @@
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
-import { cn } from "@/shared/utils/cn";
-import Button from "./Button";
-import Icon from "./Icon";
 import { ConfirmModal } from "./Modal";
 
 type ButtonState = "idle" | "distributing" | "complete";
@@ -52,14 +49,14 @@ export default function DistributeProxiesButton({
 
   const isDisabled = disabled || state === "distributing";
 
-  const sizeClasses = size === "sm" ? "h-7 px-2 py-1 text-[11px]" : "px-3 py-1.5 text-xs";
+  const sizeClasses = size === "sm" ? "px-2 py-1 text-[11px]" : "px-3 py-1.5 text-xs";
 
   const stateClasses =
     state === "distributing"
       ? "bg-primary/20 border-primary/40 text-primary animate-pulse"
       : state === "complete"
-        ? "bg-success/15 border-success/40 text-success"
-        : "text-text-muted hover:text-text-main hover:border-primary/40";
+        ? "bg-green-500/15 border-green-500/40 text-green-500"
+        : "bg-bg-subtle border-border text-text-muted hover:text-text-primary hover:border-primary/40";
 
   const icon = state === "distributing" ? "sync" : state === "complete" ? "check" : "swap_horiz";
   const displayLabel =
@@ -71,22 +68,20 @@ export default function DistributeProxiesButton({
 
   return (
     <>
-      <Button
-        variant="outline"
-        size="sm"
+      <button
         onClick={() => setConfirmOpen(true)}
         disabled={isDisabled}
-        className={cn("gap-1.5", sizeClasses, stateClasses)}
+        className={`flex items-center gap-1.5 rounded-lg font-medium border transition-colors ${sizeClasses} ${stateClasses}`}
         title={displayLabel}
         aria-label={displayLabel}
       >
-        <Icon
-          name={icon}
-          size={14}
-          className={state === "distributing" ? "animate-spin" : undefined}
-        />
+        <span
+          className={`material-symbols-outlined text-[14px] ${state === "distributing" ? "animate-spin" : ""}`}
+        >
+          {icon}
+        </span>
         {displayLabel}
-      </Button>
+      </button>
       <ConfirmModal
         isOpen={confirmOpen}
         onClose={() => setConfirmOpen(false)}

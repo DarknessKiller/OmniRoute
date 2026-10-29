@@ -2,8 +2,6 @@
 
 import { memo, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { buttonVariants } from "@omniroute/ui-kit/button";
-import { Field } from "@omniroute/ui-kit/field";
 import {
   Card,
   Button,
@@ -13,9 +11,7 @@ import {
   Input,
   Modal,
   Select,
-  Textarea,
 } from "@/shared/components";
-import Icon from "@/shared/components/Icon";
 import { useNotificationStore } from "@/store/notificationStore";
 import { matchesSearch } from "@/shared/utils/turkishText";
 
@@ -173,32 +169,32 @@ const STRATEGIES = [
     name: "contains",
     labelKey: "evalsStrategyContainsLabel",
     icon: "search",
-    color: "text-info",
-    bg: "bg-info/10",
+    color: "text-sky-400",
+    bg: "bg-sky-500/10",
     descriptionKey: "evalsStrategyContainsDescription",
   },
   {
     name: "exact",
     labelKey: "evalsStrategyExactLabel",
     icon: "check_circle",
-    color: "text-success",
-    bg: "bg-success/10",
+    color: "text-emerald-400",
+    bg: "bg-emerald-500/10",
     descriptionKey: "evalsStrategyExactDescription",
   },
   {
     name: "regex",
     labelKey: "evalsStrategyRegexLabel",
     icon: "code",
-    color: "text-warning",
-    bg: "bg-warning/10",
+    color: "text-amber-400",
+    bg: "bg-amber-500/10",
     descriptionKey: "evalsStrategyRegexDescription",
   },
   {
     name: "custom",
     labelKey: "evalsStrategyCustomLabel",
     icon: "tune",
-    color: "text-chart-3",
-    bg: "bg-chart-3/10",
+    color: "text-violet-400",
+    bg: "bg-violet-500/10",
     descriptionKey: "evalsStrategyCustomDescription",
   },
 ];
@@ -995,7 +991,7 @@ export default function EvalsTab() {
   if (loading) {
     return (
       <div className="flex items-center gap-2 text-text-muted p-8 animate-pulse">
-        <Icon name="science" size={20} />
+        <span className="material-symbols-outlined text-[20px]">science</span>
         {t("evalsLoading")}
       </div>
     );
@@ -1023,25 +1019,25 @@ export default function EvalsTab() {
           <span className="text-xs text-text-muted uppercase font-semibold tracking-wide">
             {t("statsSuites")}
           </span>
-          <div className="text-2xl font-bold mt-1 text-chart-3">{suites.length}</div>
+          <div className="text-2xl font-bold mt-1 text-violet-400">{suites.length}</div>
         </Card>
         <Card className="px-4 py-3 text-center">
           <span className="text-xs text-text-muted uppercase font-semibold tracking-wide">
             {t("statsTestCases")}
           </span>
-          <div className="text-2xl font-bold mt-1 text-info">{totalCases}</div>
+          <div className="text-2xl font-bold mt-1 text-sky-400">{totalCases}</div>
         </Card>
         <Card className="px-4 py-3 text-center">
           <span className="text-xs text-text-muted uppercase font-semibold tracking-wide">
             {t("statsModels")}
           </span>
-          <div className="text-2xl font-bold mt-1 text-success">{uniqueModels.length}</div>
+          <div className="text-2xl font-bold mt-1 text-emerald-400">{uniqueModels.length}</div>
         </Card>
         <Card className="px-4 py-3 text-center">
           <span className="text-xs text-text-muted uppercase font-semibold tracking-wide">
             {t("statsCoverage")}
           </span>
-          <div className="text-2xl font-bold mt-1 text-warning">
+          <div className="text-2xl font-bold mt-1 text-amber-400">
             {t("statsStrategiesCount", { count: STRATEGIES.length })}
           </div>
         </Card>
@@ -1050,7 +1046,7 @@ export default function EvalsTab() {
       <Card className="p-6">
         <div className="flex items-center gap-3 mb-4">
           <div className="p-2 rounded-lg bg-primary/10 text-primary">
-            <Icon name="route" size={20} />
+            <span className="material-symbols-outlined text-[20px]">route</span>
           </div>
           <div>
             <h3 className="text-lg font-semibold">{t("evalControlsTitle")}</h3>
@@ -1115,8 +1111,8 @@ export default function EvalsTab() {
       {scorecard && (
         <Card className="p-6">
           <div className="flex items-center gap-3 mb-4">
-            <div className="p-2 rounded-lg bg-success/10 text-success">
-              <Icon name="analytics" size={20} />
+            <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400">
+              <span className="material-symbols-outlined text-[20px]">analytics</span>
             </div>
             <div>
               <h3 className="text-lg font-semibold">{t("scorecardTitle")}</h3>
@@ -1129,25 +1125,25 @@ export default function EvalsTab() {
               <p className="text-xs uppercase tracking-wide text-text-muted">
                 {t("scorecardSuites")}
               </p>
-              <p className="text-2xl font-bold text-chart-3 mt-1">{scorecard.suites}</p>
+              <p className="text-2xl font-bold text-violet-400 mt-1">{scorecard.suites}</p>
             </Card>
             <Card className="px-4 py-3">
               <p className="text-xs uppercase tracking-wide text-text-muted">
                 {t("scorecardCases")}
               </p>
-              <p className="text-2xl font-bold text-info mt-1">{scorecard.totalCases}</p>
+              <p className="text-2xl font-bold text-sky-400 mt-1">{scorecard.totalCases}</p>
             </Card>
             <Card className="px-4 py-3">
               <p className="text-xs uppercase tracking-wide text-text-muted">
                 {t("scorecardPassed")}
               </p>
-              <p className="text-2xl font-bold text-success mt-1">{scorecard.totalPassed}</p>
+              <p className="text-2xl font-bold text-emerald-400 mt-1">{scorecard.totalPassed}</p>
             </Card>
             <Card className="px-4 py-3">
               <p className="text-xs uppercase tracking-wide text-text-muted">
                 {t("scorecardPassRate")}
               </p>
-              <p className="text-2xl font-bold text-warning mt-1">{scorecard.overallPassRate}%</p>
+              <p className="text-2xl font-bold text-amber-400 mt-1">{scorecard.overallPassRate}%</p>
             </Card>
           </div>
 
@@ -1172,50 +1168,48 @@ export default function EvalsTab() {
       )}
 
       <Card className="p-0 overflow-hidden">
-        <Button
-          variant="ghost"
-          aria-expanded={showHowItWorks}
+        <button
           onClick={() => setShowHowItWorks((prev) => !prev)}
-          className="h-auto min-h-0 w-full justify-between rounded-none px-6 py-4 text-left font-normal whitespace-normal"
+          className="w-full flex items-center justify-between px-6 py-4 hover:bg-surface/30 transition-colors text-left"
         >
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-lg bg-primary/10 text-primary">
-              <Icon name="help" size={20} />
+              <span className="material-symbols-outlined text-[20px]">help</span>
             </div>
             <div>
               <h3 className="text-sm font-semibold text-text-main">{t("howItWorks")}</h3>
               <p className="text-xs text-text-muted">{t("howItWorksSubtitle")}</p>
             </div>
           </div>
-          <Icon
-            name="expand_more"
-            size={24}
-            className={`text-text-muted transition-transform duration-200 ${
+          <span
+            className={`material-symbols-outlined text-text-muted transition-transform duration-200 ${
               showHowItWorks ? "rotate-180" : ""
             }`}
-          />
-        </Button>
+          >
+            expand_more
+          </span>
+        </button>
 
         {showHowItWorks && (
           <div className="px-6 pb-6 border-t border-border/10">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-              <div className="flex flex-col items-center text-center p-4 rounded-lg bg-chart-3/5 border border-chart-3/10">
-                <div className="w-10 h-10 rounded-full bg-chart-3/20 flex items-center justify-center mb-3">
-                  <span className="text-lg font-bold text-chart-3">1</span>
+              <div className="flex flex-col items-center text-center p-4 rounded-lg bg-violet-500/5 border border-violet-500/10">
+                <div className="w-10 h-10 rounded-full bg-violet-500/20 flex items-center justify-center mb-3">
+                  <span className="text-lg font-bold text-violet-400">1</span>
                 </div>
                 <h4 className="text-sm font-semibold text-text-main mb-1">{t("define")}</h4>
                 <p className="text-xs text-text-muted">{t("defineStepDescription")}</p>
               </div>
-              <div className="flex flex-col items-center text-center p-4 rounded-lg bg-info/5 border border-info/10">
-                <div className="w-10 h-10 rounded-full bg-info/20 flex items-center justify-center mb-3">
-                  <span className="text-lg font-bold text-info">2</span>
+              <div className="flex flex-col items-center text-center p-4 rounded-lg bg-sky-500/5 border border-sky-500/10">
+                <div className="w-10 h-10 rounded-full bg-sky-500/20 flex items-center justify-center mb-3">
+                  <span className="text-lg font-bold text-sky-400">2</span>
                 </div>
                 <h4 className="text-sm font-semibold text-text-main mb-1">{t("run")}</h4>
                 <p className="text-xs text-text-muted">{t("runStepDescription")}</p>
               </div>
-              <div className="flex flex-col items-center text-center p-4 rounded-lg bg-success/5 border border-success/10">
-                <div className="w-10 h-10 rounded-full bg-success/20 flex items-center justify-center mb-3">
-                  <span className="text-lg font-bold text-success">3</span>
+              <div className="flex flex-col items-center text-center p-4 rounded-lg bg-emerald-500/5 border border-emerald-500/10">
+                <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center mb-3">
+                  <span className="text-lg font-bold text-emerald-400">3</span>
                 </div>
                 <h4 className="text-sm font-semibold text-text-main mb-1">{t("evaluate")}</h4>
                 <p className="text-xs text-text-muted">{t("evaluateStepDescription")}</p>
@@ -1232,7 +1226,9 @@ export default function EvalsTab() {
                     key={strategy.name}
                     className={`flex items-center gap-3 p-3 rounded-lg ${strategy.bg}`}
                   >
-                    <Icon name={strategy.icon} size={18} className={strategy.color} />
+                    <span className={`material-symbols-outlined text-[18px] ${strategy.color}`}>
+                      {strategy.icon}
+                    </span>
                     <div>
                       <span className={`text-xs font-mono font-semibold ${strategy.color}`}>
                         {t(strategy.labelKey)}
@@ -1249,8 +1245,8 @@ export default function EvalsTab() {
 
       <Card className="p-6">
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 rounded-lg bg-info/10 text-info">
-            <Icon name="history" size={20} />
+          <div className="p-2 rounded-lg bg-sky-500/10 text-sky-400">
+            <span className="material-symbols-outlined text-[20px]">history</span>
           </div>
           <div>
             <h3 className="text-lg font-semibold">{t("recentRunsTitle")}</h3>
@@ -1278,7 +1274,7 @@ export default function EvalsTab() {
 
             if (column.key === "passRate") {
               return (
-                <span className="text-xs font-semibold text-success">
+                <span className="text-xs font-semibold text-emerald-400">
                   {Number((row.summary as EvalRunSummary)?.passRate || 0)}%
                 </span>
               );
@@ -1310,8 +1306,8 @@ export default function EvalsTab() {
       <Card className="p-6">
         <div className="flex flex-col gap-3 mb-4 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-chart-3/10 text-chart-3">
-              <Icon name="science" size={20} />
+            <div className="p-2 rounded-lg bg-violet-500/10 text-violet-500">
+              <span className="material-symbols-outlined text-[20px]">science</span>
             </div>
             <div>
               <h3 className="text-lg font-semibold">{t("evalSuites")}</h3>
@@ -1319,19 +1315,15 @@ export default function EvalsTab() {
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            {/* A hidden native file input driven by its label (styled as a kit outline button):
-                the only way to open the OS file picker without a second click target. */}
             <label
-              className={buttonVariants({
-                variant: "outline",
-                className: `cursor-pointer gap-2 ${
-                  running !== null || runningAll ? "pointer-events-none opacity-50" : ""
-                }`,
-              })}
+              className={`inline-flex h-9 cursor-pointer items-center justify-center gap-2 rounded-lg border border-black/10 bg-white px-4 text-sm font-medium text-text-main shadow-sm transition-all duration-200 hover:bg-black/5 dark:border-white/10 dark:bg-white/10 dark:hover:bg-white/5 ${
+                running !== null || runningAll ? "pointer-events-none opacity-50" : ""
+              }`}
             >
-              <Icon name="upload_file" size={18} />
+              <span className="material-symbols-outlined text-[18px]" aria-hidden="true">
+                upload_file
+              </span>
               {t("importSuite")}
-              {/* kit-exception: Hidden native file picker inside the label (the adapters have no file input). */}
               <input
                 type="file"
                 accept="application/json,.json"
@@ -1377,14 +1369,14 @@ export default function EvalsTab() {
               </span>
               <span className="text-xs font-semibold text-primary">{runAllPercent}%</span>
             </div>
-            <div className="h-2 overflow-hidden rounded-full bg-surface-2">
+            <div className="h-2 overflow-hidden rounded-full bg-black/10 dark:bg-white/10">
               <div
                 className="h-full rounded-full bg-primary transition-all duration-300"
                 style={{ width: `${runAllPercent}%` }}
               />
             </div>
             {runProgress.failedSuites > 0 && (
-              <p className="mt-2 text-xs text-warning">
+              <p className="mt-2 text-xs text-amber-400">
                 {t("runAllFailedSuites", { count: runProgress.failedSuites })}
               </p>
             )}
@@ -1423,15 +1415,13 @@ export default function EvalsTab() {
             return (
               <div key={suite.id} className="border border-border/30 rounded-lg overflow-hidden">
                 <div
-                  className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 cursor-pointer hover:bg-surface/30 transition-colors"
+                  className="flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-surface/30 transition-colors"
                   onClick={() => setExpanded(isExpanded ? null : suite.id)}
                 >
                   <div className="flex items-center gap-3">
-                    <Icon
-                      name={isExpanded ? "expand_more" : "chevron_right"}
-                      size={16}
-                      className="text-text-muted"
-                    />
+                    <span className="material-symbols-outlined text-[16px] text-text-muted">
+                      {isExpanded ? "expand_more" : "chevron_right"}
+                    </span>
                     <div>
                       <div className="flex items-center gap-2">
                         <p className="text-sm font-medium text-text-main">
@@ -1440,7 +1430,7 @@ export default function EvalsTab() {
                         <span
                           className={`px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wide ${
                             suite.source === "custom"
-                              ? "bg-info/10 text-info"
+                              ? "bg-sky-500/10 text-sky-400"
                               : "bg-text-muted/10 text-text-muted"
                           }`}
                         >
@@ -1452,10 +1442,10 @@ export default function EvalsTab() {
                           <span
                             className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
                               latestScore === 100
-                                ? "bg-success/10 text-success"
+                                ? "bg-emerald-500/10 text-emerald-400"
                                 : latestScore >= 80
-                                  ? "bg-warning/10 text-warning"
-                                  : "bg-error/10 text-error"
+                                  ? "bg-amber-500/10 text-amber-400"
+                                  : "bg-red-500/10 text-red-400"
                             }`}
                           >
                             {latestScore}% {t("passSuffix")}
@@ -1478,7 +1468,7 @@ export default function EvalsTab() {
                           {suiteModels.map((model) => (
                             <span
                               key={model}
-                              className="px-1.5 py-0.5 rounded text-[10px] font-mono text-text-muted bg-surface-2"
+                              className="px-1.5 py-0.5 rounded text-[10px] font-mono text-text-muted bg-black/5 dark:bg-white/5"
                             >
                               {model}
                             </span>
@@ -1488,7 +1478,7 @@ export default function EvalsTab() {
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap items-center gap-2">
+                  <div className="flex items-center gap-2">
                     <Button
                       size="sm"
                       variant="secondary"
@@ -1620,7 +1610,7 @@ export default function EvalsTab() {
 
                             <div className="flex items-center gap-4 mb-4 p-3 rounded-lg bg-surface/30 border border-border/20">
                               <div className="flex items-center gap-2">
-                                <span className="text-lg font-bold text-success">
+                                <span className="text-lg font-bold text-emerald-400">
                                   {run.summary.passRate}%
                                 </span>
                                 <span className="text-xs text-text-muted">{t("passRate")}</span>
@@ -1650,20 +1640,18 @@ export default function EvalsTab() {
                                       key={resultKey}
                                       className="overflow-hidden rounded-lg border border-border/20 bg-surface/20"
                                     >
-                                      <Button
-                                        variant="ghost"
-                                        className="grid h-auto min-h-0 w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 rounded-none px-3 py-3 text-left font-normal whitespace-normal"
+                                      <button
+                                        type="button"
+                                        className="grid w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-3 py-3 text-left transition-colors hover:bg-surface/30"
                                         aria-expanded={isResultExpanded}
                                         aria-label={
                                           isResultExpanded ? t("collapseResult") : t("expandResult")
                                         }
                                         onClick={() => toggleResultExpansion(resultKey)}
                                       >
-                                        <Icon
-                                          name={isResultExpanded ? "expand_less" : "expand_more"}
-                                          size={18}
-                                          className="text-text-muted"
-                                        />
+                                        <span className="material-symbols-outlined text-[18px] text-text-muted">
+                                          {isResultExpanded ? "expand_less" : "expand_more"}
+                                        </span>
                                         <div className="min-w-0">
                                           <div className="flex flex-wrap items-center gap-2">
                                             <span className="truncate text-sm font-medium text-text-main">
@@ -1672,8 +1660,8 @@ export default function EvalsTab() {
                                             <span
                                               className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
                                                 result.passed
-                                                  ? "bg-success/10 text-success"
-                                                  : "bg-error/10 text-error"
+                                                  ? "bg-emerald-500/10 text-emerald-400"
+                                                  : "bg-red-500/10 text-red-400"
                                               }`}
                                             >
                                               {result.passed
@@ -1681,7 +1669,7 @@ export default function EvalsTab() {
                                                 : t("resultFailed")}
                                             </span>
                                             {result.error ? (
-                                              <span className="rounded-full bg-error/10 px-2 py-0.5 text-[10px] font-semibold text-error">
+                                              <span className="rounded-full bg-red-500/10 px-2 py-0.5 text-[10px] font-semibold text-red-400">
                                                 {t("errorBadge")}
                                               </span>
                                             ) : null}
@@ -1695,7 +1683,7 @@ export default function EvalsTab() {
                                             ? `${result.durationMs}ms`
                                             : "—"}
                                         </span>
-                                      </Button>
+                                      </button>
 
                                       {isResultExpanded && (
                                         <div className="grid grid-cols-1 gap-3 border-t border-border/20 p-3 lg:grid-cols-2">
@@ -1703,7 +1691,7 @@ export default function EvalsTab() {
                                             <p className="mb-1 text-[11px] font-semibold uppercase tracking-wide text-text-muted">
                                               {t("expectedOutputLabel")}
                                             </p>
-                                            <pre className="max-h-48 overflow-auto whitespace-pre-wrap rounded-md border border-border/20 bg-surface-2 p-3 text-xs text-text-main">
+                                            <pre className="max-h-48 overflow-auto whitespace-pre-wrap rounded-md border border-border/20 bg-black/5 p-3 text-xs text-text-main dark:bg-white/5">
                                               {expectedOutput}
                                             </pre>
                                           </div>
@@ -1711,11 +1699,11 @@ export default function EvalsTab() {
                                             <p className="mb-1 text-[11px] font-semibold uppercase tracking-wide text-text-muted">
                                               {t("actualOutputLabel")}
                                             </p>
-                                            <pre className="max-h-48 overflow-auto whitespace-pre-wrap rounded-md border border-border/20 bg-surface-2 p-3 text-xs text-text-main">
+                                            <pre className="max-h-48 overflow-auto whitespace-pre-wrap rounded-md border border-border/20 bg-black/5 p-3 text-xs text-text-main dark:bg-white/5">
                                               {actualOutput}
                                             </pre>
                                             {result.error ? (
-                                              <p className="mt-2 text-xs text-error">
+                                              <p className="mt-2 text-xs text-red-400">
                                                 {result.error}
                                               </p>
                                             ) : null}
@@ -1771,7 +1759,9 @@ export default function EvalsTab() {
                     ) : null}
 
                     <div className="flex items-center gap-2 mb-1">
-                      <Icon name="checklist" size={16} className="text-text-muted" />
+                      <span className="material-symbols-outlined text-[16px] text-text-muted">
+                        checklist
+                      </span>
                       <span className="text-xs text-text-muted font-medium">
                         {t("testCasesCount", { count: (suite.cases || []).length })}
                       </span>
@@ -1866,14 +1856,13 @@ const HeroSection = memo(function HeroSection({
       <div
         className="p-6"
         style={{
-          // Same three-stop wash as before, on the chart tokens (violet → blue → green).
           background:
-            "linear-gradient(135deg, color-mix(in srgb, var(--color-chart-3) 5%, transparent) 0%, color-mix(in srgb, var(--color-chart-2) 5%, transparent) 50%, color-mix(in srgb, var(--color-chart-4) 5%, transparent) 100%)",
+            "linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(59, 130, 246, 0.05) 50%, rgba(16, 185, 129, 0.05) 100%)",
         }}
       >
         <div className="flex items-start gap-4">
-          <div className="p-3 rounded-xl bg-chart-3/10 text-chart-3">
-            <Icon name="science" size={28} />
+          <div className="p-3 rounded-xl bg-violet-500/10 text-violet-500">
+            <span className="material-symbols-outlined text-[28px]">science</span>
           </div>
           <div className="flex-1">
             <h2 className="text-xl font-bold text-text-main mb-1">{t("modelEvals")}</h2>
@@ -1882,19 +1871,23 @@ const HeroSection = memo(function HeroSection({
             </p>
             <div className="flex flex-wrap items-center gap-4 mt-4">
               <div className="flex items-center gap-1.5 text-xs text-text-muted">
-                <Icon name="verified" size={16} className="text-success" />
+                <span className="material-symbols-outlined text-[16px] text-emerald-400">
+                  verified
+                </span>
                 {t("qualityValidation")}
               </div>
               <div className="flex items-center gap-1.5 text-xs text-text-muted">
-                <Icon name="compare" size={16} className="text-info" />
+                <span className="material-symbols-outlined text-[16px] text-sky-400">compare</span>
                 {t("modelComparison")}
               </div>
               <div className="flex items-center gap-1.5 text-xs text-text-muted">
-                <Icon name="bug_report" size={16} className="text-warning" />
+                <span className="material-symbols-outlined text-[16px] text-amber-400">
+                  bug_report
+                </span>
                 {t("regressionDetection")}
               </div>
               <div className="flex items-center gap-1.5 text-xs text-text-muted">
-                <Icon name="speed" size={16} className="text-chart-3" />
+                <span className="material-symbols-outlined text-[16px] text-violet-400">speed</span>
                 {t("latencyBenchmarks")}
               </div>
             </div>
@@ -2034,7 +2027,7 @@ function SuiteBuilderModal({
                     {t("suiteBuilderCaseCardHint", { index: index + 1 })}
                   </p>
                 </div>
-                <div className="flex flex-wrap items-center gap-2">
+                <div className="flex items-center gap-2">
                   <Button
                     size="sm"
                     variant="secondary"
@@ -2089,11 +2082,11 @@ function SuiteBuilderModal({
                   <div
                     className={`flex items-start gap-2 rounded-lg px-3 py-2 ${selectedStrategy.bg}`}
                   >
-                    <Icon
-                      name={selectedStrategy.icon}
-                      size={18}
-                      className={`mt-0.5 ${selectedStrategy.color}`}
-                    />
+                    <span
+                      className={`material-symbols-outlined mt-0.5 text-[18px] ${selectedStrategy.color}`}
+                    >
+                      {selectedStrategy.icon}
+                    </span>
                     <p className="text-xs leading-relaxed text-text-muted">
                       {t(selectedStrategy.descriptionKey)}
                     </p>
@@ -2102,34 +2095,34 @@ function SuiteBuilderModal({
               </div>
 
               <div className="mt-4 grid grid-cols-1 gap-4">
-                <Field
-                  label={t("suiteBuilderCaseSystemPromptLabel")}
-                  htmlFor={`suite-case-${draftCase.id}-systemPrompt`}
-                >
-                  <Textarea
-                    id={`suite-case-${draftCase.id}-systemPrompt`}
+                <label className="flex flex-col gap-1">
+                  <span className="text-sm font-medium text-text-main">
+                    {t("suiteBuilderCaseSystemPromptLabel")}
+                  </span>
+                  <textarea
                     value={draftCase.systemPrompt}
                     onChange={(event) =>
                       updateCase(draftCase.id, { systemPrompt: event.target.value })
                     }
                     rows={3}
                     placeholder={t("suiteBuilderCaseSystemPromptPlaceholder")}
+                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-text-main outline-none focus:border-primary"
                   />
-                </Field>
-                <Field
-                  label={t("suiteBuilderCaseUserPromptLabel")}
-                  htmlFor={`suite-case-${draftCase.id}-userPrompt`}
-                >
-                  <Textarea
-                    id={`suite-case-${draftCase.id}-userPrompt`}
+                </label>
+                <label className="flex flex-col gap-1">
+                  <span className="text-sm font-medium text-text-main">
+                    {t("suiteBuilderCaseUserPromptLabel")}
+                  </span>
+                  <textarea
                     value={draftCase.userPrompt}
                     onChange={(event) =>
                       updateCase(draftCase.id, { userPrompt: event.target.value })
                     }
                     rows={4}
                     placeholder={t("suiteBuilderCaseUserPromptPlaceholder")}
+                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-text-main outline-none focus:border-primary"
                   />
-                </Field>
+                </label>
                 <Input
                   label={t("suiteBuilderCaseExpectedLabel")}
                   value={draftCase.expectedValue}

@@ -12,9 +12,6 @@ import React, { act } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 
-// The shared Modal is a kit Dialog (Radix) since KEA-7886: its content is portaled to
-// document.body, so queries start there (the container is a child of body).
-
 vi.mock("next-intl", () => ({
   useTranslations: () => (key: string) => key,
 }));
@@ -60,11 +57,11 @@ function renderModal(connection: Record<string, unknown>, onSave = vi.fn()) {
 }
 
 function findProjectIdInput(): HTMLInputElement | null {
-  return document.body.querySelector('input[placeholder="antigravityProjectIdPlaceholder"]');
+  return container.querySelector('input[placeholder="antigravityProjectIdPlaceholder"]');
 }
 
 function clickSave() {
-  const button = Array.from(document.body.querySelectorAll("button")).find(
+  const button = Array.from(container.querySelectorAll("button")).find(
     (b) => b.textContent === "save"
   );
   expect(button).toBeTruthy();

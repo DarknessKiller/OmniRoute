@@ -1,14 +1,6 @@
 "use client";
 
-import { useId } from "react";
 import { useTranslations } from "next-intl";
-import { Field } from "@omniroute/ui-kit/field";
-import { Switch } from "@omniroute/ui-kit/switch";
-import Icon from "@/shared/components/Icon";
-import Button from "@/shared/components/Button";
-import Input from "@/shared/components/Input";
-import Select from "@/shared/components/Select";
-import { cn } from "@/shared/utils/cn";
 import type { MemorySettingsExtended } from "@/shared/schemas/memory";
 import type { EmbeddingProviderListing } from "@/lib/memory/embedding/types";
 import CustomEmbeddingEndpointFields from "./CustomEmbeddingEndpointFields";
@@ -24,7 +16,6 @@ type EmbeddingSourceValue = "remote" | "static" | "transformers" | "auto";
 
 export default function EmbeddingSourceSelector({ settings, providers, onSave, saving }: Props) {
   const t = useTranslations("memory");
-  const providerModelId = useId();
 
   const remoteProviders = providers.filter((p) => p.hasKey);
   const currentSource = settings.embeddingSource ?? "auto";
@@ -65,45 +56,41 @@ export default function EmbeddingSourceSelector({ settings, providers, onSave, s
     <div className="space-y-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
         {options.map((opt) => (
-          <Button
+          <button
             key={opt.value}
-            variant="outline"
+            type="button"
             data-testid={`embedding-source-${opt.value}`}
-            aria-pressed={currentSource === opt.value}
             onClick={() => handleSourceChange(opt.value)}
             disabled={saving}
-            className={cn(
-              "h-auto flex-col items-start whitespace-normal p-3 text-left font-normal",
+            className={`flex flex-col items-start p-3 rounded-lg border text-left transition-all ${
               currentSource === opt.value
-                ? "border-primary/50 bg-primary/10 ring-1 ring-primary/20"
-                : "border-border/50 hover:border-border hover:bg-bg-subtle"
-            )}
+                ? "border-violet-500/50 bg-violet-500/5 ring-1 ring-violet-500/20"
+                : "border-border/50 hover:border-border hover:bg-surface/30"
+            }`}
           >
             <span
-              className={`text-sm font-medium ${currentSource === opt.value ? "text-primary" : "text-text-main"}`}
+              className={`text-sm font-medium ${currentSource === opt.value ? "text-violet-400" : "text-text-main"}`}
             >
               {opt.label}
             </span>
             <span className="text-xs text-text-muted mt-0.5 leading-relaxed">{opt.desc}</span>
-          </Button>
+          </button>
         ))}
       </div>
 
       {currentSource === "remote" && (
-        <Field
-          label={t("embedding.providerModelLabel")}
-          htmlFor={providerModelId}
-          className="p-3 rounded-lg bg-bg-subtle border border-border/60"
-        >
+        <div className="p-3 rounded-lg bg-surface/30 border border-border/60">
+          <label className="block text-sm font-medium text-text-main mb-2">
+            {t("embedding.providerModelLabel")}
+          </label>
           {remoteProviders.length === 0 ? (
-            <p className="text-xs text-warning flex items-center gap-1">
-              <Icon name="warning" size={12} />
+            <p className="text-xs text-amber-400 flex items-center gap-1">
+              <span className="material-symbols-outlined text-[12px]">warning</span>
               {t("embedding.noRemoteProviders")}
             </p>
           ) : (
             <>
-              <Select
-                id={providerModelId}
+              <select
                 value={
                   remoteProviders.some((p) => p.models.some((m) => m.id === currentProviderModel))
                     ? currentProviderModel
@@ -112,6 +99,7 @@ export default function EmbeddingSourceSelector({ settings, providers, onSave, s
                 onChange={(e) => handleProviderModelChange(e.target.value)}
                 disabled={saving}
                 data-testid="embedding-provider-model-select"
+                className="w-full px-3 py-2 rounded-lg bg-background border border-border text-sm focus:outline-none focus:ring-1 focus:ring-violet-500"
               >
                 <option value="">{t("embedding.selectProviderModel")}</option>
                 {remoteProviders.map((p) =>
@@ -127,57 +115,86 @@ export default function EmbeddingSourceSelector({ settings, providers, onSave, s
                     </optgroup>
                   )
                 )}
-              </Select>
+              </select>
               {/* Free-text override: the runtime accepts any configured provider's
                 OpenAI-compatible model id, including ones without a curated
                 registry entry (e.g. groq/, mistral/, cf/...). */}
-              <Input
+              <input
                 type="text"
                 value={currentProviderModel}
                 onChange={(e) => handleProviderModelChange(e.target.value)}
                 disabled={saving}
                 placeholder="provider/model — e.g. mistral/mistral-embed"
-                aria-label={t("embedding.providerModelLabel")}
                 data-testid="embedding-provider-model-input"
-                className="mt-2"
-                inputClassName="font-mono"
+                className="w-full mt-2 px-3 py-2 rounded-lg bg-background border border-border text-sm font-mono focus:outline-none focus:ring-1 focus:ring-violet-500"
               />
             </>
           )}
           <CustomEmbeddingEndpointFields settings={settings} onSave={onSave} saving={saving} />
-        </Field>
+        </div>
       )}
 
       {currentSource === "transformers" && (
-        <div className="p-3 rounded-lg bg-warning/10 border border-warning/20 text-xs text-warning flex items-start gap-2">
-          <Icon name="info" size={14} className="mt-0.5" />
+        <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs text-amber-400 flex items-start gap-2">
+          <span className="material-symbols-outlined text-[14px] mt-0.5 shrink-0">info</span>
           <span>{t("embedding.transformersWarning")}</span>
         </div>
       )}
 
       <div className="flex flex-col gap-2">
-        <Switch
-          card
-          side="right"
-          data-testid="toggle-static-enabled"
-          label={t("embedding.staticEnabledLabel")}
-          description={t("embedding.staticEnabledDesc")}
-          checked={settings.staticEnabled ?? false}
-          aria-checked={settings.staticEnabled ?? false}
-          onCheckedChange={() => onSave({ staticEnabled: !settings.staticEnabled })}
-          disabled={saving}
-        />
-        <Switch
-          card
-          side="right"
-          data-testid="toggle-transformers-enabled"
-          label={t("embedding.transformersEnabledLabel")}
-          description={t("embedding.transformersEnabledDesc")}
-          checked={settings.transformersEnabled ?? false}
-          aria-checked={settings.transformersEnabled ?? false}
-          onCheckedChange={() => onSave({ transformersEnabled: !settings.transformersEnabled })}
-          disabled={saving}
-        />
+        <label className="flex items-center justify-between p-3 rounded-lg bg-surface/30 border border-border/60">
+          <div>
+            <span className="text-sm font-medium text-text-main">
+              {t("embedding.staticEnabledLabel")}
+            </span>
+            <p className="text-xs text-text-muted mt-0.5">{t("embedding.staticEnabledDesc")}</p>
+          </div>
+          <button
+            type="button"
+            data-testid="toggle-static-enabled"
+            onClick={() => onSave({ staticEnabled: !settings.staticEnabled })}
+            disabled={saving}
+            role="switch"
+            aria-checked={settings.staticEnabled ?? false}
+            className={`relative w-11 h-6 rounded-full transition-colors shrink-0 ${
+              settings.staticEnabled ? "bg-violet-500" : "bg-border"
+            }`}
+          >
+            <span
+              className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform ${
+                settings.staticEnabled ? "translate-x-5" : "translate-x-0"
+              }`}
+            />
+          </button>
+        </label>
+
+        <label className="flex items-center justify-between p-3 rounded-lg bg-surface/30 border border-border/60">
+          <div>
+            <span className="text-sm font-medium text-text-main">
+              {t("embedding.transformersEnabledLabel")}
+            </span>
+            <p className="text-xs text-text-muted mt-0.5">
+              {t("embedding.transformersEnabledDesc")}
+            </p>
+          </div>
+          <button
+            type="button"
+            data-testid="toggle-transformers-enabled"
+            onClick={() => onSave({ transformersEnabled: !settings.transformersEnabled })}
+            disabled={saving}
+            role="switch"
+            aria-checked={settings.transformersEnabled ?? false}
+            className={`relative w-11 h-6 rounded-full transition-colors shrink-0 ${
+              settings.transformersEnabled ? "bg-violet-500" : "bg-border"
+            }`}
+          >
+            <span
+              className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform ${
+                settings.transformersEnabled ? "translate-x-5" : "translate-x-0"
+              }`}
+            />
+          </button>
+        </label>
       </div>
     </div>
   );

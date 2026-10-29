@@ -1,21 +1,14 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
-import { Sheet, SheetContent, SheetTitle } from "@omniroute/ui-kit/sheet";
-import { Tabs, TabsList, TabsTrigger } from "@omniroute/ui-kit/tabs";
-
-import Button from "./Button";
-import Icon from "./Icon";
-import Select from "./Select";
 import {
   LlmChatCard,
   type LlmChatControls,
 } from "@/app/(dashboard)/dashboard/media-providers/components/LlmChatCard";
 import ProviderIcon from "@/shared/components/ProviderIcon";
-import { cn } from "@/shared/utils/cn";
 import { useApiKey } from "@/app/(dashboard)/dashboard/providers/hooks/useApiKey";
 import { useProviderModels } from "@/app/(dashboard)/dashboard/providers/hooks/useProviderModels";
 
@@ -69,42 +62,37 @@ function ProviderTestSlideOverPanel({
   const { models } = useProviderModels(providerId);
   const firstModel = models[0]?.id ?? "";
 
-  // Escape, the overlay click, the focus trap and the body scroll lock are the kit Sheet's
-  // (Radix Dialog); the panel only renders while open, so it mounts already open.
-  // Focus return is ours, as in the Modal adapter: Radix only refocuses its own SheetTrigger,
-  // which a controlled panel never has, so remember the opener when the sheet takes focus and
-  // put focus back on it when the sheet closes. Radix fires onCloseAutoFocus after the panel
-  // unmounts too, so this also covers the parent dropping the panel (`isOpen` → false).
-  const openerRef = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, []);
+
   const color = provider.color || "#64748b";
   const modelOptions = models.length > 0 ? models : [];
 
   return (
-    <Sheet
-      open
-      onOpenChange={(open) => {
-        if (!open) onClose();
-      }}
-    >
-      <SheetContent
-        side="right"
-        showClose={false}
-        aria-describedby={undefined}
-        className="w-full sm:w-[640px] md:w-[720px] lg:w-[820px] max-w-full bg-surface p-0"
-        onOpenAutoFocus={() => {
-          const active = document.activeElement;
-          openerRef.current = active instanceof HTMLElement ? active : null;
-        }}
-        onCloseAutoFocus={(e) => {
-          e.preventDefault();
-          const opener = openerRef.current;
-          openerRef.current = null;
-          if (opener?.isConnected) opener.focus();
-        }}
+    <div className="fixed inset-0 z-[60] flex justify-end">
+      <div
+        className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-in fade-in duration-200"
+        onClick={onClose}
+        aria-hidden
+      />
+      <div
+        role="dialog"
+        aria-label={t("dialogLabel", { provider: provider.name })}
+        className="relative w-full sm:w-[640px] md:w-[720px] lg:w-[820px] max-w-full bg-surface border-l border-black/10 dark:border-white/10 shadow-2xl flex flex-col animate-in slide-in-from-right duration-200"
       >
-        <SheetTitle className="ci-sr-only">
-          {t("dialogLabel", { provider: provider.name })}
-        </SheetTitle>
         <SlideOverHeader
           provider={provider}
           providerId={providerId}
@@ -123,11 +111,7 @@ function ProviderTestSlideOverPanel({
             controls={controls}
           />
         )}
-        <SlideOverTabs
-          tab={tab}
-          onChange={setTab}
-          label={t("dialogLabel", { provider: provider.name })}
-        />
+        <SlideOverTabs tab={tab} onChange={setTab} />
         <div className="flex-1 min-h-0 overflow-hidden flex flex-col">
           {tab === "test" && (
             <div className="flex-1 min-h-0 flex flex-col pl-4 pr-2 py-3">
@@ -145,8 +129,8 @@ function ProviderTestSlideOverPanel({
           )}
           {tab === "logs" && <LogsTab providerId={providerId} />}
         </div>
-      </SheetContent>
-    </Sheet>
+      </div>
+    </div>
   );
 }
 
@@ -165,7 +149,7 @@ function SlideOverHeader({
 }) {
   const t = useTranslations("providerTest");
   return (
-    <div className="flex items-center gap-3 px-4 py-3 border-b border-border shrink-0">
+    <div className="flex items-center gap-3 px-4 py-3 border-b border-black/5 dark:border-white/5 shrink-0">
       <div
         className="size-9 rounded-lg flex items-center justify-center shrink-0"
         style={{ backgroundColor: `${color}15` }}
@@ -186,7 +170,7 @@ function SlideOverHeader({
             <>
               <span>·</span>
               <span className="flex items-center gap-0.5 text-text-muted/70">
-                <Icon name="block" size={12} />
+                <span className="material-symbols-outlined text-[12px]">block</span>
                 {t("deprecated")}
               </span>
             </>
@@ -194,17 +178,22 @@ function SlideOverHeader({
           {provider.subscriptionRisk && (
             <>
               <span>·</span>
-              <span className="flex items-center gap-0.5 text-warning">
-                <Icon name="info" size={12} />
+              <span className="flex items-center gap-0.5 text-amber-500">
+                <span className="material-symbols-outlined text-[12px]">info</span>
                 {t("risk")}
               </span>
             </>
           )}
         </div>
       </div>
-      <Button variant="ghost" size="icon" onClick={onClose} aria-label={t("close")}>
-        <Icon name="close" size={20} />
-      </Button>
+      <button
+        type="button"
+        onClick={onClose}
+        aria-label={t("close")}
+        className="p-1.5 rounded-lg text-text-muted hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+      >
+        <span className="material-symbols-outlined text-[20px]">close</span>
+      </button>
     </div>
   );
 }
@@ -229,87 +218,86 @@ function TestToolbar({
   const t = useTranslations("providerTest");
   const hasMessages = controls?.hasMessages ?? false;
   return (
-    <div className="flex flex-wrap items-center gap-2 px-4 py-2 border-b border-border bg-bg-subtle/30 shrink-0">
-      <Select
-        compact
-        label={t("model")}
-        value={model}
-        onChange={(e) => onModelChange(e.target.value)}
-        className="min-w-0 flex-1 text-xs"
-        selectClassName="text-xs"
-      >
-        {modelOptions.length === 0 && <option value="">—</option>}
-        {modelOptions.map((m) => (
-          <option key={m.id} value={m.id}>
-            {m.id}
-          </option>
-        ))}
-      </Select>
-      {keys.length > 0 && (
-        <Select
-          compact
-          label={t("key")}
-          value={selectedKey}
-          onChange={(e) => onSelectedKeyChange(e.target.value)}
-          className="text-xs"
-          selectClassName="text-xs"
+    <div className="flex flex-wrap items-center gap-2 px-4 py-2 border-b border-black/5 dark:border-white/5 bg-bg-subtle/30 shrink-0">
+      <div className="flex items-center gap-1.5 min-w-0 flex-1">
+        <label className="text-[11px] text-text-muted shrink-0">{t("model")}:</label>
+        <select
+          value={model}
+          onChange={(e) => onModelChange(e.target.value)}
+          className="min-w-0 flex-1 rounded-md border border-border bg-bg-subtle text-xs px-2 py-1 text-text-main focus:outline-none focus:ring-1 focus:ring-primary"
         >
-          <option value="">({t("defaultKey")})</option>
-          {keys.map((k) => (
-            <option key={k.id} value={k.key}>
-              {k.name ?? k.id}
+          {modelOptions.length === 0 && <option value="">—</option>}
+          {modelOptions.map((m) => (
+            <option key={m.id} value={m.id}>
+              {m.id}
             </option>
           ))}
-        </Select>
+        </select>
+      </div>
+      {keys.length > 0 && (
+        <div className="flex items-center gap-1.5">
+          <label className="text-[11px] text-text-muted shrink-0">{t("key")}:</label>
+          <select
+            value={selectedKey}
+            onChange={(e) => onSelectedKeyChange(e.target.value)}
+            className="rounded-md border border-border bg-bg-subtle text-xs px-2 py-1 text-text-main focus:outline-none focus:ring-1 focus:ring-primary"
+          >
+            <option value="">({t("defaultKey")})</option>
+            {keys.map((k) => (
+              <option key={k.id} value={k.key}>
+                {k.name ?? k.id}
+              </option>
+            ))}
+          </select>
+        </div>
       )}
       {hasMessages && (
-        <Button
-          variant="ghost"
-          size="sm"
+        <button
+          type="button"
           onClick={() => controls?.clear()}
+          className="text-[11px] text-text-muted hover:text-text-main transition-colors flex items-center gap-1"
           title={t("clearConversation")}
-          className="gap-1 text-[11px] text-text-muted hover:text-text-main"
         >
-          <Icon name="delete_sweep" size={14} />
+          <span className="material-symbols-outlined text-[14px]">delete_sweep</span>
           {t("clear")}
-        </Button>
+        </button>
       )}
     </div>
   );
 }
 
-function SlideOverTabs({
-  tab,
-  onChange,
-  label,
-}: {
-  tab: TabKey;
-  onChange: (next: TabKey) => void;
-  label: string;
-}) {
+function SlideOverTabs({ tab, onChange }: { tab: TabKey; onChange: (next: TabKey) => void }) {
   const translate = useTranslations("providerTest");
   return (
-    <Tabs
-      variant="underline"
-      value={tab}
-      onValueChange={(next) => onChange(next as TabKey)}
-      className="shrink-0 border-b border-border px-4 pt-2"
+    <div
+      role="tablist"
+      className="flex items-center gap-1 px-4 pt-2 border-b border-black/5 dark:border-white/5 shrink-0"
     >
-      <TabsList aria-label={label}>
-        {TABS.map((tabItem) => (
-          <TabsTrigger
+      {TABS.map((tabItem) => {
+        const active = tabItem.key === tab;
+        return (
+          <button
             key={tabItem.key}
-            value={tabItem.key}
-            // The panels are rendered by the slide-over itself (no TabsContent).
-            aria-controls={undefined}
-            className="gap-1.5 text-xs"
+            role="tab"
+            type="button"
+            aria-selected={active}
+            onClick={() => onChange(tabItem.key)}
+            className={`relative flex items-center gap-1.5 px-3 py-2 text-xs font-medium transition-colors ${
+              active ? "text-accent" : "text-text-muted hover:text-text-main"
+            }`}
           >
-            <Icon name={tabItem.icon} size={16} />
+            <span className="material-symbols-outlined text-[16px]">{tabItem.icon}</span>
             <span>{translate(`tabs.${tabItem.label}`)}</span>
-          </TabsTrigger>
-        ))}
-      </TabsList>
-    </Tabs>
+            {active && (
+              <span
+                aria-hidden
+                className="absolute left-0 right-0 -bottom-px h-0.5 bg-accent rounded-t"
+              />
+            )}
+          </button>
+        );
+      })}
+    </div>
   );
 }
 
@@ -317,7 +305,7 @@ function TabPlaceholder({ icon, title, body }: { icon: string; title: string; bo
   return (
     <div className="flex flex-col items-center justify-center gap-3 p-10 text-center flex-1 min-h-0 overflow-y-auto">
       <div className="size-12 rounded-full bg-accent/10 flex items-center justify-center">
-        <Icon name={icon} size={24} className="text-accent" />
+        <span className="material-symbols-outlined text-accent text-[24px]">{icon}</span>
       </div>
       <h3 className="text-sm font-semibold text-text-main">{title}</h3>
       <div className="text-xs text-text-muted max-w-sm">{body}</div>
@@ -402,7 +390,9 @@ function LogsTab({ providerId }: { providerId: string }) {
   if (state.status === "loading") {
     return (
       <div className="flex-1 min-h-0 flex items-center justify-center text-xs text-text-muted gap-2">
-        <Icon name="progress_activity" size={18} className="animate-spin" />
+        <span className="material-symbols-outlined text-[18px] animate-spin">
+          progress_activity
+        </span>
         {t("loadingLogs")}
       </div>
     );
@@ -429,7 +419,7 @@ function LogsTab({ providerId }: { providerId: string }) {
               rel="noopener noreferrer"
             >
               {t("openFullLogs")}
-              <Icon name="open_in_new" size={14} />
+              <span className="material-symbols-outlined text-[14px]">open_in_new</span>
             </a>
           </>
         }
@@ -439,28 +429,27 @@ function LogsTab({ providerId }: { providerId: string }) {
 
   return (
     <div className="flex-1 min-h-0 flex flex-col">
-      <div className="flex items-center justify-between px-4 py-2 border-b border-border shrink-0">
+      <div className="flex items-center justify-between px-4 py-2 border-b border-black/5 dark:border-white/5 shrink-0">
         <span className="inline-flex items-center gap-2 text-[10px] uppercase tracking-wider text-text-muted font-medium">
           <span className="inline-flex items-center gap-1.5">
             <span className="relative inline-flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-success opacity-75 animate-ping" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
+              <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75 animate-ping" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
             </span>
-            <span className="text-success">{t("live")}</span>
+            <span className="text-emerald-500">{t("live")}</span>
           </span>
           <span aria-hidden>·</span>
           <span>{t("tailingLast", { count: state.logs.length })}</span>
         </span>
-        <Button
-          variant="ghost"
-          size="sm"
+        <button
+          type="button"
           onClick={handleRefresh}
+          className="text-[10px] text-text-muted hover:text-text-main inline-flex items-center gap-1"
           title={t("refreshNow")}
-          className="gap-1 text-[10px] text-text-muted hover:text-text-main"
         >
-          <Icon name="refresh" size={14} />
+          <span className="material-symbols-outlined text-[14px]">refresh</span>
           {t("refresh")}
-        </Button>
+        </button>
       </div>
       <ul className="flex-1 min-h-0 overflow-y-auto divide-y divide-border/40">
         {state.logs.map((log) => {
@@ -468,18 +457,17 @@ function LogsTab({ providerId }: { providerId: string }) {
           const isExpanded = expanded === key;
           const statusOk = typeof log.status === "number" && log.status >= 200 && log.status < 400;
           const statusColor = statusOk
-            ? "text-success"
+            ? "text-emerald-600 dark:text-emerald-400"
             : typeof log.status === "number"
-              ? "text-error"
+              ? "text-red-500"
               : "text-text-muted";
           const requester = formatRequester(log, t("unknownRequester"));
           return (
             <li key={key}>
-              <Button
-                variant="ghost"
-                aria-expanded={isExpanded}
+              <button
+                type="button"
                 onClick={() => setExpanded(isExpanded ? null : key)}
-                className="h-auto w-full justify-start gap-3 rounded-none px-4 py-2 text-left font-normal hover:bg-bg-subtle"
+                className="w-full flex items-center gap-3 px-4 py-2 text-left hover:bg-black/[0.03] dark:hover:bg-white/[0.03] transition-colors"
               >
                 <span className={`text-[11px] font-mono shrink-0 w-10 ${statusColor}`}>
                   {log.status ?? "—"}
@@ -504,18 +492,18 @@ function LogsTab({ providerId }: { providerId: string }) {
                 <span className="text-[11px] text-text-muted shrink-0 font-mono w-14 text-right">
                   {formatDurationMs(log.duration)}
                 </span>
-                <Icon
-                  name="chevron_right"
-                  size={16}
-                  className={cn("text-text-muted transition-transform", isExpanded && "rotate-90")}
-                />
-              </Button>
+                <span
+                  className={`material-symbols-outlined text-text-muted text-[16px] shrink-0 transition-transform ${isExpanded ? "rotate-90" : ""}`}
+                >
+                  chevron_right
+                </span>
+              </button>
               {isExpanded && <LogDetail log={log} />}
             </li>
           );
         })}
       </ul>
-      <div className="px-4 py-2 border-t border-border text-[10px] text-text-muted text-center shrink-0">
+      <div className="px-4 py-2 border-t border-black/5 dark:border-white/5 text-[10px] text-text-muted text-center shrink-0">
         <a
           href={`/dashboard/logs?connection=${encodeURIComponent(providerId)}`}
           className="inline-flex items-center gap-1 hover:text-text-main hover:underline"
@@ -523,7 +511,7 @@ function LogsTab({ providerId }: { providerId: string }) {
           rel="noopener noreferrer"
         >
           {t("openFullLogs")}
-          <Icon name="open_in_new" size={12} />
+          <span className="material-symbols-outlined text-[12px]">open_in_new</span>
         </a>
       </div>
     </div>
@@ -550,7 +538,7 @@ function LogDetail({ log }: { log: LogEntry }) {
     },
   ];
   return (
-    <dl className="px-4 py-3 bg-bg-subtle/40 border-t border-border grid grid-cols-[max-content_1fr] gap-x-4 gap-y-1.5 text-[11px]">
+    <dl className="px-4 py-3 bg-bg-subtle/40 border-t border-black/5 dark:border-white/5 grid grid-cols-[max-content_1fr] gap-x-4 gap-y-1.5 text-[11px]">
       {rows.map((row) => (
         <div key={row.label} className="contents">
           <dt className="text-text-muted uppercase tracking-wider text-[10px] font-medium">

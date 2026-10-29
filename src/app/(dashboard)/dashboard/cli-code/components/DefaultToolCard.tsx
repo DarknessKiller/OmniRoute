@@ -1,18 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import Icon from "@/shared/components/Icon";
 import { Card, Button, ModelSelectModal } from "@/shared/components";
-import Input from "@/shared/components/Input";
-import Select from "@/shared/components/Select";
 import { useTranslations } from "next-intl";
 import { copyToClipboard } from "@/shared/utils/clipboard";
 import { buildOpenCodeConfigDocument } from "@/shared/services/opencodeConfig";
 import { useTheme } from "@/shared/hooks/useTheme";
 import { DEFAULT_DISPLAY_BASE_URL } from "@/shared/hooks";
 import ProviderIcon from "@/shared/components/ProviderIcon";
-import { cn } from "@/shared/utils/cn";
-import { CARD_TOGGLE_CLASS, cardToggleProps } from "./cardToggle";
 
 export default function DefaultToolCard({
   toolId,
@@ -332,30 +327,27 @@ export default function DefaultToolCard({
       <div className="mt-2 flex items-center gap-2">
         {apiKeys && apiKeys.length > 0 ? (
           <>
-            <Select
+            <select
               value={selectedApiKeyId}
               onChange={(e) => handleApiKeyChange(e.target.value)}
-              aria-label={t("apiKey")}
-              className="min-w-0 w-auto flex-1"
+              className="flex-1 px-3 py-2 bg-bg-secondary rounded-lg text-sm border border-border focus:outline-none focus:ring-1 focus:ring-primary/50"
             >
               {apiKeys.map((key) => (
                 <option key={key.id} value={key.id}>
                   {key.key}
                 </option>
               ))}
-            </Select>
-            <Button
-              variant="outline"
-              size="icon"
+            </select>
+            <button
               onClick={() => {
                 handleCopy(resolveApiKeyValue(), "apiKey");
               }}
-              aria-label={copiedField === "apiKey" ? t("copied") : t("copy")}
-              title={copiedField === "apiKey" ? t("copied") : t("copy")}
-              className="shrink-0"
+              className="shrink-0 px-3 py-2 bg-bg-secondary hover:bg-bg-tertiary rounded-lg border border-border transition-colors"
             >
-              <Icon name={copiedField === "apiKey" ? "check" : "content_copy"} size={18} />
-            </Button>
+              <span className="material-symbols-outlined text-lg">
+                {copiedField === "apiKey" ? "check" : "content_copy"}
+              </span>
+            </button>
           </>
         ) : (
           <span className="text-sm text-text-muted">
@@ -373,7 +365,8 @@ export default function DefaultToolCard({
 
     return (
       <div className="mt-2 flex items-center gap-2">
-        <Input
+        <input
+          type="text"
           value={displayValue}
           onChange={(e) =>
             isMultiModelTool
@@ -386,41 +379,38 @@ export default function DefaultToolCard({
               : handleModelChange(e.target.value)
           }
           placeholder={t("modelPlaceholder")}
-          aria-label={t("model")}
-          className="min-w-0 w-auto flex-1"
+          className="flex-1 px-3 py-2 bg-bg-secondary rounded-lg text-sm border border-border focus:outline-none focus:ring-1 focus:ring-primary/50"
         />
-        <Button
-          variant="outline"
+        <button
           onClick={() => setShowModelModal(true)}
           disabled={!hasActiveProviders}
-          className="shrink-0"
+          className={`shrink-0 px-3 py-2 rounded-lg border text-sm transition-colors ${
+            hasActiveProviders
+              ? "bg-bg-secondary border-border text-text-main hover:border-primary cursor-pointer"
+              : "opacity-50 cursor-not-allowed border-border"
+          }`}
         >
           {t("selectModel")}
-        </Button>
+        </button>
         {displayValue && (
           <>
-            <Button
-              variant="outline"
-              size="icon"
+            <button
               onClick={() => handleCopy(displayValue, "model")}
-              aria-label={copiedField === "model" ? t("copied") : t("copy")}
-              title={copiedField === "model" ? t("copied") : t("copy")}
-              className="shrink-0"
+              className="shrink-0 px-3 py-2 bg-bg-secondary hover:bg-bg-tertiary rounded-lg border border-border transition-colors"
             >
-              <Icon name={copiedField === "model" ? "check" : "content_copy"} size={18} />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon-sm"
+              <span className="material-symbols-outlined text-lg">
+                {copiedField === "model" ? "check" : "content_copy"}
+              </span>
+            </button>
+            <button
               onClick={() =>
                 isMultiModelTool ? handleModelValuesChange([]) : handleModelChange("")
               }
+              className="p-2 text-text-muted hover:text-red-500 rounded transition-colors"
               title={t("clear")}
-              aria-label={t("clear")}
-              className="text-text-muted hover:text-error"
             >
-              <Icon name="close" size={18} />
-            </Button>
+              <span className="material-symbols-outlined text-lg">close</span>
+            </button>
           </>
         )}
       </div>
@@ -438,26 +428,26 @@ export default function DefaultToolCard({
           const isWarning = note.type === "warning";
           const isError = note.type === "cloudCheck" && !cloudEnabled;
 
-          let bgClass = "bg-info/10 border-info/30";
-          let textClass = "text-info ";
-          let iconClass = "text-info";
+          let bgClass = "bg-blue-500/10 border-blue-500/30";
+          let textClass = "text-blue-600 dark:text-blue-400";
+          let iconClass = "text-blue-500";
           let icon = "info";
 
           if (isWarning) {
-            bgClass = "bg-warning/10 border-warning/30";
-            textClass = "text-warning ";
-            iconClass = "text-warning";
+            bgClass = "bg-yellow-500/10 border-yellow-500/30";
+            textClass = "text-yellow-600 dark:text-yellow-400";
+            iconClass = "text-yellow-500";
             icon = "warning";
           } else if (isError) {
-            bgClass = "bg-error/10 border-error/30";
-            textClass = "text-error ";
-            iconClass = "text-error";
+            bgClass = "bg-red-500/10 border-red-500/30";
+            textClass = "text-red-600 dark:text-red-400";
+            iconClass = "text-red-500";
             icon = "error";
           }
 
           return (
             <div key={index} className={`flex items-start gap-3 p-3 rounded-lg border ${bgClass}`}>
-              <Icon name={icon} size={18} className={iconClass} />
+              <span className={`material-symbols-outlined text-lg ${iconClass}`}>{icon}</span>
               <p className={`text-sm ${textClass}`}>
                 {translateOrFallback(`guides.${toolId}.notes.${index}`, note.text)}
               </p>
@@ -480,25 +470,23 @@ export default function DefaultToolCard({
       <div className="flex flex-col gap-4">
         {checkingRuntime && (
           <div className="flex items-center gap-2 text-text-muted text-sm">
-            <Icon name="progress_activity" size={16} className="animate-spin" />
+            <span className="material-symbols-outlined animate-spin text-base">
+              progress_activity
+            </span>
             <span>{t("checkingRuntime")}</span>
           </div>
         )}
         {!checkingRuntime && runtimeStatus && !runtimeStatus.error && (
-          <div className="flex items-start gap-3 p-3 bg-info/10 border border-info/30 rounded-lg">
-            <Icon
-              name={
-                runtimeStatus.reason === "not_required"
-                  ? "info"
-                  : runtimeStatus.installed && runtimeStatus.runnable
-                    ? "check_circle"
-                    : "warning"
-              }
-              size={18}
-              className="text-info"
-            />
+          <div className="flex items-start gap-3 p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+            <span className="material-symbols-outlined text-blue-500 text-lg">
+              {runtimeStatus.reason === "not_required"
+                ? "info"
+                : runtimeStatus.installed && runtimeStatus.runnable
+                  ? "check_circle"
+                  : "warning"}
+            </span>
             <div className="flex flex-col gap-1">
-              <p className="text-sm text-info">
+              <p className="text-sm text-blue-700 dark:text-blue-300">
                 {runtimeStatus.reason === "not_required"
                   ? t("guideOnlyIntegration")
                   : runtimeStatus.installed && runtimeStatus.runnable
@@ -512,7 +500,7 @@ export default function DefaultToolCard({
               {runtimeStatus.commandPath && (
                 <p className="text-xs text-text-muted">
                   {t("binary")}:{" "}
-                  <code className="px-1 py-0.5 rounded bg-bg-subtle">
+                  <code className="px-1 py-0.5 rounded bg-black/5 dark:bg-white/10">
                     {runtimeStatus.commandPath}
                   </code>
                 </p>
@@ -520,7 +508,7 @@ export default function DefaultToolCard({
               {runtimeStatus.configPath && (
                 <p className="text-xs text-text-muted">
                   {t("configPath")}:{" "}
-                  <code className="px-1 py-0.5 rounded bg-bg-subtle">
+                  <code className="px-1 py-0.5 rounded bg-black/5 dark:bg-white/10">
                     {runtimeStatus.configPath}
                   </code>
                 </p>
@@ -529,9 +517,11 @@ export default function DefaultToolCard({
           </div>
         )}
         {!checkingRuntime && runtimeStatus?.error && (
-          <div className="flex items-start gap-3 p-3 bg-error/10 border border-error/30 rounded-lg">
-            <Icon name="error" size={18} className="text-error" />
-            <p className="text-sm text-error">{t("failedCheckRuntimeStatus")}</p>
+          <div className="flex items-start gap-3 p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
+            <span className="material-symbols-outlined text-red-500 text-lg">error</span>
+            <p className="text-sm text-red-600 dark:text-red-400">
+              {t("failedCheckRuntimeStatus")}
+            </p>
           </div>
         )}
         {renderNotes()}
@@ -545,7 +535,7 @@ export default function DefaultToolCard({
                 {item.step}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-medium text-text-main">
+                <p className="font-medium text-text">
                   {translateOrFallback(`guides.${toolId}.steps.${item.step}.title`, item.title)}
                 </p>
                 {item.desc && (
@@ -559,26 +549,18 @@ export default function DefaultToolCard({
                 {item.type === "modelSelector" && renderModelSelector()}
                 {item.value && (
                   <div className="mt-2 flex items-center gap-2">
-                    <code className="flex-1 px-3 py-2 bg-bg-subtle rounded-lg text-sm font-mono border border-border truncate">
+                    <code className="flex-1 px-3 py-2 bg-bg-secondary rounded-lg text-sm font-mono border border-border truncate">
                       {replaceVars(item.value)}
                     </code>
                     {item.copyable && (
-                      <Button
-                        variant="outline"
-                        size="icon"
+                      <button
                         onClick={() => handleCopy(item.value, `${item.step}-${item.title}`)}
-                        aria-label={
-                          copiedField === `${item.step}-${item.title}` ? t("copied") : t("copy")
-                        }
-                        className="shrink-0"
+                        className="shrink-0 px-3 py-2 bg-bg-secondary hover:bg-bg-tertiary rounded-lg border border-border transition-colors"
                       >
-                        <Icon
-                          name={
-                            copiedField === `${item.step}-${item.title}` ? "check" : "content_copy"
-                          }
-                          size={18}
-                        />
-                      </Button>
+                        <span className="material-symbols-outlined text-lg">
+                          {copiedField === `${item.step}-${item.title}` ? "check" : "content_copy"}
+                        </span>
+                      </button>
                     )}
                   </div>
                 )}
@@ -592,17 +574,17 @@ export default function DefaultToolCard({
               <span className="text-xs text-text-muted uppercase tracking-wide">
                 {tool.codeBlock.language}
               </span>
-              <Button
-                variant="outline"
-                size="sm"
+              <button
                 onClick={() => handleCopy(getRenderedCodeBlock(), "codeblock")}
-                className="gap-1 text-xs"
+                className="flex items-center gap-1 px-2 py-1 text-xs bg-bg-secondary hover:bg-bg-tertiary rounded border border-border transition-colors"
               >
-                <Icon name={copiedField === "codeblock" ? "check" : "content_copy"} size={14} />
+                <span className="material-symbols-outlined text-sm">
+                  {copiedField === "codeblock" ? "check" : "content_copy"}
+                </span>
                 {copiedField === "codeblock" ? t("copied") : t("copy")}
-              </Button>
+              </button>
             </div>
-            <pre className="p-4 bg-bg-subtle rounded-lg border border-border overflow-x-auto">
+            <pre className="p-4 bg-bg-secondary rounded-lg border border-border overflow-x-auto">
               <code className="text-sm font-mono whitespace-pre">{getRenderedCodeBlock()}</code>
             </pre>
           </div>
@@ -613,9 +595,11 @@ export default function DefaultToolCard({
           <div className="mt-2">
             {message && (
               <div
-                className={`flex gap-2 px-2 py-1.5 rounded text-xs mb-2 ${message.containerEphemeralTarget ? "items-start" : "items-center"} ${message.type === "success" ? "bg-success/10 text-success" : "bg-error/10 text-error"}`}
+                className={`flex gap-2 px-2 py-1.5 rounded text-xs mb-2 ${message.containerEphemeralTarget ? "items-start" : "items-center"} ${message.type === "success" ? "bg-green-500/10 text-green-600" : "bg-red-500/10 text-red-600"}`}
               >
-                <Icon name={message.type === "success" ? "check_circle" : "error"} size={14} />
+                <span className="material-symbols-outlined text-[14px]">
+                  {message.type === "success" ? "check_circle" : "error"}
+                </span>
                 {/* The container refusal is a multi-line runbook — keep its line
                     breaks instead of collapsing it into one unreadable line. */}
                 <span className={message.containerEphemeralTarget ? "whitespace-pre-line" : ""}>
@@ -632,7 +616,7 @@ export default function DefaultToolCard({
                   disabled={isMultiModelTool ? getSelectedModels().length === 0 : !modelValue}
                   loading={saving}
                 >
-                  <Icon name="save" size={14} className="mr-1" />
+                  <span className="material-symbols-outlined text-[14px] mr-1">save</span>
                   {t("saveConfig")}
                 </Button>
               )}
@@ -642,17 +626,17 @@ export default function DefaultToolCard({
                   size="sm"
                   onClick={() => handleCopy(getRenderedCodeBlock(), "codeblock")}
                 >
-                  <Icon
-                    name={copiedField === "codeblock" ? "check" : "content_copy"}
-                    size={14}
-                    className="mr-1"
-                  />
+                  <span className="material-symbols-outlined text-[14px] mr-1">
+                    {copiedField === "codeblock" ? "check" : "content_copy"}
+                  </span>
                   {copiedField === "codeblock" ? t("copied") : t("copyConfig")}
                 </Button>
               )}
               {(isMultiModelTool ? getSelectedModels().length > 0 : !!modelValue) && (
                 <span className="text-xs text-text-muted flex items-center gap-1">
-                  <Icon name="check_circle" size={14} className="text-success" />
+                  <span className="material-symbols-outlined text-[14px] text-green-500">
+                    check_circle
+                  </span>
                   {t("selectionSaved")}
                 </span>
               )}
@@ -693,8 +677,8 @@ export default function DefaultToolCard({
     }
     if (tool.icon) {
       return (
-        <span className="inline-flex" style={{ color: tool.color }}>
-          <Icon name={tool.icon} size={20} />
+        <span className="material-symbols-outlined text-xl" style={{ color: tool.color }}>
+          {tool.icon}
         </span>
       );
     }
@@ -703,11 +687,8 @@ export default function DefaultToolCard({
 
   return (
     <Card padding="sm" className="overflow-hidden">
-      <div
-        className={cn("flex items-center justify-between hover:cursor-pointer", CARD_TOGGLE_CLASS)}
-        {...cardToggleProps(isExpanded, onToggle)}
-      >
-        <div className="flex min-w-0 items-center gap-3">
+      <div className="flex items-center justify-between hover:cursor-pointer" onClick={onToggle}>
+        <div className="flex items-center gap-3">
           <div className="size-8 rounded-lg flex items-center justify-center shrink-0">
             {renderIcon()}
           </div>
@@ -724,32 +705,32 @@ export default function DefaultToolCard({
 
                 if (isGuide) {
                   return (
-                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 text-[11px] font-medium rounded-full bg-info/10 text-info">
-                      <span className="size-1.5 rounded-full bg-info" />
+                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 text-[11px] font-medium rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400">
+                      <span className="size-1.5 rounded-full bg-blue-500" />
                       {t("guide")}
                     </span>
                   );
                 }
                 if (isDetected) {
                   return (
-                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 text-[11px] font-medium rounded-full bg-success/10 text-success">
-                      <span className="size-1.5 rounded-full bg-success" />
+                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 text-[11px] font-medium rounded-full bg-green-500/10 text-green-600 dark:text-green-400">
+                      <span className="size-1.5 rounded-full bg-green-500" />
                       {t("detected")}
                     </span>
                   );
                 }
                 if (isInstalled === false && (rs || bs)) {
                   return (
-                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 text-[11px] font-medium rounded-full bg-surface-2/10 text-text-muted">
-                      <span className="size-1.5 rounded-full bg-surface-2" />
+                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 text-[11px] font-medium rounded-full bg-zinc-500/10 text-zinc-500 dark:text-zinc-400">
+                      <span className="size-1.5 rounded-full bg-zinc-400 dark:bg-zinc-500" />
                       {t("notInstalled")}
                     </span>
                   );
                 }
                 if (isInstalled && !isDetected && (rs || bs)) {
                   return (
-                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 text-[11px] font-medium rounded-full bg-warning/10 text-warning">
-                      <span className="size-1.5 rounded-full bg-warning" />
+                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 text-[11px] font-medium rounded-full bg-yellow-500/10 text-yellow-600 dark:text-yellow-400">
+                      <span className="size-1.5 rounded-full bg-yellow-500" />
                       {t("notReady")}
                     </span>
                   );
@@ -762,11 +743,11 @@ export default function DefaultToolCard({
             </p>
           </div>
         </div>
-        <Icon
-          name="expand_more"
-          size={20}
-          className={cn("text-text-muted transition-transform", isExpanded && "rotate-180")}
-        />
+        <span
+          className={`material-symbols-outlined text-text-muted text-[20px] transition-transform ${isExpanded ? "rotate-180" : ""}`}
+        >
+          expand_more
+        </span>
       </div>
 
       {isExpanded && <div className="mt-6 pt-6 border-t border-border">{renderGuideSteps()}</div>}

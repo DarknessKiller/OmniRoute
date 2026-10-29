@@ -3,11 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 
-import Icon from "@/shared/components/Icon";
 import Badge from "@/shared/components/Badge";
-import Button from "@/shared/components/Button";
-import Input from "@/shared/components/Input";
-import Select from "@/shared/components/Select";
 import { Card } from "@/shared/components";
 import { getProviderDisplayName } from "@/lib/display/names";
 import { cn } from "@/shared/utils/cn";
@@ -161,10 +157,10 @@ function ModelPill({ model }: { model: HealthMatrixModel }) {
     <div
       className={cn(
         "rounded-lg border px-3 py-2 text-xs",
-        model.status === "healthy" && "border-success/20 bg-success/5",
-        model.status === "degraded" && "border-warning/20 bg-warning/5",
-        model.status === "locked" && "border-warning/20 bg-warning/5",
-        model.status === "error" && "border-error/20 bg-error/5",
+        model.status === "healthy" && "border-green-500/20 bg-green-500/5",
+        model.status === "degraded" && "border-yellow-500/20 bg-yellow-500/5",
+        model.status === "locked" && "border-amber-500/20 bg-amber-500/5",
+        model.status === "error" && "border-red-500/20 bg-red-500/5",
         model.status === "idle" && "border-border bg-bg-subtle/60"
       )}
     >
@@ -186,7 +182,7 @@ function ModelPill({ model }: { model: HealthMatrixModel }) {
             )}
           </p>
           {model.isLockedOut ? (
-            <p className="mt-1 text-warning">
+            <p className="mt-1 text-amber-500">
               {healthText(t, "modelLockoutSummary", "{reason} · {duration} left", {
                 reason: model.lockoutReason || healthText(t, "locked", "locked"),
                 duration: formatDuration(model.lockoutRemainingMs, t),
@@ -238,7 +234,7 @@ function AccountRow({ account }: { account: HealthMatrixAccount }) {
             })}
           </p>
           {account.lastErrorType || account.errorCode || account.cooldownRemainingMs > 0 ? (
-            <p className="mt-1 text-xs text-warning">
+            <p className="mt-1 text-xs text-amber-500">
               {account.lastErrorType || account.errorCode || healthText(t, "cooldown", "cooldown")}
               {account.cooldownRemainingMs > 0
                 ? ` · ${healthText(t, "durationRemaining", "{duration} remaining", {
@@ -322,7 +318,7 @@ export default function ProviderHealthMatrixCard() {
         <div>
           <div className="flex items-center gap-3">
             <div className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
-              <Icon name="grid_view" size={18} />
+              <span className="material-symbols-outlined text-[18px]">grid_view</span>
             </div>
             <div>
               <h2 className="text-lg font-semibold text-text-main">
@@ -346,40 +342,49 @@ export default function ProviderHealthMatrixCard() {
           ) : null}
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <Select
+          <select
             value={range}
             onChange={(event) => setRange(event.target.value as RangeValue)}
+            className="rounded-lg border border-border bg-bg px-3 py-2 text-sm text-text-main"
             aria-label={healthText(t, "healthMatrixRange", "Health matrix range")}
-            className="w-24"
           >
             <option value="1h">1h</option>
             <option value="24h">24h</option>
             <option value="7d">7d</option>
             <option value="30d">30d</option>
-          </Select>
-          <Input
+          </select>
+          <input
             value={providerFilter}
             onChange={(event) => setProviderFilter(event.target.value)}
             list="provider-health-matrix-providers"
             placeholder={healthText(t, "providerFilter", "Provider filter")}
-            aria-label={healthText(t, "providerFilter", "Provider filter")}
-            className="w-44"
+            className="w-44 rounded-lg border border-border bg-bg px-3 py-2 text-sm text-text-main"
           />
           <datalist id="provider-health-matrix-providers">
             {providerOptions.map((provider) => (
               <option key={provider} value={provider} />
             ))}
           </datalist>
-          <Button
-            variant={onlyIssues ? "warning" : "outline"}
-            aria-pressed={onlyIssues}
+          <button
+            type="button"
             onClick={() => setOnlyIssues((value) => !value)}
+            className={cn(
+              "rounded-lg border px-3 py-2 text-sm transition-colors",
+              onlyIssues
+                ? "border-warning/40 bg-warning/10 text-warning"
+                : "border-border bg-bg text-text-muted hover:text-text-main"
+            )}
           >
             {healthText(t, "onlyIssues", "Only issues")}
-          </Button>
-          <Button variant="secondary" onClick={fetchMatrix} disabled={loading}>
+          </button>
+          <button
+            type="button"
+            onClick={fetchMatrix}
+            disabled={loading}
+            className="rounded-lg bg-primary/10 px-3 py-2 text-sm text-primary transition-colors hover:bg-primary/20 disabled:opacity-60"
+          >
             {healthText(t, "refresh", "Refresh")}
-          </Button>
+          </button>
         </div>
       </div>
 
@@ -410,7 +415,7 @@ export default function ProviderHealthMatrixCard() {
       ) : null}
 
       {error ? (
-        <div className="mt-4 rounded-xl border border-error/30 bg-error/10 p-4 text-sm text-error">
+        <div className="mt-4 rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-400">
           {healthText(
             t,
             "failedProviderHealthMatrix",
@@ -433,11 +438,10 @@ export default function ProviderHealthMatrixCard() {
           const isExpanded = expanded === provider.provider;
           return (
             <div key={provider.provider} className="rounded-xl border border-border bg-surface/50">
-              <Button
-                variant="ghost"
-                aria-expanded={isExpanded}
+              <button
+                type="button"
                 onClick={() => setExpanded(isExpanded ? null : provider.provider)}
-                className="h-auto min-h-0 w-full flex-col items-stretch justify-start gap-3 whitespace-normal p-4 text-left font-normal lg:flex-row lg:items-center lg:justify-between"
+                className="flex w-full flex-col gap-3 p-4 text-left lg:flex-row lg:items-center lg:justify-between"
               >
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
@@ -503,13 +507,11 @@ export default function ProviderHealthMatrixCard() {
                       })}
                     </Badge>
                   ) : null}
-                  <Icon
-                    name={isExpanded ? "expand_less" : "expand_more"}
-                    size={18}
-                    className="text-text-muted"
-                  />
+                  <span className="material-symbols-outlined text-[18px] text-text-muted">
+                    {isExpanded ? "expand_less" : "expand_more"}
+                  </span>
                 </div>
-              </Button>
+              </button>
               {isExpanded ? (
                 <div className="border-t border-border p-4 pt-3">
                   <div className="grid gap-3 lg:grid-cols-4">

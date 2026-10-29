@@ -5,9 +5,6 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import ProxyConfigModal from "@/shared/components/ProxyConfigModal";
 import DistributeProxiesButton from "@/shared/components/DistributeProxiesButton";
 
-// The shared Modal is a kit Dialog (Radix) since KEA-7886: its content is portaled to
-// document.body, so queries start there (the container is a child of body).
-
 vi.mock("next-intl", () => ({
   useTranslations: () => (key: string) => key,
 }));
@@ -54,7 +51,7 @@ describe("Removing distributed account proxy assignments", () => {
   }
 
   async function click(text: string) {
-    const button = Array.from(document.body.querySelectorAll("button")).find((item) =>
+    const button = Array.from(container.querySelectorAll("button")).find((item) =>
       item.textContent?.includes(text)
     );
     expect(button).toBeTruthy();
@@ -100,7 +97,7 @@ describe("Removing distributed account proxy assignments", () => {
   it("keeps the modal open and reports a rejected assignment removal", async () => {
     const { fetchMock, onSaved, onClose } = await mountModal(500);
     await click("clear");
-    expect(document.body.textContent).toContain("Removal rejected");
+    expect(container.textContent).toContain("Removal rejected");
     expect(onSaved).not.toHaveBeenCalled();
     expect(onClose).not.toHaveBeenCalled();
     expect(fetchMock.mock.calls.some(([, init]) => init?.method === "DELETE")).toBe(false);
@@ -109,7 +106,7 @@ describe("Removing distributed account proxy assignments", () => {
   it("keeps the modal open if legacy cleanup fails", async () => {
     const { onSaved, onClose } = await mountModal(200, 500);
     await click("clear");
-    expect(document.body.textContent).toContain("Removal rejected");
+    expect(container.textContent).toContain("Removal rejected");
     expect(onSaved).not.toHaveBeenCalled();
     expect(onClose).not.toHaveBeenCalled();
   });
@@ -119,7 +116,7 @@ describe("Removing distributed account proxy assignments", () => {
     await act(async () => root.render(<DistributeProxiesButton onDistribute={onDistribute} />));
     await click("Distribute Proxies");
     expect(onDistribute).not.toHaveBeenCalled();
-    expect(document.body.querySelector('[role="dialog"]')).toBeTruthy();
+    expect(container.querySelector('[role="dialog"]')).toBeTruthy();
     await click("cancel");
     expect(onDistribute).not.toHaveBeenCalled();
     await click("Distribute Proxies");

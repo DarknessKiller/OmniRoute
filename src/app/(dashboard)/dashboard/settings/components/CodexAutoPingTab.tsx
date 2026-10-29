@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
 import { Card, Toggle, InfoTooltip } from "@/shared/components";
-import Icon from "@/shared/components/Icon";
+import { useTranslations } from "next-intl";
 import CodexWakeupsSection from "./CodexWakeupsSection";
 
 type CodexConnection = {
@@ -80,23 +79,35 @@ function useCodexAutoPingSettings() {
   return { connections, enabledMap, loading, savingId, status, toggleConnection };
 }
 
-function CodexAutoPingStatus({ status }: { status: "" | "saved" | "error" }) {
+function CodexAutoPingHeader({ status }: { status: "" | "saved" | "error" }) {
   const t = useTranslations("settings");
-  if (status === "saved") {
-    return (
-      <span role="status" className="text-xs font-medium text-success flex items-center gap-1">
-        <Icon name="check_circle" size={14} /> {t("saved")}
-      </span>
-    );
-  }
-  if (status === "error") {
-    return (
-      <span role="alert" className="text-xs font-medium text-error flex items-center gap-1">
-        <Icon name="error" size={14} /> {t("codexAutoPingSaveError")}
-      </span>
-    );
-  }
-  return null;
+  return (
+    <div className="flex items-center gap-3 mb-3">
+      <div className="p-2 rounded-lg bg-amber-500/10 text-amber-500">
+        <span className="material-symbols-outlined text-[20px]" aria-hidden="true">
+          bolt
+        </span>
+      </div>
+      <div className="flex-1">
+        <h3 className="text-lg font-semibold flex items-center gap-1.5">
+          {t("codexAutoPingTitle")}
+          <InfoTooltip text={t("codexAutoPingWarning")} />
+        </h3>
+        <p className="text-sm text-text-muted">{t("codexAutoPingDesc")}</p>
+      </div>
+      {status === "saved" && (
+        <span className="text-xs font-medium text-emerald-500 flex items-center gap-1">
+          <span className="material-symbols-outlined text-[14px]">check_circle</span> {t("saved")}
+        </span>
+      )}
+      {status === "error" && (
+        <span className="text-xs font-medium text-rose-500 flex items-center gap-1">
+          <span className="material-symbols-outlined text-[14px]">error</span>{" "}
+          {t("codexAutoPingSaveError")}
+        </span>
+      )}
+    </div>
+  );
 }
 
 function CodexAutoPingConnectionList({
@@ -136,21 +147,10 @@ export default function CodexAutoPingTab() {
   if (!loading && connections.length === 0) return null;
 
   return (
-    <Card
-      icon="bolt"
-      title={
-        <span className="flex items-center gap-1.5">
-          {t("codexAutoPingTitle")}
-          <InfoTooltip text={t("codexAutoPingWarning")} />
-        </span>
-      }
-      subtitle={t("codexAutoPingDesc")}
-      action={<CodexAutoPingStatus status={status} />}
-    >
+    <Card>
+      <CodexAutoPingHeader status={status} />
       {loading ? (
-        <p className="text-sm text-text-muted" role="status">
-          {t("loading")}
-        </p>
+        <p className="text-sm text-text-muted">{t("loading")}</p>
       ) : (
         <>
           <CodexAutoPingConnectionList

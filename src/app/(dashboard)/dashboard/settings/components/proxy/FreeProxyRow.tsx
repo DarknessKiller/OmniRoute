@@ -1,8 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { TableCell, TableRow } from "@omniroute/ui-kit/table";
-import { Badge, Button, Checkbox } from "@/shared/components";
 
 export interface FreeProxyRowData {
   id: string;
@@ -37,49 +35,51 @@ export default function FreeProxyRow({
     proxy.qualityScore == null
       ? "text-text-muted"
       : proxy.qualityScore >= 80
-        ? "text-success"
+        ? "text-emerald-400"
         : proxy.qualityScore >= 50
-          ? "text-warning"
-          : "text-error";
-  const endpoint = `${proxy.host}:${proxy.port}`;
+          ? "text-yellow-400"
+          : "text-red-400";
 
   return (
-    <TableRow>
-      <TableCell className="w-8">
-        <Checkbox
+    <tr className="border-b border-border/50 hover:bg-surface-alt/30 text-sm">
+      <td className="px-3 py-2">
+        <input
+          type="checkbox"
           checked={selected}
           onChange={() => onToggleSelect(proxy.id)}
+          className="rounded"
           disabled={proxy.inPool}
-          aria-label={t("proxyFreePoolSelectProxy", { endpoint })}
+          aria-label={t("proxyFreePoolSelectProxy", { endpoint: `${proxy.host}:${proxy.port}` })}
         />
-      </TableCell>
-      <TableCell className="text-text-muted text-xs">{proxy.source}</TableCell>
-      <TableCell className="font-mono text-xs">{endpoint}</TableCell>
-      <TableCell className="uppercase text-xs">{proxy.type}</TableCell>
-      <TableCell className="text-xs">{proxy.countryCode || "—"}</TableCell>
-      <TableCell className={`text-xs font-semibold ${qualityColor}`}>
+      </td>
+      <td className="px-3 py-2 text-text-muted text-xs">{proxy.source}</td>
+      <td className="px-3 py-2 font-mono text-xs">
+        {proxy.host}:{proxy.port}
+      </td>
+      <td className="px-3 py-2 uppercase text-xs">{proxy.type}</td>
+      <td className="px-3 py-2 text-xs">{proxy.countryCode || "—"}</td>
+      <td className={`px-3 py-2 text-xs font-semibold ${qualityColor}`}>
         {proxy.qualityScore != null ? proxy.qualityScore : "—"}
-      </TableCell>
-      <TableCell className="text-xs">
+      </td>
+      <td className="px-3 py-2 text-xs">
         {proxy.latencyMs != null ? `${proxy.latencyMs}ms` : "—"}
-      </TableCell>
-      <TableCell>
+      </td>
+      <td className="px-3 py-2">
         {proxy.inPool ? (
-          <Badge variant="success" size="sm">
+          <span className="px-2 py-0.5 rounded text-xs bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
             {t("proxyFreePoolInPool")}
-          </Badge>
+          </span>
         ) : (
-          <Button
-            variant="outline"
-            size="icon-sm"
-            icon="add"
+          <button
             onClick={() => onAddToPool(proxy.id)}
-            loading={adding}
-            aria-label={t("proxyFreePoolAddProxy", { endpoint })}
-            title={adding ? t("proxyFreePoolAdding") : undefined}
-          />
+            disabled={adding}
+            aria-label={t("proxyFreePoolAddProxy", { endpoint: `${proxy.host}:${proxy.port}` })}
+            className="px-2 py-0.5 rounded text-xs bg-primary/15 text-primary border border-primary/30 hover:bg-primary/25 disabled:opacity-50"
+          >
+            {adding ? t("proxyFreePoolAdding") : "⊕"}
+          </button>
         )}
-      </TableCell>
-    </TableRow>
+      </td>
+    </tr>
   );
 }

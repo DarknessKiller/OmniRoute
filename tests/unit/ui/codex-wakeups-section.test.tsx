@@ -99,8 +99,7 @@ describe("Codex scheduled wakeups section", () => {
     await act(async () => {
       button("Delete")?.click();
     });
-    // Errors are announced assertively (role="alert"); success notices stay role="status".
-    expect(document.querySelector('[role="alert"]')?.textContent).toBe(
+    expect(document.querySelector('[role="status"]')?.textContent).toBe(
       "The action failed. Try again in a moment."
     );
   });

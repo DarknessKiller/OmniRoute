@@ -1,11 +1,8 @@
 "use client";
 
 import React from "react";
+import { Card } from "@/shared/components";
 import { useTranslations } from "next-intl";
-import Button from "@/shared/components/Button";
-import Card from "@/shared/components/Card";
-import Icon from "@/shared/components/Icon";
-import { Skeleton as KitSkeleton } from "@/shared/components/Loading";
 
 interface IdempotencyLayerProps {
   activeKeys?: number;
@@ -26,7 +23,7 @@ interface IdempotencyLayerProps {
 }
 
 function Skeleton() {
-  return <KitSkeleton data-testid="skeleton" className="h-7 w-16" />;
+  return <div data-testid="skeleton" className="animate-pulse rounded bg-surface/50 h-7 w-16" />;
 }
 
 export default function IdempotencyLayer({
@@ -52,44 +49,50 @@ export default function IdempotencyLayer({
     <Card>
       <div data-testid="idempotency-layer" className="p-5 flex flex-col gap-3">
         <div className="flex items-center gap-2">
-          <Icon name="fingerprint" size={16} className="text-text-muted" />
+          <span className="material-symbols-outlined text-base text-text-muted" aria-hidden="true">
+            fingerprint
+          </span>
           <h2 className="font-medium text-sm">{t("idempotency")}</h2>
         </div>
 
         {error && (
           <div className="flex flex-col gap-2">
-            <p className="text-sm text-error">{error}</p>
+            <p className="text-sm text-red-500">{error}</p>
             {onRetry && (
-              <Button variant="outline" size="sm" className="self-start" onClick={onRetry}>
-                {t("retry")}
-              </Button>
+              <button
+                onClick={onRetry}
+                className="self-start text-sm px-3 py-1 rounded bg-surface/50 hover:bg-surface/80 transition-colors"
+                aria-label={t("retry")}
+              >
+                Retry
+              </button>
             )}
           </div>
         )}
 
         <div className="grid grid-cols-2 gap-4">
-          <div className="p-3 rounded-lg bg-bg-subtle">
+          <div className="p-3 rounded-lg bg-surface/50">
             <div className="text-lg font-semibold tabular-nums">
               {loading ? <Skeleton /> : resolvedDeduplicated}
             </div>
             <div className="text-xs text-text-muted mt-0.5">{t("deduplicatedRequests")}</div>
           </div>
 
-          <div className="p-3 rounded-lg bg-bg-subtle">
+          <div className="p-3 rounded-lg bg-surface/50">
             <div className="text-lg font-semibold tabular-nums">
               {loading ? <Skeleton /> : resolvedWindowMs != null ? resolvedWindowMs : "—"}
             </div>
             <div className="text-xs text-text-muted mt-0.5">{t("dedupWindow")}</div>
           </div>
 
-          <div className="p-3 rounded-lg bg-bg-subtle">
+          <div className="p-3 rounded-lg bg-surface/50">
             <div className="text-lg font-semibold tabular-nums">
               {loading ? <Skeleton /> : resolvedActiveKeys}
             </div>
             <div className="text-xs text-text-muted mt-0.5">{t("activeDedupKeys")}</div>
           </div>
 
-          <div className="p-3 rounded-lg bg-bg-subtle">
+          <div className="p-3 rounded-lg bg-surface/50">
             <div className="text-lg font-semibold tabular-nums">
               {loading ? <Skeleton /> : resolvedTotalProcessed}
             </div>
@@ -98,7 +101,7 @@ export default function IdempotencyLayer({
         </div>
 
         {!loading && resolvedSavedCalls > 0 && (
-          <div className="p-3 rounded-lg bg-bg-subtle">
+          <div className="p-3 rounded-lg bg-surface/50">
             <div className="text-lg font-semibold tabular-nums">{resolvedSavedCalls}</div>
             <div className="text-xs text-text-muted mt-0.5">{t("savedCalls")}</div>
           </div>

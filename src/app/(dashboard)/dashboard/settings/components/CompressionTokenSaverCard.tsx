@@ -2,8 +2,6 @@
 
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import Badge from "@/shared/components/Badge";
-import Icon from "@/shared/components/Icon";
 
 type CavemanIntensity = "lite" | "full" | "ultra";
 type RtkIntensity = "minimal" | "standard" | "aggressive";
@@ -23,9 +21,13 @@ export type CompressionTokenSaverPatch = Partial<CompressionTokenSaverConfig>;
 // is accepted for backward compatibility but intentionally unused).
 function StatusPill({ on }: { on: boolean }) {
   return (
-    <Badge variant={on ? "success" : "default"} size="sm" className="uppercase tracking-wider">
+    <span
+      className={`rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${
+        on ? "bg-emerald-500/15 text-emerald-500" : "bg-border/50 text-text-muted"
+      }`}
+    >
       {on ? "on" : "off"}
-    </Badge>
+    </span>
   );
 }
 
@@ -86,7 +88,7 @@ export default function CompressionTokenSaverCard({
       <div className="mb-1 flex items-start justify-between gap-4">
         <div className="min-w-0 flex-1">
           <h4 className="flex items-center gap-2 text-base font-semibold text-text-main">
-            <Icon name="bolt" size={21} className="text-warning" />
+            <span className="material-symbols-outlined text-[21px] text-amber-500">bolt</span>
             {t("tokenSaverTitle")}
           </h4>
           <p className="mt-1 text-sm text-text-muted">{t("tokenSaverSubtitle")}</p>
@@ -119,7 +121,7 @@ export default function CompressionTokenSaverCard({
       </div>
 
       <div className="mt-4 flex items-start gap-2 border-t border-border pt-3 text-xs text-text-muted">
-        <Icon name="info" size={16} className="mt-px" />
+        <span className="material-symbols-outlined mt-px text-[16px]">info</span>
         <p>
           Turn these layers on/off and set their level in{" "}
           <Link href="/dashboard/context/settings" className="text-primary hover:underline">

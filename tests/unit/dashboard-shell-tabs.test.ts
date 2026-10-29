@@ -9,9 +9,8 @@ function readSource(relativePath: string) {
 test("analytics page exposes the restored analytics tab shell", () => {
   const source = readSource("src/app/(dashboard)/dashboard/analytics/page.tsx");
 
-  // KEA-7886: the tablist is the kit TabsList (role="tablist" + arrow-key navigation).
-  assert.ok(source.includes('from "@omniroute/ui-kit/tabs"'));
-  assert.ok(source.includes('<TabsList aria-label={t("sectionsAria")}'));
+  assert.ok(source.includes('role="tablist"'));
+  assert.ok(source.includes('aria-label={t("sectionsAria")}'));
   for (const [labelKey, label] of [
     ["overview", "Overview"],
     ["evals", "Evals"],

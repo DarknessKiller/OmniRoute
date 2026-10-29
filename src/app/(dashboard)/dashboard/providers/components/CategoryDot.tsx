@@ -8,7 +8,6 @@ interface CategoryDotProps {
   className?: string;
 }
 
-/** `color` is a categorical legend hue (see DOT_COLORS in ProviderCard), not a status token. */
 export function CategoryDot({
   color,
   hasFree = false,

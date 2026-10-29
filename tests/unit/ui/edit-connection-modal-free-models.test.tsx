@@ -3,9 +3,6 @@ import React, { act } from "react";
 import { createRoot } from "react-dom/client";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 
-// The shared Modal is a kit Dialog (Radix) since KEA-7886: its content is portaled to
-// document.body, so queries start there (the container is a child of body).
-
 vi.mock("next/navigation", () => ({
   useParams: () => ({ id: "openrouter" }),
   useRouter: () => ({ push: vi.fn(), replace: vi.fn() }),
@@ -17,7 +14,7 @@ vi.mock("next-intl", () => ({
 const { default: EditConnectionModal } =
   await import("../../../src/app/(dashboard)/dashboard/providers/[id]/components/modals/EditConnectionModal");
 
-const FREE_TOGGLE = '[role="switch"][aria-label="importFreeModelsOnlyLabel"]';
+const FREE_TOGGLE = 'button[role="switch"][aria-label="importFreeModelsOnlyLabel"]';
 
 const containers: Array<{ root: ReturnType<typeof createRoot>; el: HTMLDivElement }> = [];
 
@@ -37,8 +34,7 @@ function render(props: Record<string, unknown>) {
     );
   });
   containers.push({ root, el });
-  // Queries go through document.body: the dialog is portaled there (KEA-7886).
-  return document.body;
+  return el;
 }
 
 async function waitFor(fn: () => boolean, timeoutMs = 2000) {
@@ -166,7 +162,7 @@ describe("EditConnectionModal — import only free models", () => {
 });
 
 describe("EditConnectionModal — encrypted Responses reasoning", () => {
-  const PRESERVE_TOGGLE = '[role="switch"][aria-label="Preserve encrypted reasoning"]';
+  const PRESERVE_TOGGLE = 'button[role="switch"][aria-label="Preserve encrypted reasoning"]';
 
   it("loads and saves the opt-in for an OpenAI-compatible Responses connection", async () => {
     const onSave = vi.fn().mockResolvedValue(undefined);
@@ -255,7 +251,7 @@ describe("EditConnectionModal — encrypted Responses reasoning", () => {
     expect(el.querySelector(PRESERVE_TOGGLE)).toBeNull();
     expect(el.textContent).toContain("defaultThinkingStrengthLabel");
     expect(
-      el.querySelector('[role="switch"][aria-label="openaiResponsesStoreLabel"]')
+      el.querySelector('button[role="switch"][aria-label="openaiResponsesStoreLabel"]')
     ).toBeTruthy();
     const saveBtn = Array.from(el.querySelectorAll("button")).find(
       (button) => button.textContent?.trim() === "save"

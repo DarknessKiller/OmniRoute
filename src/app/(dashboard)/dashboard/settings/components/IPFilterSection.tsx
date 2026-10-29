@@ -1,10 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { Card, Button, Input } from "@/shared/components";
 import { useTranslations } from "next-intl";
-import { RadioGroup, RadioGroupItem } from "@omniroute/ui-kit/radio-group";
-import { Card, Button, Input, Badge } from "@/shared/components";
-import Icon from "@/shared/components/Icon";
 
 const MODES = [
   { value: "disabled", labelKey: "ipModeDisabled", icon: "block" },
@@ -81,31 +79,47 @@ export default function IPFilterSection() {
   const activeMode = !config.enabled ? "disabled" : config.mode;
 
   return (
-    <Card title={t("ipAccessControl")} subtitle={t("ipAccessControlDesc")} icon="security">
-      {/* Mode selector */}
-      <RadioGroup
-        aria-label={t("ipAccessControl")}
-        value={activeMode}
-        onValueChange={setMode}
-        disabled={loading}
-        className="mb-5"
-      >
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
-          {MODES.map((m) => (
-            <RadioGroupItem
-              key={m.value}
-              card
-              value={m.value}
-              label={
-                <span className="inline-flex items-center gap-1.5">
-                  <Icon name={m.icon} size={18} className="text-text-muted" />
-                  {t(m.labelKey)}
-                </span>
-              }
-            />
-          ))}
+    <Card>
+      <div className="flex items-center gap-3 mb-5">
+        <div className="p-2 rounded-lg bg-red-500/10 text-red-500">
+          <span className="material-symbols-outlined text-[20px]" aria-hidden="true">
+            security
+          </span>
         </div>
-      </RadioGroup>
+        <div className="flex-1">
+          <h3 className="text-lg font-semibold">{t("ipAccessControl")}</h3>
+          <p className="text-sm text-text-muted">{t("ipAccessControlDesc")}</p>
+        </div>
+      </div>
+
+      {/* Mode selector */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 mb-5">
+        {MODES.map((m) => (
+          <button
+            key={m.value}
+            onClick={() => setMode(m.value)}
+            disabled={loading}
+            className={`flex flex-col items-center gap-1.5 p-3 rounded-lg border text-center transition-all ${
+              activeMode === m.value
+                ? "border-red-500/50 bg-red-500/5 ring-1 ring-red-500/20"
+                : "border-border/50 hover:border-border hover:bg-surface/30"
+            }`}
+          >
+            <span
+              className={`material-symbols-outlined text-[20px] ${
+                activeMode === m.value ? "text-red-400" : "text-text-muted"
+              }`}
+            >
+              {m.icon}
+            </span>
+            <span
+              className={`text-xs font-medium ${activeMode === m.value ? "text-red-400" : "text-text-muted"}`}
+            >
+              {t(m.labelKey)}
+            </span>
+          </button>
+        ))}
+      </div>
 
       {config.enabled && (
         <div className="flex flex-col gap-4">
@@ -152,18 +166,19 @@ export default function IPFilterSection() {
               </p>
               <div className="flex flex-wrap gap-1.5">
                 {config.blacklist.map((ip) => (
-                  <Badge key={ip} variant="error" className="gap-1 pr-1 font-mono">
+                  <span
+                    key={ip}
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono
+                               bg-red-500/10 text-red-400 border border-red-500/20"
+                  >
                     {ip}
-                    <Button
-                      variant="ghost"
-                      size="icon-sm"
-                      className="size-5"
+                    <button
                       onClick={() => removeIP(ip, "blacklist")}
-                      aria-label={`${t("remove")} ${ip}`}
+                      className="hover:text-red-300"
                     >
-                      <Icon name="close" size={14} />
-                    </Button>
-                  </Badge>
+                      <span className="material-symbols-outlined text-[14px]">close</span>
+                    </button>
+                  </span>
                 ))}
               </div>
             </div>
@@ -177,18 +192,19 @@ export default function IPFilterSection() {
               </p>
               <div className="flex flex-wrap gap-1.5">
                 {config.whitelist.map((ip) => (
-                  <Badge key={ip} variant="success" className="gap-1 pr-1 font-mono">
+                  <span
+                    key={ip}
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono
+                               bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+                  >
                     {ip}
-                    <Button
-                      variant="ghost"
-                      size="icon-sm"
-                      className="size-5"
+                    <button
                       onClick={() => removeIP(ip, "whitelist")}
-                      aria-label={`${t("remove")} ${ip}`}
+                      className="hover:text-emerald-300"
                     >
-                      <Icon name="close" size={14} />
-                    </Button>
-                  </Badge>
+                      <span className="material-symbols-outlined text-[14px]">close</span>
+                    </button>
+                  </span>
                 ))}
               </div>
             </div>
@@ -205,24 +221,22 @@ export default function IPFilterSection() {
                   <div
                     key={ban.ip}
                     className="flex items-center justify-between gap-2 px-3 py-2 rounded-lg
-                               bg-warning-bg border border-warning/30 text-sm"
+                               bg-orange-500/5 border border-orange-500/20 text-sm"
                   >
                     <div className="flex min-w-0 items-center gap-2">
-                      <span className="font-mono text-xs text-warning shrink-0">{ban.ip}</span>
+                      <span className="font-mono text-xs text-orange-400 shrink-0">{ban.ip}</span>
                       <span className="text-xs text-text-muted truncate">— {ban.reason}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-xs text-text-muted tabular-nums">
                         {t("minLeft", { min: Math.ceil(ban.remainingMs / 60000) })}
                       </span>
-                      <Button
-                        variant="ghost"
-                        size="icon-sm"
+                      <button
                         onClick={() => removeBan(ban.ip)}
-                        aria-label={`${t("remove")} ${ban.ip}`}
+                        className="text-text-muted hover:text-orange-400"
                       >
-                        <Icon name="delete" size={16} />
-                      </Button>
+                        <span className="material-symbols-outlined text-[16px]">delete</span>
+                      </button>
                     </div>
                   </div>
                 ))}

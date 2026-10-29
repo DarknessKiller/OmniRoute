@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import { PageHeader } from "@omniroute/ui-kit/page-header";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -13,7 +12,6 @@ import {
   type RadarComboSuggestion,
 } from "@/lib/radar/comboSuggestions";
 import { Card } from "@/shared/components";
-import Button from "@/shared/components/Button";
 
 interface RadarCatalogPayload {
   entries?: MergedEntry[];
@@ -120,21 +118,20 @@ export default function RadarCombosPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <PageHeader
-        compact
-        breadcrumbs={
-          <Link
-            href="/dashboard/radar"
-            className="text-sm text-text-muted hover:text-text-main transition-colors"
-          >
-            ← {t("backToRadar")}
-          </Link>
-        }
-        title={t("title")}
-        description={t("subtitle")}
-      />
+      <div className="flex flex-col gap-3">
+        <Link
+          href="/dashboard/radar"
+          className="text-sm text-text-muted hover:text-text-main transition-colors w-fit"
+        >
+          ← {t("backToRadar")}
+        </Link>
+        <div>
+          <h1 className="text-2xl font-bold">{t("title")}</h1>
+          <p className="text-sm text-text-muted mt-1">{t("subtitle")}</p>
+        </div>
+      </div>
 
-      {error && <div className="p-3 rounded-lg bg-error/10 text-error text-sm">{error}</div>}
+      {error && <div className="p-3 rounded-lg bg-red-500/10 text-red-400 text-sm">{error}</div>}
 
       {loading ? (
         <div className="flex items-center justify-center min-h-[200px] text-text-muted">
@@ -179,10 +176,11 @@ export default function RadarCombosPage() {
                     ))}
                   </div>
 
-                  <Button
+                  <button
+                    type="button"
                     onClick={() => void createSuggestion(suggestion)}
                     disabled={creating || suggestion.alreadyExists}
-                    className="self-start"
+                    className="self-start px-4 py-2 text-sm font-medium rounded-lg bg-violet-500 text-white hover:bg-violet-600 transition-colors disabled:opacity-50"
                   >
                     {created
                       ? t("created")
@@ -191,7 +189,7 @@ export default function RadarCombosPage() {
                         : creating
                           ? t("generating")
                           : t("generateButton")}
-                  </Button>
+                  </button>
                 </div>
               </Card>
             );

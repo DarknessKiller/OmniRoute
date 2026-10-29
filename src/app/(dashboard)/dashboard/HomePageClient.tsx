@@ -5,11 +5,7 @@ import { useTranslations } from "next-intl";
 import { useState, useEffect, useMemo, useCallback, useRef, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { SectionHeader } from "@omniroute/ui-kit/page-header";
-import { WorkflowGuide } from "@omniroute/ui-kit/workflow-guide";
-import EmptyState from "@/shared/components/EmptyState";
-import Icon from "@/shared/components/Icon";
-import { CardSkeleton, Button, Modal } from "@/shared/components";
+import { Card, CardSkeleton, Button, Modal } from "@/shared/components";
 import ProviderIcon from "@/shared/components/ProviderIcon";
 import { AI_PROVIDERS, NOAUTH_PROVIDERS, OAUTH_PROVIDERS } from "@/shared/constants/providers";
 import {
@@ -109,8 +105,6 @@ function mergeUpdateStep(steps: UpdateStep[], nextStep: UpdateStep) {
 // Quick-start link classes, extracted so each <Link> still fits on one line with
 // prefetch={false} (#8281) — this file is size-frozen.
 const INLINE_LINK = "text-primary hover:underline";
-// The kit WorkflowGuide numbers its steps itself; the step titles carry a "1. " prefix.
-const stripStepNumber = (title: string) => title.replace(/^\s*\d+[.)]\s*/, "");
 const DOCS_LINK =
   "hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-border text-text-muted hover:text-text-main hover:bg-bg-subtle transition-colors";
 
@@ -803,10 +797,12 @@ export default function HomePageClient({ machineId }: HomePageClientProps) {
     <div className="flex flex-col gap-8">
       {/* Update Progress Overlay */}
       {showUpdateOverlay && (
-        <div className="fixed inset-0 z-[999] bg-[var(--ci-color-overlay)] backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[999] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-bg-main border border-border rounded-2xl shadow-2xl max-w-md w-full p-6">
             <div className="flex items-center gap-3 mb-5">
-              <Icon name="progress_activity" size={28} className="text-primary animate-spin" />
+              <span className="material-symbols-outlined text-primary text-[28px] animate-spin">
+                progress_activity
+              </span>
               <div>
                 <h3 className="text-lg font-bold">
                   {updatePhase === "done"
@@ -836,24 +832,28 @@ export default function HomePageClient({ machineId }: HomePageClientProps) {
                       s.status === "running"
                         ? "border-primary/40 bg-primary/5"
                         : s.status === "done"
-                          ? "border-success/30 bg-success/5"
+                          ? "border-green-500/30 bg-green-500/5"
                           : s.status === "failed"
-                            ? "border-error/30 bg-error/5"
+                            ? "border-red-500/30 bg-red-500/5"
                             : "border-border bg-bg-subtle"
                     }`}
                   >
                     {s.status === "running" ? (
-                      <Icon
-                        name="progress_activity"
-                        size={18}
-                        className="text-primary animate-spin"
-                      />
+                      <span className="material-symbols-outlined text-primary text-[18px] animate-spin">
+                        progress_activity
+                      </span>
                     ) : s.status === "done" ? (
-                      <Icon name="check_circle" size={18} className="text-success" />
+                      <span className="material-symbols-outlined text-green-500 text-[18px]">
+                        check_circle
+                      </span>
                     ) : s.status === "failed" ? (
-                      <Icon name="error" size={18} className="text-error" />
+                      <span className="material-symbols-outlined text-red-500 text-[18px]">
+                        error
+                      </span>
                     ) : (
-                      <Icon name="warning" size={18} className="text-warning" />
+                      <span className="material-symbols-outlined text-amber-500 text-[18px]">
+                        warning
+                      </span>
                     )}
                     <div className="min-w-0 flex-1">
                       <p className="text-sm font-medium">{stepLabels[s.step] || s.step}</p>
@@ -864,7 +864,7 @@ export default function HomePageClient({ machineId }: HomePageClientProps) {
 
               {/* Error message */}
               {updateSteps.find((s) => s.step === "error") && (
-                <div className="mt-1 px-3 py-2.5 rounded-lg border border-error/30 bg-error/5 text-error">
+                <div className="mt-1 px-3 py-2.5 rounded-lg border border-red-500/30 bg-red-500/5 text-red-500">
                   <p className="text-xs font-mono break-all">
                     {updateSteps.find((s) => s.step === "error")?.message}
                   </p>
@@ -873,9 +873,9 @@ export default function HomePageClient({ machineId }: HomePageClientProps) {
 
               {/* Completion message */}
               {updatePhase === "done" && (
-                <div className="mt-1 px-3 py-2.5 rounded-lg border border-success/30 bg-success/5">
-                  <p className="text-sm font-semibold text-success flex items-center gap-2">
-                    <Icon name="check_circle" size={18} />
+                <div className="mt-1 px-3 py-2.5 rounded-lg border border-green-500/30 bg-green-500/5">
+                  <p className="text-sm font-semibold text-green-500 flex items-center gap-2">
+                    <span className="material-symbols-outlined text-[18px]">check_circle</span>
                     {updateSteps.find((s) => s.step === "complete")?.message || t("updateComplete")}
                   </p>
                   <p className="text-xs text-text-muted mt-1">{t("reloadingPageAutomatically")}</p>
@@ -915,14 +915,11 @@ export default function HomePageClient({ machineId }: HomePageClientProps) {
           <div className="flex flex-col gap-3 rounded-lg border border-primary/20 bg-primary/10 px-5 py-4 text-primary">
             <div className="flex min-h-[48px] items-center justify-between">
               <div className="flex min-w-0 items-center gap-4">
-                <Icon
-                  name={
-                    isElectron && electronUpdateStatus.status === "downloading"
-                      ? "downloading"
-                      : "system_update_alt"
-                  }
-                  size={24}
-                />
+                <span className="material-symbols-outlined shrink-0 text-[24px]">
+                  {isElectron && electronUpdateStatus.status === "downloading"
+                    ? "downloading"
+                    : "system_update_alt"}
+                </span>
                 <div>
                   <p className="font-semibold text-sm">
                     {t("updateAvailableTitle", {
@@ -974,11 +971,9 @@ export default function HomePageClient({ machineId }: HomePageClientProps) {
                   )}
                   {electronUpdateStatus.status === "downloading" && (
                     <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-primary/20">
-                      <Icon
-                        name="progress_activity"
-                        size={16}
-                        className="text-primary animate-spin"
-                      />
+                      <span className="material-symbols-outlined text-primary text-[16px] animate-spin">
+                        progress_activity
+                      </span>
                       <span className="text-xs font-semibold">
                         {electronUpdateStatus.percent || 0}%
                       </span>
@@ -1060,26 +1055,27 @@ export default function HomePageClient({ machineId }: HomePageClientProps) {
 
       {/* Quick Start (controlled by Appearance setting, default on) */}
       {showQuickStartOnHome && (
-        <section className="flex flex-col gap-3">
-          <SectionHeader
-            title={t("quickStart")}
-            description={t("quickStartDesc")}
-            actions={
+        <Card>
+          <div className="flex flex-col gap-5">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-lg font-semibold">{t("quickStart")}</h2>
+                <p className="text-sm text-text-muted">{t("quickStartDesc")}</p>
+              </div>
               <Link href="/docs" prefetch={false} className={DOCS_LINK}>
-                <Icon name="menu_book" size={14} />
+                <span className="material-symbols-outlined text-[14px]">menu_book</span>
                 {t("fullDocs")}
               </Link>
-            }
-          />
-          <WorkflowGuide
-            label={t("quickStart")}
-            items={[
-              {
-                id: "step1",
-                icon: <Icon name="key" size={18} />,
-                title: stripStepNumber(t("step1Title")),
-                description: (
-                  <>
+            </div>
+
+            <ol className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+              <li className="rounded-lg border border-border bg-bg-subtle p-4 flex gap-3">
+                <div className="flex items-center justify-center size-8 rounded-lg bg-primary/10 text-primary shrink-0">
+                  <span className="material-symbols-outlined text-[18px]">key</span>
+                </div>
+                <div>
+                  <span className="font-semibold">{t("step1Title")}</span>
+                  <p className="text-text-muted mt-0.5">
                     {t.rich("step1Desc", {
                       endpoint: (chunks) => (
                         <Link
@@ -1091,15 +1087,16 @@ export default function HomePageClient({ machineId }: HomePageClientProps) {
                         </Link>
                       ),
                     })}
-                  </>
-                ),
-              },
-              {
-                id: "step2",
-                icon: <Icon name="dns" size={18} />,
-                title: stripStepNumber(t("step2Title")),
-                description: (
-                  <>
+                  </p>
+                </div>
+              </li>
+              <li className="rounded-lg border border-border bg-bg-subtle p-4 flex gap-3">
+                <div className="flex items-center justify-center size-8 rounded-lg bg-green-500/10 text-green-500 shrink-0">
+                  <span className="material-symbols-outlined text-[18px]">dns</span>
+                </div>
+                <div>
+                  <span className="font-semibold">{t("step2Title")}</span>
+                  <p className="text-text-muted mt-0.5">
                     {t.rich("step2Desc", {
                       providers: (chunks) => (
                         <Link href="/dashboard/providers" prefetch={false} className={INLINE_LINK}>
@@ -1107,21 +1104,27 @@ export default function HomePageClient({ machineId }: HomePageClientProps) {
                         </Link>
                       ),
                     })}
-                  </>
-                ),
-              },
-              {
-                id: "step3",
-                icon: <Icon name="link" size={18} />,
-                title: stripStepNumber(t("step3Title")),
-                description: <>{t("step3Desc", { url: currentEndpoint })}</>,
-              },
-              {
-                id: "step4",
-                icon: <Icon name="analytics" size={18} />,
-                title: stripStepNumber(t("step4Title")),
-                description: (
-                  <>
+                  </p>
+                </div>
+              </li>
+              <li className="rounded-lg border border-border bg-bg-subtle p-4 flex gap-3">
+                <div className="flex items-center justify-center size-8 rounded-lg bg-blue-500/10 text-blue-500 shrink-0">
+                  <span className="material-symbols-outlined text-[18px]">link</span>
+                </div>
+                <div>
+                  <span className="font-semibold">{t("step3Title")}</span>
+                  <p className="text-text-muted mt-0.5">
+                    {t("step3Desc", { url: currentEndpoint })}
+                  </p>
+                </div>
+              </li>
+              <li className="rounded-lg border border-border bg-bg-subtle p-4 flex gap-3">
+                <div className="flex items-center justify-center size-8 rounded-lg bg-amber-500/10 text-amber-500 shrink-0">
+                  <span className="material-symbols-outlined text-[18px]">analytics</span>
+                </div>
+                <div>
+                  <span className="font-semibold">{t("step4Title")}</span>
+                  <p className="text-text-muted mt-0.5">
                     {t.rich("step4Desc", {
                       logs: (chunks) => (
                         <Link href="/dashboard/logs" prefetch={false} className={INLINE_LINK}>
@@ -1134,12 +1137,12 @@ export default function HomePageClient({ machineId }: HomePageClientProps) {
                         </Link>
                       ),
                     })}
-                  </>
-                ),
-              },
-            ]}
-          />
-        </section>
+                  </p>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </Card>
       )}
 
       {showProviderTopologyOnHome && (
@@ -1179,28 +1182,25 @@ function ProviderOverviewCard({
   const tc = useTranslations("common");
 
   const statusVariant =
-    item.errors > 0 ? "text-error" : item.connected > 0 ? "text-success" : "text-text-muted";
+    item.errors > 0 ? "text-red-500" : item.connected > 0 ? "text-green-500" : "text-text-muted";
 
   const authTypeConfig = {
-    "no-auth": { color: "bg-text-muted/30", label: t("noAuthLabel") },
-    free: { color: "bg-success", label: tc("free") },
-    oauth: { color: "bg-info", label: t("oauthLabel") },
-    apikey: { color: "bg-warning", label: t("apiKeyLabel") },
+    "no-auth": { color: "bg-stone-500", label: t("noAuthLabel") },
+    free: { color: "bg-green-500", label: tc("free") },
+    oauth: { color: "bg-blue-500", label: t("oauthLabel") },
+    apikey: { color: "bg-amber-500", label: t("apiKeyLabel") },
   };
   const authInfo = authTypeConfig[item.authType] || authTypeConfig.apikey;
 
   return (
-    <Button
-      variant="outline"
+    <button
       onClick={onClick}
-      className="block h-auto min-h-0 w-full p-3 text-left font-normal"
+      className="border border-border rounded-lg p-3 hover:bg-surface/40 transition-colors text-left cursor-pointer w-full"
     >
       <div className="flex items-center gap-2.5">
         <div
           className="size-8 rounded-lg flex items-center justify-center shrink-0"
-          style={{
-            backgroundColor: `color-mix(in srgb, ${item.provider.color || "var(--color-text-muted)"} 8%, transparent)`,
-          }}
+          style={{ backgroundColor: `${item.provider.color || "#888"}15` }}
         >
           <ProviderIcon providerId={item.provider.id} size={26} type="color" />
         </div>
@@ -1221,7 +1221,7 @@ function ProviderOverviewCard({
           {metrics && metrics.totalRequests > 0 && (
             <div className="flex items-center gap-2 mt-0.5">
               <span className="text-[10px] text-text-muted">
-                <span className="text-success">{metrics.totalSuccesses}</span>/
+                <span className="text-emerald-500">{metrics.totalSuccesses}</span>/
                 {t("requestsShort", { count: metrics.totalRequests })}
               </span>
               <span className="text-[10px] text-text-muted">{metrics.successRate}%</span>
@@ -1235,7 +1235,7 @@ function ProviderOverviewCard({
           <p className="text-[10px] text-text-muted">{tc("models")}</p>
         </div>
       </div>
-    </Button>
+    </button>
   );
 }
 
@@ -1276,12 +1276,12 @@ function ProviderModelsModal({
       <div className="flex flex-col gap-3">
         {/* Summary */}
         <div className="flex items-center gap-2 text-sm text-text-muted">
-          <Icon name="token" size={16} />
+          <span className="material-symbols-outlined text-[16px]">token</span>
           {models.length === 1
             ? t("modelAvailable", { count: models.length })
             : t("modelsAvailable", { count: models.length })}
           {provider.total > 0 && (
-            <span className="ml-auto text-xs text-success">
+            <span className="ml-auto text-xs text-green-500">
               ●{" "}
               {provider.connected === 1
                 ? t("connectionsActive", { count: provider.connected })
@@ -1291,11 +1291,15 @@ function ProviderModelsModal({
         </div>
 
         {models.length === 0 ? (
-          <EmptyState
-            icon="search_off"
-            title={t("noModelsAvailable")}
-            description={t("configureFirst", { providers: ts("providers") })}
-          />
+          <div className="text-center py-6">
+            <span className="material-symbols-outlined text-[32px] text-text-muted mb-2">
+              search_off
+            </span>
+            <p className="text-sm text-text-muted">{t("noModelsAvailable")}</p>
+            <p className="text-xs text-text-muted mt-1">
+              {t("configureFirst", { providers: ts("providers") })}
+            </p>
+          </div>
         ) : (
           <div className="flex flex-col gap-1 max-h-[400px] overflow-y-auto">
             {models.map((m) => (
@@ -1311,15 +1315,15 @@ function ProviderModelsModal({
                     </p>
                   )}
                 </div>
-                <Button
-                  variant="ghost"
-                  size="icon-sm"
-                  icon={copiedModel === m.fullModel ? "check" : "content_copy"}
+                <button
                   onClick={() => handleCopy(m.fullModel)}
+                  className="shrink-0 ml-2 p-1.5 rounded-lg text-text-muted hover:text-text-main hover:bg-bg-subtle transition-colors opacity-0 group-hover:opacity-100"
                   title={t("copyModelName")}
-                  aria-label={t("copyModelName")}
-                  className="ml-2 shrink-0 text-text-muted opacity-0 group-hover:opacity-100 focus-visible:opacity-100"
-                />
+                >
+                  <span className="material-symbols-outlined text-[14px]">
+                    {copiedModel === m.fullModel ? "check" : "content_copy"}
+                  </span>
+                </button>
               </div>
             ))}
           </div>
@@ -1334,7 +1338,7 @@ function ProviderModelsModal({
             onClick={() => navigateTo(`/dashboard/providers/${provider.id}`)}
             className="flex-1"
           >
-            <Icon name="settings" size={14} />
+            <span className="material-symbols-outlined text-[14px] mr-1">settings</span>
             {t("configureProvider")}
           </Button>
           <Button variant="ghost" size="sm" onClick={onClose}>

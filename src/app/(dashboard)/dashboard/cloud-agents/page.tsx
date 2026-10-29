@@ -1,18 +1,8 @@
 "use client";
 
-import { useState, useEffect, useCallback, useId } from "react";
-import Icon from "@/shared/components/Icon";
+import { useState, useEffect, useCallback } from "react";
 import { Card, Button, Input, Badge } from "@/shared/components";
-import Checkbox from "@/shared/components/Checkbox";
-import EmptyState from "@/shared/components/EmptyState";
-import Select from "@/shared/components/Select";
-import Textarea from "@/shared/components/Textarea";
 import { useLocale, useTranslations } from "next-intl";
-import { PageHeader } from "@omniroute/ui-kit/page-header";
-import { buttonVariants } from "@omniroute/ui-kit/button";
-import { Field } from "@omniroute/ui-kit/field";
-import { Switch } from "@omniroute/ui-kit/switch";
-import { Tabs, TabsList, TabsTrigger } from "@omniroute/ui-kit/tabs";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -50,8 +40,8 @@ const CLOUD_AGENTS = [
     provider: "Google",
     descriptionKey: "agentDescriptions.jules",
     icon: "smart_toy",
-    iconBg: "bg-warning/10",
-    iconColor: "text-warning",
+    iconBg: "bg-yellow-500/10",
+    iconColor: "text-yellow-600",
   },
   {
     id: "devin",
@@ -59,8 +49,8 @@ const CLOUD_AGENTS = [
     provider: "Cognition",
     descriptionKey: "agentDescriptions.devin",
     icon: "psychology",
-    iconBg: "bg-info/10",
-    iconColor: "text-info",
+    iconBg: "bg-blue-500/10",
+    iconColor: "text-blue-600",
   },
   {
     id: "codex-cloud",
@@ -68,8 +58,8 @@ const CLOUD_AGENTS = [
     provider: "OpenAI",
     descriptionKey: "agentDescriptions.codexCloud",
     icon: "cloud",
-    iconBg: "bg-success/10",
-    iconColor: "text-success",
+    iconBg: "bg-emerald-500/10",
+    iconColor: "text-emerald-600",
   },
   {
     id: "cursor-cloud",
@@ -77,8 +67,8 @@ const CLOUD_AGENTS = [
     provider: "Cursor",
     descriptionKey: "agentDescriptions.cursorCloud",
     icon: "cloud",
-    iconBg: "bg-surface-2/10",
-    iconColor: "text-text-muted",
+    iconBg: "bg-slate-500/10",
+    iconColor: "text-slate-600",
   },
 ];
 
@@ -114,8 +104,6 @@ export default function CloudAgentsPage() {
   const locale = useLocale();
   const [activeTab, setActiveTab] = useState<TabId>("tasks");
   const t = useTranslations("cloudAgents");
-  const tSidebar = useTranslations("sidebar");
-  const taskPromptId = useId();
 
   // ── Tasks state ──────────────────────────────────────────────────────────
 
@@ -391,8 +379,8 @@ export default function CloudAgentsPage() {
 
   if (loading) {
     return (
-      <div role="status" className="flex flex-col items-center justify-center min-h-[400px] gap-3">
-        <Icon name="progress_activity" size={32} className="animate-spin text-primary" />
+      <div className="flex flex-col items-center justify-center min-h-[400px] gap-3">
+        <div className="animate-spin rounded-full h-8 w-8 border-2 border-primary border-t-transparent" />
         <p className="text-sm text-text-muted">{t("loading")}</p>
       </div>
     );
@@ -402,14 +390,8 @@ export default function CloudAgentsPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Page title (lote 7 pendência 12): the shell title hides when a PageHeader is present. */}
-      <PageHeader
-        compact
-        title={tSidebar("cloudAgents")}
-        description={tSidebar("cloudAgentsSubtitle")}
-      />
       {/* Header */}
-      <Card className="border-primary/20 bg-primary/5">
+      <Card className="border-purple-500/20 bg-purple-500/5">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div>
             <h2 className="text-sm font-semibold text-text-main">{t("aboutTitle")}</h2>
@@ -417,7 +399,7 @@ export default function CloudAgentsPage() {
           </div>
           <div className="flex items-center gap-2">
             <span
-              className={`inline-block h-2 w-2 rounded-full ${settings.enabled ? "bg-success" : "bg-surface-2"}`}
+              className={`inline-block h-2 w-2 rounded-full ${settings.enabled ? "bg-emerald-500" : "bg-zinc-400"}`}
             />
             <span className="text-xs text-text-muted">
               {settings.enabled
@@ -428,21 +410,23 @@ export default function CloudAgentsPage() {
         </div>
       </Card>
 
-      {/* Tab bar — the panels below are rendered by the page (no TabsContent). */}
-      <Tabs
-        variant="underline"
-        value={activeTab}
-        onValueChange={(next) => setActiveTab(next as TabId)}
-      >
-        <TabsList aria-label={t("aboutTitle")}>
-          {tabs.map((tab) => (
-            <TabsTrigger key={tab.id} value={tab.id} aria-controls={undefined} className="gap-1.5">
-              <Icon name={tab.icon} size={16} />
-              {tab.label}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-      </Tabs>
+      {/* Tab bar */}
+      <div className="flex gap-2 border-b border-border">
+        {tabs.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors flex items-center gap-1.5 ${
+              activeTab === tab.id
+                ? "border-purple-500 text-purple-500"
+                : "border-transparent text-text-muted hover:text-text-main"
+            }`}
+          >
+            <span className="material-symbols-outlined text-[16px]">{tab.icon}</span>
+            {tab.label}
+          </button>
+        ))}
+      </div>
 
       {/* ── Tasks Tab ──────────────────────────────────────────────────────── */}
       {activeTab === "tasks" && (
@@ -450,8 +434,8 @@ export default function CloudAgentsPage() {
           {/* Create task form */}
           <Card>
             <div className="flex items-center gap-3 mb-4">
-              <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                <Icon name="add_task" size={20} />
+              <div className="p-2 rounded-lg bg-purple-500/10 text-purple-500">
+                <span className="material-symbols-outlined text-[20px]">add_task</span>
               </div>
               <div>
                 <h3 className="text-lg font-semibold">{t("newTaskTitle")}</h3>
@@ -460,28 +444,35 @@ export default function CloudAgentsPage() {
             </div>
             <form onSubmit={handleCreateTask} className="flex flex-col gap-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Select
-                  label={t("selectAgent")}
-                  value={newTask.providerId}
-                  onChange={(e) => setNewTask({ ...newTask, providerId: e.target.value })}
-                >
-                  {CLOUD_AGENTS.map((agent) => (
-                    <option key={agent.id} value={agent.id}>
-                      {agent.name} ({agent.provider})
-                    </option>
-                  ))}
-                </Select>
+                <div>
+                  <label className="text-xs font-medium text-text-muted mb-1.5 block">
+                    {t("selectAgent")}
+                  </label>
+                  <select
+                    value={newTask.providerId}
+                    onChange={(e) => setNewTask({ ...newTask, providerId: e.target.value })}
+                    className="w-full rounded-lg border border-border/50 bg-card px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  >
+                    {CLOUD_AGENTS.map((agent) => (
+                      <option key={agent.id} value={agent.id}>
+                        {agent.name} ({agent.provider})
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
-              <Field label={t("taskDescription")} htmlFor={taskPromptId}>
-                <Textarea
-                  id={taskPromptId}
+              <div>
+                <label className="text-xs font-medium text-text-muted mb-1.5 block">
+                  {t("taskDescription")}
+                </label>
+                <textarea
                   placeholder={t("taskDescriptionPlaceholder")}
                   value={newTask.prompt}
                   onChange={(e) => setNewTask({ ...newTask, prompt: e.target.value })}
-                  className="min-h-24 text-sm"
+                  className="min-h-24 w-full rounded-lg border border-border/50 bg-card px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
                   required
                 />
-              </Field>
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Input
                   label={t("repositoryName")}
@@ -505,16 +496,19 @@ export default function CloudAgentsPage() {
                   value={newTask.branch}
                   onChange={(e) => setNewTask({ ...newTask, branch: e.target.value })}
                 />
-                <Checkbox
-                  checked={newTask.autoCreatePr}
-                  onChange={(e) => setNewTask({ ...newTask, autoCreatePr: e.target.checked })}
-                  label={t("settingAutoPR")}
-                  className="pt-7 text-sm text-text-muted"
-                />
+                <label className="flex items-center gap-2 text-sm text-text-muted pt-7">
+                  <input
+                    type="checkbox"
+                    checked={newTask.autoCreatePr}
+                    onChange={(e) => setNewTask({ ...newTask, autoCreatePr: e.target.checked })}
+                    className="h-4 w-4 rounded border-border/60"
+                  />
+                  {t("settingAutoPR")}
+                </label>
               </div>
               <div className="flex justify-end">
                 <Button type="submit" variant="primary" loading={creating}>
-                  <Icon name="rocket_launch" size={16} className="mr-1" />
+                  <span className="material-symbols-outlined text-[16px] mr-1">rocket_launch</span>
                   {t("startTask")}
                 </Button>
               </div>
@@ -523,23 +517,21 @@ export default function CloudAgentsPage() {
 
           {/* Filters */}
           <div className="flex items-center gap-3 flex-wrap">
-            <Select
+            <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as TaskStatus | "all")}
-              aria-label={t("statusFilter")}
-              className="w-auto"
+              className="rounded-lg border border-border/50 bg-card px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
             >
               {STATUS_OPTIONS.map((opt) => (
                 <option key={opt.value} value={opt.value}>
                   {t(opt.labelKey) || opt.value}
                 </option>
               ))}
-            </Select>
-            <Select
+            </select>
+            <select
               value={providerFilter}
               onChange={(e) => setProviderFilter(e.target.value)}
-              aria-label={t("filterAllProviders") || "All Providers"}
-              className="w-auto"
+              className="rounded-lg border border-border/50 bg-card px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
             >
               <option value="all">{t("filterAllProviders") || "All Providers"}</option>
               {CLOUD_AGENTS.map((agent) => (
@@ -547,9 +539,9 @@ export default function CloudAgentsPage() {
                   {agent.name}
                 </option>
               ))}
-            </Select>
+            </select>
             {hasActiveTasks && (
-              <span className="flex items-center gap-1.5 text-xs text-info">
+              <span className="flex items-center gap-1.5 text-xs text-blue-500">
                 <span className="animate-pulse">●</span>
                 {t("autoRefreshing") || "Auto-refreshing"}
               </span>
@@ -560,11 +552,15 @@ export default function CloudAgentsPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="flex flex-col gap-3">
               {filteredTasks.length === 0 ? (
-                <EmptyState
-                  icon="assignment"
-                  title={t("noTasksTitle") || "No tasks yet"}
-                  description={t("noTasksDesc") || "Create your first task to get started."}
-                />
+                <div className="text-center py-12 text-text-muted border border-dashed border-border/50 rounded-lg">
+                  <span className="material-symbols-outlined text-[48px] mb-2 block text-text-muted/50">
+                    assignment
+                  </span>
+                  <p className="text-sm font-medium">{t("noTasksTitle") || "No tasks yet"}</p>
+                  <p className="text-xs mt-1">
+                    {t("noTasksDesc") || "Create your first task to get started."}
+                  </p>
+                </div>
               ) : (
                 filteredTasks.map((task) => {
                   const agent = getAgentInfo(task.providerId);
@@ -574,14 +570,18 @@ export default function CloudAgentsPage() {
                       padding="sm"
                       hover
                       className={`transition-all ${
-                        selectedTask?.id === task.id ? "!border-primary ring-1 ring-primary/20" : ""
+                        selectedTask?.id === task.id
+                          ? "!border-purple-500 ring-1 ring-purple-500/20"
+                          : ""
                       }`}
                       onClick={() => setSelectedTask(task)}
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex items-center gap-2.5">
                           <div className={`p-1.5 rounded-lg ${agent.iconBg} ${agent.iconColor}`}>
-                            <Icon name={agent.icon} size={16} />
+                            <span className="material-symbols-outlined text-[16px]">
+                              {agent.icon}
+                            </span>
                           </div>
                           <div>
                             <p className="text-sm font-medium text-text-main line-clamp-1">
@@ -609,7 +609,9 @@ export default function CloudAgentsPage() {
                       <div
                         className={`p-1.5 rounded-lg ${getAgentInfo(selectedTask.providerId).iconBg} ${getAgentInfo(selectedTask.providerId).iconColor}`}
                       >
-                        <Icon name={getAgentInfo(selectedTask.providerId).icon} size={16} />
+                        <span className="material-symbols-outlined text-[16px]">
+                          {getAgentInfo(selectedTask.providerId).icon}
+                        </span>
                       </div>
                       <div>
                         <p className="font-medium">{getAgentInfo(selectedTask.providerId).name}</p>
@@ -624,24 +626,28 @@ export default function CloudAgentsPage() {
                   {/* Duration for completed/failed tasks */}
                   {selectedTask.status === "completed" && (
                     <div className="flex items-center gap-1.5 text-xs text-text-muted">
-                      <Icon name="timer" size={14} />
+                      <span className="material-symbols-outlined text-[14px]">timer</span>
                       {formatDuration(selectedTask.createdAt, selectedTask.updatedAt)}
                     </div>
                   )}
 
                   {/* Awaiting approval: show plan */}
                   {selectedTask.status === "awaiting_approval" && getPlanText(selectedTask) && (
-                    <div className="rounded-lg border border-warning/20 bg-warning/10 p-3">
+                    <div className="rounded-lg border border-amber-500/20 bg-amber-500/5 p-3">
                       <div className="flex items-center gap-2 mb-2">
-                        <Icon name="description" size={16} className="text-warning" />
-                        <span className="text-sm font-medium text-warning">{t("planReady")}</span>
+                        <span className="material-symbols-outlined text-[16px] text-amber-600">
+                          description
+                        </span>
+                        <span className="text-sm font-medium text-amber-700 dark:text-amber-400">
+                          {t("planReady")}
+                        </span>
                       </div>
-                      <pre className="text-xs text-text-muted whitespace-pre-wrap bg-bg-subtle rounded p-2 max-h-32 overflow-auto">
+                      <pre className="text-xs text-text-muted whitespace-pre-wrap bg-black/5 dark:bg-white/5 rounded p-2 max-h-32 overflow-auto">
                         {getPlanText(selectedTask)}
                       </pre>
                       <div className="flex gap-2 mt-2">
                         <Button variant="primary" size="sm" onClick={handleApprovePlan}>
-                          <Icon name="check" size={14} className="mr-1" />
+                          <span className="material-symbols-outlined text-[14px] mr-1">check</span>
                           {t("approvePlan")}
                         </Button>
                         <Button
@@ -665,8 +671,8 @@ export default function CloudAgentsPage() {
                             key={activity.id}
                             className={`p-2 rounded-lg text-xs ${
                               activity.type === "message" || activity.type === "completion"
-                                ? "bg-primary/10 text-text-main"
-                                : "bg-bg-subtle text-text-main"
+                                ? "bg-purple-500/10 text-text-main"
+                                : "bg-surface/40 text-text-main"
                             }`}
                           >
                             <span className="font-medium">
@@ -681,10 +687,14 @@ export default function CloudAgentsPage() {
 
                   {/* Result with PR link */}
                   {selectedTask.result && (
-                    <div className="rounded-lg border border-success/20 bg-success/10 p-3">
+                    <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/5 p-3">
                       <div className="flex items-center gap-2 mb-2">
-                        <Icon name="check_circle" size={16} className="text-success" />
-                        <span className="text-sm font-medium text-success">{t("result")}</span>
+                        <span className="material-symbols-outlined text-[16px] text-emerald-600">
+                          check_circle
+                        </span>
+                        <span className="text-sm font-medium text-emerald-700 dark:text-emerald-400">
+                          {t("result")}
+                        </span>
                       </div>
                       <pre className="text-xs text-text-muted whitespace-pre-wrap">
                         {formatResult(selectedTask.result)}
@@ -694,13 +704,9 @@ export default function CloudAgentsPage() {
                           href={(selectedTask.result as Record<string, unknown>).prUrl as string}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={buttonVariants({
-                            variant: "secondary",
-                            size: "sm",
-                            className: "mt-2 gap-1.5 text-xs",
-                          })}
+                          className="inline-flex items-center gap-1.5 mt-2 px-3 py-1.5 text-xs font-medium rounded-lg bg-purple-500/10 text-purple-600 hover:bg-purple-500/20 transition-colors"
                         >
-                          <Icon name="open_in_new" size={14} />
+                          <span className="material-symbols-outlined text-[14px]">open_in_new</span>
                           {t("viewPR") || "View Pull Request"}
                         </a>
                       )}
@@ -709,10 +715,12 @@ export default function CloudAgentsPage() {
 
                   {/* Error */}
                   {selectedTask.error && (
-                    <div className="rounded-lg border border-error/20 bg-error/10 p-3">
+                    <div className="rounded-lg border border-red-500/20 bg-red-500/5 p-3">
                       <div className="flex items-center gap-2 mb-2">
-                        <Icon name="error" size={16} className="text-error" />
-                        <span className="text-sm font-medium text-error">{t("error")}</span>
+                        <span className="material-symbols-outlined text-[16px] text-red-500">
+                          error
+                        </span>
+                        <span className="text-sm font-medium text-red-600">{t("error")}</span>
                       </div>
                       <p className="text-xs text-text-muted">{selectedTask.error}</p>
                     </div>
@@ -728,13 +736,8 @@ export default function CloudAgentsPage() {
                         onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSendMessage()}
                         className="flex-1"
                       />
-                      <Button
-                        variant="primary"
-                        size="icon"
-                        onClick={handleSendMessage}
-                        aria-label={t("sendMessagePlaceholder")}
-                      >
-                        <Icon name="send" size={16} />
+                      <Button variant="primary" onClick={handleSendMessage}>
+                        <span className="material-symbols-outlined text-[16px]">send</span>
                       </Button>
                     </div>
                   )}
@@ -747,22 +750,27 @@ export default function CloudAgentsPage() {
                       onClick={() => handleCancelTask(selectedTask.id)}
                       disabled={["completed", "failed", "cancelled"].includes(selectedTask.status)}
                     >
-                      <Icon name="cancel" size={14} className="mr-1" />
+                      <span className="material-symbols-outlined text-[14px] mr-1">cancel</span>
                       {t("cancel")}
                     </Button>
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => handleDeleteTask(selectedTask.id)}
-                      className="text-error hover:text-error"
+                      className="text-red-500 hover:text-red-400"
                     >
-                      <Icon name="delete" size={14} className="mr-1" />
+                      <span className="material-symbols-outlined text-[14px] mr-1">delete</span>
                       {t("delete")}
                     </Button>
                   </div>
                 </Card>
               ) : (
-                <EmptyState icon="touch_app" title={t("selectTaskPrompt")} />
+                <div className="text-center py-12 text-text-muted border border-dashed border-border/50 rounded-lg">
+                  <span className="material-symbols-outlined text-[48px] mb-2 block text-text-muted/50">
+                    touch_app
+                  </span>
+                  <p className="text-sm">{t("selectTaskPrompt")}</p>
+                </div>
               )}
             </div>
           </div>
@@ -779,7 +787,7 @@ export default function CloudAgentsPage() {
                 <div className="flex flex-col items-center text-center gap-3">
                   {/* Icon */}
                   <div className={`p-3 rounded-xl ${agent.iconBg} ${agent.iconColor}`}>
-                    <Icon name={agent.icon} size={32} />
+                    <span className="material-symbols-outlined text-[32px]">{agent.icon}</span>
                   </div>
 
                   {/* Name + provider */}
@@ -794,7 +802,7 @@ export default function CloudAgentsPage() {
                   {/* Connection status */}
                   <div className="flex items-center gap-2">
                     <span
-                      className={`h-2.5 w-2.5 rounded-full ${connected ? "bg-success" : "bg-error"}`}
+                      className={`h-2.5 w-2.5 rounded-full ${connected ? "bg-emerald-500" : "bg-red-500"}`}
                     />
                     <span className="text-xs text-text-muted">
                       {connected
@@ -811,7 +819,7 @@ export default function CloudAgentsPage() {
                       window.location.href = "/dashboard/providers?section=cloudagent";
                     }}
                   >
-                    <Icon name="settings" size={14} className="mr-1" />
+                    <span className="material-symbols-outlined text-[14px] mr-1">settings</span>
                     {t("configure") || "Configure"}
                   </Button>
                 </div>
@@ -835,45 +843,85 @@ export default function CloudAgentsPage() {
             </div>
 
             {/* Toggle: Enable cloud agents */}
-            <Switch
-              side="right"
-              label={t("settingEnableAgents") || "Enable cloud agents"}
-              description={
-                t("settingEnableAgentsDesc") || "Master switch for all cloud agent functionality."
-              }
-              checked={settings.enabled}
-              aria-checked={settings.enabled}
-              onCheckedChange={() => updateSetting("enabled", !settings.enabled)}
-              className="justify-between py-3 border-b border-border/30"
-            />
+            <div className="flex items-center justify-between py-3 border-b border-border/30">
+              <div>
+                <p className="text-sm font-medium text-text-main">
+                  {t("settingEnableAgents") || "Enable cloud agents"}
+                </p>
+                <p className="text-xs text-text-muted">
+                  {t("settingEnableAgentsDesc") ||
+                    "Master switch for all cloud agent functionality."}
+                </p>
+              </div>
+              <button
+                role="switch"
+                aria-checked={settings.enabled}
+                onClick={() => updateSetting("enabled", !settings.enabled)}
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                  settings.enabled ? "bg-purple-500" : "bg-zinc-300 dark:bg-zinc-600"
+                }`}
+              >
+                <span
+                  className={`inline-block h-4 w-4 rounded-full bg-white transition-transform ${
+                    settings.enabled ? "translate-x-6" : "translate-x-1"
+                  }`}
+                />
+              </button>
+            </div>
 
             {/* Toggle: Auto-create PR */}
-            <Switch
-              side="right"
-              label={t("settingAutoPR") || "Auto-create PR"}
-              description={
-                t("settingAutoPRDesc") ||
-                "Automatically create a pull request when a task completes."
-              }
-              checked={settings.autoCreatePr}
-              aria-checked={settings.autoCreatePr}
-              onCheckedChange={() => updateSetting("autoCreatePr", !settings.autoCreatePr)}
-              className="justify-between py-3 border-b border-border/30"
-            />
+            <div className="flex items-center justify-between py-3 border-b border-border/30">
+              <div>
+                <p className="text-sm font-medium text-text-main">
+                  {t("settingAutoPR") || "Auto-create PR"}
+                </p>
+                <p className="text-xs text-text-muted">
+                  {t("settingAutoPRDesc") ||
+                    "Automatically create a pull request when a task completes."}
+                </p>
+              </div>
+              <button
+                role="switch"
+                aria-checked={settings.autoCreatePr}
+                onClick={() => updateSetting("autoCreatePr", !settings.autoCreatePr)}
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                  settings.autoCreatePr ? "bg-purple-500" : "bg-zinc-300 dark:bg-zinc-600"
+                }`}
+              >
+                <span
+                  className={`inline-block h-4 w-4 rounded-full bg-white transition-transform ${
+                    settings.autoCreatePr ? "translate-x-6" : "translate-x-1"
+                  }`}
+                />
+              </button>
+            </div>
 
             {/* Toggle: Require approval */}
-            <Switch
-              side="right"
-              label={t("settingRequireApproval") || "Require plan approval"}
-              description={
-                t("settingRequireApprovalDesc") ||
-                "Pause execution until you approve the agent's plan."
-              }
-              checked={settings.requireApproval}
-              aria-checked={settings.requireApproval}
-              onCheckedChange={() => updateSetting("requireApproval", !settings.requireApproval)}
-              className="justify-between py-3"
-            />
+            <div className="flex items-center justify-between py-3">
+              <div>
+                <p className="text-sm font-medium text-text-main">
+                  {t("settingRequireApproval") || "Require plan approval"}
+                </p>
+                <p className="text-xs text-text-muted">
+                  {t("settingRequireApprovalDesc") ||
+                    "Pause execution until you approve the agent's plan."}
+                </p>
+              </div>
+              <button
+                role="switch"
+                aria-checked={settings.requireApproval}
+                onClick={() => updateSetting("requireApproval", !settings.requireApproval)}
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                  settings.requireApproval ? "bg-purple-500" : "bg-zinc-300 dark:bg-zinc-600"
+                }`}
+              >
+                <span
+                  className={`inline-block h-4 w-4 rounded-full bg-white transition-transform ${
+                    settings.requireApproval ? "translate-x-6" : "translate-x-1"
+                  }`}
+                />
+              </button>
+            </div>
           </div>
         </Card>
       )}

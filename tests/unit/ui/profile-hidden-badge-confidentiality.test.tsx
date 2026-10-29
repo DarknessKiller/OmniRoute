@@ -73,8 +73,6 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-// The badge detail is the kit Dialog (Modal adapter), portalled to document.body, so the
-// disclosure checks read the whole document rather than the render container.
 describe("Profile hidden badge confidentiality", () => {
   it("does not disclose locked hidden badge metadata when activated", async () => {
     const container = await renderProfile();
@@ -82,18 +80,17 @@ describe("Profile hidden badge confidentiality", () => {
       button.textContent?.includes("???")
     );
     expect(badgeButton).toBeDefined();
-    // The badge glyph is now a kit <Icon> (an svg tagged data-icon), not ligature text.
-    expect(document.querySelector('[data-icon="rocket_launch"]')).toBeNull();
+    expect(container.textContent).not.toContain("rocket_launch");
 
     await act(async () => {
       badgeButton?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     });
 
-    expect(document.body.textContent).not.toContain("Secret Badge Name");
-    expect(document.body.textContent).not.toContain("Secret badge description");
-    expect(document.body.textContent).not.toContain("secret-category");
-    expect(document.body.textContent).not.toContain("legendary");
-    expect(document.body.textContent).not.toContain("secret-condition");
+    expect(container.textContent).not.toContain("Secret Badge Name");
+    expect(container.textContent).not.toContain("Secret badge description");
+    expect(container.textContent).not.toContain("secret-category");
+    expect(container.textContent).not.toContain("legendary");
+    expect(container.textContent).not.toContain("secret-condition");
   });
 
   it("reveals an earned hidden badge normally", async () => {
@@ -108,10 +105,10 @@ describe("Profile hidden badge confidentiality", () => {
       badgeButton?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     });
 
-    expect(document.body.textContent).toContain("secret-category");
-    expect(document.querySelector('[data-icon="rocket_launch"]')).not.toBeNull();
-    expect(document.body.textContent).toContain("Secret Badge Name");
-    expect(document.body.textContent).toContain("Secret badge description");
-    expect(document.body.textContent).toContain("legendary");
+    expect(container.textContent).toContain("secret-category");
+    expect(container.textContent).toContain("rocket_launch");
+    expect(container.textContent).toContain("Secret Badge Name");
+    expect(container.textContent).toContain("Secret badge description");
+    expect(container.textContent).toContain("legendary");
   });
 });
