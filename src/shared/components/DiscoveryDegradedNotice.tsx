@@ -1,7 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import Icon from "./Icon";
 
 /**
  * Tell the operator that the list they are looking at comes from the built-in
@@ -26,7 +25,7 @@ export function DiscoveryDegradedNotice({
       data-testid="discovery-degraded-notice"
       className="flex items-start gap-2 rounded-lg border border-warning/25 bg-warning/10 px-2.5 py-2 text-xs"
     >
-      <Icon name="warning" size={14} className="text-warning" />
+      <span className="material-symbols-outlined text-[14px] text-warning">warning</span>
       <span className="text-text-main">{t("localCatalogFallbackStatus")}</span>
       {cause ? (
         <span

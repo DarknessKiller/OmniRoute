@@ -19,7 +19,6 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { useTranslations } from "next-intl";
 import Button from "@/shared/components/Button";
-import Icon from "@/shared/components/Icon";
 export function ProviderSortContext({
   ids,
   labels,
@@ -116,14 +115,14 @@ export function SortableProviderRow({
         <Button
           ref={setActivatorNodeRef}
           variant="ghost"
-          size="icon-sm"
+          size="sm"
           {...attributes}
           {...listeners}
           data-drag-handle
           aria-label={t("healthDrag")}
           className="-ms-[6px] shrink-0 touch-none cursor-grab active:cursor-grabbing"
         >
-          <Icon name="drag_indicator" size={15} />
+          <span className="material-symbols-outlined text-[15px]">drag_indicator</span>
         </Button>
         {header}
       </div>
