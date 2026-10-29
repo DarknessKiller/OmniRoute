@@ -9,7 +9,6 @@ import {
   forwardRef,
   useImperativeHandle,
 } from "react";
-import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import Card from "./Card";
@@ -58,20 +57,6 @@ import {
 // page (previously hardcoded to a single 300-row window). See #2565.
 // Reduced from 300 → 50 to avoid browser freeze and network saturation.
 const PAGE_SIZE = 50;
-
-const relatedLogsSchema = z.array(
-  z
-    .object({
-      id: z.string().min(1),
-      correlationId: z.string().min(1),
-      timestamp: z.string(),
-      status: z.number(),
-      active: z.boolean().optional(),
-      completed: z.boolean().optional(),
-      detailState: z.string().nullable().optional(),
-    })
-    .passthrough()
-);
 
 // Column sort toggle mapping: clicking a column header toggles asc/desc.
 const COLUMN_SORT_MAP = {
@@ -583,7 +568,7 @@ const RequestLoggerV2 = forwardRef<RequestLoggerV2Handle, RequestLoggerV2Initial
         const url = new URL(globalThis.location.href);
         url.searchParams.delete("id");
         router.replace(url.pathname + url.search, { scroll: false });
-      } catch {
+      } catch (e) {
         // ignore navigation errors
       }
     }, [router]);
@@ -607,7 +592,7 @@ const RequestLoggerV2 = forwardRef<RequestLoggerV2Handle, RequestLoggerV2Initial
           const url = new URL(globalThis.location.href);
           url.searchParams.set("id", logEntry.id);
           router.replace(url.pathname + url.search, { scroll: false });
-        } catch {
+        } catch (e) {
           // ignore navigation errors
         }
         setDetailLoading(true);
@@ -747,44 +732,29 @@ const RequestLoggerV2 = forwardRef<RequestLoggerV2Handle, RequestLoggerV2Initial
       const cid = selectedLog?.correlationId;
       if (!selectedLog?.id || !cid) return;
       let cancelled = false;
-      let inFlight = false;
       const interval = setInterval(async () => {
-        if (document.visibilityState !== "visible" || inFlight) return;
-        const requestToken = detailRequestRef.current;
-        const isCurrent = () => !cancelled && detailRequestRef.current === requestToken;
-        inFlight = true;
+        if (document.visibilityState !== "visible") return;
         try {
           const res = await fetch(`/api/usage/call-logs?correlationId=${encodeURIComponent(cid)}`, {
             cache: "no-store",
           });
-          if (!isCurrent() || !res.ok) return;
-          const snapshot = relatedLogsSchema.safeParse(await res.json());
-          if (!isCurrent() || !snapshot.success) return;
-          // The API matches correlation substrings; reconcile only this exact request.
-          const cidLogs = snapshot.data.filter((log) => log.correlationId === cid);
-          const byId = new Map(cidLogs.map((log) => [log.id, log]));
+          if (cancelled || !res.ok) return;
+          const cidLogs = await res.json();
+          if (!Array.isArray(cidLogs) || cidLogs.length === 0) return;
           setLogs((prev) => {
-            if (!isCurrent()) return prev;
+            const ids = new Set(cidLogs.map((l: any) => l.id));
             let changed = false;
-            const merged = prev.flatMap((log: any) => {
-              if (log.correlationId !== cid) return [log];
-              const updated = byId.get(log.id);
+            const merged = prev.map((l: any) => {
+              const updated = cidLogs.find((c: any) => c.id === l.id);
               if (updated) {
                 changed = true;
-                return [updated];
+                return { ...l, ...updated };
               }
-              // All live previews are included, but persisted rows are paginated.
-              if (log.active || log.completed || log.detailState === "in-memory") {
-                changed = true;
-                return [];
-              }
-              return [log];
+              return l;
             });
-            const ids = new Set(prev.map((log: any) => log.id));
-            for (const log of cidLogs) {
-              if (!ids.has(log.id)) {
-                merged.push(log);
-                ids.add(log.id);
+            for (const cl of cidLogs) {
+              if (!merged.some((m: any) => m.id === cl.id)) {
+                merged.push(cl);
                 changed = true;
               }
             }
@@ -792,8 +762,6 @@ const RequestLoggerV2 = forwardRef<RequestLoggerV2Handle, RequestLoggerV2Initial
           });
         } catch {
           /* poll failed — non-critical */
-        } finally {
-          inFlight = false;
         }
       }, 3000);
       return () => {
