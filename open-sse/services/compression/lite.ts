@@ -176,7 +176,7 @@ function findTailStart(text: string, tailBudget: number): number {
 /**
  * Truncate a tool result string to the Lite cap. Multi-line content keeps its tail as well as its
  * head: a head-only cut deletes the lines an agent is about to edit (anchors, grep hits at the
- * bottom), so the model rebuilds them from memory and the edit it makes is rejected as stale.
+ * bottom), so it invents them from memory and the edit fails as STALE_ANCHOR (retro 2026-10-26 #5).
  * The head is cut on a word boundary, the tail starts on a line boundary inside its budget, and
  * content whose last line alone exceeds that budget falls back to the head-only cut.
  * Single-line content still gets the #8169 word-boundary cut.
