@@ -150,24 +150,24 @@ curl -X POST http://localhost:20128/a2a \
 
 ---
 
-## Abilități disponibile
+## Skill-uri disponibile
 
-OmniRoute expune 6 abilități A2A conectate în `src/lib/a2a/taskExecution.ts::A2A_SKILL_HANDLERS`. Fiecare modul de abilități locuiește în `src/lib/a2a/skills/`.
+OmniRoute expune 6 skill-uri A2A conectate în `src/lib/a2a/taskExecution.ts::A2A_SKILL_HANDLERS`. Fiecare modul de skill se află în `src/lib/a2a/skills/`.
 
-| Îndemânare                | ID                   | Descriere                                                                                                                                                                   | Etichete                         | Exemple                                             |
-| :------------------------ | :------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------- | :-------------------------------------------------- |
-| Rutare inteligentă        | `smart-routing`      | Direcționează un prompt prin provider/combo optimă folosind scorul + al motorului combo al lui OmniRoute                                                                    | rutare, furnizori                | „Dirijați acest prompt prin cel mai bun model”      |
-| Managementul cotelor      | `quota-management`   | Raportează starea cotei pentru fiecare furnizor, îi ajută pe apelanți să decidă când să throttle/switch                                                                     | cotă, furnizori                  | „Verificați cota pentru antropic”                   |
-| Descoperirea furnizorului | `provider-discovery` | Enumeră furnizorii instalați cu capacități, steaguri de nivel gratuit, OAuth                                                                                                | furnizori, descoperire           | „Ce furnizori sunt disponibili?”                    |
-| Analiza costurilor        | `cost-analysis`      | Estimează costul unui request/conversation având în vedere utilizarea recentă a catalogului +                                                                               | cost, utilizare                  | „Cost estimat pentru această conversație”           |
-| Raport de sănătate        | `health-report`      | Agregă întrerupător, răcire, stare de blocare per furnizor                                                                                                                  | sănătate, rezistență             | „Afișați starea de sănătate a tuturor furnizorilor” |
-| Lista de capabilități     | `list-capabilities`  | Returnează întregul catalog de abilități de agent cu 45 de intrări (23 API + 21 CLI + 1 config) ca un tabel de reducere cu SKILL.md URLs brut pentru injectarea contextului | catalog, descoperire, aptitudini | „Enumeră toate capabilitățile OmniRoute ”           |
+| Skill              | ID                   | Descriere                                                                                                                                                                    | Etichete                   | Exemple                                              |
+| :----------------- | :------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------- | :--------------------------------------------------- |
+| Smart Routing      | `smart-routing`      | Direcționează un prompt prin providerul/combinația optimă folosind motorul de combo-uri și scorarea OmniRoute                                                                | routing, providers         | "Direcționează acest prompt prin cel mai bun model"  |
+| Quota Management   | `quota-management`   | Raportează starea cotelor per provider, ajutând apelanții să decidă când să limiteze/comute                                                                                  | quota, providers           | "Verifică cota pentru anthropic"                     |
+| Provider Discovery | `provider-discovery` | Listează providerii instalați cu capabilități, indicatori de nivel gratuit și stare OAuth                                                                                    | providers, discovery       | "Ce provideri sunt disponibili?"                     |
+| Cost Analysis      | `cost-analysis`      | Estimează costul unei cereri/conversații pe baza catalogului și al utilizării recente                                                                                        | cost, usage                | "Estimează costul acestei conversații"               |
+| Health Report      | `health-report`      | Agregă starea circuit breaker, cooldown și lockout per provider                                                                                                              | health, resilience         | "Afișează starea de sănătate a tuturor providerilor" |
+| List Capabilities  | `list-capabilities`  | Returnează catalogul complet de 45 de intrări Agent Skills (23 API + 21 CLI + 1 config) sub formă de tabel markdown cu URL-uri raw către SKILL.md pentru injecția de context | catalog, discovery, skills | "Listează toate capabilitățile OmniRoute"            |
 
-> Cardul de agent trebuie menținut aliniat cu catalogul live 377 de furnizori; Numărul furnizorilor și metadatele free/no-auth provin din registrul de rulare.
+> Cardul de agent ar trebui menținut aliniat cu catalogul live de 376 de provideri; numărul de provideri și metadatele free/no-auth provin din registrul de runtime.
 
-### `list-capabilities` Detaliu abilitate
+### Detalii despre skill-ul `list-capabilities`
 
-Abilitatea `list-capabilities` este deosebit de utilă pentru agenții externi care trebuie să descopere ce expune OmniRoute înainte de a trimite apeluri API. Returnează un artefact structurat de tabel de reducere:
+Skill-ul `list-capabilities` este deosebit de util pentru agenții externi care trebuie să descopere ce expune OmniRoute înainte de a trimite apeluri API. Returnează un artefact sub formă de tabel markdown structurat:
 
 ```
 | ID | Name | Category | Area | Endpoints/Commands | Raw URL |
@@ -176,7 +176,7 @@ Abilitatea `list-capabilities` este deosebit de utilă pentru agenții externi c
 ...
 ```
 
-Fiecare rând include coloana `rawUrl`, astfel încât agenții să poată prelua imediat SKILL.md complet. Câmpul `metadata.totalSkills` reflectă dimensiunea catalogului (45 astăzi). Implementare: `src/lib/a2a/skills/listCapabilities.ts`. Vezi și [AGENT-SKILLS.md](./AGENT-SKILLS.md).
+Fiecare rând include coloana `rawUrl`, astfel încât agenții pot prelua imediat SKILL.md complet. Câmpul `metadata.totalSkills` reflectă dimensiunea catalogului (45 în prezent). Implementare: `src/lib/a2a/skills/listCapabilities.ts`. Vezi și [AGENT-SKILLS.md](./AGENT-SKILLS.md).
 
 ---
 
@@ -197,17 +197,17 @@ Punctul final JSON-RPC `/a2a` este punctul de intrare A2A canonic. Punctele fina
 
 ---
 
-## Adăugarea unei abilități noi
+## Adăugarea unei competențe noi
 
-1. **Creați fișierul abilității:** `src/lib/a2a/skills/<your-skill>.ts`
+1. **Creați fișierul competenței:** `src/lib/a2a/skills/<your-skill>.ts`
 
-   Exportați o funcție asincronă `(task: A2ATask) => Promise<{ artifacts, metadata }>`. Urmați structura abilităților existente, precum `smartRouting.ts`.
+   Exportați o funcție asincronă `(task: A2ATask) => Promise<{ artifacts, metadata }>`. Urmați structura competențelor existente, precum `smartRouting.ts`.
 
-2. **Înregistrați handlerul:** în `src/lib/a2a/taskExecution.ts`, adăugați o intrare în `A2A_SKILL_HANDLERS`:
+2. **Înregistrați gestionarul:** în `src/lib/a2a/taskExecution.ts`, adăugați o intrare în `A2A_SKILL_HANDLERS`:
 
    ```typescript
    export const A2A_SKILL_HANDLERS = {
-     // ...abilități existente
+     // ...competențe existente
      "your-skill": async (task) => {
        const skillModule = await import("./skills/yourSkill");
        return skillModule.executeYourSkill(task);
@@ -215,13 +215,13 @@ Punctul final JSON-RPC `/a2a` este punctul de intrare A2A canonic. Punctele fina
    };
    ```
 
-3. **Expuneți abilitatea în fișa agentului:** în `src/lib/a2a/agentCardMetadata.ts` (partajat de `/.well-known/agent.json` și `/.well-known/agent-card.json`), adăugați următorul obiect în matricea `skills`:
+3. **Expuneți în Fișa agentului:** în `src/app/.well-known/agent.json/route.ts`, adăugați la sfârșitul matricei `skills`:
 
    ```json
    {
      "id": "your-skill",
-     "name": "Abilitatea dvs.",
-     "description": "Descriere succintă, axată pe intenție",
+     "name": "Competența dvs.",
+     "description": "Descriere scurtă, axată pe intenție",
      "tags": ["rutare", "cotă"],
      "examples": ["Exemplu de invocare în limbaj natural"]
    }
@@ -229,7 +229,7 @@ Punctul final JSON-RPC `/a2a` este punctul de intrare A2A canonic. Punctele fina
 
 4. **Scrieți teste:** `tests/unit/a2a-<your-skill>.test.ts`. Acoperiți scenariul reușit și scenariul de eroare.
 
-5. **Documentați** noua abilitate în tabelul `Available Skills` din acest fișier.
+5. **Documentați** noua competență în tabelul `Competențe disponibile` din acest fișier.
 
 ---
 
@@ -268,7 +268,7 @@ trimisă → în lucru → finalizată
 
 ## Exemple de integrare
 
-### Python (cereri)
+### Python (requests)
 
 ```python
 import requests
@@ -287,7 +287,7 @@ print(result["artifacts"][0]["content"])
 print(result["metadata"]["routing_explanation"])
 ```
 
-### TypeScript (preluare)
+### TypeScript (fetch)
 
 ```typescript
 const resp = await fetch("http://localhost:20128/a2a", {

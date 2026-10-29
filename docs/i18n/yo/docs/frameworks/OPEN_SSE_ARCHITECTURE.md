@@ -482,19 +482,19 @@ createResponsesApiTransformStream(): TransformStream
 
 ---
 
-## Iṣeto ni
+## Ìṣètò
 
-`open-sse/config/` di Layer iṣeto ni:
+`open-sse/config/` ni ìpele ìṣètò wà sí:
 
-| Faili                           | Idi                                                  |
-| ------------------------------- | ---------------------------------------------------- |
-| `providerRegistry.ts`           | Iforukọsilẹ-awoṣe iwiregbe lori katalogi olupese 377 |
-| `providerModels.ts`             | Awọn inagijẹ awoṣe, aworan atọka                     |
-| `constants.ts`                  | Awọn akoko ipari, awọn opin, awọn koodu ipo          |
-| `defaultThinkingSignature.ts`   | Ibuwọlu ero aiyipada Claude                          |
-| `modelStrip.ts` (ninu awọn iṣẹ) | Fun-olupese aaye idinku                              |
+| Fáìlì                           | Ète                                               |
+| ------------------------------- | ------------------------------------------------- |
+| `providerRegistry.ts`           | Àtòjọ àwoṣe ìbáròrọ̀ lórí àtòkàtà àwọn olupèsè 376 |
+| `providerModels.ts`             | Àwọn orúkọ mìíràn àwoṣe, ìbáṣepọ̀ ọ̀nà àkọsílẹ̀      |
+| `constants.ts`                  | Àwọn ìparí àkókò, àwọn òpin, àwọn kóòdù ipò       |
+| `defaultThinkingSignature.ts`   | Ìbuwọlu ìrònúwò Claude àyọkàyọ                    |
+| `modelStrip.ts` (nínú services) | Yíyọ àwọn aaye kúrò fún olupèsè kọ̀ọ̀kan            |
 
-### Eto Iforukọsilẹ Olupese
+### Àpéjúwe Àtòjọ Olupèsè
 
 ```ts
 interface ProviderConfig {
@@ -509,7 +509,7 @@ interface ProviderConfig {
 }
 ```
 
-Zod afọwọsi ni fifuye module idaniloju gbogbo awọn atunto olupese wulo.
+Ìmúdájú Zod nígbà tí móòdùlì ń wọlé ń rí i dájú pé gbogbo àwọn ìṣètò olupèsè wọ́pọ̀.
 
 ---
 

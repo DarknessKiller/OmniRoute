@@ -279,7 +279,7 @@ function OverviewHeader({
         </Button>
         {custom && (
           <Button variant="ghost" size="sm" data-reset-order className="text-xs" onClick={reset}>
-            <span className="material-symbols-outlined text-[14px]">restart_alt</span>{" "}
+            <span className="material-symbols-outlined text-[14px]">restart_alt</span> {t("healthResetOrder")}
           </Button>
         )}
       </div>

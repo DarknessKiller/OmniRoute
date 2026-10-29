@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import Button from "@/shared/components/Button";
 import Input from "@/shared/components/Input";
 import { useRouter } from "next/navigation";
+import { withBasePath } from "@/shared/utils/basePath";
 
 export default function LoginPage() {
   const t = useTranslations("auth");
@@ -42,7 +43,7 @@ export default function LoginPage() {
           if (data.nodeVersion) setNodeVersion(data.nodeVersion);
           if (data.nodeCompatible === false) setNodeCompatible(false);
           if (data.authenticated === true || data.requireLogin === false) {
-            window.location.href = "/dashboard";
+            window.location.href = withBasePath("/dashboard");
             return;
           }
           setHasPassword(!!data.hasPassword);
@@ -80,12 +81,12 @@ export default function LoginPage() {
 
       if (res.ok) {
         sessionStorage.setItem("omniroute_login_time", String(Date.now()));
-        window.location.href = "/dashboard";
+        window.location.href = withBasePath("/dashboard");
       } else {
         const data = await res.json();
         // (#521) If no password is set, redirect to onboarding instead of showing an error
         if (data.needsSetup) {
-          window.location.href = "/dashboard/onboarding";
+          window.location.href = withBasePath("/dashboard/onboarding");
           return;
         }
         setError(data.error || t("invalidPassword"));
@@ -259,7 +260,7 @@ export default function LoginPage() {
                   type="button"
                   variant="primary"
                   className="w-full h-11 text-sm font-medium flex items-center justify-center gap-2"
-                  onClick={() => (window.location.href = "/api/auth/oidc/login")}
+                  onClick={() => (window.location.href = withBasePath("/api/auth/oidc/login"))}
                 >
                   <span className="material-symbols-outlined text-lg">login</span>
                   {t("continueWithOidc")}
@@ -304,7 +305,7 @@ export default function LoginPage() {
                       type="button"
                       variant="secondary"
                       className="w-full h-11 text-sm font-medium flex items-center justify-center gap-2"
-                      onClick={() => (window.location.href = "/api/auth/oidc/login")}
+                      onClick={() => (window.location.href = withBasePath("/api/auth/oidc/login"))}
                     >
                       <span className="material-symbols-outlined text-lg">login</span>
                       {t("continueWithOidc")}

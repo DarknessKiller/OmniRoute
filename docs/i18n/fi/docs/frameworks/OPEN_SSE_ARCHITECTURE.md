@@ -482,19 +482,19 @@ Se käsittelee seuraavat:
 
 ---
 
-## Kokoonpano
+## Konfiguraatio
 
-`open-sse/config/` sisältää määrityskerroksen:
+`open-sse/config/` sisältää konfiguraatiokerroksen:
 
-| Tiedosto                      | Tarkoitus                                             |
-| ----------------------------- | ----------------------------------------------------- |
-| `providerRegistry.ts`         | Chat-mallirekisteri 377-palveluntarjoajan luettelossa |
-| `providerModels.ts`           | Mallialiakset, muotojen kartoitus                     |
-| `constants.ts`                | Aikakatkaisut, rajat, tilakoodit                      |
-| `defaultThinkingSignature.ts` | Oletusarvoinen Claude ajatteleva allekirjoitus        |
-| `modelStrip.ts` (palveluissa) | Palveluntarjoajakohtainen kentän kuorinta             |
+| Tiedosto                       | Tarkoitus                                                |
+| ------------------------------ | -------------------------------------------------------- |
+| `providerRegistry.ts`          | Chat-mallien rekisteri 376 palveluntarjoajan luettelolle |
+| `providerModels.ts`            | Mallialiasukset, formaattikartoitus                      |
+| `constants.ts`                 | Aikakatkaisut, rajat, tilakoodit                         |
+| `defaultThinkingSignature.ts`  | Clauden oletusarvoinen thinking-allekirjoitus            |
+| `modelStrip.ts` (servicesissä) | Kenttien poisto palveluntarjoajakohtaisesti              |
 
-### Palveluntarjoajan rekisterikaavio
+### Palveluntarjoajarekisterin skeema
 
 ```ts
 interface ProviderConfig {
@@ -509,7 +509,7 @@ interface ProviderConfig {
 }
 ```
 
-Zod tarkistus moduulin latauksen yhteydessä varmistaa, että kaikki palveluntarjoajan asetukset ovat kelvollisia.
+Zod-validointi moduulin latauksen yhteydessä varmistaa, että kaikki palveluntarjoajien konfiguraatiot ovat kelvollisia.
 
 ---
 

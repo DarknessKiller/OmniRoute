@@ -11,19 +11,23 @@
 
 ---
 
-## ምንድን ነው?
+## ምን እንደሆነ
 
-OmniRoute ምልክት የተደረገባቸውን 155 ካታሎግ ግቤቶችን ጨምሮ 377 አቅራቢዎችን ይመዘግባል**free/no-auth** (ምንም-auth፣ ነፃ-ደረጃ OAuth፣ ወይም ነፃ-ደረጃ API ቁልፍ - [የነፃ ደረጃዎች መመሪያን](../getting-started/FREE-TIERS-GUIDE.md) እና ሙሉ [የነፃ ደረጃዎች ማውጫን](../reference/FREE_TIERS.md) ይመልከቱ)። የሚይዘው፡ ነፃ አቅራቢዎች በአምሳያው ጥራት ይለያያሉ። የድንበር ሞዴልን የሚያገለግል የነፃ አገልግሎት አቅራቢ አነስተኛ ቅርስ ሞዴልን ከሚያቀርበው የበለጠ ጠቃሚ ነው።
+OmniRoute 376 አቅራቢዎችን ይመዘግባል፣ ከእነዚህም 155 የካታሎግ ግቤቶች **free/no-auth** የሚል ምልክት አለባቸው (no-auth፣ free-tier OAuth፣ ወይም free-tier API key — [የነጻ ደረጃዎች መመሪያ](../getting-started/FREE-TIERS-GUIDE.md) እና ሙሉውን [የነጻ ደረጃዎች ማውጫ](../reference/FREE_TIERS.md) ይመልከቱ)። ችግሩ ግን፦ ነጻ አቅራቢዎች በሞዴል ጥራት በከፍተኛ ሁኔታ ይለያያሉ። የfrontier ሞዴል የሚያቀርብ no-auth አቅራቢ ከትንሽ አሮጌ ሞዴል ከሚያቀርብ አቅራቢ በጣም ይበልጥ ጠቃሚ ነው።
 
-**የነፃ አቅራቢ ደረጃዎች** መልሶች "** የትኛው ነፃ አቅራቢ በጣም ጥሩውን ሞዴል ይሰጠኛል?** የእያንዳንዱን የነጻ አቅራቢ ካታሎግ በመቀላቀል** በሕዝብ የተገኙ የጥራት ውጤቶች** ከ** Arena AI መሪ ሰሌዳ** (የሰው ምርጫ ELO፣ ከLMArena chatbot arena ጀርባ ያለው ተመሳሳይ ሀሳብ)። ከዚያም አቅራቢዎች በጥንካሬያቸው ይመደባሉ** ምርጥ ነፃ ሞዴል** .
+**የነጻ አቅራቢዎች ደረጃ አሰጣጥ** "**የትኛው ነጻ አቅራቢ ምርጡን ሞዴል ይሰጠኛል?**" የሚለውን ጥያቄ ይመልሳል፤ ይህም የእያንዳንዱን ነጻ አቅራቢ ካታሎግ ከ**Arena AI leaderboard** (በሰው ምርጫ ላይ የተመሰረተ ELO፣ ከLMArena chatbot arena ጀርባ ያለው ተመሳሳይ ሀሳብ) ከሚገኙ **በሕዝብ ተሳትፎ ከተሰበሰቡ የጥራት ነጥቦች** ጋር በማገናኘት ነው። ከዚያ አቅራቢዎች በ**ምርጥ ነጻ ሞዴላቸው** ጥንካሬ ደረጃ ይሰጣሉ።
 
-ደረጃው የሚሰላው ከሶስት እውነተኛ ምንጮች ነው።
+ደረጃው ከሶስት እውነተኛ ምንጮች ይሰላል፦
 
-1. የነጻ አቅራቢው ይዘረዝራል — `NOAUTH_PROVIDERS`፣ እና `OAUTH_PROVIDERS` / `APIKEY_PROVIDERS` የሚጠቁሙ `hasFree` (`src/shared/constants/providers.ts`)።
-2. የእያንዳንዱ አቅራቢ ሞዴል ካታሎግ ከአቅራቢው መዝገብ ቤት (`open-sse/config/providerRegistry.ts`)።
-3. በ `model_intelligence` DB ሠንጠረዥ በ Arena ELO ማመሳሰል ሞተር (`src/lib/arenaEloSync.ts`) የተከማቹ ከኤልኦ የተገኙ የተግባር ብቃት ውጤቶች።
+1. የነጻ አቅራቢዎች ዝርዝሮች — `NOAUTH_PROVIDERS`፣ በተጨማሪም `OAUTH_PROVIDERS` /
+   `APIKEY_PROVIDERS` ግቤቶች `hasFree` የሚል ምልክት ያለባቸው
+   (`src/shared/constants/providers.ts`)።
+2. የእያንዳንዱ አቅራቢ የሞዴል ካታሎግ ከአቅራቢው ምዝገባ
+   (`open-sse/config/providerRegistry.ts`)።
+3. ከELO የተገኙ የተግባር-ተስማሚነት ነጥቦች በArena ELO ማመሳሰያ ሞተር
+   (`src/lib/arenaEloSync.ts`) በ`model_intelligence` የዳታቤዝ ሠንጠረዥ ውስጥ የተቀመጡ።
 
-የመቀላቀል አመክንዮ በ `src/lib/freeProviderRankings.ts` ውስጥ ይኖራል።
+የማገናኘት ሎጂኩ በ`src/lib/freeProviderRankings.ts` ውስጥ ይገኛል።
 
 ---
 

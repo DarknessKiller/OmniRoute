@@ -484,17 +484,17 @@ Ini mengendalikan:
 
 ## Konfigurasi
 
-`open-sse/config/` memegang lapisan konfigurasi:
+`open-sse/config/` mengandungi lapisan konfigurasi:
 
-| Fail                                 | Tujuan                                                 |
-| ------------------------------------ | ------------------------------------------------------ |
-| `providerRegistry.ts`                | Pendaftaran model sembang melalui katalog 377 penyedia |
-| `providerModels.ts`                  | Alias model, pemetaan format                           |
-| `constants.ts`                       | Tamat masa, had, kod status                            |
-| `defaultThinkingSignature.ts`        | Tanda tangan pemikiran Claude lalai                    |
-| `modelStrip.ts` (dalam perkhidmatan) | Pelucutan medan setiap pembekal                        |
+| Fail                          | Tujuan                                           |
+| ----------------------------- | ------------------------------------------------ |
+| `providerRegistry.ts`         | Daftar model chat merentasi katalog 376 penyedia |
+| `providerModels.ts`           | Alias model, pemetaan format                     |
+| `constants.ts`                | Had masa, had, kod status                        |
+| `defaultThinkingSignature.ts` | Tandatangan pemikiran Claude lalai               |
+| `modelStrip.ts` (in services) | Pelucutan medan mengikut penyedia                |
 
-### Skim Pendaftaran Pembekal
+### Skema Provider Registry
 
 ```ts
 interface ProviderConfig {
@@ -509,7 +509,7 @@ interface ProviderConfig {
 }
 ```
 
-pengesahan Zod pada beban modul memastikan semua konfigurasi pembekal adalah sah.
+Pengesahan Zod semasa pemuatan modul memastikan semua konfigurasi penyedia adalah sah.
 
 ---
 

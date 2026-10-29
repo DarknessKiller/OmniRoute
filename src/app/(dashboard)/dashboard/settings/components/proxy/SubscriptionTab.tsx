@@ -179,6 +179,46 @@ async function fetchSubscriptionsResult(
   }
 }
 
+type SubscriptionFieldErrors = { name?: string; url?: string; ruleProviders?: string };
+
+/**
+ * Client-side form validation. Mirror of requireNameUrl (server): the feed URL
+ * may be empty only for a feedless (selector-only) subscription, which is
+ * accepted when a control URL is set. Pure.
+ */
+function validateSubscriptionForm(
+  form: FormState,
+  t: (key: string) => string
+): SubscriptionFieldErrors {
+  const errors: SubscriptionFieldErrors = {};
+  if (!form.name.trim()) errors.name = t("proxySubscription.nameRequired");
+  if (!form.url.trim() && !form.controlUrl.trim()) {
+    errors.url = t("proxySubscription.urlRequired");
+  }
+  if (form.mode === "rule" && form.ruleProviders.length === 0) {
+    errors.ruleProviders = t("proxySubscription.ruleModeProviderRequired");
+  }
+  return errors;
+}
+
+/** Subscription creation/update payload from the edited form. Pure. */
+function buildSubscriptionPayload(form: FormState): Record<string, unknown> {
+  const payload: Record<string, unknown> = {
+    name: form.name.trim(),
+    url: form.url.trim(),
+    mode: form.mode,
+    ruleProviders: form.mode === "rule" ? form.ruleProviders : null,
+    localCoreEndpoint: form.localCoreEndpoint.trim() || null,
+    controlUrl: form.controlUrl.trim() || null,
+    coreConfigPath: form.coreConfigPath.trim() || null,
+    selectorMinGapSeconds: Number(form.selectorMinGapSeconds) || 60,
+    updateIntervalMinutes: Number(form.updateIntervalMinutes) || 60,
+    enabled: form.enabled,
+  };
+  if (form.controlSecret.length > 0) payload.controlSecret = form.controlSecret;
+  return payload;
+}
+
 type EarlyReasonLabelKey =
   | "proxySubscription.earlySkipsSinceRestart"
   | "proxySubscription.error.SELECTOR_EARLY_NO_CONTROL"
@@ -264,6 +304,7 @@ export default function SubscriptionTab() {
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<SubscriptionFieldErrors>({});
 
   const applyLoadResult = useCallback((result: SubscriptionsFetchResult) => {
     if (result.items) setSubs(result.items);
@@ -333,27 +374,14 @@ export default function SubscriptionTab() {
   };
 
   const save = async () => {
+    setFormError(null);
+    const nextFieldErrors = validateSubscriptionForm(form, t);
+    setFieldErrors(nextFieldErrors);
+    if (Object.keys(nextFieldErrors).length > 0) return;
     setSaving(true);
     setFormError(null);
     try {
-      if (!form.name.trim()) throw new Error(t("proxySubscription.nameRequired"));
-      if (!form.url.trim()) throw new Error(t("proxySubscription.urlRequired"));
-      if (form.mode === "rule" && form.ruleProviders.length === 0) {
-        throw new Error(t("proxySubscription.ruleModeProviderRequired"));
-      }
-      const payload: Record<string, unknown> = {
-        name: form.name.trim(),
-        url: form.url.trim(),
-        mode: form.mode,
-        ruleProviders: form.mode === "rule" ? form.ruleProviders : null,
-        localCoreEndpoint: form.localCoreEndpoint.trim() || null,
-        controlUrl: form.controlUrl.trim() || null,
-        coreConfigPath: form.coreConfigPath.trim() || null,
-        selectorMinGapSeconds: Number(form.selectorMinGapSeconds) || 60,
-        updateIntervalMinutes: Number(form.updateIntervalMinutes) || 60,
-        enabled: form.enabled,
-      };
-      if (form.controlSecret.length > 0) payload.controlSecret = form.controlSecret;
+      const payload = buildSubscriptionPayload(form);
       const res = editingId
         ? await fetch(`/api/v1/management/proxy-subscriptions/${editingId}`, {
             method: "PATCH",
@@ -493,9 +521,14 @@ export default function SubscriptionTab() {
               <input
                 className="rounded border border-border bg-surface px-2 py-1.5 text-text outline-none focus:border-primary"
                 value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                onChange={(e) => {
+                  setForm({ ...form, name: e.target.value });
+                  if (fieldErrors.name) setFieldErrors({ ...fieldErrors, name: undefined });
+                }}
                 placeholder={t("proxySubscription.namePlaceholder")}
+                aria-invalid={Boolean(fieldErrors.name)}
               />
+              {fieldErrors.name && <span className="text-xs text-red-600">{fieldErrors.name}</span>}
             </label>
 
             <label className="flex flex-col gap-1 text-sm">
@@ -503,9 +536,17 @@ export default function SubscriptionTab() {
               <input
                 className="rounded border border-border bg-surface px-2 py-1.5 text-text outline-none focus:border-primary"
                 value={form.url}
-                onChange={(e) => setForm({ ...form, url: e.target.value })}
+                onChange={(e) => {
+                  setForm({ ...form, url: e.target.value });
+                  if (fieldErrors.url) setFieldErrors({ ...fieldErrors, url: undefined });
+                }}
                 placeholder={t("proxySubscription.urlPlaceholder")}
+                aria-invalid={Boolean(fieldErrors.url)}
               />
+              {fieldErrors.url && <span className="text-xs text-red-600">{fieldErrors.url}</span>}
+              <span className="text-xs text-text-muted">
+                {t("proxySubscription.urlFeedlessHint")}
+              </span>
             </label>
           </div>
 

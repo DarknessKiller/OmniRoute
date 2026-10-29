@@ -10,6 +10,7 @@
  */
 
 import { Modal } from "@/shared/components";
+import { DiscoveryDegradedNotice } from "@/shared/components/DiscoveryDegradedNotice";
 import type { ImportProgress } from "../hooks/useModelImportHandlers";
 import type { ProviderMessageTranslator } from "../providerPageHelpers";
 
@@ -40,25 +41,35 @@ export default function ImportProgressModal({
       }
     >
       <div className="flex flex-col gap-4">
+        {/* The fallback catalog notice comes first: it is the sign the operator
+            reads before the status line, and it carries the reason. */}
+        <DiscoveryDegradedNotice
+          degraded={importProgress.degraded}
+          cause={importProgress.degradedCause}
+        />
+
         {/* Status text */}
         <div className="flex items-center gap-3">
-          {importProgress.phase === "fetching" && (
-            <span className="material-symbols-outlined text-primary animate-spin">
-              progress_activity
-            </span>
-          )}
-          {importProgress.phase === "importing" && (
-            <span className="material-symbols-outlined text-primary animate-spin">
-              progress_activity
-            </span>
-          )}
-          {importProgress.phase === "done" && (
-            <span className="material-symbols-outlined text-green-500">check_circle</span>
-          )}
-          {importProgress.phase === "warning" && (
+          {importProgress.degraded && (
             <span className="material-symbols-outlined text-orange-500">warning</span>
           )}
-          {importProgress.phase === "error" && (
+          {!importProgress.degraded && importProgress.phase === "fetching" && (
+            <span className="material-symbols-outlined text-primary animate-spin">
+              progress_activity
+            </span>
+          )}
+          {!importProgress.degraded && importProgress.phase === "importing" && (
+            <span className="material-symbols-outlined text-primary animate-spin">
+              progress_activity
+            </span>
+          )}
+          {!importProgress.degraded && importProgress.phase === "done" && (
+            <span className="material-symbols-outlined text-green-500">check_circle</span>
+          )}
+          {!importProgress.degraded && importProgress.phase === "warning" && (
+            <span className="material-symbols-outlined text-orange-500">warning</span>
+          )}
+          {!importProgress.degraded && importProgress.phase === "error" && (
             <span className="material-symbols-outlined text-red-500">error</span>
           )}
           <span className="text-sm font-medium text-text-main">{importProgress.status}</span>

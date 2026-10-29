@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import { getRegistryEntry } from "@omniroute/open-sse/config/providerRegistry.ts";
 import { filterChatSelectableModels } from "@omniroute/open-sse/services/modelEndpointPolicy.ts";
 import { filterSelectableModels } from "@omniroute/open-sse/services/modelLifecycle.ts";
-import { getModelIsHidden } from "@/lib/db/models";
+import { getHiddenChatModels } from "@/lib/hiddenChatModels";
+import { createHiddenModelLookup } from "@/lib/hiddenModelLookup";
 import { getSettings } from "@/lib/db/settings";
 import { getStaticModelsForProvider } from "@/lib/providers/staticModels";
 import { SAFE_OUTBOUND_FETCH_PRESETS, safeOutboundFetch } from "@/shared/network/safeOutboundFetch";
@@ -11,7 +12,23 @@ import { getModelsByProviderId } from "@/shared/constants/models";
 import { isProviderBlockedByIdOrAlias } from "@/shared/utils/noAuthProviders";
 import { applyDiscoveryDegradation, type DiscoveryFailure } from "@/shared/discovery/degradedCause";
 import { mergeLocalCatalogModels } from "./discovery/helpers";
-import { recordDiscoveryOutcome } from "./discovery/discoveryOutcome";
+
+/**
+ * Drop hidden models. Visibility is a model-level policy: it never depends on the provider
+ * being listed under Security > Blocked Providers. Callers decide whether to apply it (the
+ * route does when the caller opts in or ENFORCE_HIDDEN_MODELS is on). Keys are normalized
+ * through the shared hidden lookup (alias / canonical id / provider-node prefix), unlike the
+ * old raw provider-id match.
+ */
+async function dropHiddenModels<T extends { id: string }>(
+  providerId: string,
+  connectionId: string,
+  models: readonly T[]
+): Promise<T[]> {
+  if (models.length === 0) return [...models];
+  const hidden = createHiddenModelLookup(await getHiddenChatModels());
+  return models.filter((model) => !hidden(providerId, model.id) && !hidden(connectionId, model.id));
+}
 
 export function filterModelsForRoute<
   T extends { id: string; supportedEndpoints?: readonly string[] },
@@ -38,8 +55,7 @@ function toLiveModel(item: Record<string, unknown>): { id: string; name: string 
  * never a message, a body or an URL.
  */
 type NoAuthLiveOutcome =
-  | { kind: "live"; payload: Record<string, unknown> }
-  | { kind: "failed"; failure: DiscoveryFailure };
+  { kind: "live"; response: NextResponse } | { kind: "failed"; failure: DiscoveryFailure };
 
 async function fetchLiveNoAuthModels(
   modelsUrl: string,
@@ -67,15 +83,17 @@ async function fetchLiveNoAuthModels(
 
     const selectable = filterModelsForRoute(providerId, liveModels, chatOnly);
     const visible = excludeHidden
-      ? selectable.filter((model) => !getModelIsHidden(providerId, model.id))
+      ? await dropHiddenModels(providerId, connectionId, selectable)
       : selectable;
-    const payload = {
-      provider: providerId,
-      connectionId,
-      models: visible,
-      source: "upstream",
+    return {
+      kind: "live",
+      response: NextResponse.json({
+        provider: providerId,
+        connectionId,
+        models: visible,
+        source: "upstream",
+      }),
     };
-    return { kind: "live", payload };
   } catch {
     return { kind: "failed", failure: {} };
   }
@@ -97,7 +115,6 @@ export async function buildNoAuthModelsResponse(
       ? registryEntry.modelsUrl
       : null;
   let liveFailure: DiscoveryFailure | undefined;
-  let livePayload: Record<string, unknown> | null = null;
   if (modelsUrl) {
     const live = await fetchLiveNoAuthModels(
       modelsUrl,
@@ -106,55 +123,34 @@ export async function buildNoAuthModelsResponse(
       excludeHidden,
       chatOnly
     );
-    if (live.kind === "live") livePayload = live.payload;
-    else liveFailure = live.failure;
+    if (live.kind === "live") return live.response;
+    liveFailure = live.failure;
   }
 
-  const payload =
-    livePayload ??
-    applyDiscoveryDegradation({
-      ...buildLocalCatalogPayload(
-        providerId,
-        connectionId,
-        excludeHidden,
-        chatOnly,
-        Boolean(modelsUrl)
-      ),
-      ...(liveFailure ? { failure: liveFailure } : {}),
-    });
-  // Keep the outcome of this discovery: the response carrying it is gone on the next read.
-  recordDiscoveryOutcome(payload);
-  return NextResponse.json(payload);
-}
-
-function buildLocalCatalogPayload(
-  providerId: string,
-  connectionId: string,
-  excludeHidden: boolean,
-  chatOnly: boolean,
-  hasModelsUrl: boolean
-): Record<string, unknown> {
   const catalog = mergeLocalCatalogModels(
     getModelsByProviderId(providerId) || [],
     getStaticModelsForProvider(providerId) || []
   ).map((model) => ({ id: model.id, name: model.name || model.id }));
   const selectable = filterModelsForRoute(providerId, catalog, chatOnly);
   const visible = excludeHidden
-    ? selectable.filter((model) => !getModelIsHidden(providerId, model.id))
+    ? await dropHiddenModels(providerId, connectionId, selectable)
     : selectable;
-  return {
-    provider: providerId,
-    connectionId,
-    models: visible,
-    source: "local_catalog",
-    // A no-auth provider with no `modelsUrl` has no remote model
-    // endpoint at all, so this catalog is its INTENDED and only discovery
-    // source (same as reka/lmarena), not a degraded remote fetch. Without the
-    // tag, model-sync's isDegradedDiscovery guard 502s before importing and the
-    // provider can never persist a model while /models keeps returning 200.
-    // Providers that DO declare `modelsUrl` return above with source:"upstream",
-    // and a failed live fetch still falls back here untagged only when the
-    // URL exists — that case stays a genuine degradation.
-    ...(hasModelsUrl ? {} : { intentional: true }),
-  };
+  return NextResponse.json(
+    applyDiscoveryDegradation({
+      provider: providerId,
+      connectionId,
+      models: visible,
+      source: "local_catalog",
+      // A no-auth provider with no `modelsUrl` has no remote model
+      // endpoint at all, so this catalog is its INTENDED and only discovery
+      // source (same as reka/lmarena), not a degraded remote fetch. Without the
+      // tag, model-sync's isDegradedDiscovery guard 502s before importing and the
+      // provider can never persist a model while /models keeps returning 200.
+      // Providers that DO declare `modelsUrl` return above with source:"upstream",
+      // and a failed live fetch still falls through here untagged only when the
+      // URL exists — that case stays a genuine degradation.
+      ...(modelsUrl ? {} : { intentional: true }),
+      ...(liveFailure ? { failure: liveFailure } : {}),
+    })
+  );
 }

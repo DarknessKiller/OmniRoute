@@ -484,17 +484,17 @@ Jis apdoroja:
 
 ## Konfigūracija
 
-`open-sse/config/` turi konfigūracijos sluoksnį:
+`open-sse/config/` kataloge yra konfigūracijos sluoksnis:
 
-| Failas                        | Tikslas                                             |
-| ----------------------------- | --------------------------------------------------- |
-| `providerRegistry.ts`         | Pokalbių modelio registras per 377 teikėjų katalogą |
-| `providerModels.ts`           | Modelių slapyvardžiai, formatų atvaizdavimas        |
-| `constants.ts`                | Laikas, limitai, būsenos kodai                      |
-| `defaultThinkingSignature.ts` | Numatytasis Claude mąstymo parašas                  |
-| `modelStrip.ts` (paslaugose)  | Laukų pašalinimas pagal teikėją                     |
+| Failas                              | Paskirtis                                                 |
+| ----------------------------------- | --------------------------------------------------------- |
+| `providerRegistry.ts`               | Pokalbių modelių registras, paremtas 376 tiekėjų katalogu |
+| `providerModels.ts`                 | Modelių slapyvardžiai, formatų susiejimas                 |
+| `constants.ts`                      | Laiko limitai, apribojimai, būsenos kodai                 |
+| `defaultThinkingSignature.ts`       | Numatytasis Claude mąstymo parašas                        |
+| `modelStrip.ts` (services kataloge) | Laukų pašalinimas pagal tiekėją                           |
 
-### Tiekėjo registro schema
+### Tiekėjų registro schema
 
 ```ts
 interface ProviderConfig {
@@ -509,7 +509,7 @@ interface ProviderConfig {
 }
 ```
 
-Zod patvirtinimas įkeliant modulį užtikrina, kad visos teikėjo konfigūracijos galioja.
+Zod validacija modulio įkrovos metu užtikrina, kad visos tiekėjų konfigūracijos yra tinkamos.
 
 ---
 
