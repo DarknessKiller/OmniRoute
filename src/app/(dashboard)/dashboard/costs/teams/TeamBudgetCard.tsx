@@ -12,8 +12,8 @@ function isIncomplete(status: BudgetStatus) {
 }
 
 function meterColor(status: BudgetStatus) {
-  if (status.exceeded) return "bg-error";
-  return isIncomplete(status) ? "bg-warning" : "bg-primary";
+  if (status.exceeded) return "bg-red-500";
+  return isIncomplete(status) ? "bg-amber-500" : "bg-primary";
 }
 
 function BudgetMeter({ status, used, t }: { status: BudgetStatus; used: number; t: Translate }) {
@@ -54,17 +54,17 @@ function BudgetNotices({
   return (
     <>
       {status.hasUnpricedUsage && (!status.exceeded || overBudget) && (
-        <p role="status" className="text-warning">
+        <p role="status" className="text-amber-700 dark:text-amber-400">
           {t("unpricedBudget")}
         </p>
       )}
       {status.hasPartialRetainedUsage && (
-        <p role="status" className="text-warning">
+        <p role="status" className="text-amber-700 dark:text-amber-400">
           {t("partialBudget")}
         </p>
       )}
       {status.exceeded && (
-        <p role="alert" className="text-error">
+        <p role="alert" className="text-red-600 dark:text-red-400">
           {overBudget
             ? t("overBudget", { amount: money(used - status.maxBudgetUsd, locale) })
             : t("unpricedBudget")}

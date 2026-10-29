@@ -1,13 +1,9 @@
 "use client";
-import { useId, useState } from "react";
+import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Field } from "@omniroute/ui-kit/field";
 import Button from "@/shared/components/Button";
-import Checkbox from "@/shared/components/Checkbox";
 import Input from "@/shared/components/Input";
 import Modal from "@/shared/components/Modal";
-import Select from "@/shared/components/Select";
-import Textarea from "@/shared/components/Textarea";
 import type { Team } from "./helpers";
 export interface TeamPayload {
   name: string;
@@ -51,11 +47,10 @@ function BudgetFields({
   const t = useTranslations("teamCosts");
   return (
     <>
-      <Checkbox
-        label={t("enableBudget")}
-        checked={enabled}
-        onChange={(e) => onEnabled(e.target.checked)}
-      />
+      <label className="flex items-center gap-2 text-sm">
+        <input type="checkbox" checked={enabled} onChange={(e) => onEnabled(e.target.checked)} />
+        {t("enableBudget")}
+      </label>
       <div
         className={`grid motion-safe:transition-[grid-template-rows] motion-safe:duration-200 ${enabled ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
         aria-hidden={!enabled}
@@ -69,15 +64,19 @@ function BudgetFields({
               value={amount}
               onChange={(e) => onAmount(e.target.value)}
             />
-            <Select
-              label={t("duration")}
-              value={duration}
-              onChange={(e) => onDuration(e.target.value as Duration)}
-            >
-              <option value="1d">{t("day1")}</option>
-              <option value="7d">{t("day7")}</option>
-              <option value="30d">{t("day30")}</option>
-            </Select>
+            <label className="block text-sm">
+              {t("duration")}
+              <select
+                aria-label={t("duration")}
+                className="ml-3 rounded-control border border-border bg-bg p-2"
+                value={duration}
+                onChange={(e) => onDuration(e.target.value as Duration)}
+              >
+                <option value="1d">{t("day1")}</option>
+                <option value="7d">{t("day7")}</option>
+                <option value="30d">{t("day30")}</option>
+              </select>
+            </label>
           </fieldset>
         </div>
       </div>
@@ -97,7 +96,6 @@ function ProfileFields({
   onDescription: (value: string) => void;
 }) {
   const t = useTranslations("teamCosts");
-  const descriptionId = useId();
   return (
     <>
       <Input
@@ -107,14 +105,15 @@ function ProfileFields({
         required
         maxLength={200}
       />
-      <Field label={t("description")} htmlFor={descriptionId}>
-        <Textarea
-          id={descriptionId}
+      <label className="block text-sm">
+        {t("description")}
+        <textarea
+          className="mt-2 w-full rounded-control border border-border bg-bg p-3 text-text-main"
           value={description}
           maxLength={2000}
           onChange={(e) => onDescription(e.target.value)}
         />
-      </Field>
+      </label>
     </>
   );
 }
@@ -132,7 +131,7 @@ function FormFooter({
   return (
     <>
       {problem && (
-        <p role="alert" className="text-sm text-error">
+        <p role="alert" className="text-sm text-red-600 dark:text-red-400">
           {t(problem)}
         </p>
       )}

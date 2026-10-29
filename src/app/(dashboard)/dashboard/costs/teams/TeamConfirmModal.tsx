@@ -49,7 +49,7 @@ export default function TeamConfirmModal({
         <>
           {confirmation && <span>{confirmationMessage(t, confirmation)}</span>}
           {mutationError && (
-            <span role="alert" className="block mt-3 text-error">
+            <span role="alert" className="block mt-3 text-red-600 dark:text-red-400">
               {t(mutationError)}
             </span>
           )}

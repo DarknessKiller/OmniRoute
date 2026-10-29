@@ -36,9 +36,6 @@ import TeamCostsPage from "../../../src/app/(dashboard)/dashboard/costs/teams-pa
 import Breadcrumbs from "../../../src/shared/components/Breadcrumbs";
 import { reportRange, money } from "../../../src/app/(dashboard)/dashboard/costs/teams/helpers";
 
-// The kit SearchableSelect scrolls the active option into view; jsdom has no scrollIntoView.
-Element.prototype.scrollIntoView ??= () => {};
-
 const team = (id: string, status: "active" | "archived" = "active"): Team => ({
   id,
   name: id === "a" ? "Alpha" : "Beta",
@@ -139,15 +136,6 @@ async function click(label: string) {
   });
   await flush();
 }
-// The kit SearchableSelect portals its listbox (role="option" rows) to document.body.
-const options = () => document.body.querySelectorAll('[role="option"]');
-const listbox = () => document.body.querySelector('[role="listbox"]');
-async function choose(label: string) {
-  const found = [...options()].find((item) => item.textContent?.trim() === label);
-  if (!found) throw new Error("Missing option " + label + ": " + document.body.textContent);
-  await act(async () => (found as HTMLElement).click());
-  await flush();
-}
 function control(label: string) {
   const labelElement = [...document.body.querySelectorAll("label")].find(
     (item) => item.textContent?.replace("*", "").trim() === label
@@ -224,7 +212,7 @@ describe("real team costs components", () => {
       selector.compareDocumentPosition(content) & Node.DOCUMENT_POSITION_FOLLOWING
     ).toBeTruthy();
     await act(async () => control(en.teamCosts.selectTeam).click());
-    await choose("Beta");
+    await click("Beta");
     expect(nav.query).toBe("?team=b");
     expect(container.querySelector("main h2")?.textContent).toBe("Beta");
   });
@@ -427,18 +415,17 @@ describe("real team costs components", () => {
     nav.query = "?team=missing";
     await render();
     expect(nav.query).toBe("?team=a");
-    expect(document.body.querySelector('[aria-label="Search teams"]')).toBeNull();
+    expect(container.querySelector('[aria-label="Search teams"]')).toBeNull();
     await act(async () => control(en.teamCosts.selectTeam).click());
     const input = control("Search teams");
     expect(input.getAttribute("role")).toBe("combobox");
-    // focus is restored on the next frame after the kit popover closes
-    await vi.waitFor(() => expect(document.activeElement).toBe(input));
+    expect(document.activeElement).toBe(input);
     await change("Search teams", "Beta");
-    expect(options()).toHaveLength(1);
+    expect(container.querySelectorAll('[role="option"]')).toHaveLength(1);
     expect(container.querySelector("main h2")?.textContent).toBe("Alpha");
     expect(nav.query).toBe("?team=a");
     await change("Search teams", "no result");
-    expect(options()).toHaveLength(0);
+    expect(container.querySelectorAll('[role="option"]')).toHaveLength(0);
     expect(container.querySelector("main h2")?.textContent).toBe("Alpha");
     expect(nav.query).toBe("?team=a");
     await change("Search teams", "Beta");
@@ -448,9 +435,8 @@ describe("real team costs components", () => {
     await flush();
     expect(nav.query).toBe("?team=b");
     expect(container.querySelector("main h2")?.textContent).toBe("Beta");
-    expect(listbox()).toBeNull();
-    // focus is restored on the next frame after the kit popover closes
-    await vi.waitFor(() => expect(document.activeElement).toBe(control(en.teamCosts.selectTeam)));
+    expect(container.querySelector('[role="listbox"]')).toBeNull();
+    expect(document.activeElement).toBe(control(en.teamCosts.selectTeam));
   });
   it("supports keyboard dismissal, resets search, and disables team selection while editing", async () => {
     await render();
@@ -464,19 +450,18 @@ describe("real team costs components", () => {
         new KeyboardEvent("keydown", { key: "Escape", bubbles: true })
       )
     );
-    expect(listbox()).toBeNull();
+    expect(container.querySelector('[role="listbox"]')).toBeNull();
     expect(nav.query).toBe("?team=a");
-    // focus is restored on the next frame after the kit popover closes
-    await vi.waitFor(() => expect(document.activeElement).toBe(trigger));
+    expect(document.activeElement).toBe(trigger);
     await act(async () => trigger.click());
     expect(control("Search teams").value).toBe("");
-    expect(options()).toHaveLength(2);
+    expect(container.querySelectorAll('[role="option"]')).toHaveLength(2);
     await act(async () => document.body.dispatchEvent(new Event("pointerdown", { bubbles: true })));
-    expect(listbox()).toBeNull();
+    expect(container.querySelector('[role="listbox"]')).toBeNull();
     await click("Edit team");
     expect(trigger.matches(":disabled")).toBe(true);
     await act(async () => trigger.click());
-    expect(listbox()).toBeNull();
+    expect(container.querySelector('[role="listbox"]')).toBeNull();
   });
   it("navigates options by keyboard, ignores IME confirmation and preserves selection on Tab", async () => {
     await render();
@@ -494,7 +479,7 @@ describe("real team costs components", () => {
     );
     expect(nav.query).toBe("?team=a");
     await act(async () => control(en.teamCosts.statusFilter).focus());
-    expect(listbox()).toBeNull();
+    expect(container.querySelector('[role="listbox"]')).toBeNull();
     expect(nav.query).toBe("?team=a");
   });
   it("keeps status filtering independent from dropdown search", async () => {

@@ -4,7 +4,6 @@ import { useLocale, useTranslations } from "next-intl";
 import Card from "@/shared/components/Card";
 import Button from "@/shared/components/Button";
 import Input from "@/shared/components/Input";
-import Select from "@/shared/components/Select";
 import { matchesSearch } from "@/shared/utils/turkishText";
 import type { Detail, TeamKeyOption } from "./helpers";
 
@@ -37,9 +36,9 @@ function KeyAssigner({
         onChange={(e) => setQuery(e.target.value)}
       />
       <div className="flex flex-col sm:flex-row gap-2">
-        <Select
+        <select
           aria-label={t("chooseKey")}
-          className="min-w-0 flex-1"
+          className="min-w-0 flex-1 rounded-control border border-border bg-bg p-2 text-sm"
           value={selected?.id ?? ""}
           onChange={(e) => setChosen(e.target.value)}
         >
@@ -49,7 +48,7 @@ function KeyAssigner({
               {key.name || t("unnamedKey")} · {key.teamName || t("unassigned")}
             </option>
           ))}
-        </Select>
+        </select>
         <Button
           disabled={pending || !selected}
           onClick={() => {
