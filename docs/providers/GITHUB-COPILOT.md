@@ -1,3 +1,8 @@
+---
+title: "GitHub Copilot Provider"
+---
+
+
 # GitHub Copilot Provider
 
 **Status: Experimental / Policy-ambiguous**
