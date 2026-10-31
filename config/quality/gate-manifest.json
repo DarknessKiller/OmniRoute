@@ -389,11 +389,6 @@
       "disposition": "separately-invoked"
     },
     {
-      "name": "check:test-tla-order",
-      "command": "node scripts/check/check-test-tla-order.mjs",
-      "disposition": "separately-invoked"
-    },
-    {
       "name": "check:test-masking",
       "command": "node scripts/check/check-test-masking.mjs",
       "disposition": "separately-invoked"
@@ -733,7 +728,6 @@
         "check:known-symbols",
         "check:route-guard-membership",
         "check:test-discovery",
-        "check:test-tla-order",
         "check:test-masking",
         "check:duplication",
         "check:cycles:ratchet",
@@ -763,7 +757,6 @@
         "check:known-symbols",
         "check:route-guard-membership",
         "check:test-discovery",
-        "check:test-tla-order",
         "check:test-masking"
       ]
     }

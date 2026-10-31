@@ -239,21 +239,21 @@ src/
 
 ### `src/shared/`
 
-| Module                           | Purpose                                                                |
-| -------------------------------- | ---------------------------------------------------------------------- |
-| `constants/providers.ts`         | **376 providers** with Zod validation (source of truth)                |
-| `constants/cliTools.ts`          | External CLI tool registry                                             |
-| `constants/routingStrategies.ts` | **20 routing strategies** with priorities                              |
-| `constants/publicApiRoutes.ts`   | Routes that require Bearer (vs management) auth                        |
-| `constants/upstreamHeaders.ts`   | Header denylist for upstream requests                                  |
-| `validation/schemas.ts`          | ~80 Zod schemas (single source of truth for API contracts)             |
-| `validation/helpers.ts`          | Zod validation helpers (`validateBody`, etc.)                          |
-| `types/`                         | Shared TS types                                                        |
-| `contracts/`                     | Public API contracts (consumed by `files:` in `package.json`)          |
-| `utils/circuitBreaker.ts`        | Provider circuit breaker (see `docs/architecture/RESILIENCE_GUIDE.md`) |
-| `utils/apiAuth.ts`               | API key validation, scope checking                                     |
-| `utils/fetchTimeout.ts`          | Timeout/abort wrappers for upstream fetch                              |
-| `utils/releaseNotes.ts`          | Closed v2/legacy announcement parser, localization and ID dismissal    |
+| Module                           | Purpose                                                                                             |
+| -------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `constants/providers.ts`         | **380 providers** with Zod validation (source of truth)                                             |
+| `constants/cliTools.ts`          | External CLI tool registry                                                                          |
+| `constants/routingStrategies.ts` | **20 routing strategies** with priorities                                                           |
+| `constants/publicApiRoutes.ts`   | Routes that require Bearer (vs management) auth                                                     |
+| `constants/upstreamHeaders.ts`   | Header denylist for upstream requests                                                               |
+| `validation/schemas.ts`          | ~80 Zod schemas (single source of truth for API contracts)                                          |
+| `validation/helpers.ts`          | Zod validation helpers (`validateBody`, etc.)                                                       |
+| `types/`                         | Shared TS types                                                                                     |
+| `contracts/`                     | Public API contracts (consumed by `files:` in `package.json`)                                       |
+| `utils/circuitBreaker.ts`        | Provider circuit breaker (see `docs/architecture/RESILIENCE_GUIDE.md`)                              |
+| `utils/apiAuth.ts`               | API key validation, scope checking                                                                  |
+| `utils/fetchTimeout.ts`          | Timeout/abort wrappers for upstream fetch                                                           |
+| `utils/releaseNotes.ts`          | Closed v2/legacy announcement parser, localization and ID dismissal                                 |
 
 ---
 
@@ -398,7 +398,7 @@ open-sse/
 | `CLI-TOOLS.md`              | External CLI integrations + Internal OmniRoute CLI                                    |
 | `I18N.md`                   | i18n architecture, adding a language, 67 locales                                      |
 | `UNINSTALL.md`              | Clean uninstall steps                                                                 |
-| `PROVIDER_REFERENCE.md`     | **Auto-generated** catalog of 376 providers (regen: `npm run gen:provider-reference`) |
+| `PROVIDER_REFERENCE.md`     | **Auto-generated** catalog of 380 providers (regen: `npm run gen:provider-reference`) |
 
 ### Subsystem deep-dives
 
@@ -429,7 +429,7 @@ open-sse/
 | `COMPRESSION_ENGINES.md`        | Caveman + RTK engines, registry contract |
 | `COMPRESSION_RULES_FORMAT.md`   | Caveman rule pack JSON schema            |
 | `COMPRESSION_LANGUAGE_PACKS.md` | Per-language rule pack inventory         |
-| `RTK_COMPRESSION.md`            | RTK declarative pipeline (56 filters)    |
+| `RTK_COMPRESSION.md`            | RTK declarative pipeline (49 filters)    |
 
 ### Deployment
 
