@@ -54,13 +54,8 @@ const AddCompatibleProviderModal = dynamic(
   { ssr: false }
 );
 import { CategoryDot } from "./components/CategoryDot";
-const ImportProvidersFromFileModal = dynamic(
-  () =>
-    import("./components/ImportProvidersFromFileModal").then((m) => m.ImportProvidersFromFileModal),
-  { ssr: false }
-);
-const OAuthExportImportModal = dynamic(
-  () => import("./components/OAuthExportImportModal").then((m) => m.OAuthExportImportModal),
+const ProviderImportModals = dynamic(
+  () => import("./components/ProviderImportModals").then((m) => m.ProviderImportModals),
   { ssr: false }
 );
 import NoAuthProvidersSection from "./components/NoAuthProvidersSection";
@@ -232,8 +227,7 @@ function ProvidersPageContent() {
   const [showAddCompatibleModal, setShowAddCompatibleModal] = useState(false);
   const [showAddAnthropicCompatibleModal, setShowAddAnthropicCompatibleModal] = useState(false);
   const [showAddCcCompatibleModal, setShowAddCcCompatibleModal] = useState(false);
-  const [showImportFromFileModal, setShowImportFromFileModal] = useState(false);
-  const [showOAuthExportImportModal, setShowOAuthExportImportModal] = useState(false);
+  const [openImportModal, setOpenImportModal] = useState<"file" | "oauth-export" | null>(null);
   const [testingMode, setTestingMode] = useState<string | null>(null);
   const [testResults, setTestResults] = useState<any>(null);
   const [providerDisplayMode, setProviderDisplayMode] = useState<ProviderDisplayMode>("all");
@@ -937,8 +931,8 @@ function ProvidersPageContent() {
           }}
           onDisplayModeChange={setProviderDisplayMode}
           onNewProvider={() => router.push("/dashboard/providers/new")}
-          onImportFromFile={() => setShowImportFromFileModal(true)}
-          onImportOAuthExport={() => setShowOAuthExportImportModal(true)}
+          onImportFromFile={() => setOpenImportModal("file")}
+          onImportOAuthExport={() => setOpenImportModal("oauth-export")}
           searchQuery={searchQuery}
           setModelSearchQuery={setModelSearchQuery}
           setSearchQuery={setSearchQuery}
@@ -1877,14 +1871,9 @@ function ProvidersPageContent() {
             }}
           />
         )}
-        <ImportProvidersFromFileModal
-          isOpen={showImportFromFileModal}
-          onClose={() => setShowImportFromFileModal(false)}
-          onImported={async () => setConnections((await loadProviderPageData()).connections)}
-        />
-        <OAuthExportImportModal
-          isOpen={showOAuthExportImportModal}
-          onClose={() => setShowOAuthExportImportModal(false)}
+        <ProviderImportModals
+          openModal={openImportModal}
+          onClose={() => setOpenImportModal(null)}
           onImported={async () => setConnections((await loadProviderPageData()).connections)}
         />
         {/* Test Results Modal */}

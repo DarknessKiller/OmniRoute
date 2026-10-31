@@ -10,8 +10,10 @@ import { BifrostServiceTab } from "./tabs/BifrostServiceTab";
 import { DarioServiceTab } from "./tabs/DarioServiceTab";
 import { OpenwaServiceTab } from "./tabs/OpenwaServiceTab";
 import { LlmlinguaServiceTab } from "./tabs/LlmlinguaServiceTab";
+import { SingboxServiceTab } from "./tabs/SingboxServiceTab";
 
-type Tab = "cliproxy" | "9router" | "mux" | "bifrost" | "dario" | "openwa" | "llmlingua";
+type Tab =
+  "cliproxy" | "9router" | "mux" | "bifrost" | "dario" | "openwa" | "llmlingua" | "singbox";
 
 const TABS: { id: Tab; label: string; icon: string }[] = [
   { id: "cliproxy", label: "CLIProxyAPI", icon: "swap_horiz" },
@@ -21,6 +23,7 @@ const TABS: { id: Tab; label: string; icon: string }[] = [
   { id: "dario", label: "Dario", icon: "shield_person" },
   { id: "openwa", label: "open-wa", icon: "chat" },
   { id: "llmlingua", label: "LLMLingua", icon: "compress" },
+  { id: "singbox", label: "sing-box", icon: "vpn_lock" },
 ];
 
 export default function ServicesPage() {
@@ -70,6 +73,7 @@ export default function ServicesPage() {
         {active === "dario" && <DarioServiceTab />}
         {active === "openwa" && <OpenwaServiceTab />}
         {active === "llmlingua" && <LlmlinguaServiceTab />}
+        {active === "singbox" && <SingboxServiceTab />}
       </div>
     </div>
   );
