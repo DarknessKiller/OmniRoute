@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import Icon from "@/shared/components/Icon";
 import { Card, Button, ModelSelectModal, ManualConfigModal } from "@/shared/components";
 import Input from "@/shared/components/Input";
 import Select from "@/shared/components/Select";
@@ -263,7 +262,7 @@ function PiCardHeader({ tool, t, isExpanded, onToggle, statusBadge }) {
             />
           ) : (
             <span className="inline-flex" style={{ color: tool.color }}>
-              <Icon name="terminal" size={20} />
+              <span className="material-symbols-outlined text-[20px] leading-none">terminal</span>
             </span>
           )}
         </div>
@@ -275,11 +274,11 @@ function PiCardHeader({ tool, t, isExpanded, onToggle, statusBadge }) {
           <p className="text-xs text-text-muted truncate">{t("toolDescriptions.pi")}</p>
         </div>
       </div>
-      <Icon
-        name="expand_more"
-        size={20}
-        className={`text-text-muted transition-transform ${isExpanded ? "rotate-180" : ""}`}
-      />
+      <span
+        className={`material-symbols-outlined text-[20px] leading-none text-text-muted transition-transform ${isExpanded ? "rotate-180" : ""}`}
+      >
+        expand_more
+      </span>
     </div>
   );
 }
@@ -294,11 +293,11 @@ function runtimeHeadline(t, piStatus, cliReady) {
 function PiRuntimeStatus({ t, piStatus, cliReady }) {
   return (
     <div className="flex items-start gap-3 p-3 rounded-lg border bg-bg-secondary/50 border-border">
-      <Icon
-        name={cliReady ? "check_circle" : "warning"}
-        size={18}
-        className={cliReady ? "text-success" : "text-warning"}
-      />
+      <span
+        className={`material-symbols-outlined text-[18px] leading-none ${cliReady ? "text-success" : "text-warning"}`}
+      >
+        {cliReady ? "check_circle" : "warning"}
+      </span>
       <div className="flex flex-col gap-1">
         <p className="text-sm font-medium">{runtimeHeadline(t, piStatus, cliReady)}</p>
         {piStatus.commandPath && (
@@ -340,7 +339,7 @@ function PiInstallHint({ t }) {
 function PiConfigErrorNotice({ t, configError }) {
   return (
     <div className="flex items-start gap-3 p-3 bg-error/10 border border-error/30 rounded-lg">
-      <Icon name="error" size={18} className="text-error" />
+      <span className="material-symbols-outlined text-[18px] leading-none text-error">error</span>
       <div className="flex flex-col gap-1">
         <p className="text-sm text-error">{t("piConfigInvalidTitle")}</p>
         <p className="text-xs text-text-muted">{configError}</p>
@@ -352,7 +351,9 @@ function PiConfigErrorNotice({ t, configError }) {
 function PiConfiguredNotice({ t, piStatus }) {
   return (
     <div className="flex items-start gap-3 p-3 bg-success/10 border border-success/30 rounded-lg">
-      <Icon name="check_circle" size={18} className="text-success" />
+      <span className="material-symbols-outlined text-[18px] leading-none text-success">
+        check_circle
+      </span>
       <div className="flex flex-col gap-1">
         <p className="text-sm text-success">{t("piOmnirouteConfigured")}</p>
         <p className="text-xs text-text-muted">
@@ -465,7 +466,9 @@ function PiMessageBanner({ message }) {
     <div
       className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm ${success ? "bg-success/10 text-success" : "bg-error/10 text-error"}`}
     >
-      <Icon name={success ? "check_circle" : "error"} size={16} />
+      <span className="material-symbols-outlined text-[16px] leading-none">
+        {success ? "check_circle" : "error"}
+      </span>
       <span className={message.containerEphemeralTarget ? "whitespace-pre-line" : ""}>
         {message.text}
       </span>
@@ -515,12 +518,12 @@ function PiBackupsSection({ t, backups, restoringBackup, onRestore, showBackups,
         className="text-text-muted"
         onClick={() => setShowBackups(!showBackups)}
       >
-        <Icon
-          name="chevron_right"
-          size={16}
-          className={`transition-transform ${showBackups ? "rotate-90" : ""}`}
-        />
-        <Icon name="backup" size={16} />
+        <span
+          className={`material-symbols-outlined text-[16px] leading-none transition-transform ${showBackups ? "rotate-90" : ""}`}
+        >
+          chevron_right
+        </span>
+        <span className="material-symbols-outlined text-[16px] leading-none">backup</span>
         {t("backups")} {backups.length > 0 && `(${backups.length})`}
       </Button>
       {showBackups && backups.length > 0 && (
@@ -597,7 +600,9 @@ function PiExpandedBody({ card }) {
     <div className="mt-6 pt-6 border-t border-border">
       {checkingPi && (
         <div className="flex items-center gap-2 text-text-muted text-sm">
-          <Icon name="progress_activity" size={16} className="animate-spin" />
+          <span className="material-symbols-outlined text-[16px] leading-none animate-spin">
+            progress_activity
+          </span>
           <span>{t("checkingCli", { tool: "Pi" })}</span>
         </div>
       )}

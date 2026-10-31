@@ -262,6 +262,12 @@ export const RENAMED_MIGRATION_COMPATIBILITY = [
     toVersion: "101",
     toName: "api_key_usage_limits",
   },
+  {
+    fromVersion: "215",
+    fromName: "compression_combos_output_styles",
+    toVersion: "220",
+    toName: "compression_combos_output_styles",
+  },
 ] as const;
 
 export const LEGACY_VERSION_SLOT_MIGRATIONS = [
