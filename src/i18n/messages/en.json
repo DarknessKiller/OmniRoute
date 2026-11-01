@@ -998,7 +998,8 @@
     "batchFileUsedByCount": "Used by {count, plural, one {# batch} other {# batches}}",
     "batchFilePreview": "Preview",
     "batchFilePreviewTruncated": "Showing first {shown} lines ({total} total lines)",
-    "batchFileDownloadFull": "Download Full File"
+    "batchFileDownloadFull": "Download Full File",
+    "clearFilters": "Clear filters"
   },
   "disabled": "Disabled",
   "featureFlagOmnirouteEmergencyFallbackDescription": "Route budget-exhausted requests to the emergency free fallback provider/model.",
@@ -1352,7 +1353,9 @@
       "open": "open",
       "close": "close"
     },
-    "noResults": "No results"
+    "noResults": "No results",
+    "costsTeams": "Teams",
+    "costsTeamsSubtitle": "Team cost centers"
   },
   "webhooks": {
     "title": "Webhooks",
@@ -1485,7 +1488,9 @@
       "chatIdPlaceholder": "-100123456789 or @channelname",
       "chatIdHint": "The unique numerical identifier or public username of the chat/channel.",
       "tutorial": "How to configure Telegram webhook:"
-    }
+    },
+    "copied": "Copied!",
+    "copy": "Copy"
   },
   "compliance": {
     "auditTitle": "Audit",
@@ -1713,7 +1718,8 @@
     "settingsAdvancedDescription": "Advanced payload rules, request limits, and proxy API settings",
     "mitmProxyDescription": "Configure MITM proxy settings for traffic inspection and debugging",
     "oneProxyDescription": "Configure 1Proxy settings for advanced proxy chaining",
-    "omniSkillsDescription": "Install and manage sandbox skills for automated prompt and tool execution"
+    "omniSkillsDescription": "Install and manage sandbox skills for automated prompt and tool execution",
+    "teamsDescription": "Team cost estimates and shared soft budgets"
   },
   "cloudSyncStatus": {
     "synced": "Synced",
@@ -1933,7 +1939,14 @@
     "readinessStep3": "Copy your endpoint",
     "readinessStep4": "Send a test request",
     "readinessContinue": "Continue setup",
-    "readinessDismiss": "Dismiss for now"
+    "readinessDismiss": "Dismiss for now",
+    "unpricedUsageConfigure": "Configure pricing",
+    "unpricedUsageCountAsZero": "This usage counts as $0 toward per-key usage limits (UNPRICED_USAGE_BUDGET_POLICY=count_as_zero).",
+    "unpricedUsageDismiss": "Dismiss",
+    "unpricedUsageFailClosed": "{keys, plural, one {# API key with a usage limit} other {# API keys with a usage limit}} used these models in the last 8 days. While that usage is inside a key's daily or weekly window, the key is treated as over quota and its requests are blocked (UNPRICED_USAGE_BUDGET_POLICY=fail_closed).",
+    "unpricedUsageModelStats": "{requests, plural, one {# request} other {# requests}}, {keys, plural, one {# limited key} other {# limited keys}}",
+    "unpricedUsageMore": "…and {count} more",
+    "unpricedUsageTitle": "{count, plural, one {# model} other {# models}} with recent usage but no configured price"
   },
   "analytics": {
     "title": "Analytics",
@@ -2495,7 +2508,11 @@
     "onlySelectedConnections": "Only selected connections",
     "selectAtLeastOneConnection": "Select at least one connection or choose All connections.",
     "allConnectionsDesc": "This key can use any active connection.",
-    "restrictedToConnections": "Restricted to {count, plural, one {# connection} other {# connections}}."
+    "restrictedToConnections": "Restricted to {count, plural, one {# connection} other {# connections}}.",
+    "preferredConnections": "Preferred connections",
+    "preferredConnectionsClear": "Clear",
+    "preferredConnectionsDesc": "Per-key priority order. If a preferred connection is unavailable, routing falls back to the next eligible one.",
+    "preferredConnectionsNone": "No preference set — the default routing strategy is used."
   },
   "auditLog": {
     "title": "Audit Log",
@@ -2982,7 +2999,8 @@
       "amp": "Use when you want Amp shorthand workflows but still need OmniRoute alias and routing rules enforcement.",
       "hermes": "Use when you need a lightweight terminal-native AI assistant for quick tasks.",
       "hermes-agent": "Use when you need Hermes Agent (by Nousresearch) with default, delegation, vision and auxiliary models routed through OmniRoute.",
-      "custom": "Use for custom tool implementations or generic OpenAI-compatible configurations."
+      "custom": "Use for custom tool implementations or generic OpenAI-compatible configurations.",
+      "whycodes": "Use when you want WhyCodes as a broad-purpose autonomous CLI agent (TUI, named agents, memory, swarm) pointed at OmniRoute."
     },
     "toolDescriptions": {
       "antigravity": "Google Antigravity IDE with MITM",
@@ -3022,7 +3040,9 @@
       "warp": "Warp AI terminal with custom provider support",
       "agent-deck": "Agent Deck multi-agent orchestrator",
       "5dive": "5dive — self-hosted fleet of coding agents; one auth profile points them all at OmniRoute",
-      "zed": "Zed code editor — built-in agent through an OpenAI-compatible provider"
+      "zed": "Zed code editor — built-in agent through an OpenAI-compatible provider",
+      "openclaude": "OpenClaude coding agent CLI with OpenAI-compatible provider support",
+      "whycodes": "WhyCodes autonomous CLI agent with OpenAI-compatible base URL"
     },
     "guides": {
       "cursor": {
@@ -3278,7 +3298,21 @@
     "cliproxyapiUnknown": "Unknown",
     "cliproxyapiUpdate": "Update",
     "cliproxyapiUpdateAvailable": "Update available: v{current} → v{latest}",
-    "cliproxyapiVersion": "Version"
+    "cliproxyapiVersion": "Version",
+    "piConfigInvalidTitle": "Pi models.json is unreadable",
+    "piEndpoint": "OmniRoute URL",
+    "piEndpointHelp": "Use the URL reachable from the machine running Pi. The OpenAI-compatible /v1 endpoint is added automatically.",
+    "piInstallCommand": "npm install -g --ignore-scripts @earendil-works/pi-coding-agent",
+    "piInstallInstructions": "Install the Pi CLI, then return here to connect it to OmniRoute.",
+    "piInstallTitle": "Install Pi Coding Agent",
+    "piManualConfigHint": "Then start Pi and select the omniroute provider. Set PI_CODING_AGENT_DIR to move the whole agent directory.",
+    "piManualConfigSample": "'{\n  \"providers\": {\n    \"omniroute\": {\n      \"baseUrl\": \"http://127.0.0.1:20128/v1\",\n      \"api\": \"openai-completions\",\n      \"apiKey\": \"sk_omniroute\",\n      \"models\": [\n        { \"id\": \"auto/best-coding\", \"name\": \"OmniRoute best-coding\" }\n      ]\n    }\n  }\n}'",
+    "piManualConfigTitle": "Or edit ~/.pi/agent/models.json manually",
+    "piManualConfiguration": "Pi - Manual Configuration",
+    "piManualMergeHint": "Preview only. Merge this providers.omniroute entry into models.json so your other providers and settings stay intact.",
+    "piModelHelp": "Pi does not auto-discover models for custom endpoints — the model you pick is written into models.json explicitly.",
+    "piOmnirouteConfigured": "OmniRoute is configured as a Pi custom provider",
+    "piUnownedNote": "This entry was added outside OmniRoute (e.g. pi-gui's Custom endpoints). Applying will adopt it; Reset only removes entries OmniRoute wrote."
   },
   "modelCatalog": {
     "title": "Models & Combos",
@@ -3397,7 +3431,53 @@
     "httpError": "Request failed with HTTP {status}",
     "testFailedNoDetail": "Test failed without an error message",
     "additionalCapabilities": "Additional capabilities: {list}",
-    "comboRefMember": "Combo → {name}"
+    "comboRefMember": "Combo → {name}",
+    "accessBlocked": "Blocked by {pattern}",
+    "accessViaPattern": "via {pattern}",
+    "allCombosAccess": "All combos",
+    "allModelsAccess": "All models",
+    "allVisibility": "Visible and hidden",
+    "allowedInKeys": "Allowed in: {count, plural, one {# key} other {# keys}}",
+    "assignActionAdd": "Add",
+    "assignActionRemove": "Remove",
+    "assignApply": "Apply changes",
+    "assignComplete": "API key access updated",
+    "assignExcludedCombos": "{count, plural, one {# selected combo row is not a model and will be skipped here} other {# selected combo rows are not models and will be skipped here}}. Assign combos from the Combos tab.",
+    "assignFailed": "Some API key updates failed",
+    "assignNoChanges": "No API key access changed",
+    "assignToKeys": "Assign to API keys…",
+    "comboAccessCount": "Combos: {count}",
+    "editKeyAccess": "Edit key access",
+    "hiddenBadge": "Hidden",
+    "hiddenOnly": "Hidden",
+    "hideFiltered": "Hide filtered ({count})",
+    "hideModel": "Hide {name} from /v1/models",
+    "keyAccessButton": "API key access",
+    "keyBanned": "Banned",
+    "keyInactive": "Inactive",
+    "keyRevoked": "Revoked",
+    "keyUpdatePending": "{name} is still being updated. Try again in a moment.",
+    "keysLoading": "Loading API keys…",
+    "keysRetry": "Retry loading keys",
+    "modelAccessCount": "Models: {count}",
+    "removeNoChangeHint": "This key allows everything; removing selected items will make no change",
+    "removeStaysAllowedHint": "Still allowed on this key through {patterns}",
+    "resultChanged": "Changed",
+    "resultNeedsSwitch": "Needs switch to restricted",
+    "resultNetworkError": "Assignment failed",
+    "resultSkipped": "Skipped",
+    "resultUnchanged": "No change",
+    "resultWouldEmptyCombos": "Would leave this key with no allowed combos — edit key access instead",
+    "resultWouldEmptyModels": "Would leave this key with no allowed models — edit key access instead",
+    "searchKeys": "Search API keys",
+    "selectApiKey": "Select API key {name}",
+    "selectedAccessItems": "Selected items: {count}",
+    "showFiltered": "Show filtered ({count})",
+    "showModel": "Show {name} in /v1/models",
+    "switchRestrictedConfirm": "Switch this key to restricted access: only the selected items will be allowed",
+    "toggleKeyAccess": "Allow {item} on {name}",
+    "visibility": "Visibility",
+    "visibleOnly": "Visible"
   },
   "combos": {
     "title": "Combos",
@@ -4014,7 +4094,16 @@
     "duplicateAutoComboSnapshotMsg": "This will snapshot the currently connected providers/models that match this template into an editable combo.",
     "duplicateAutoComboFailedPrefix": "Failed to duplicate auto-combo:",
     "duplicateAutoComboUnknownError": "Unknown error",
-    "duplicateAutoComboTitle": "Create a static combo from {name}"
+    "duplicateAutoComboTitle": "Create a static combo from {name}",
+    "cannotRemoveAllModels": "Cannot remove every model from the combo",
+    "clearSearch": "Clear search",
+    "errorModelsRemoved": "Removed {count} failed model(s) from the combo",
+    "noErrorModelsFound": "No failed models found among this combo's own steps",
+    "removeErrorModelsConfirm": "Remove {count} failed model(s) from \"{name}\"? Timeouts and rate limits are not counted.",
+    "testStep": "Test this model",
+    "testStepNotTestable": "Only single-model steps can be tested",
+    "testStepRunning": "Testing…",
+    "weightPercent": "Weight (%)"
   },
   "costs": {
     "title": "Costs",
@@ -5288,7 +5377,8 @@
         "skipped": "already configured",
         "failed": "failed"
       }
-    }
+    },
+    "stepProgress": "Setup progress"
   },
   "providers": {
     "tosAvoidNoticeTitle": "This provider is excluded from auto by default",
@@ -6809,7 +6899,58 @@
     "rateLimitOverridesModelConcurrencyLabel": "Per-model concurrency caps",
     "rateLimitOverridesModelConcurrencyPlaceholder": "glm-5=1\nglm-4.7=3",
     "rateLimitOverridesModelConcurrencyHint": "Optional: one model=cap per line, matched against the exact upstream model id. Queues excess requests locally; blank means no per-model cap.",
-    "rateLimitOverridesModelConcurrencyInvalid": "Invalid per-model concurrency entry \"{entry}\" — use model=cap with a whole number from 1 to {max}."
+    "rateLimitOverridesModelConcurrencyInvalid": "Invalid per-model concurrency entry \"{entry}\" — use model=cap with a whole number from 1 to {max}.",
+    "chatgptConnectorLabel": "ChatGPT custom connector",
+    "cliVersionCaveatClaude": "Billing caveat: the billing version is '<version>'.'<build-revision>', and the build revision is a separate captured constant. Advertising 2.1.260 reports 2.1.260.1e2, which is not what a real 2.1.260 binary sends.",
+    "cliVersionCaveatCodex": "Inference caveat: a version your own caller reports still beats the CODEX_CLIENT_VERSION env var, but this override beats both, because it is explicit operator intent.",
+    "cliVersionEffectiveLabel": "Currently advertised",
+    "cliVersionHintClaude": "Anthropic gates newer Claude models on the Claude Code client version it sees. This is the version OmniRoute advertises on every Anthropic-bound request.",
+    "cliVersionHintCodex": "OpenAI gates newer models on the Codex client version it sees, for example the error: The 'gpt-6-astra' model requires a newer version of Codex.",
+    "cliVersionInputLabel": "Override version",
+    "cliVersionInputPlaceholder": "Override version; blank clears",
+    "cliVersionLoadError": "Failed to load CLI version settings: {error}",
+    "cliVersionLoadFailed": "Could not load the current CLI version settings.",
+    "cliVersionPinnedLabel": "Captured default: {pinned}",
+    "cliVersionResetButton": "Reset to default",
+    "cliVersionSaveButton": "Save",
+    "cliVersionSaveError": "Failed to save CLI version: {error}",
+    "cliVersionSectionTitle": "Advertised CLI client version",
+    "cliVersionSourceDefault": "captured default",
+    "cliVersionSourceDiscovered": "auto-discovered latest release",
+    "cliVersionSourceEnv": "environment variable",
+    "cliVersionSourceLabel": "Resolved from: {source}",
+    "cliVersionSourceSettings": "dashboard override",
+    "codexTunnelDescription": "The tunnel stays strictly outbound. Local tools are still executed only by Codex, under its sandbox and approval policy.",
+    "codexTunnelTitle": "Codex tool connection",
+    "importOAuthExport": "Import OAuth export",
+    "oauthExportChoose": "Choose file",
+    "oauthExportColEmail": "Email",
+    "oauthExportColProvider": "Provider",
+    "oauthExportColRefresh": "Refresh token",
+    "oauthExportDescription": "Upload a plaintext export from an account manager (e.g. Antigravity Manager's cloud-accounts export). Tokens are refreshed server-side and each account becomes an OAuth connection — duplicates refresh in place.",
+    "oauthExportDetected": "{count} account(s) detected",
+    "oauthExportFileAria": "Account export JSON file",
+    "oauthExportImport": "Import {count} account(s)",
+    "oauthExportImporting": "Importing…",
+    "oauthExportNo": "no",
+    "oauthExportNoEmail": "(no email)",
+    "oauthExportParseError": "Could not read any accounts from this file.",
+    "oauthExportProviderLabel": "Provider",
+    "oauthExportResult": "Imported {imported}/{total} — {failed} failed",
+    "oauthExportSchemaHint": "Accepted: a document with an \"accounts\" array, a bare array, or a single record. Tokens may live under a nested token object or flat on the record.",
+    "oauthExportSelectAccount": "Select account {index}",
+    "oauthExportSelectAll": "Select all accounts",
+    "oauthExportTitle": "Import account-manager export",
+    "oauthExportUnknownError": "unknown error",
+    "oauthExportYes": "yes",
+    "openComboTooltip": "Open Combos — used by {combo}",
+    "rerank": "Rerank",
+    "tunnelIdLabel": "Tunnel ID",
+    "tunnelRuntimeKeyHint": "Stored encrypted together with the cookie and never written to logs.",
+    "tunnelRuntimeKeyLabel": "Tunnel runtime key",
+    "tunnelRuntimeKeyPlaceholder": "Runtime key",
+    "usedInComboTooltip": "Used in {count} combo(s): {combos}",
+    "video": "Video"
   },
   "settings": {
     "title": "Settings",
@@ -7266,7 +7407,8 @@
       "coreReloadAppliedBy": "Applied by: {mode}",
       "coreBinaryPath": "Core binary path",
       "coreBinaryPathPlaceholder": "/usr/bin/sing-box",
-      "coreBinaryPathHelp": "Optional: verifies the generated file with the core binary before replacing the adopted file. Leave empty to keep writing beside it. The directory is created when missing."
+      "coreBinaryPathHelp": "Optional: verifies the generated file with the core binary before replacing the adopted file. Leave empty to keep writing beside it. The directory is created when missing.",
+      "urlFeedlessHint": "Leave empty for a selector-only subscription: set a control URL below, no feed is fetched, refreshed, or bound."
     },
     "bulkHealthcheck": "Bulk Healthcheck",
     "bulkHealthcheckDesc": "Test all configured proxies against a target URL to find which ones work.",
@@ -8920,7 +9062,9 @@
         "financial": "Financial",
         "brazilian": "Brazilian",
         "usa": "USA",
-        "full": "Full"
+        "full": "Full",
+        "gdpr": "GDPR (EU)",
+        "popia": "POPIA (South Africa)"
       },
       "builtinTypes": "Built-in types",
       "types": {
@@ -8934,7 +9078,19 @@
         "ip_address": "IPv4 addresses",
         "ipv6_address": "IPv6 addresses",
         "aws_key": "AWS access keys",
-        "api_key_generic": "API keys and tokens"
+        "api_key_generic": "API keys and tokens",
+        "de_steuer_id": "German Steuer-ID",
+        "es_dni_nie": "Spanish DNI / NIE",
+        "eu_vat": "EU VAT numbers",
+        "iban": "IBAN bank account numbers",
+        "it_codice_fiscale": "Italian Codice Fiscale",
+        "nl_bsn": "Dutch BSN",
+        "pl_pesel": "Polish PESEL",
+        "se_personnummer": "Swedish personnummer",
+        "za_id": "South African ID numbers",
+        "za_phone": "South African phone numbers",
+        "za_tax_ref": "South African tax references",
+        "za_vat": "South African VAT numbers"
       },
       "customPatterns": "Custom patterns",
       "customPatternsDesc": "Matches are replaced with [CUSTOM_REDACTED]. Up to {max} patterns. Patterns that risk catastrophic backtracking are refused.",
@@ -8952,7 +9108,11 @@
       "statsTitle": "Detections since restart",
       "statsEmpty": "No detections yet.",
       "statsRequest": "Requests"
-    }
+    },
+    "ccDiscoveryAliasesDesc": "Advertise claude/... compatibility mirrors for models and combos this key can already access",
+    "ccDiscoveryAliasesTitle": "Claude Code discovery aliases",
+    "exposeCombosOnly": "List only combos in /v1/models",
+    "exposeCombosOnlyDesc": "Clients that auto-discover models see your combos (and auto/* unless hidden) instead of raw provider models. Explicit provider/model ids keep routing."
   },
   "contextRtk": {
     "title": "RTK Engine",
@@ -9258,7 +9418,8 @@
     "languagePacksList": "Language packs: {packs}",
     "dragToReorder": "Drag to reorder step",
     "engine": "Engine",
-    "intensity": "Intensity"
+    "intensity": "Intensity",
+    "compressionOverride": "Compression override"
   },
   "compressionStudio": {
     "noRun": "No compression run available.",
@@ -10292,7 +10453,65 @@
     "updatedShort": "Updated",
     "lastRefreshed": "Last refreshed",
     "providerQuota": "Provider Quota",
-    "providerQuotaHomeHint": "Live status across connected accounts"
+    "providerQuotaHomeHint": "Live status across connected accounts",
+    "claudeResetCreditDefaultTitle": "Claude limit reset",
+    "claudeResetCreditsModalExplainer": "Available Claude reset credits and weekly session resets for this account.",
+    "claudeResetCreditsModalTitle": "Claude reset credits",
+    "confirmRedeemClaudeResetCredit": "Redeeming immediately resets the eligible Claude usage limits and permanently consumes this credit.",
+    "healthAccountHint": "Based on recent observations, not a live probe. Select an account for details.",
+    "healthAction": "Needs attention",
+    "healthAvailable": "Available",
+    "healthAwaitingSync": "Reset time passed; waiting for sync",
+    "healthBannerAvailable": "{count, plural, one {# account available} other {All # accounts available}}",
+    "healthBannerUnavailable": "{count, plural, one {# account temporarily unavailable} other {# accounts temporarily unavailable}}",
+    "healthCd5": "5h cooldown",
+    "healthCdw": "Weekly cooldown",
+    "healthCooldown": "Cooldown",
+    "healthCutoffAtRequest": "Live quota thresholds are checked when routing a request.",
+    "healthDetailsHint": "Click for details and actions",
+    "healthDrag": "Drag to reorder providers",
+    "healthDragPosition": "{provider}, {count, plural, one {position {position, number} of #} other {position {position, number} of #}}",
+    "healthExtraUsageBypass": "Quota exhausted; extra usage is allowed, so service continues.",
+    "healthFastest": "Soonest recovery in {duration}",
+    "healthFilteringBypass": "Quota exhausted; local quota filtering is disabled, so service continues.",
+    "healthFiveHour": "5 hours",
+    "healthIncluded": "Includes {count, plural, one {# partially restricted account} other {# partially restricted accounts}}",
+    "healthLegendAction": "Authorization expired or account banned; waiting will not fix it.",
+    "healthLegendCooldown": "{window} quota exhausted. Solid = time already waited; translucent = time left.",
+    "healthLegendHide": "Hide legend",
+    "healthLegendOk": "Solid = remaining quota; translucent = used.",
+    "healthLegendPartial": "Still usable. Yellow cap = a model or pool is restricted.",
+    "healthLegendShow": "Show legend",
+    "healthNoRuntime": "Runtime state unavailable",
+    "healthOldestQuota": "Oldest quota snapshot {time}",
+    "healthOtherPool": "Same account · {pool}: {status} ({remaining} remaining)",
+    "healthOverall": "Overall",
+    "healthOverview": "Overview",
+    "healthPaidCreditsBypass": "Quota exhausted; usable paid credits allow service to continue.",
+    "healthPeakHourProtection": "Peak-hour protection",
+    "healthPool": "{name} pool",
+    "healthPreviousFailure": "Last request failed; cooldown ended",
+    "healthPreviousSnapshot": "Last refresh failed; showing previous result",
+    "healthPurchasedBalanceBypass": "Purchased balance permits use after the included allowance is exhausted.",
+    "healthQuotaError": "Quota read failed",
+    "healthQuotaExhausted": "Quota exhausted",
+    "healthQuotaObserved": "Quota observed {time}",
+    "healthRatio": "{available, plural, one {# / {active, number} available} other {# / {active, number} available}}",
+    "healthRecentSuccessBypass": "Routing permits this account because a request succeeded recently.",
+    "healthRecovery": "Expected recovery",
+    "healthRecoveryUnknown": "Recovery time unknown",
+    "healthResetOrder": "Restore default order",
+    "healthRestricted": "Partially restricted",
+    "healthRuntimeObserved": "Runtime updated {time}",
+    "healthSummaryFailed": "Runtime summary read failed; model lockouts may be missing",
+    "healthTitle": "Account availability",
+    "healthVerdictUnavailable": "Availability check unavailable; showing quota meters only",
+    "healthWait": "Wait {duration} ({time} recovery)",
+    "healthWaited": "Waited {percent}",
+    "layoutCompact": "Compact",
+    "layoutFull": "Full",
+    "quotaAuthRequired": "Authentication required - sign in to the dashboard",
+    "quotaAuthRequiredHint": "Provider connections could not be loaded because the dashboard session is missing or expired. Sign in and refresh to see your quota limits."
   },
   "modals": {
     "waitingAuth": "Waiting for Authorization",
@@ -11079,7 +11298,8 @@
       "message": "Message",
       "error": "Error",
       "completion": "Completion"
-    }
+    },
+    "statusFilter": "Status"
   },
   "templateNames": {
     "simple-chat": "Simple Chat",
@@ -11375,7 +11595,12 @@
     "continue": "Continue",
     "tabPasteSetupToken": "Setup Token",
     "claudeSetupTokenDescription": "Run `claude setup-token` in a terminal and paste the token it prints. It is valid for one year and has no refresh token. OmniRoute sends one test request to Anthropic before saving it.",
-    "claudeSetupTokenPlaceholder": "sk-ant-oat01-..."
+    "claudeSetupTokenPlaceholder": "sk-ant-oat01-...",
+    "copilotPolicyAcknowledge": "I understand — Connect",
+    "copilotPolicyLine1": "OmniRoute connects via api.githubcopilot.com, which GitHub has not published as a general third-party inference API. This integration is experimental and may change without notice.",
+    "copilotPolicyLine2": "Only your own GitHub account may be connected. Never share credentials, pool accounts, or attempt to exceed your plan limits.",
+    "copilotPolicyLine3": "Free and Student plan users receive automatic model selection only. Your Copilot plan terms and any usage limits remain your responsibility.",
+    "copilotPolicyTitle": "Experimental provider — policy status is ambiguous"
   },
   "cursorAuthModal": {
     "title": "Connect Cursor",
@@ -11604,7 +11829,8 @@
     "notMeasured": "Not measured",
     "upstream4xx": "{count} upstream client errors",
     "upstream5xx": "{count} upstream server errors",
-    "uniformEgressLine": "{affected} of {exits} exits fail together on {provider} (last {hours}h) — not an exit problem"
+    "uniformEgressLine": "{affected} of {exits} exits fail together on {provider} (last {hours}h) — not an exit problem",
+    "poolSetAsideKindOperatorReported": "outage reported by operator"
   },
   "playground": {
     "title": "Model Playground",
@@ -12069,7 +12295,11 @@
       "resilienceRetried": "Retried empty turn",
       "resilienceContinued": "Resumed mid-stream",
       "resilienceRecovered": "Recovered by a resilience action"
-    }
+    },
+    "throughputEndToEnd": "End-to-end",
+    "throughputExplanation": "Both rates use the larger of output and reasoning token counts. Post-first-token excludes a valid TTFT; otherwise it uses the full duration. End-to-end always uses the full duration. A buffered response can have a high burst delivery rate without faster model generation.",
+    "throughputPostFirstToken": "Post-first-token",
+    "throughputRate": "{value} tokens/sec"
   },
   "proxyLogger": {
     "filterAll": "All",
@@ -12114,7 +12344,8 @@
     "colServedBy": "Served by",
     "filterTraffic": "Traffic",
     "filterTests": "Tests",
-    "filterSource": "Source"
+    "filterSource": "Source",
+    "sortLogs": "Sort logs"
   },
   "endpointOptions": {
     "speech": "Speech",
@@ -12687,7 +12918,11 @@
     "avgTtft": "Avg TTFT",
     "avgTotal": "Avg Total",
     "requestTelemetry": "Request Telemetry",
-    "requestTelemetryDescription": "7-phase pipeline breakdown (last 5 minutes)"
+    "requestTelemetryDescription": "7-phase pipeline breakdown (last 5 minutes)",
+    "combo": "Combo",
+    "description": "Per-provider and per-model traffic, latency and success rates",
+    "title": "Provider stats",
+    "windowSince": "Since {date}"
   },
   "relay": {
     "title": "Serverless Relay Proxies",
@@ -12848,7 +13083,8 @@
     "noRequestBody": "No request body.",
     "noResponseBody": "No response body.",
     "formatted": "Formatted",
-    "raw": "Raw"
+    "raw": "Raw",
+    "requestCount": "{count, plural, one {# request} other {# requests}}"
   },
   "cliCommon": {
     "companion": {
@@ -12963,7 +13199,8 @@
     "detectionNotFound": "Not found",
     "baseUrlAll": "All",
     "baseUrlFull": "Full",
-    "baseUrlPartial": "Partial"
+    "baseUrlPartial": "Partial",
+    "title": "CLI Code"
   },
   "cliAgents": {
     "pageTitle": "CLI Agents",
@@ -13332,7 +13569,11 @@
     "method": "Method",
     "auth": "Auth",
     "feasibility": "Feasibility",
-    "models": "Models"
+    "models": "Models",
+    "actions": "Actions",
+    "endpoint": "Endpoint",
+    "provider": "Provider",
+    "status": "Status"
   },
   "noAuthProvider": {
     "title": "No authentication required",
@@ -13381,7 +13622,8 @@
     "ownProxy": "Own proxy",
     "freeTierPause": "Model {model} paused (429), back at {time}",
     "freeTierPauseProvider": "Paused (429), back at {time}",
-    "freeTierPauseNote": "In-process pause on this instance"
+    "freeTierPauseNote": "In-process pause on this instance",
+    "proxyType": "Proxy type"
   },
   "gamification": {
     "leaderboardScopes": {
@@ -13554,7 +13796,8 @@
         "description": "A hidden achievement awaits...",
         "criteria": "Complete the hidden achievement to reveal this badge."
       }
-    }
+    },
+    "badgeLocked": "Locked"
   },
   "featureFlags": {
     "title": "Feature Flags",
@@ -13612,7 +13855,9 @@
       "disabled": "Disabled",
       "dual": "Dual",
       "alias": "Alias",
-      "canonical": "Canonical"
+      "canonical": "Canonical",
+      "count_as_zero": "Count as $0 (count_as_zero)",
+      "fail_closed": "Block (fail_closed)"
     },
     "definitions": {
       "REQUIRE_API_KEY": {
@@ -14117,7 +14362,8 @@
     "unknown": "unknown",
     "unknownProvider": "unknown provider",
     "unknownModel": "unknown model",
-    "resolvedTargetMetrics": "{requests} req · {success} success · {latency} · quota {quota}"
+    "resolvedTargetMetrics": "{requests} req · {success} success · {latency} · quota {quota}",
+    "timeRange": "Time range"
   },
   "usageLimits": {
     "usdUsageQuota": "USD usage quota",
@@ -14193,7 +14439,9 @@
       "ok": "Generally permissive"
     },
     "allProviders": "All providers",
-    "noApiKeyRequired": "No API key required"
+    "noApiKeyRequired": "No API key required",
+    "searchAria": "Search free models",
+    "searchPlaceholder": "Search model, provider…"
   },
   "providerHealthAutopilot": {
     "title": "Provider Health Autopilot",
@@ -14264,7 +14512,9 @@
     "learnMore": "Learn more",
     "changelogLoadFailed": "Could not load the changelog. Please try again later.",
     "retry": "Retry",
-    "viewFullHistory": "View full history on GitHub"
+    "viewFullHistory": "View full history on GitHub",
+    "description": "Announcements from the OmniRoute team and the latest release notes",
+    "title": "News & changelog"
   },
   "reasoningRouting": {
     "editor": {
@@ -15080,7 +15330,9 @@
     "mcp": "MCP",
     "mcpTool": "MCP tool",
     "scope": "Scope",
-    "apiKey": "API key"
+    "apiKey": "API key",
+    "autoRefresh": "Auto-refresh",
+    "visibleCount": "{visible} visible / {total} total"
   },
   "metadata": {
     "compressionTitle": "Compression",
@@ -15343,5 +15595,195 @@
     "importButton": "Import",
     "importFailed": "Import failed.",
     "importSuccess": "Imported {connections} accounts and {nodes} provider nodes; {skipped} skipped."
+  },
+  "cliproxyHealth": {
+    "cardTitle": "CLIProxyAPI accounts",
+    "cardSubtitle": "Read-only status from the authenticated management API",
+    "btnRefresh": "Refresh",
+    "listAria": "CLIProxyAPI account health",
+    "noAccounts": "No CLIProxyAPI accounts found.",
+    "loading": "Loading account health…",
+    "stateReady": "Account health",
+    "stateDisabled": "CLIProxyAPI is not installed",
+    "stateMissingKey": "Management key is not configured",
+    "stateUnreachable": "Management API is unreachable",
+    "stateUnauthorized": "Management key was rejected",
+    "stateUnsupported": "This CLIProxyAPI version does not expose account health",
+    "stateInvalidResponse": "Management API returned an unsupported response"
+  },
+  "conversations": {
+    "title": "Conversations",
+    "countSummary": "{total, plural, one {# conversation} other {# conversations}} with 2+ turns",
+    "autoRefreshTitle": "How often this list re-fetches from the server.",
+    "autoRefresh": "Auto-refresh",
+    "loading": "Loading conversations...",
+    "colConversation": "Conversation",
+    "colTurns": "Turns",
+    "colContinuation": "Continuation",
+    "colLastModel": "Last Model",
+    "colProvider": "Provider",
+    "colStatus": "Status",
+    "colLastSeen": "Last Seen",
+    "drawerTitle": "Conversation",
+    "prevConversation": "Previous conversation",
+    "nextConversation": "Next conversation",
+    "gotoLatestRequest": "Go to latest request",
+    "goToBottom": "Go to bottom",
+    "statusInProgress": "In progress",
+    "continuationGenuineTitle": "Latest turn used previous_response_id and it resolved server-side",
+    "continuationBadge": "continuation",
+    "stalledTitle": "Latest turn didn't end in stop and nothing has continued for 5+ minutes",
+    "stalledBadge": "stalled",
+    "noTurns": "No turns recorded for this conversation."
+  },
+  "darioPanel": {
+    "title": "Claude accounts",
+    "description": "Authenticate Dario with your Claude Pro/Max subscription. Traffic bills to your subscription pool. At least one account is required before Dario can route requests (until then /health reports degraded).",
+    "noAccounts": "No accounts configured yet.",
+    "importTitle": "Import from OmniRoute",
+    "importDescription": "Reuse an existing OmniRoute Claude connection's OAuth tokens instead of logging in again — skips the browser approval step entirely.",
+    "importPendingTooltip": "Will be active once a Claude connection exists in OmniRoute.",
+    "btnImport": "Import",
+    "btnImporting": "Importing…",
+    "aliasPlaceholder": "alias (optional)",
+    "btnStartLogin": "Start Login",
+    "btnStarting": "Starting…",
+    "btnCompleteLogin": "Complete Login",
+    "btnCompleting": "Completing…",
+    "codePlaceholder": "code#state or bare code",
+    "noticeImported": "Imported as account \"{alias}\" — Dario restarted to pick it up.",
+    "noticeAdded": "Account \"{alias}\" added.",
+    "expiresInHours": "expires in ~{hours}h",
+    "expiresInMinutes": "expires in ~{minutes}m",
+    "expiresAt": "expires {date}",
+    "scopes": "{count, plural, one {# scope} other {# scopes}}",
+    "btnRemove": "Remove",
+    "btnRefresh": "Refresh",
+    "loginStep1": "1. Open this URL in your browser and approve access for account <mono>{alias}</mono>:",
+    "pendingExpires": "Pending login expires {time}",
+    "loginStep2": "2. Paste the code Anthropic displays:"
+  },
+  "logExport": {
+    "startFromCurrentPosition": "Start from current position (skip existing logs)",
+    "pageTitle": "Log export",
+    "pageSubtitle": "Continuously ship the call logs from the Logs tab to an external analytics store.",
+    "addDestination": "Add destination",
+    "scheduleTitle": "Schedule",
+    "cronLabel": "Cron",
+    "notScheduled": "not scheduled",
+    "lastScheduledRun": "Last scheduled run",
+    "lastRunSummary": "{startedAt} — {status}, {rows} rows",
+    "never": "never",
+    "highWaterMark": "Call logs high-water mark",
+    "rowPrefix": "row {id}",
+    "noDestinations": "No export destinations",
+    "noDestinationsHint": "Add a destination to start shipping call logs on the hourly schedule.",
+    "errLoadStatus": "Failed to load export status",
+    "errSaveDestination": "Failed to save destination",
+    "msgDestinationSaved": "Destination saved.",
+    "errConnectionTest": "Connection test failed",
+    "msgRunInFlight": "A run for this destination is already in flight; nothing was sent twice.",
+    "errExportRun": "Export run failed",
+    "errUpdateDestination": "Failed to update destination",
+    "errDeleteDestination": "Failed to delete destination",
+    "deleteTitle": "Delete destination",
+    "deleteConfirm": "Delete \"{name}\"? Its export cursor is removed too, so re-adding it starts from the oldest retained call log.",
+    "statusDisabled": "Disabled",
+    "statusFailing": "Failing",
+    "statusHealthy": "Healthy",
+    "statusNotRunYet": "Not run yet",
+    "typeNotInstalled": "Type not installed",
+    "metaLine": "Last run {lastRun} · exported {exported} rows · {pending} pending · cursor {cursor}",
+    "btnTest": "Test",
+    "btnRunNow": "Run now",
+    "btnDisable": "Disable",
+    "btnEnable": "Enable",
+    "btnEdit": "Edit",
+    "btnDelete": "Delete"
+  },
+  "miniapp": {
+    "title": "OmniRoute Mini App",
+    "errTelegramOnly": "This page must be opened inside the Telegram Mini App.",
+    "greeting": "👋 Hi {name}! Send a message to chat through your OmniRoute gateway.",
+    "greetingFallbackName": "there",
+    "errNoReply": "⚠️ No reply from gateway.",
+    "btnSend": "Send"
+  },
+  "teamCosts": {
+    "title": "Team costs",
+    "subtitle": "Manage shared soft budgets and catalog cost estimates.",
+    "refresh": "Refresh",
+    "create": "Create team",
+    "edit": "Edit team",
+    "archive": "Archive",
+    "selectTeam": "Teams",
+    "searchTeams": "Search teams",
+    "statusFilter": "Team status",
+    "active": "Active",
+    "archived": "Archived · read only",
+    "allTeams": "All teams",
+    "noTeams": "No matching teams.",
+    "selectHint": "Create or select a team to view costs.",
+    "loading": "Loading team costs…",
+    "budgetTitle": "Current soft budget",
+    "budgetSubtitle": "Successful committed usage · rolling window · independent of report dates",
+    "archivedBudget": "Archived: budget enforcement is inactive. Historical reports remain available.",
+    "unlimited": "Unlimited — no shared soft budget configured.",
+    "budgetUnavailable": "Budget status is unavailable. Refresh to retry.",
+    "used": "Successful usage",
+    "maximum": "Budget maximum",
+    "remaining": "Known remaining",
+    "resets": "Resets",
+    "unpricedBudget": "Some successful usage has unknown pricing. The known sum is incomplete; budget enforcement treats this window as exceeded.",
+    "overBudget": "Budget reached or exceeded · {amount} over",
+    "reportTitle": "Usage report",
+    "reportSubtitle": "All attempts · catalog estimate in USD, not an invoice · whole UTC dates",
+    "reportPeriod": "Report period",
+    "day1": "1 day",
+    "day7": "7 days",
+    "day30": "30 days",
+    "allTime": "All time",
+    "reportSpend": "Estimated report spend",
+    "requests": "Requests",
+    "assignedKeys": "Assigned keys",
+    "unpricedReport": "This report contains unknown pricing. Estimated spend is incomplete.",
+    "breakdown": "Cost by API key",
+    "noUsage": "No usage in this report period.",
+    "keyName": "API key name",
+    "tokens": "Input + output tokens",
+    "unnamedKey": "Unnamed or deleted key",
+    "unpriced": "Unknown pricing",
+    "members": "Membership",
+    "memberSubtitle": "Changing membership keeps historical spend with its original team.",
+    "searchKeys": "Search keys or current owners",
+    "chooseKey": "Choose an API key",
+    "unassigned": "Unassigned",
+    "ownership": "Current billing team: {team}",
+    "assign": "Assign",
+    "remove": "Remove",
+    "noMembers": "No current members. Historical usage may still count toward the budget.",
+    "assignedAt": "Assigned {date} (UTC)",
+    "name": "Team name",
+    "description": "Description",
+    "enableBudget": "Enable shared soft budget",
+    "amount": "Budget amount (USD)",
+    "duration": "Rolling budget window",
+    "cancel": "Cancel",
+    "save": "Save",
+    "confirm": "Confirm",
+    "transferTitle": "Confirm key transfer",
+    "transferMessage": "Move this key from “{source}” to “{destination}”? Historical spend remains with the original team.",
+    "removeTitle": "Remove key assignment",
+    "removeMessage": "Remove this key from “{team}”? Historical spend remains in this team.",
+    "archiveTitle": "Archive team",
+    "archiveMessage": "Archive “{team}”? All current bindings close and budget enforcement stops. Historical reports remain available.",
+    "invalidName": "Enter a name (1–200 characters) and a description of at most 2,000 characters.",
+    "invalidAmount": "Enter a finite budget amount greater than zero.",
+    "unauthorized": "Sign in to the management dashboard to continue.",
+    "forbidden": "You do not have permission to manage teams. Your input is preserved.",
+    "notFound": "This team or assignment no longer exists.",
+    "conflict": "The assignment or team changed. Refresh and confirm the current ownership before trying again.",
+    "failed": "The request failed. Your input is preserved; please retry.",
+    "partialBudget": "Some retained daily buckets overlap the window boundary and cannot be apportioned exactly. Shown spend is incomplete; remaining allowance is unavailable. The existing soft-budget policy is unchanged."
   }
 }
