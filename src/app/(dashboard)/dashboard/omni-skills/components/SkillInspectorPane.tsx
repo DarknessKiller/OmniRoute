@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import type { OmniSkill } from "./OmniSkillCard";
+import type { JSX } from "react";
 
 interface SkillDetail extends OmniSkill {
   schema?: {

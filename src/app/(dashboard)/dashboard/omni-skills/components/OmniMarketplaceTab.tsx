@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Card } from "@/shared/components";
 import type { SkillsProvider } from "@/lib/skills/providerSettings";
+import type { JSX } from "react";
 
 interface MarketplaceSkill {
   name: string;

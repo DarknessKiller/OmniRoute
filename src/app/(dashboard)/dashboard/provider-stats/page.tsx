@@ -86,6 +86,7 @@ function successRate(successful: number, total: number): string {
 
 export default function ProviderStatsPage() {
   const t = useTranslations("providerStats");
+  const tc = useTranslations("common");
   const nodeMap = useProviderNodeMap();
   const [data, setData] = useState<{
     providers: ProviderStat[];
@@ -95,6 +96,8 @@ export default function ProviderStatsPage() {
     toolLatency: Record<string, ToolLatencyStat>;
   } | null>(null);
   const [error, setError] = useState<string | null>(null);
+  // A dismissed load error stays dismissed while polling; an explicit refresh reopens it.
+  const [errorDismissed, setErrorDismissed] = useState(false);
   const [lastRefresh, setLastRefresh] = useState<Date | null>(null);
   const [sortKey, setSortKey] = useState<SortKey>("totalRequests");
   const [sortDir, setSortDir] = useState<SortDir>("desc");
@@ -112,6 +115,12 @@ export default function ProviderStatsPage() {
       setError(err instanceof Error ? err.message : t("unknownError"));
     }
   }, [t]);
+
+  // An explicit retry reopens a dismissed error; periodic polling does not.
+  const handleRefresh = useCallback(() => {
+    setErrorDismissed(false);
+    void fetchData();
+  }, [fetchData]);
 
   useEffect(() => {
     // Async continuation — see react-hooks/set-state-in-effect.
@@ -200,13 +209,33 @@ export default function ProviderStatsPage() {
           </span>
         )}
         <button
-          onClick={fetchData}
+          onClick={handleRefresh}
           className="p-2 rounded-lg bg-surface hover:bg-surface/80 text-text-muted hover:text-text-main transition-colors"
           title={t("refresh")}
         >
           <span className="material-symbols-outlined text-[18px]">refresh</span>
         </button>
       </div>
+
+      {/* A load error with data on screen: the last good snapshot stays, the failure is visible
+          until dismissed. Polling keeps it hidden; the header refresh opens it again. */}
+      {error && !errorDismissed && (
+        <div
+          role="alert"
+          className="flex items-start gap-2 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3"
+        >
+          <span className="material-symbols-outlined text-red-500 text-[18px]">error</span>
+          <p className="min-w-0 flex-1 text-sm text-red-400">{t("loadFailed", { error })}</p>
+          <button
+            onClick={() => setErrorDismissed(true)}
+            className="shrink-0 p-1 rounded-md text-red-400 hover:bg-red-500/15 transition-colors"
+            title={tc("close")}
+            aria-label={tc("close")}
+          >
+            <span className="material-symbols-outlined text-[16px]">close</span>
+          </button>
+        </div>
+      )}
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

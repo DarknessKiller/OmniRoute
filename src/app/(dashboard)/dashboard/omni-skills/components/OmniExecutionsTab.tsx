@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Card } from "@/shared/components";
+import type { JSX } from "react";
 
 interface Execution {
   id: string;

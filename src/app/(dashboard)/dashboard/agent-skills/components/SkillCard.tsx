@@ -3,6 +3,7 @@
 import { useCallback } from "react";
 import { useTranslations } from "next-intl";
 import type { AgentSkill } from "@/lib/agentSkills/types";
+import type { JSX } from "react";
 
 interface SkillCardProps {
   skill: AgentSkill;

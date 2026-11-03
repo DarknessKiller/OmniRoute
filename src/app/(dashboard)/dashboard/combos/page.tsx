@@ -29,6 +29,14 @@ import { ComboTargetOptions } from "./ComboQuotaOnlyFallbackToggle";
 import { applyQuotaOnlyFallbackConfig, setQuotaOnlyFallback } from "./comboQuotaOnlyFallback";
 import { buildAgentFeaturePatch } from "./comboAgentFeatures";
 import { useComboProxyAssignments } from "./useComboProxyAssignments";
+import {
+  buildUnfilteredCombosHref,
+  comboListContains,
+  findComboPage,
+  scrollToComboCardWhenRendered,
+} from "./comboPagination";
+import { useComboPagination } from "./useComboPagination";
+import { ComboListToolbar, ComboPaginationNav } from "./ComboListControls";
 import { ResponseValidationEditor, type ResponseValidationValue } from "./ResponseValidationEditor";
 import ReasoningTokenBufferToggle from "./ReasoningTokenBufferToggle";
 import ComboTimeoutFields from "./ComboTimeoutFields";
@@ -63,6 +71,7 @@ import {
 } from "@/lib/combos/builderDraft";
 import { normalizeComboConfigMode } from "@/shared/constants/comboConfigMode";
 import AutoComboCatalog from "./AutoComboCatalog";
+import ComboHeaderActions from "./ComboHeaderActions";
 import { AutoComboTruncatedNote, getI18nOrFallback } from "./comboPageHelpers";
 import KimiComboPresetCard from "./KimiComboPresetCard";
 import { KIMI_CODING_PRESET, hasKimiCodingPreset } from "./kimiComboPreset";
@@ -870,6 +879,7 @@ function CombosPageContent() {
   const [promptCompressionEnabled, setPromptCompressionEnabled] = useState(false);
   const [selectedIntelligentComboId, setSelectedIntelligentComboId] = useState<string | null>(null);
   const comboDragIndexRef = useRef<number | null>(null);
+  const [reorderingAllCombos, setReorderingAllCombos] = useState(false);
   const activeFilter = normalizeIntelligentRoutingFilter(searchParams.get("filter"));
   const intelligentCombos = useMemo(
     () => combos.filter((combo) => isIntelligentStrategy(combo?.strategy)),
@@ -879,6 +889,15 @@ function CombosPageContent() {
     () => filterCombosByStrategyCategory(combos, activeFilter),
     [combos, activeFilter]
   );
+  const {
+    page: visibleComboPage,
+    setPage: setComboPage,
+    pageCount: comboPageCount,
+    pageItems: pagedCombos,
+    pageStart: comboPageStart,
+    pageEnd: comboPageEnd,
+  } = useComboPagination(filteredCombos, activeFilter);
+  const visibleCombos = reorderingAllCombos ? combos : pagedCombos;
   const selectedIntelligentCombo = useMemo(() => {
     if (intelligentCombos.length === 0) return null;
 
@@ -911,7 +930,9 @@ function CombosPageContent() {
       const metricsData = await metricsRes.json();
       const nodesData = nodesRes.ok ? await nodesRes.json() : { nodes: [] };
 
-      if (combosRes.ok) setCombos((combosData.combos || []).filter((c) => !c.isHidden));
+      const nextCombos = combosRes.ok ? (combosData.combos || []).filter((c) => !c.isHidden) : null;
+      if (nextCombos) setCombos(nextCombos);
+      return nextCombos;
       if (providersRes.ok) {
         const active = (providersData.connections || []).filter(isEligibleActiveConnection);
         setActiveProviders(active);
@@ -920,6 +941,7 @@ function CombosPageContent() {
       setProviderNodes(nodesData.nodes || []);
     } catch (error) {
       console.log("Error fetching data:", error);
+      return null;
     } finally {
       setLoading(false);
     }
@@ -958,7 +980,9 @@ function CombosPageContent() {
         body: JSON.stringify(data),
       });
       if (res.ok) {
-        await fetchData();
+        const createdCombo = await res.json();
+        const nextCombos = await fetchData();
+        revealCreatedCombo(nextCombos, String(createdCombo.id));
         setShowCreateModal(false);
         setRecentlyCreatedCombo(data.name?.trim() || "");
         notify.success(t("comboCreated"));
@@ -992,12 +1016,8 @@ function CombosPageContent() {
   };
 
   const handleComboCreated = async (comboId: string) => {
-    await fetchData();
-    // Wait for React to re-render the new card, then scroll it into view.
-    setTimeout(() => {
-      const el = document.querySelector(`[data-testid="combo-card-${comboId}"]`);
-      if (el) el.scrollIntoView({ behavior: "auto", block: "center" });
-    }, 0);
+    const nextCombos = await fetchData();
+    revealCreatedCombo(nextCombos, comboId);
   };
 
   const handleDelete = async (id) => {
@@ -1110,6 +1130,9 @@ function CombosPageContent() {
   };
 
   const handleFilterChange = (nextFilter) => {
+    setComboPage(1);
+    setReorderingAllCombos(false);
+    resetComboDragState();
     const params = new URLSearchParams(searchParams.toString());
 
     if (nextFilter === "all") {
@@ -1135,7 +1158,7 @@ function CombosPageContent() {
   };
 
   const handleComboDragStart = (e, index) => {
-    if (savingComboOrder || activeFilter !== "all" || combos.length < 2) {
+    if (savingComboOrder || !reorderingAllCombos || combos.length < 2) {
       e.preventDefault();
       return;
     }
@@ -1199,6 +1222,24 @@ function CombosPageContent() {
       setSavingComboOrder(false);
     }
   };
+  const revealCreatedCombo = (nextCombos, comboId) => {
+    if (!comboListContains(nextCombos, comboId)) return;
+
+    // Creation can happen while a strategy filter is active. Return to the complete
+    // inventory so the created card is guaranteed to be present, select its page,
+    // and only then wait for React to render before scrolling.
+    if (activeFilter !== "all") {
+      router.replace(buildUnfilteredCombosHref(searchParams.toString()), { scroll: false });
+    }
+    setReorderingAllCombos(false);
+    setComboPage(findComboPage(nextCombos, comboId));
+    scrollToComboCardWhenRendered(comboId);
+  };
+
+  const handleReorderAllToggle = () => {
+    resetComboDragState();
+    setReorderingAllCombos((enabled) => !enabled);
+  };
 
   if (loading) {
     return (
@@ -1223,9 +1264,7 @@ function CombosPageContent() {
               {getI18nOrFallback(t, "usageGuideShow", "Show guide")}
             </Button>
           )}
-          <Button icon="add" onClick={() => setShowCreateModal(true)}>
-            {t("createCombo")}
-          </Button>
+          <ComboHeaderActions onImported={fetchData} onCreate={() => setShowCreateModal(true)} />
         </div>
       </div>
 
@@ -1348,7 +1387,18 @@ function CombosPageContent() {
           onComboUpdated={handleIntelligentComboUpdated}
         />
       )}
-
+      {combos.length > 0 && (
+        <ComboListToolbar
+          t={t}
+          comboCount={combos.length}
+          filteredCount={filteredCombos.length}
+          pageStart={comboPageStart}
+          pageEnd={comboPageEnd}
+          reordering={reorderingAllCombos}
+          savingOrder={savingComboOrder}
+          onToggleReorder={handleReorderAllToggle}
+        />
+      )}
       {combos.length === 0 ? (
         <EmptyState
           icon="🧩"
@@ -1357,7 +1407,7 @@ function CombosPageContent() {
           actionLabel={t("createCombo")}
           onAction={() => setShowCreateModal(true)}
         />
-      ) : filteredCombos.length === 0 ? (
+      ) : !reorderingAllCombos && filteredCombos.length === 0 ? (
         <Card padding="sm">
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
@@ -1388,7 +1438,7 @@ function CombosPageContent() {
         </Card>
       ) : (
         <div className="flex flex-col gap-4">
-          {filteredCombos.map((combo, index) => (
+          {visibleCombos.map((combo, index) => (
             <div
               key={combo.id}
               data-testid={`combo-card-${combo.id}`}
@@ -1397,8 +1447,10 @@ function CombosPageContent() {
                   setSelectedIntelligentComboId(combo.id);
                 }
               }}
-              onDragOver={(e) => handleComboDragOver(e, index)}
-              onDrop={(e) => handleComboDrop(e, index)}
+              onDragOver={
+                reorderingAllCombos ? (event) => handleComboDragOver(event, index) : undefined
+              }
+              onDrop={reorderingAllCombos ? (event) => handleComboDrop(event, index) : undefined}
             >
               <ComboCard
                 combo={combo}
@@ -1415,7 +1467,8 @@ function CombosPageContent() {
                 onProxy={() => setProxyTargetCombo(combo)}
                 hasProxy={comboProxyAssignedIds.has(combo.id) || !!proxyConfig?.combos?.[combo.id]}
                 onToggle={() => handleToggleCombo(combo)}
-                dragDisabled={savingComboOrder || activeFilter !== "all" || combos.length < 2}
+                showDragHandle={reorderingAllCombos}
+                dragDisabled={savingComboOrder || combos.length < 2}
                 isDragged={comboDragIndex === index}
                 isDropTarget={comboDragOverIndex === index && comboDragIndex !== index}
                 isSelected={selectedIntelligentCombo?.id === combo.id}
@@ -1424,6 +1477,15 @@ function CombosPageContent() {
               />
             </div>
           ))}
+          {!reorderingAllCombos && comboPageCount > 1 && (
+            <ComboPaginationNav
+              t={t}
+              tc={tc}
+              page={visibleComboPage}
+              pageCount={comboPageCount}
+              onPageChange={setComboPage}
+            />
+          )}
         </div>
       )}
 
@@ -1803,6 +1865,7 @@ function ComboCardInner({
   hasProxy,
   onToggle,
   providerNodes,
+  showDragHandle,
   dragDisabled,
   isDragged,
   isDropTarget,
@@ -1829,22 +1892,25 @@ function ComboCardInner({
     >
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-0">
         <div className="flex items-center gap-2 md:gap-3 flex-1 min-w-0 w-full">
-          <button
-            type="button"
-            draggable={!dragDisabled}
-            onDragStart={onDragStart}
-            onDragEnd={onDragEnd}
-            data-testid={`combo-drag-handle-${combo.id}`}
-            className={`p-1 rounded-md transition-colors shrink-0 ${
-              dragDisabled
-                ? "cursor-not-allowed text-text-muted/40"
-                : "cursor-grab active:cursor-grabbing text-text-muted hover:text-primary hover:bg-black/5 dark:hover:bg-white/5"
-            }`}
-            title={getI18nOrFallback(t, "reorderHandle", "Drag to reorder combo")}
-            aria-label={getI18nOrFallback(t, "reorderHandle", "Drag to reorder combo")}
-          >
-            <span className="material-symbols-outlined text-[18px]">drag_indicator</span>
-          </button>
+          {showDragHandle && (
+            <button
+              type="button"
+              draggable={!dragDisabled}
+              onDragStart={onDragStart}
+              onDragEnd={onDragEnd}
+              disabled={dragDisabled}
+              data-testid={`combo-drag-handle-${combo.id}`}
+              className={`p-1 rounded-md transition-colors shrink-0 ${
+                dragDisabled
+                  ? "cursor-not-allowed text-text-muted/40"
+                  : "cursor-grab active:cursor-grabbing text-text-muted hover:text-primary hover:bg-black/5 dark:hover:bg-white/5"
+              }`}
+              title={getI18nOrFallback(t, "reorderHandle", "Drag to reorder combo")}
+              aria-label={getI18nOrFallback(t, "reorderHandle", "Drag to reorder combo")}
+            >
+              <span className="material-symbols-outlined text-[18px]">drag_indicator</span>
+            </button>
+          )}
 
           <div className="size-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
             <span className="material-symbols-outlined text-primary text-[18px]">layers</span>
@@ -1954,6 +2020,7 @@ function ComboCardInner({
             )}
             <Link
               href={`/dashboard/combos/${combo.id}`}
+              prefetch={false}
               onClick={(e) => e.stopPropagation()}
               className="p-1.5 hover:bg-black/5 dark:hover:bg-white/5 rounded text-text-muted hover:text-primary transition-colors"
               title={getI18nOrFallback(t, "controlCenter", "Control Center")}
