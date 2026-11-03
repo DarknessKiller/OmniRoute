@@ -267,7 +267,7 @@ export default function OAuthModal({
                 .filter(Boolean)
                 .join("; ")
             : "";
-          throw new Error(details ? `${errMsg} (${details})` : errMsg);
+          throw new Error(details ? `${errMsg} (${details})` : String(errMsg));
         }
 
         setStep("success");
@@ -511,6 +511,9 @@ export default function OAuthModal({
                   getErrorMessage(serverData, serverRes.status, t("errorCallbackServerFailed"))
                 );
 
+              if (typeof serverData.authUrl !== "string" || !serverData.authUrl) {
+                throw new Error(errorMessageFromBody(serverData, t("errorBrowserUnavailable")));
+              }
               setAuthData({ ...serverData, redirectUri: serverData.redirectUri });
               setStep("waiting");
               popupRef.current = window.open(serverData.authUrl, "oauth_auth");
@@ -541,8 +544,10 @@ export default function OAuthModal({
 
                 if (pollData.error && !pollData.pending) {
                   throw new Error(
-                    pollData.errorDescription ||
-                      errorMessageFromBody(pollData, t("errorAuthorizationFailed"))
+                    String(
+                      pollData.errorDescription ||
+                        errorMessageFromBody(pollData, t("errorAuthorizationFailed"))
+                    )
                   );
                 }
               }
@@ -617,7 +622,7 @@ export default function OAuthModal({
           throw new Error(errMsg);
         }
 
-        if (!data.authUrl) {
+        if (typeof data.authUrl !== "string" || !data.authUrl) {
           throw new Error(errorMessageFromBody(data, t("errorBrowserUnavailable")));
         }
 

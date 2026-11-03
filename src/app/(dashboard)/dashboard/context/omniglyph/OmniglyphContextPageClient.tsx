@@ -271,6 +271,19 @@ export default function OmniglyphContextPageClient() {
   const [saving, setSaving] = useState(false);
   const [status, setStatus] = useState<"" | "saved" | "error">("");
   const saveGenRef = useRef(0);
+  const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const mountedRef = useRef(false);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+      if (saveTimerRef.current !== null) {
+        clearTimeout(saveTimerRef.current);
+        saveTimerRef.current = null;
+      }
+    };
+  }, []);
 
   useEffect(() => {
     // A retry re-runs the load; answers that arrive for the run it replaced are rejected
@@ -302,6 +315,10 @@ export default function OmniglyphContextPageClient() {
   // unless a later save has started since, so it never clears that save's error.
   const save = async (body: Record<string, unknown>, rollback: () => void) => {
     const gen = ++saveGenRef.current;
+    if (saveTimerRef.current !== null) {
+      clearTimeout(saveTimerRef.current);
+      saveTimerRef.current = null;
+    }
     setSaving(true);
     setStatus("");
     let ok = false;
@@ -315,6 +332,7 @@ export default function OmniglyphContextPageClient() {
     } catch {
       // A network failure is a failed save.
     }
+    if (!mountedRef.current) return;
     setSaving(false);
     if (!ok) {
       rollback();
@@ -322,7 +340,8 @@ export default function OmniglyphContextPageClient() {
       return;
     }
     setStatus("saved");
-    setTimeout(() => {
+    saveTimerRef.current = setTimeout(() => {
+      saveTimerRef.current = null;
       if (gen === saveGenRef.current) setStatus("");
     }, 2000);
   };
