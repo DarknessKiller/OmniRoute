@@ -69,6 +69,18 @@ describe("combo inventory pagination", () => {
     );
   });
 
+  it("renders the inventory through the paginated slice and its toolbar", () => {
+    const source = fs.readFileSync(
+      path.join(process.cwd(), "src/app/(dashboard)/dashboard/combos/page.tsx"),
+      "utf8"
+    );
+
+    expect(source).toMatch(/useComboPagination\(filteredCombos, activeFilter\)/);
+    expect(source).toContain("visibleCombos.map((combo, index)");
+    expect(source).toContain("<ComboListToolbar");
+    expect(source).toContain("<ComboPaginationNav");
+  });
+
   it("only reveals a created combo that is present in the refetched inventory", () => {
     const combos = makeCombos(5);
 
