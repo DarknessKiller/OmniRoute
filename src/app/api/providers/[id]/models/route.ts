@@ -112,6 +112,7 @@ import { isFeatureFlagEnabled } from "@/shared/utils/featureFlags";
 import { createHiddenModelLookup } from "@/lib/hiddenModelLookup";
 import { isConnectionUnavailableToAuxiliaryActivity } from "@/lib/exclusiveLeaseIsolation";
 import { AUTHZ_HEADER_PEER_LOCALITY } from "@/server/authz/headers";
+import { isModelSyncLocalSpawnDenied } from "@/shared/services/modelSyncScheduler";
 import { fetchCursorAgentModels } from "@/lib/providerModels/cursorAgent";
 import { fetchCursorAvailableModels } from "@/lib/providerModels/cursorAvailableModels";
 import { ensureCursorAutoCatalogEntry } from "@/lib/providerModels/cursorAutoCatalog";
@@ -1534,14 +1535,17 @@ export async function GET(
         // TCP peer (never the spoofable Host header), mirroring cursorAgentImage.ts. Fail closed:
         // an absent/unrecognized locality skips the spawn and serves the cached/local catalog, or an
         // explicit 403 when neither exists — it never falls through to executing a child process.
-        if (request.headers.get(AUTHZ_HEADER_PEER_LOCALITY) !== "loopback") {
+        if (
+          request.headers.get(AUTHZ_HEADER_PEER_LOCALITY) !== "loopback" ||
+          isModelSyncLocalSpawnDenied(request)
+        ) {
           warnings.push(
             "cursor-agent model discovery requires a local request; using cached catalog"
           );
           const localFallback = buildDiscoveryFallbackResponse({
             cacheWarning: `${warnings.join("; ")} — using cached catalog`,
             localWarning: `${warnings.join("; ")} — using local catalog`,
-            // The discovery needs a local request that this request is not.
+            // Local CLI discovery is not permitted for this request.
             failure: { code: "LOCALITY_REFUSED" },
           });
           if (localFallback) return localFallback;
