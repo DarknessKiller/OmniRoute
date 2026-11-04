@@ -46,7 +46,7 @@ A boolean flag is considered **enabled** when its effective value is `"true"`,
 
 ## Flag Catalog
 
-115 flags across 6 categories. **Default** is the definition default — the value
+116 flags across 6 categories. **Default** is the definition default — the value
 used when neither a DB override nor an environment variable is present.
 
 ### Security (11)
@@ -100,7 +100,7 @@ used when neither a DB override nor an environment variable is present.
 | ----------------------------------------------- | ------- | ------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------                                                             |
 | `OPENCODE_V2_CLIENT_FINGERPRINT_ENABLED`        | boolean | `false` |         | OpenCode Zen/Go: send the OpenCode v2 CLI client fingerprint (#16571) — User-Agent `opencode/latest/<2.x>/cli`, `x-opencode-client: cli`, a client User-Agent kept only when it is a 2.x OpenCode client; on gated free-tier requests no `x-opencode-request`, the session mirrored onto `x-opencode-session-id`/`x-session-affinity`/`x-session-id`, the v2 CLI `read`/`shell` schemas on injected placeholder tools and a `tool_choice` of `"none"` dropped. Off by default: identity, headers and body unchanged.                                                             |
 
-### Policies (8)
+### Policies (9)
 
 | Key                                      | Type    | Default       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | ---------------------------------------- | ------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -119,6 +119,8 @@ upstream boolean opt-out selects `count_as_zero`; otherwise the default is `fail
 Invalid enum values and unreadable feature-flag storage fail closed. Neither opt-out relaxes
 priced spend or a failed pricing lookup. Enforcement and the administrator report resolve the
 same effective policy.
+
+| `ENFORCE_HIDDEN_MODELS` | boolean | `false` | Remove models hidden under Any Provider > Models from integration model discovery (`GET /api/providers/[id]/models`) even when the provider is not listed under Blocked Providers. Off by default: without it, discovery drops a hidden model only when the caller sends `?excludeHidden=true` or the provider is blocked. Turn it on to make hiding a model-level policy for every caller. `
 
 ### Runtime (55)
 
