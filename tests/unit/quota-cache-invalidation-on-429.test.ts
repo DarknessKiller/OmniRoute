@@ -106,6 +106,7 @@ async function runProviderSite(connectionId: string, status: number): Promise<vo
     },
     assertManagedLeaseFence: () => {},
     buildUpstreamHeadersForExecute: () => ({}),
+    sessionAffinityKey: null,
     clientRawRequest: { headers: new Headers(), signal: controller.signal },
     clientResponseFormat: "chat.completions",
     connectionId: null,

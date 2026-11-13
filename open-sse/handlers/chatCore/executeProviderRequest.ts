@@ -121,6 +121,8 @@ export type ExecuteProviderRequestDeps = {
   agentGoalPolicy: AgentGoalPolicy;
   assertManagedLeaseFence: (attemptConnectionId: string | null | undefined) => void;
   buildUpstreamHeadersForExecute: (modelToCall: string) => Record<string, string>;
+  /** Conversation key for session affinity (claude-agent CLI resume keyed on it). */
+  sessionAffinityKey: string | null;
   clientRawRequest: {
     headers?: Headers | Record<string, unknown> | null;
     signal?: AbortSignal | null;
@@ -404,6 +406,7 @@ export async function executeProviderRequest(
                         signal,
                         log,
                         extendedContext,
+                        sessionKey: deps.sessionAffinityKey ?? null,
                         upstreamExtraHeaders: buildUpstreamHeadersForExecute(modelToCall),
                         clientHeaders: getExecutorClientHeaders(),
                         clientResponseFormat,
@@ -615,6 +618,7 @@ export async function executeProviderRequest(
                             signal,
                             log,
                             extendedContext,
+                            sessionKey: deps.sessionAffinityKey ?? null,
                             upstreamExtraHeaders: buildUpstreamHeadersForExecute(modelToCall),
                             clientHeaders: getExecutorClientHeaders(),
                             clientResponseFormat,

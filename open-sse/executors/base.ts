@@ -219,6 +219,8 @@ export type ExecuteInput = {
   signal?: AbortSignal | null;
   log?: ExecutorLog | null;
   extendedContext?: boolean;
+  /** Session-affinity conversation key (claude-agent CLI resume is keyed on it). */
+  sessionKey?: string | null;
   /** Merged after auth + CLI fingerprint headers (values override same-named defaults). */
   upstreamExtraHeaders?: Record<string, string> | null;
   /** Original client request headers (read-only). Executors may forward select headers upstream. */

@@ -209,6 +209,51 @@ export function historyPrompt(body: AnthropicRequestBody): AsyncGenerator<SDKUse
 }
 
 /**
+ * Resume prompt: only the conversation tail — the resumed CLI session already
+ * holds the earlier transcript, replaying it would duplicate every turn.
+ * Correct as long as every request of the conversation went through this
+ * executor (session-affinity pinning guarantees that for pinned sessions).
+ */
+export function resumePrompt(body: AnthropicRequestBody): AsyncGenerator<SDKUserMessage> {
+  const messages = Array.isArray(body.messages)
+    ? (body.messages as AnthropicMessageParam[]).filter(
+        (m) => m?.role === "user" || m?.role === "assistant"
+      )
+    : [];
+  // New content since the last CLI turn = everything from the latest user
+  // message onward (a trailing assistant prefill rides along so the CLI can
+  // continue from it, matching historyPrompt's trigger rule).
+  let lastUser = -1;
+  for (let i = messages.length - 1; i >= 0; i--) {
+    if (messages[i]?.role === "user") {
+      lastUser = i;
+      break;
+    }
+  }
+  const tail = lastUser >= 0 ? messages.slice(lastUser) : [];
+  return (async function* () {
+    for (let i = 0; i < tail.length; i++) {
+      yield {
+        type: "user" as const,
+        message: tail[i] as SDKUserMessage["message"],
+        parent_tool_use_id: null,
+        client_composed: true as const,
+        shouldQuery: i === tail.length - 1,
+      };
+    }
+    if (tail.length === 0) {
+      yield {
+        type: "user" as const,
+        message: { role: "user", content: "Continue." },
+        parent_tool_use_id: null,
+        client_composed: true as const,
+        shouldQuery: true,
+      };
+    }
+  })();
+}
+
+/**
  * Multi-account: map connection credentials to CLI env overrides.
  * Returns null when no credential is stored (keep the host's ~/.claude login).
  */
@@ -228,12 +273,47 @@ export function connectionEnv(credentials: ProviderCredentials): Record<string, 
   };
 }
 
+// ──── CLI session resume ──────────────────────────────────────────────────────
+
+/**
+ * sessionKey → Claude CLI session id, enabling true `resume` on subsequent
+ * requests (SDK `Options.resume`) instead of replaying the full history.
+ * CLI sessions live in the host's ~/.claude/projects (shared by every
+ * connection/account), so resume survives connection rotation.
+ * shortcut: in-memory only — a restart costs one full-history replay before
+ * resume re-establishes; persist via session_account_affinity if that matters.
+ */
+const resumeIds = new Map<string, string>();
+const RESUME_MAP_MAX = 1000;
+
+export function resumeIdFor(sessionKey: string | null | undefined): string | null {
+  if (!sessionKey) return null;
+  return resumeIds.get(sessionKey) ?? null;
+}
+
+export function rememberCliSessionId(
+  sessionKey: string | null | undefined,
+  sessionId: string | null | undefined
+): void {
+  if (!sessionKey || !sessionId) return;
+  if (resumeIds.size >= RESUME_MAP_MAX && !resumeIds.has(sessionKey)) {
+    const oldest = resumeIds.keys().next().value;
+    if (oldest !== undefined) resumeIds.delete(oldest);
+  }
+  resumeIds.set(sessionKey, sessionId);
+}
+
+export function forgetCliSessionId(sessionKey: string | null | undefined): void {
+  if (sessionKey) resumeIds.delete(sessionKey);
+}
+
 function buildOptions(
   input: ExecuteInput,
   body: AnthropicRequestBody,
   cliPath: string | null,
   toolsServer: McpServerConfig | null,
-  abortController: AbortController
+  abortController: AbortController,
+  resumeId: string | null
 ): Options {
   const options: Options = {
     model: typeof body.model === "string" && body.model ? body.model : input.model,
@@ -264,6 +344,9 @@ function buildOptions(
   // connection routes through its own Claude account.
   const env = connectionEnv(input.credentials);
   if (env) options.env = { ...process.env, ...env };
+  // True resume: continue the CLI session established by earlier requests for
+  // the same conversation instead of replaying full history every time.
+  if (resumeId) options.resume = resumeId;
   return options;
 }
 
@@ -375,12 +458,15 @@ export class ClaudeAgentExecutor extends BaseExecutor {
 
     const rename = buildClientTools(sdk, body);
     const toolsServer = rename ? (rename.config as McpServerConfig) : null;
+    const sessionKey = input.sessionKey ?? null;
+    const resumeId = resumeIdFor(sessionKey);
     const options = buildOptions(
       input,
       body,
       resolveClaudeCodeExecutable(sdk),
       toolsServer,
-      abortController
+      abortController,
+      resumeId
     );
     const requestedStream = Boolean(input.stream);
     const model = typeof body.model === "string" && body.model ? body.model : input.model;
@@ -388,7 +474,10 @@ export class ClaudeAgentExecutor extends BaseExecutor {
     try {
       const cleanBody =
         input.contextEditing?.enabled || hasClearToolUsesEdit(body) ? clearOldToolUses(body) : body;
-      const query = sdk.query({ prompt: historyPrompt(cleanBody), options });
+      const query = sdk.query({
+        prompt: resumeId ? resumePrompt(cleanBody) : historyPrompt(cleanBody),
+        options,
+      });
       if (requestedStream) {
         return this.streamResponse(
           query,
@@ -396,16 +485,21 @@ export class ClaudeAgentExecutor extends BaseExecutor {
           onAbort,
           input.signal ?? null,
           abortController,
-          input.log ?? null
+          input.log ?? null,
+          sessionKey,
+          resumeId
         );
       }
       return await this.jsonResponse(
         query,
         model,
         rename?.rename ?? ((name) => name),
-        input.log ?? null
+        input.log ?? null,
+        sessionKey,
+        resumeId
       );
     } catch (error) {
+      if (resumeId) forgetCliSessionId(sessionKey);
       input.signal?.removeEventListener("abort", onAbort);
       abortController.abort();
       return makeErrorResponse(
@@ -426,7 +520,9 @@ export class ClaudeAgentExecutor extends BaseExecutor {
     onAbort: () => void,
     signal: AbortSignal | null,
     abortController: AbortController,
-    log: NonNullable<ExecuteInput["log"]> | null
+    log: NonNullable<ExecuteInput["log"]> | null,
+    sessionKey: string | null,
+    resumeId: string | null
   ): Response {
     const encoder = new TextEncoder();
     // Shared with cancel(): if the client disconnects mid-turn, any pending
@@ -450,8 +546,14 @@ export class ClaudeAgentExecutor extends BaseExecutor {
             encoder.encode(`event: ${record.type}\ndata: ${JSON.stringify(event)}\n\n`)
           );
         };
+        let captured = false;
         try {
           for await (const message of query) {
+            const cliSessionId = (message as { session_id?: unknown }).session_id;
+            if (typeof cliSessionId === "string" && cliSessionId) {
+              rememberCliSessionId(sessionKey, cliSessionId);
+              captured = true;
+            }
             if (message.type !== "stream_event") continue;
             const event = (message.event ?? null) as unknown as AnthropicBlock | undefined;
             if (!event) continue;
@@ -473,6 +575,8 @@ export class ClaudeAgentExecutor extends BaseExecutor {
           close();
         } catch (error) {
           if (closed) return;
+          // Stale resume id fails before any message: drop it so the retry starts fresh.
+          if (resumeId && !captured) forgetCliSessionId(sessionKey);
           log?.error("CLAUDE_AGENT", `stream failed: ${String(error)}`.slice(0, 300));
           emit({
             type: "error",
@@ -503,15 +607,23 @@ export class ClaudeAgentExecutor extends BaseExecutor {
     query: AsyncGenerator<SDKMessage, void>,
     model: string,
     rename: (name: string) => string,
-    log: NonNullable<ExecuteInput["log"]> | null
+    log: NonNullable<ExecuteInput["log"]> | null,
+    sessionKey: string | null,
+    resumeId: string | null
   ): Promise<Response> {
     // The CLI emits one assistant message per COMPLETED content block (same
     // message.id), so frames must be merged; the result frame carries the
     // final stop_reason/usage and the turn's is_error verdict.
     const frames: AnthropicBlock[] = [];
     let result: AnthropicBlock | null = null;
+    let captured = false;
     try {
       for await (const message of query) {
+        const cliSessionId = (message as { session_id?: unknown }).session_id;
+        if (typeof cliSessionId === "string" && cliSessionId) {
+          rememberCliSessionId(sessionKey, cliSessionId);
+          captured = true;
+        }
         if (message.type === "result") {
           result = message as unknown as AnthropicBlock;
           continue;
@@ -520,6 +632,8 @@ export class ClaudeAgentExecutor extends BaseExecutor {
         frames.push(message.message as unknown as AnthropicBlock);
       }
     } catch (error) {
+      // Stale resume id fails before any message: drop it so the retry starts fresh.
+      if (resumeId && !captured) forgetCliSessionId(sessionKey);
       if (!frames.length) {
         log?.error("CLAUDE_AGENT", `query failed: ${String(error)}`.slice(0, 300));
         return makeErrorResponse(
