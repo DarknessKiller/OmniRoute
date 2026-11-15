@@ -551,14 +551,22 @@ content bypass: when the `[OmniRoute Output Styles]` marker is already in the to
 `system` field (a string or a content-block array) or in a system message with string
 content, the body is left unchanged as `already_applied` and no keyword check runs.
 Otherwise a content bypass (`shouldBypassCavemanOutputMode()` in
-`open-sse/services/compression/outputMode.ts`) checks the text of the last three
-messages, whatever their role, and skips the styles for the whole turn when that text
-matches its security, irreversible-action or clarification keywords, or an
-order-sensitive sequence: `first`, `then`, `after that`, `before`, `rollback` or
-`backup` followed within 240 characters by `delete`, `drop`, `migrate`, `deploy` or
-`release`. The bypass runs while the **Auto-Clarity Bypass** toggle
-(`cavemanOutputMode.autoClarity`, on by default) is on; turning the toggle off skips the
-keyword check.
+`open-sse/services/compression/outputMode.ts`) checks the text of the newest user
+message and skips the styles for the whole turn when that text matches its security,
+irreversible-action or clarification keywords, or an order-sensitive sequence: `first`,
+`then`, `after that`, `before`, `rollback` or `backup` followed within 240 characters by
+`delete`, `drop`, `migrate`, `deploy` or `release`. The bypass runs while the
+**Auto-Clarity Bypass** toggle (`cavemanOutputMode.autoClarity`, on by default) is on;
+turning the toggle off skips the keyword check.
+
+The decision latches toward styling for a session. Every style injection changes the
+system prompt, and every change invalidates the provider prompt cache, so a session
+whose bypass check passes is remembered as styled for the rest of its lifetime and no
+further keyword check runs. A session that is still bypassed is re-evaluated on each
+request, so a first prompt that merely mentions "security" does not keep styling off.
+The latch is bounded (5-minute TTL, 5000 entries) and keyed by session id plus the
+active style selection, so a config change gets a fresh decision. Requests without a
+session id keep the per-request behavior.
 
 When the bypass lets the turn through, `placeSystemInstruction()` (same file), which
 never creates a new `messages[0]`, places the block in the first of these it finds:

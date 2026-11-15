@@ -71,6 +71,21 @@ function digest(value: unknown): string | null {
   }
 }
 
+/**
+ * The caller's prompt-cache breakpoint (`cache_control`) is request framing, not payload
+ * text. Anthropic clients move it to the newest message every turn, so the same
+ * already-sent item arrives with the marker added and then without it. Digest with the
+ * marker removed: otherwise a moved breakpoint reads as edited history, the frozen prefix
+ * is thrown away, and the provider prompt cache misses for the whole conversation.
+ */
+function digestForPrefixMatch(value: unknown): string | null {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return digest(value);
+  const item = value as Record<string, unknown>;
+  if (!("cache_control" in item)) return digest(value);
+  const { cache_control: _ignored, ...rest } = item;
+  return digest(rest);
+}
+
 function cloneItems(items: unknown[]): unknown[] | null {
   try {
     return structuredClone(items);
@@ -223,7 +238,7 @@ function storeSparseRawPrefix(ctx: LiveZoneContext, result: CompressionResult): 
   if (!Array.isArray(items) || items.length !== ctx.rawItemDigests.length) return false;
   const patches: Array<{ index: number; value: unknown }> = [];
   for (let index = 0; index < items.length; index++) {
-    const itemDigest = digest(items[index]);
+    const itemDigest = digestForPrefixMatch(items[index]);
     if (!itemDigest) return false;
     if (itemDigest === ctx.rawItemDigests[index]) continue;
     const value = cloneValue(items[index]);
@@ -334,7 +349,9 @@ function resolveLiveZoneContext(
   if (!field || !key) return null;
 
   const rawItems = body[field] as unknown[];
-  const rawItemDigests = rawItems.map(digest);
+  // Framing-insensitive on purpose: a moved cache_control breakpoint must not look like
+  // an edited history item and invalidate the frozen prefix. See digestForPrefixMatch.
+  const rawItemDigests = rawItems.map(digestForPrefixMatch);
   if (rawItemDigests.some((value) => value === null)) return null;
   const rawStableFieldsDigest = digest(pickStableFields(body));
   if (!rawStableFieldsDigest) return null;

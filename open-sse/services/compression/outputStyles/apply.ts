@@ -42,6 +42,56 @@ interface OutputStyleLanguageConfig {
   defaultLanguage?: string;
 }
 
+// Session-level latch toward styling ON. The bypass decision changes the system prompt,
+// and every change invalidates the provider prompt cache for the whole conversation.
+// A session that is still bypassed is re-evaluated each request (a first prompt that
+// merely mentions "security" must not lock styling off forever); the first request
+// whose bypass check passes marks the session styled, and later turns stay styled even
+// if a keyword reappears. One flip per session at most.
+const STYLE_LATCH_TTL_MS = 5 * 60_000;
+const STYLE_LATCH_MAX_ENTRIES = 5000;
+const styleLatch = new Map<string, number>();
+
+function styleLatchKey(
+  sessionId: string | undefined,
+  resolved: OutputStyleSelectionEntry[]
+): string | null {
+  const session = sessionId?.trim();
+  if (!session) return null;
+  // Fold the active selection in so a config change gets a fresh decision.
+  return [session, ...resolved.map((style) => `${style.id}=${style.level}`)].join("\u0000");
+}
+
+function styleLatched(key: string | null): boolean {
+  if (key === null) return false;
+  const at = styleLatch.get(key);
+  if (at === undefined) return false;
+  if (Date.now() - at > STYLE_LATCH_TTL_MS) {
+    styleLatch.delete(key);
+    return false;
+  }
+  // Refresh on hit so an active session does not fall out of the latch mid-conversation.
+  styleLatch.delete(key);
+  styleLatch.set(key, Date.now());
+  return true;
+}
+
+function latchStyled(key: string | null): void {
+  if (key === null) return;
+  const now = Date.now();
+  styleLatch.delete(key);
+  styleLatch.set(key, now);
+  for (const [candidate, at] of styleLatch) {
+    if (styleLatch.size <= STYLE_LATCH_MAX_ENTRIES && now - at <= STYLE_LATCH_TTL_MS) break;
+    styleLatch.delete(candidate);
+  }
+}
+
+/** Clears sticky style decisions. Tests only. */
+export function resetOutputStyleSessionLatch(): void {
+  styleLatch.clear();
+}
+
 function lastUserText(body: ChatRequestBody): string {
   const messages = Array.isArray(body.messages) ? body.messages : [];
   for (let i = messages.length - 1; i >= 0; i--) {
@@ -183,18 +233,22 @@ export function buildOutputStylesInstruction(
  *   `options.autoClarity: false` (the Auto-Clarity Bypass toggle) skips it.
  * - Media bypass (image/audio/file anywhere in the turn): style prompts degrade
  *   multimodal grounding on susceptible models, so skip. Not gated on Auto-Clarity.
+ * - With `options.sessionId`, bypass decisions latch toward styling: a bypassed
+ *   session is re-evaluated next request, a styled one stays styled for good.
  */
 export function applyOutputStyles(
   body: ChatRequestBody,
   selection: OutputStyleSelectionEntry[],
   language = "en",
-  options: { autoClarity?: boolean } = {}
+  options: { autoClarity?: boolean; sessionId?: string } = {}
 ): OutputStylesResult {
   const resolved = resolveStyles(selection ?? [], language);
   if (resolved.length === 0) {
     return { body, applied: false, skippedReason: "no_styles" };
   }
-  if (hasMediaBlocks(body)) {
+  const latchKey = styleLatchKey(options.sessionId, resolved);
+  const latched = styleLatched(latchKey);
+  if (!latched && hasMediaBlocks(body)) {
     return { body, applied: false, skippedReason: "media_content" };
   }
 
@@ -206,6 +260,7 @@ export function applyOutputStyles(
       if (body.instructions.includes(OUTPUT_STYLE_MARKER)) {
         return { body, applied: false, skippedReason: "already_applied" };
       }
+      latchStyled(latchKey);
       return {
         body: { ...body, instructions: `${body.instructions.trim()}\n\n${instruction}` },
         applied: true,
@@ -213,6 +268,7 @@ export function applyOutputStyles(
       };
     }
     if (typeof body.input === "string" || Array.isArray(body.input)) {
+      latchStyled(latchKey);
       return {
         body: { ...body, instructions: instruction },
         applied: true,
@@ -236,11 +292,12 @@ export function applyOutputStyles(
 
   // Content bypass (all-or-nothing for the turn): reuse the existing rules verbatim,
   // gated on the Auto-Clarity toggle the same way applyCavemanOutputMode gates it.
-  if (options.autoClarity !== false) {
+  if (!latched && options.autoClarity !== false) {
     const bypass = shouldBypassCavemanOutputMode(messages);
     if (bypass) return { body, applied: false, skippedReason: bypass };
   }
 
+  latchStyled(latchKey);
   return {
     body: { ...body, ...placeSystemInstruction(messages, body.system, instruction) },
     applied: true,

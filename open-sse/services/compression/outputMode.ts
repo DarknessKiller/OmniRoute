@@ -94,10 +94,15 @@ export const CAVEMAN_INSTRUCTION_BY_LANGUAGE = {
 const CAVEMAN_OUTPUT_MARKER = "[OmniRoute Caveman Output Mode]";
 
 export function shouldBypassCavemanOutputMode(messages: ChatMessage[]): string | null {
-  const text = messages
-    .slice(-3)
-    .map((message) => extractTextContent(message.content).toLowerCase())
-    .join("\n");
+  // Only this turn's user message decides. Scanning a sliding window of recent
+  // messages lets an older prompt's keyword drift in and out of range, flipping the
+  // injected system prompt (and the provider prompt cache) on every flip.
+  let text = "";
+  for (let index = messages.length - 1; index >= 0; index--) {
+    if (messages[index]?.role !== "user") continue;
+    text = extractTextContent(messages[index].content).toLowerCase();
+    break;
+  }
 
   if (!text.trim()) return null;
   if (

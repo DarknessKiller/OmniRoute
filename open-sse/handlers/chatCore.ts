@@ -1635,7 +1635,11 @@ async function handleChatCoreInner({
               body as Parameters<typeof applyOutputStyles>[0],
               selection,
               outputStyleLanguage,
-              { autoClarity: config.cavemanOutputMode?.autoClarity }
+              {
+                autoClarity: config.cavemanOutputMode?.autoClarity,
+                // Sticky per-session bypass: no session id keeps per-request behavior.
+                sessionId: conversationId || explicitSessionIdHeader || undefined,
+              }
             );
             if (outputStyleResult.applied) {
               body = outputStyleResult.body as typeof body;
