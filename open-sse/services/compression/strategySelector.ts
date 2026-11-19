@@ -65,6 +65,7 @@ import {
   withCompressionEntrypointGuardsAsync,
 } from "./entrypointWrap.ts";
 import { makeMemoKey, memoLookup, memoStore, isDeterministicMode } from "./resultMemo.ts";
+import { applyMessageFreeze } from "./messageFreeze.ts";
 import { applyLossyRequestPolicy } from "./lossyRequestPolicy.ts";
 export { resolveCacheAwareConfig } from "./cacheAwareConfig.ts";
 
@@ -280,6 +281,8 @@ export function applyCompression(
     model?: string;
     supportsVision?: boolean | null;
     imageTransportFidelity?: ImageTransportFidelity;
+    /** Direct-to-provider vs. aggregator transport — part of the freeze scope below. */
+    providerTransport?: "direct" | "aggregator";
     sourceFormat?: CompressionWireFormat;
     targetFormat?: CompressionWireFormat;
     compressionStage?: CompressionStage;
@@ -297,7 +300,21 @@ export function applyCompression(
     cachingContext?: CachingDetectionContext;
   }
 ): CompressionResult {
-  return withCompressionEntrypointGuards(body, options, (b) => runCompression(b, mode, options));
+  const result = withCompressionEntrypointGuards(body, options, (b) =>
+    runCompression(b, mode, options)
+  );
+  // Cache-stable invariant: replay the bytes an already-sent message got the first time.
+  return applyMessageFreeze(body, result, {
+    mode,
+    config: options?.config,
+    model: options?.model,
+    supportsVision: options?.supportsVision,
+    principalId: options?.principalId,
+    targetFormat: options?.targetFormat,
+    compressionStage: options?.compressionStage,
+    providerTransport: options?.providerTransport,
+    imageTransportFidelity: options?.imageTransportFidelity,
+  });
 }
 
 function runCompression(
@@ -510,9 +527,21 @@ export async function applyCompressionAsync(
     cachingContext?: CachingDetectionContext;
   }
 ): Promise<CompressionResult> {
-  return withCompressionEntrypointGuardsAsync(body, options, (b) =>
+  const result = await withCompressionEntrypointGuardsAsync(body, options, (b) =>
     runCompressionAsync(b, mode, options)
   );
+  // Cache-stable invariant: replay the bytes an already-sent message got the first time.
+  return applyMessageFreeze(body, result, {
+    mode,
+    config: options?.config,
+    model: options?.model,
+    supportsVision: options?.supportsVision,
+    principalId: options?.principalId,
+    targetFormat: options?.targetFormat,
+    compressionStage: options?.compressionStage,
+    providerTransport: options?.providerTransport,
+    imageTransportFidelity: options?.imageTransportFidelity,
+  });
 }
 
 async function runCompressionAsync(

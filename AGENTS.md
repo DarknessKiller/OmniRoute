@@ -423,6 +423,18 @@ is a short form, its complete binding text, rationale and incident history are i
     avisar o operador. O gate `check:tracked-artifacts` (pre-commit + CI) bloqueia `_tasks`
     rastreado em qualquer forma. Texto completo: `docs/ops/HARD_RULES_DETAIL.md` → Rule 23.
 
+24. **Compression MUST be byte-stable per message.** An engine rewrites a message when it first
+    arrives and produces the SAME bytes for it on every later turn. Provider prompt caches key
+    on an exact byte prefix, so re-deciding an already-sent turn — a budget recomputed from a
+    longer history, an LLM-backed summarizer, a mid-conversation setting change — re-bills the
+    WHOLE prefix as cache _creation_ instead of a cache _read_. Replay lives in
+    `open-sse/services/compression/messageFreeze.ts` (content-addressed, bounded LRU, wired at the
+    `applyCompression` / `applyCompressionAsync` entrypoints); a new engine, a pipeline step or
+    a refactor MUST NOT bypass it, and must never emit different bytes for the same input message
+    unless the operator changed the engine settings. Guard: `tests/unit/compression/message-freeze.test.ts`.
+    Full text: `docs/ops/HARD_RULES_DETAIL.md` → Rule 24; see `docs/compression/COMPRESSION_GUIDE.md`
+    → "Cache-Stable Messages".
+
 ---
 
 ## PII & Stream Sanitization Learnings

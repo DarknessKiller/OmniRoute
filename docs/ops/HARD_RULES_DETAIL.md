@@ -6,7 +6,7 @@ lastUpdated: 2026-10-18
 
 # Hard Rules — full text and rationale
 
-> Deep-dive companion to the numbered list in `AGENTS.md` → "Hard Rules". Every rule 1–23 is
+> Deep-dive companion to the numbered list in `AGENTS.md` → "Hard Rules". Every rule 1–24 is
 > listed in `AGENTS.md`; where that list shows a short form, the section below with the same
 > number carries the **complete binding text** plus rationale, incident history and decision
 > trees — both are normative, and the longer text here wins on any detail the short form omits.
@@ -184,3 +184,37 @@ git -C _tasks push` — o push frequente é o backup real;
 
 O gate `check:tracked-artifacts` (pre-commit + CI) bloqueia `_tasks` rastreado em qualquer forma.
 See also AGENTS.md → "Planning & Research Artifacts".
+
+## Rule 24 — Compression is byte-stable per message
+
+A compression engine rewrites a message **when it first arrives**, and every later turn must
+carry the exact same bytes for that message. Provider prompt caches (Anthropic
+`cache_control`, OpenAI/Gemini implicit caching, every OpenAI-compatible provider that does
+prefix caching) key on an **exact byte prefix**: one byte changed in an already-sent turn and
+the provider re-bills the whole prefix as cache _creation_ — the entire conversation above the
+edit is charged again at full input price.
+
+Engines break this when they re-decide a message they already saw: a token budget recomputed
+from a longer history, an LLM-backed summarizer sampling a different rewrite, a lifetime-based
+aging threshold crossing mid-conversation, or an operator changing engine settings while a
+session is live.
+
+The invariant is enforced by `open-sse/services/compression/messageFreeze.ts`, wired at the
+`applyCompression` / `applyCompressionAsync` entrypoints (`strategySelector.ts`): the bytes an
+engine produced for a message are stored content-addressed (keyed on the raw message, scoped by
+mode + config + model + principal + wire format) and replayed verbatim on every later turn.
+
+Rules for agents:
+
+- Never bypass the replay layer by reading `result.body` from a new compression entrypoint.
+  Route the entrypoint through the existing wrappers or add the replay call.
+- Never make a conditionally-compressing engine require a fresh decision for an already-sent
+  turn (turn index, total budget, elapsed time) as its PRIMARY behavior; a deterministic
+  per-message rewrite is always safe.
+- When the request and result item lists are not positionally aligned (an engine that drops or
+  merges messages), the layer fails open — nothing is replayed or stored. Do not "fix" that
+  into a best-effort guess: a wrong pairing corrupts a payload.
+- Keep the guard green: `tests/unit/compression/message-freeze.test.ts`.
+
+Full guide: [`docs/compression/COMPRESSION_GUIDE.md`](../compression/COMPRESSION_GUIDE.md) →
+"Cache-Stable Messages". See also AGENTS.md → Hard Rules → #24.

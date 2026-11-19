@@ -399,6 +399,44 @@ etc.); explicit `cache_control` markers are not required — a caching provider 
 triggers the downgrade, and markers alone never do (marker detection feeds cache
 telemetry, not the strategy decision).
 
+### Cache-Stable Messages
+
+A provider prompt cache keys on an **exact byte prefix**. A compressor is therefore only
+cache-friendly if the bytes it emits for a message are decided exactly once — on the turn that
+message first arrives — and replayed unchanged on every later turn. An engine that re-decides an
+already-sent turn (a token budget recomputed from a longer history, an LLM-backed summarizer
+sampling a different rewrite, an aging threshold crossing mid-conversation, a settings change) makes
+the provider re-bill the whole prefix as cache _creation_ instead of a cache _read_.
+
+`messageFreeze.ts` enforces the invariant. It is wired into both `applyCompression()` and
+`applyCompressionAsync()`, so every mode and every stacked pipeline gets it:
+
+1. Messages are content-addressed — the key is a hash of the raw message as the client sent it.
+2. On the first turn a message appears, the bytes the pipeline produced for it are stored.
+3. On every later turn, those same bytes are replayed verbatim, whatever the engine would have
+   produced now. New messages are compressed normally and stored in turn.
+
+The scope key (compression mode + config + model + vision support + principal + wire format)
+keeps an entry from crossing engine settings, models or tenants — provider caches are per
+model/account too. The store is a bounded in-memory LRU (`MAX_FROZEN_MESSAGES`), so a restart
+starts a fresh session.
+
+```ts
+import {
+  applyMessageFreeze,
+  resetMessageFreeze,
+} from "@omniroute/open-sse/services/compression/messageFreeze";
+```
+
+Fail-open by construction: when the request and result item lists are not positionally aligned
+(an engine that drops or merges messages), nothing is replayed or stored and the result passes
+through untouched. A replayed body is reported with the `message-freeze-replay` technique in
+`stats.techniquesUsed`, and `compressedTokens`/`savingsPercent` are recomputed from the bytes
+actually sent.
+
+Guard: `tests/unit/compression/message-freeze.test.ts`. Invariant text:
+`AGENTS.md` → Hard Rules → #24.
+
 ### Progressive Aging
 
 Long conversations accumulate many message turns, but older turns become less
