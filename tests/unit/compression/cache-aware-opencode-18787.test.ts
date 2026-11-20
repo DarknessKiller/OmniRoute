@@ -271,7 +271,8 @@ test("#18787: an oversized transformed tool item fails closed without losing the
   }));
   assert.strictEqual(warm.body, warmBody, "never emit an unreplayable transformed prefix");
   assert.equal(warm.compressed, false);
-  assert.equal(getLiveZoneCacheStats().entries, 1);
+  // The cold baseline stays reusable as the shorter prefix of a forked branch.
+  assert.equal(getLiveZoneCacheStats().entries, 2);
   assert.ok(getLiveZoneCacheStats().bytes < 2 * 1024 * 1024);
 });
 

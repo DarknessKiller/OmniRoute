@@ -34,7 +34,6 @@ interface LiveZoneContext {
   now: number;
 }
 
-const MAX_ENTRIES = 100;
 const MAX_ENTRY_BYTES = 2 * 1024 * 1024;
 const MAX_TOTAL_BYTES = 32 * 1024 * 1024;
 const DEFAULT_TTL_MINUTES = 5;
@@ -47,7 +46,7 @@ const STABLE_PREFIX_FIELDS = [
   "tool_choice",
 ] as const;
 
-const entries = new Map<string, LiveZoneEntry>();
+const entries = new Map<string, LiveZoneEntry[]>();
 let totalBytes = 0;
 
 function serialize(value: unknown): string | null {
@@ -185,31 +184,79 @@ function toolLinkage(value: unknown): string | null {
     : null;
 }
 
+/**
+ * `mode` names the pipeline plan (auto-trigger, adaptive budget, routing combo) and is
+ * re-derived per request; `preserveSystemPrompt` comes from cache detection. Neither may
+ * invalidate a prefix already sent. A real settings change still starts a new key.
+ *
+ * The mode suffix names the pipeline stage: pre- and post-translation must stay separate.
+ */
+function stableVariant(variant: unknown): unknown {
+  if (!variant || typeof variant !== "object") return variant;
+  const { mode, config, ...rest } = variant as Record<string, unknown>;
+  // The `:stage` suffix (pre/post-translation) separates pipelines; the plan name does not.
+  const stage = typeof mode === "string" && mode.includes(":") ? mode.slice(mode.indexOf(":")) : "";
+  if (!config || typeof config !== "object") return { ...rest, stage };
+  const { preserveSystemPrompt: _preserve, ...stableConfig } = config as Record<string, unknown>;
+  return { ...rest, stage, config: stableConfig };
+}
+
 function makeKey(options: LiveZoneOptions, field: string): string | null {
   const principal = options.principalId?.trim();
   const session = options.sessionId?.trim();
-  const variant = digest(options.variant);
+  const variant = digest(stableVariant(options.variant));
   if (!principal || !session || !variant) return null;
   // A raw-prefix baseline must never reuse an older entry that transformed its prefix.
   return `${principal}:${session}:${field}:${variant}${options.preserveRawPrefixOnMiss ? ":raw-prefix" : ""}`;
 }
 
-function deleteEntry(key: string): void {
-  const existing = entries.get(key);
-  if (!existing) return;
-  totalBytes -= existing.bytes;
-  entries.delete(key);
+function removeEntry(key: string, entry: LiveZoneEntry): void {
+  const bucket = entries.get(key);
+  const index = bucket ? bucket.indexOf(entry) : -1;
+  if (!bucket || index < 0) return;
+  bucket.splice(index, 1);
+  totalBytes -= entry.bytes;
+  if (bucket.length === 0) entries.delete(key);
+}
+
+function entryCount(): number {
+  let count = 0;
+  for (const bucket of entries.values()) count += bucket.length;
+  return count;
 }
 
 function prune(now: number): void {
-  for (const [key, entry] of entries) {
-    if (now >= entry.expiresAt) deleteEntry(key);
+  const live: Array<{ key: string; entry: LiveZoneEntry }> = [];
+  for (const [key, bucket] of entries) {
+    for (const entry of [...bucket]) {
+      if (now >= entry.expiresAt) removeEntry(key, entry);
+      else live.push({ key, entry });
+    }
   }
-  while (entries.size > MAX_ENTRIES || totalBytes > MAX_TOTAL_BYTES) {
-    const oldest = entries.keys().next().value as string | undefined;
-    if (!oldest) break;
-    deleteEntry(oldest);
+  live.sort((left, right) => left.entry.lastAccess - right.entry.lastAccess);
+  // Only the byte budget bounds the cache: drop the least recently used until it fits.
+  for (let index = 0; index < live.length && totalBytes > MAX_TOTAL_BYTES; index++) {
+    removeEntry(live[index].key, live[index].entry);
   }
+}
+
+function setEntry(key: string, entry: LiveZoneEntry, now: number): void {
+  // The same raw prefix under the same stable fields is superseded, not duplicated.
+  for (const existing of entries.get(key) ?? []) {
+    if (
+      existing.rawStableFieldsDigest === entry.rawStableFieldsDigest &&
+      existing.rawItemDigests.length === entry.rawItemDigests.length &&
+      existing.rawItemDigests.every((value, index) => value === entry.rawItemDigests[index])
+    ) {
+      removeEntry(key, existing);
+      break;
+    }
+  }
+  const bucket = entries.get(key);
+  if (bucket) bucket.push(entry);
+  else entries.set(key, [entry]);
+  totalBytes += entry.bytes;
+  prune(now);
 }
 
 function store(
@@ -233,19 +280,20 @@ function store(
   const bytes = Buffer.byteLength(serialized, "utf8") + rawItemDigests.length * 64;
   if (bytes > MAX_ENTRY_BYTES) return;
 
-  deleteEntry(key);
-  entries.set(key, {
-    rawItemDigests,
-    rawStableFieldsDigest,
-    transformedPrefix,
-    transformedStableFields,
-    stats,
-    lastAccess: now,
-    expiresAt: now + ttlMs,
-    bytes,
-  });
-  totalBytes += bytes;
-  prune(now);
+  setEntry(
+    key,
+    {
+      rawItemDigests,
+      rawStableFieldsDigest,
+      transformedPrefix,
+      transformedStableFields,
+      stats,
+      lastAccess: now,
+      expiresAt: now + ttlMs,
+      bytes,
+    },
+    now
+  );
 }
 
 /**
@@ -273,20 +321,21 @@ function storeSparseRawPrefix(ctx: LiveZoneContext, result: CompressionResult): 
   const bytes = Buffer.byteLength(serialized, "utf8") + ctx.rawItemDigests.length * 64 + 64;
   if (bytes > MAX_ENTRY_BYTES) return false;
 
-  deleteEntry(ctx.key);
-  entries.set(ctx.key, {
-    rawItemDigests: ctx.rawItemDigests,
-    rawStableFieldsDigest: ctx.rawStableFieldsDigest,
-    transformedPrefix: [],
-    transformedStableFields: {},
-    stats,
-    rawPrefixPatches: patches,
-    lastAccess: ctx.now,
-    expiresAt: ctx.now + ctx.ttlMs,
-    bytes,
-  });
-  totalBytes += bytes;
-  prune(ctx.now);
+  setEntry(
+    ctx.key,
+    {
+      rawItemDigests: ctx.rawItemDigests,
+      rawStableFieldsDigest: ctx.rawStableFieldsDigest,
+      transformedPrefix: [],
+      transformedStableFields: {},
+      stats,
+      rawPrefixPatches: patches,
+      lastAccess: ctx.now,
+      expiresAt: ctx.now + ctx.ttlMs,
+      bytes,
+    },
+    ctx.now
+  );
   return true;
 }
 
@@ -298,12 +347,29 @@ function storeRawPrefix(body: Record<string, unknown>, ctx: LiveZoneContext): Co
   return result;
 }
 
-function hasExactRawPrefix(rawItemDigests: string[], entry: LiveZoneEntry): boolean {
-  if (rawItemDigests.length < entry.rawItemDigests.length) return false;
-  for (let index = 0; index < entry.rawItemDigests.length; index++) {
-    if (rawItemDigests[index] !== entry.rawItemDigests[index]) return false;
+/**
+ * A fork (subagent, rewind, different tool result) diverges mid-history, so what can be
+ * replayed is the longest shared raw prefix: stored transformed items are positionally
+ * aligned with the raw digests, so the bytes before the divergence are still exact.
+ */
+function sharedRawPrefixLength(rawItemDigests: string[], entry: LiveZoneEntry): number {
+  const limit = Math.min(rawItemDigests.length, entry.rawItemDigests.length);
+  let shared = 0;
+  while (shared < limit && rawItemDigests[shared] === entry.rawItemDigests[shared]) shared++;
+  return shared;
+}
+
+function matchLiveZoneEntry(
+  context: LiveZoneContext
+): { entry: LiveZoneEntry; frozenItems: number } | null {
+  let match: { entry: LiveZoneEntry; frozenItems: number } | null = null;
+  for (const entry of entries.get(context.key) ?? []) {
+    if (entry.rawStableFieldsDigest !== context.rawStableFieldsDigest) continue;
+    const shared = sharedRawPrefixLength(context.rawItemDigests, entry);
+    if (shared === 0) continue;
+    if (!match || shared > match.frozenItems) match = { entry, frozenItems: shared };
   }
-  return true;
+  return match;
 }
 
 function restoreStableFields(
@@ -521,16 +587,18 @@ async function compressLiveToolOutputs(
 }
 
 /** Rebuild only changed tool slots; unchanged source items retain their verified bytes. */
-function restoreFrozenPrefix(rawItems: unknown[], previous: LiveZoneEntry): unknown[] | null {
-  if (rawItems.length < previous.rawItemDigests.length) return null;
+function restoreFrozenPrefix(
+  rawItems: unknown[],
+  previous: LiveZoneEntry,
+  frozenItems: number
+): unknown[] | null {
   const frozenPrefix = previous.rawPrefixPatches
-    ? rawItems.slice(0, previous.rawItemDigests.length)
-    : cloneItems(previous.transformedPrefix);
+    ? rawItems.slice(0, frozenItems)
+    : cloneItems(previous.transformedPrefix.slice(0, frozenItems));
   if (!frozenPrefix) return null;
   for (const patch of previous.rawPrefixPatches ?? []) {
-    if (!Number.isInteger(patch.index) || patch.index < 0 || patch.index >= frozenPrefix.length) {
-      return null;
-    }
+    if (!Number.isInteger(patch.index) || patch.index < 0) return null;
+    if (patch.index >= frozenItems) continue;
     const value = cloneValue(patch.value);
     if (value === null) return null;
     frozenPrefix[patch.index] = value;
@@ -583,7 +651,7 @@ function storeReusedLivePrefix(
   previous: LiveZoneEntry,
   result: CompressionResult
 ): boolean {
-  if (entries.get(context.key) !== previous) return true;
+  if (!entries.get(context.key)?.includes(previous)) return true;
   if (previous.rawPrefixPatches) {
     return storeSparseRawPrefix({ ...context, now: Date.now() }, result);
   }
@@ -603,17 +671,15 @@ async function reuseLiveZoneEntry(
   body: Record<string, unknown>,
   context: LiveZoneContext,
   previous: LiveZoneEntry,
+  frozenItems: number,
   compress: (body: Record<string, unknown>) => Promise<CompressionResult>,
   preserveRawPrefixOnMiss = false
 ): Promise<CompressionResult> {
   const fallback = () => (preserveRawPrefixOnMiss ? storeRawPrefix(body, context) : compress(body));
-  entries.delete(context.key);
   previous.lastAccess = context.now;
-  entries.set(context.key, previous);
 
-  const frozenItems = previous.rawItemDigests.length;
   const liveItems = context.rawItems.slice(frozenItems);
-  const frozenPrefix = restoreFrozenPrefix(context.rawItems, previous);
+  const frozenPrefix = restoreFrozenPrefix(context.rawItems, previous, frozenItems);
   if (!frozenPrefix) return fallback();
   // The latest assistant may already be frozen (including on consecutive/parallel results).
   // Carry its raw tail as engine context, but never replace its cached transformation.
@@ -650,8 +716,9 @@ async function reuseLiveZoneEntry(
 }
 
 /**
- * Reuses the byte-identical transformed prefix from the previous request in a session. Engines
- * receive the ordered live suffix with frozen turn context; only appended tool outputs are rewritten.
+ * Reuses the byte-identical transformed bytes up to the point where a stored request and
+ * the new one diverge: engines receive the ordered live suffix with frozen turn context;
+ * only appended tool outputs are rewritten.
  * For regular live-zone mode, a cold/mismatched prefix falls back to full compression.
  * With preserveRawPrefixOnMiss enabled, it instead sends the original history unchanged
  * and uses it as the next stable baseline; only new tool outputs are eligible on a hit.
@@ -671,18 +738,20 @@ export async function applyLiveZoneCompression(
       : compress(body);
   }
   prune(context.now);
-  const previous = entries.get(context.key);
-
-  if (
-    !previous ||
-    previous.rawStableFieldsDigest !== context.rawStableFieldsDigest ||
-    !hasExactRawPrefix(context.rawItemDigests, previous)
-  ) {
+  const match = matchLiveZoneEntry(context);
+  if (!match) {
     return options.preserveRawPrefixOnMiss
       ? storeRawPrefix(body, context)
       : compressAndStore(body, context, compress);
   }
-  return reuseLiveZoneEntry(body, context, previous, compress, options.preserveRawPrefixOnMiss);
+  return reuseLiveZoneEntry(
+    body,
+    context,
+    match.entry,
+    match.frozenItems,
+    compress,
+    options.preserveRawPrefixOnMiss
+  );
 }
 
 export function resetLiveZoneCache(): void {
@@ -691,5 +760,5 @@ export function resetLiveZoneCache(): void {
 }
 
 export function getLiveZoneCacheStats(): { entries: number; bytes: number } {
-  return { entries: entries.size, bytes: totalBytes };
+  return { entries: entryCount(), bytes: totalBytes };
 }
