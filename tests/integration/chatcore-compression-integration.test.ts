@@ -15,6 +15,7 @@ const compressionDb = await import("../../src/lib/db/compression.ts");
 const compressionCombosDb = await import("../../src/lib/db/compressionCombos.ts");
 const compressionAnalyticsDb = await import("../../src/lib/db/compressionAnalytics.ts");
 const { handleChatCore } = await import("../../open-sse/handlers/chatCore.ts");
+const { resetMessageFreeze } = await import("../../open-sse/services/compression/messageFreeze.ts");
 const { estimateTokens, getTokenLimit } = await import("../../open-sse/services/contextManager.ts");
 const { resetAllCircuitBreakers } = await import("../../src/shared/utils/circuitBreaker.ts");
 const { waitForCallLogSaves, closeCallLogSaves } = await import("../../src/lib/usage/callLogs.ts");
@@ -1134,4 +1135,122 @@ test("chatCore integration: active profile combo injects its own outputStyles", 
   } finally {
     globalThis.fetch = originalFetch;
   }
+});
+
+// A plan that escalates mid-conversation (auto-trigger by history size, adaptive ladder) must not
+// re-encode messages the provider already cached. chatCore pins the message-freeze scope to the
+// settings it loaded BEFORE resolving the plan (`freezeScope`); without that pin the freeze key
+// moves with the plan, every earlier message is re-decided, and the provider re-bills the whole
+// prefix as cache creation instead of reading it.
+test("chatCore integration: an escalated plan replays the already-sent prefix byte-for-byte", async () => {
+  const provider = "openai";
+  const model = "gpt-4";
+  const toolLog = Array.from(
+    { length: 80 },
+    (_, i) => `src/payments/handler_${i}.ts:${i + 1}: retry policy ${i}`
+  ).join("\n");
+  const turn1Messages = [
+    {
+      role: "user",
+      content: "Please review the deployment notes for the payments service and list every risk.",
+    },
+    { role: "tool", tool_call_id: "call_1", content: toolLog },
+  ];
+  const turn2Messages = [
+    ...turn1Messages,
+    { role: "user", content: "Now check the retry budget for the top two handlers." },
+  ];
+
+  await compressionDb.updateCompressionSettings({
+    enabled: true,
+    defaultMode: "stacked",
+    autoTriggerTokens: 0,
+    stackedPipeline: [{ engine: "caveman", intensity: "full" }],
+    cavemanConfig: {
+      enabled: true,
+      intensity: "full",
+      compressRoles: ["user"],
+      minMessageLength: 10,
+      skipRules: [],
+      preservePatterns: [],
+    },
+    lite: { compressToolResults: true },
+  });
+
+  const connection = await providersDb.createProviderConnection({
+    provider,
+    apiKey: "test-key",
+    isActive: true,
+  });
+
+  const sentByTurn: Array<Array<{ messages: Array<{ role?: string; content?: unknown }> }>> = [];
+  let upstreamBodies: Array<{ messages: Array<{ role?: string; content?: unknown }> }> = [];
+  globalThis.fetch = async (_url: string | URL | Request, init?: RequestInit) => {
+    if (init?.body) upstreamBodies.push(JSON.parse(String(init.body)));
+    return new Response(
+      JSON.stringify({
+        choices: [{ message: { role: "assistant", content: "ok" } }],
+        usage: { prompt_tokens: 20, completion_tokens: 4, total_tokens: 24 },
+      }),
+      { status: 200, headers: { "content-type": "application/json" } }
+    );
+  };
+
+  const call = async (messages: Array<Record<string, unknown>>, compression: string) => {
+    upstreamBodies = [];
+    const result = await handleChatCore({
+      body: { model, stream: false, messages },
+      modelInfo: { provider, model },
+      credentials: { apiKey: "test-key" },
+      log: { debug: () => {}, info: () => {}, warn: () => {}, error: () => {} },
+      clientRawRequest: {
+        endpoint: "/v1/chat/completions",
+        headers: { "x-omniroute-compression": compression },
+      },
+      connectionId: connection.id,
+      onCredentialsRefreshed: () => {},
+      onRequestSuccess: () => {},
+      onStreamFailure: () => {},
+      onDisconnect: () => {},
+      userAgent: "test-agent",
+      comboName: null,
+    });
+    assert.ok(result.success, "Request should succeed");
+    sentByTurn.push(upstreamBodies);
+  };
+
+  const lastSent = (turn: number) => sentByTurn[turn][sentByTurn[turn].length - 1].messages;
+
+  try {
+    // Control: clearing the freeze store between the turns leaves the new plan free to
+    // re-encode the earlier messages, so the prefix the provider cached no longer matches.
+    resetMessageFreeze();
+    await call(turn1Messages, "engine:lite");
+    resetMessageFreeze();
+    await call(turn2Messages, "allow-lossy");
+    const controlFirst = lastSent(0);
+    assert.notDeepEqual(
+      lastSent(1).slice(0, controlFirst.length),
+      controlFirst,
+      "control: without the freeze the new plan re-encodes already-sent messages"
+    );
+
+    // Production path: the store is kept across turns, so chatCore replays the bytes it already
+    // sent even though the plan changed underneath it.
+    sentByTurn.length = 0;
+    resetMessageFreeze();
+    await call(turn1Messages, "engine:lite");
+    await call(turn2Messages, "allow-lossy");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+
+  assert.equal(sentByTurn.length, 2);
+  const first = lastSent(0);
+  assert.notDeepEqual(first, turn1Messages, "turn 1 must compress");
+  assert.deepEqual(
+    lastSent(1).slice(0, first.length),
+    first,
+    "already-sent messages must reach the provider with the bytes it already cached"
+  );
 });

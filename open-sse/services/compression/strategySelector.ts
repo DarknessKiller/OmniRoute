@@ -300,6 +300,14 @@ export function applyCompression(
     riskGate?: RiskGateConfig;
     /** Force/override the caching gate (studio dry-run, or chatCore's resolved context). */
     cachingContext?: CachingDetectionContext;
+    /**
+     * Cache stability: pin the message-freeze scope to the operator-level settings loaded
+     * BEFORE this request's plan was resolved. `mode` and `config.stackedPipeline` are
+     * re-derived from the history size on every turn (auto-trigger threshold, adaptive
+     * ladder), so keying on them re-decides messages already sent and the provider re-bills
+     * the whole prefix as cache creation instead of reading it.
+     */
+    freezeScope?: { mode: string; config?: CompressionConfig };
   }
 ): CompressionResult {
   const result = withCompressionEntrypointGuards(body, options, (b) =>
@@ -307,8 +315,8 @@ export function applyCompression(
   );
   // Cache-stable invariant: replay the bytes an already-sent message got the first time.
   return applyMessageFreeze(body, result, {
-    mode,
-    config: options?.config,
+    mode: options?.freezeScope?.mode ?? mode,
+    config: options?.freezeScope?.config ?? options?.config,
     model: options?.model,
     supportsVision: options?.supportsVision,
     principalId: options?.principalId,
@@ -537,6 +545,8 @@ export async function applyCompressionAsync(
     principalId?: string;
     onEngineStep?: (step: StackedCompressionStep) => void;
     cachingContext?: CachingDetectionContext;
+    /** See {@link applyCompression}: pin the freeze scope to the pre-plan settings. */
+    freezeScope?: { mode: string; config?: CompressionConfig };
   }
 ): Promise<CompressionResult> {
   const result = await withCompressionEntrypointGuardsAsync(body, options, (b) =>
@@ -544,8 +554,8 @@ export async function applyCompressionAsync(
   );
   // Cache-stable invariant: replay the bytes an already-sent message got the first time.
   return applyMessageFreeze(body, result, {
-    mode,
-    config: options?.config,
+    mode: options?.freezeScope?.mode ?? mode,
+    config: options?.freezeScope?.config ?? options?.config,
     model: options?.model,
     supportsVision: options?.supportsVision,
     principalId: options?.principalId,

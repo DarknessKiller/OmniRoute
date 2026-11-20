@@ -433,6 +433,15 @@ Fail-open by construction: when the request and result item lists are not positi
 through untouched. A replayed body is reported with the `message-freeze-replay` technique in
 `stats.techniquesUsed`, and `compressedTokens`/`savingsPercent` are recomputed from the bytes
 actually sent.
+The freeze key covers the model, the principal, the wire format, the transport and the
+operator-level compression settings — never the plan resolved for the current request. `mode` and
+`config.stackedPipeline` are re-derived from the history size on every turn (auto-trigger
+threshold, adaptive ladder), so keying on them would let a growing conversation re-decide every
+message it has already sent. `chatCore` therefore pins the scope to the settings it loaded
+before resolving the plan — `freezeScope` in `applyCompression()`/`applyCompressionAsync()`
+(`open-sse/handlers/chatCore.ts`) — and a plan change then only shapes messages that arrive
+after it. Callers that compare plans on purpose (compression studio preview/compare) omit it
+and keep the plan in the key.
 
 Guard: `tests/unit/compression/message-freeze.test.ts`. Invariant text:
 `AGENTS.md` → Hard Rules → #24.

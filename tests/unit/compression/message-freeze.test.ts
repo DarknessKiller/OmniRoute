@@ -226,4 +226,43 @@ describe("messageFreeze — cache-stable compression", () => {
     );
     assert.notEqual(contents(aggregated)[0], contents(direct)[0]);
   });
+
+  it("keeps replaying when the resolved plan escalates between turns", () => {
+    const operatorConfig = config();
+    const freezeScope = { mode: "auto", config: operatorConfig };
+    const turn1 = applyCompression(
+      { model: "test-model", messages: [{ role: "user", content: "hello" }] },
+      "stacked",
+      { config: operatorConfig, freezeScope }
+    );
+    // The auto-trigger / adaptive ladder re-derives the plan from the history size on every
+    // turn, and chatCore writes that plan back into the config it hands to the pipeline
+    // (`config.stackedPipeline` + the resolved mode). A plan change must never re-decide an
+    // already-sent message: the provider would re-bill the whole cached prefix as cache
+    // creation instead of reading it.
+    const escalated: CompressionConfig = {
+      ...operatorConfig,
+      defaultMode: "stacked",
+      autoTriggerMode: "stacked",
+      autoTriggerTokens: 1_000,
+      enginesExplicit: true,
+      engines: { [ENGINE_ID]: { enabled: true } } as CompressionConfig["engines"],
+      stackedPipeline: [
+        { engine: ENGINE_ID } as CompressionPipelineStep,
+        { engine: ENGINE_ID } as CompressionPipelineStep,
+      ],
+    };
+    const turn2 = applyCompression(
+      {
+        model: "test-model",
+        messages: [
+          { role: "user", content: "hello" },
+          { role: "assistant", content: "world" },
+        ],
+      },
+      "stacked",
+      { config: escalated, freezeScope }
+    );
+    assert.equal(contents(turn2)[0], contents(turn1)[0]);
+  });
 });

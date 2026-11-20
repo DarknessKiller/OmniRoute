@@ -1712,6 +1712,10 @@ async function handleChatCoreInner({
         );
       }
       compressionResponseMeta = formatCompressionMeta(compressionPlan);
+      // The freeze key must not move when the PLAN does: the ladder below (and the auto-trigger
+      // threshold above) re-resolve the mode and the stacked pipeline from the history size on
+      // every turn, so keying the frozen bytes on them would re-decide messages already sent.
+      const freezeScope = { mode: "auto", config };
       // When the per-engine toggle map derives a stacked pipeline (and no named/routing
       // combo already set config.stackedPipeline), feed that derived pipeline through so
       // applyCompressionAsync (which reads config.stackedPipeline for stacked mode) runs the
@@ -1772,6 +1776,7 @@ async function handleChatCoreInner({
           targetFormat,
           compressionStage: "pre-translation" as const,
           config: compressionConfig,
+          freezeScope,
           cachingContext: cacheCtx,
           principalId: compressionPrincipalId,
           // F3.3: stream per-engine progress live (best-effort) before compression.completed.
