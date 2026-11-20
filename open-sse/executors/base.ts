@@ -72,7 +72,12 @@ import {
 } from "../services/tokenRefresh.ts";
 import type { ProviderRequestDefaults } from "../services/providerRequestDefaults.ts";
 import { signRequestBody } from "../services/claudeCodeCCH.ts";
-import { normalizeCacheControlTtl } from "../services/claudeCodeConstraints.ts";
+import {
+  claudeSubagentRequests1h,
+  isClaudeSubagentRequest,
+  normalizeCacheControlTtl,
+  stripCacheControlTtl,
+} from "../services/claudeCodeConstraints.ts";
 import {
   appendAnthropicBetaHeader,
   CLAUDE_CODE_COMPATIBLE_REDACT_THINKING_BETA,
@@ -1295,13 +1300,26 @@ export class BaseExecutor {
               ? [{ type: "text", text: tb.system }]
               : [];
 
+          // Detect the subagent BEFORE the billing/sentinel rewrite replaces system[0]
+          // — cc_is_subagent=true lives in that first line. A subagent that never opted
+          // into 1h must stay on Anthropic's 5-minute write tier: normalizeCacheControlTtl
+          // would otherwise materialize 1h on its bare markers and double the price
+          // (CLIProxyAPI: isClaudeSubagentRequestDoc / claudeSubagentRequests1hDoc).
+          const isSubagentRequest = isClaudeSubagentRequest(clientHeaders, tb);
+          const subagentKeeps1h = isSubagentRequest && claudeSubagentRequests1h(clientHeaders);
+
           // Strip any pre-existing billing/sentinel before re-prepending — keeps
           // retries idempotent and avoids stacking that breaks prompt-cache prefix
           // matching (see issue #1712).
           stripClaudeSystemPrefixBlocks(sysBlocks, SENTINEL);
           sysBlocks.unshift({ type: "text", text: billingLine }, { type: "text", text: SENTINEL });
           tb.system = sysBlocks;
-          normalizeCacheControlTtl(tb);
+          if (isSubagentRequest && !subagentKeeps1h) {
+            // A subagent never asked for the 1h pool; strip rather than materialize it.
+            stripCacheControlTtl(tb);
+          } else {
+            normalizeCacheControlTtl(tb);
+          }
 
           // Run the configurable system-transforms pipeline for the native
           // `claude` provider (issue #2260 / comment 4459544580). The default
