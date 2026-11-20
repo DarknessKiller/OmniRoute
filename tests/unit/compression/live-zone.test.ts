@@ -181,7 +181,7 @@ describe("cache-aligned live-zone compression", () => {
     );
     await applyLiveZoneCompression(
       { messages: [...body.messages, { role: "tool", content: "other mode" }] },
-      { ...options, variant: { mode: "caveman", config: {} } },
+      { ...options, variant: { mode: "rtk", config: { defaultMode: "caveman" } } },
       compress
     );
 
@@ -202,9 +202,10 @@ describe("cache-aligned live-zone compression", () => {
     );
     assert.deepEqual(calls[1].input, [{ role: "tool", content: "response output" }]);
 
+    const cached = getLiveZoneCacheStats();
     await applyLiveZoneCompression(first, { ...options, principalId: undefined }, compress);
     await applyLiveZoneCompression(first, { ...options, principalId: undefined }, compress);
-    assert.equal(getLiveZoneCacheStats().entries, 1);
+    assert.deepEqual(getLiveZoneCacheStats(), cached);
   });
 
   it("retains new Responses API call context while rewriting only tool outputs", async () => {
