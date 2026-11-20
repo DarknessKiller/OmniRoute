@@ -16,6 +16,7 @@ import type {
 import { applyLiteCompression } from "./lite.ts";
 import { cavemanCompress } from "./caveman.ts";
 import { compressAggressive } from "./aggressive.ts";
+import { generateSessionId } from "../sessionManager.ts";
 import { ultraCompress, ultraCompressHeuristic } from "./ultra.ts";
 import { createCompressionStats } from "./stats.ts";
 import { applyStackedInflationGuard } from "./pipelineGuards.ts";
@@ -279,6 +280,7 @@ export function applyCompression(
   mode: CompressionMode,
   options?: {
     model?: string;
+    provider?: string;
     supportsVision?: boolean | null;
     imageTransportFidelity?: ImageTransportFidelity;
     /** Direct-to-provider vs. aggregator transport — part of the freeze scope below. */
@@ -322,6 +324,7 @@ function runCompression(
   mode: CompressionMode,
   options?: {
     model?: string;
+    provider?: string;
     supportsVision?: boolean | null;
     imageTransportFidelity?: ImageTransportFidelity;
     sourceFormat?: CompressionWireFormat;
@@ -451,7 +454,16 @@ function runCompression(
       ...(options?.config?.aggressive ?? {}),
       preserveSystemPrompt: options?.config?.preserveSystemPrompt !== false,
     };
-    const result = compressAggressive(messages, aggressiveConfig);
+    // A tier driven by distance from the end rewrites already-sent bytes every turn and
+    // wipes the provider prefix cache; freeze it per conversation instead.
+    const sessionKey = generateSessionId(
+      compressionBody as Parameters<typeof generateSessionId>[0],
+      { provider: options?.provider }
+    );
+    const freezeKey = sessionKey
+      ? `${sessionKey}|${JSON.stringify(aggressiveConfig.thresholds ?? null)}`
+      : undefined;
+    const result = compressAggressive(messages, aggressiveConfig, undefined, freezeKey);
     const compressedBody = { ...compressionBody, messages: result.messages };
     return {
       body: adapter.restore(compressedBody),

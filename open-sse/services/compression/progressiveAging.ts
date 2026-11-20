@@ -32,6 +32,65 @@ function structuredKind(text: string): StructuredKind {
   return null;
 }
 
+/** Aging tiers are irreversible: changing a message's tier rewrites bytes already sent. */
+type AgingTier = "verbatim" | "light" | "moderate" | "fullSummary";
+
+const MAX_FROZEN_SESSIONS = 256;
+const MAX_FROZEN_MESSAGES = 2000;
+
+/**
+ * Tier freeze keyed by conversation + thresholds. Without it a message's tier follows its
+ * distance from the end of the conversation, so every later turn rewrites history the
+ * provider already cached and the cache read collapses to the system prompt.
+ * `verbatim` is never frozen: freezing the fresh tail would stop aging entirely.
+ */
+const frozenAgingTiers = new Map<string, Map<string, AgingTier>>();
+
+function evictOldest(map: Map<string, unknown>, cap: number): void {
+  while (map.size >= cap) {
+    const oldest = map.keys().next().value;
+    if (oldest === undefined) return;
+    map.delete(oldest);
+  }
+}
+
+function freezeAgingTier(key: string, digest: string, tier: AgingTier): AgingTier {
+  let bucket = frozenAgingTiers.get(key);
+  if (!bucket) {
+    evictOldest(frozenAgingTiers, MAX_FROZEN_SESSIONS);
+    bucket = new Map();
+    frozenAgingTiers.set(key, bucket);
+  }
+  const frozen = bucket.get(digest);
+  if (frozen) return frozen;
+  evictOldest(bucket, MAX_FROZEN_MESSAGES);
+  bucket.set(digest, tier);
+  return tier;
+}
+
+export function resetAgingTierFreeze(): void {
+  frozenAgingTiers.clear();
+}
+
+function tierForDistance(distanceFromEnd: number, t: AgingThresholds): AgingTier {
+  if (distanceFromEnd <= t.verbatim) return "verbatim";
+  if (distanceFromEnd <= t.light) return "light";
+  if (distanceFromEnd <= t.moderate) return "moderate";
+  return "fullSummary";
+}
+
+function resolveAgingTier(
+  freezeKey: string | undefined,
+  role: string,
+  text: string,
+  distanceFromEnd: number,
+  t: AgingThresholds
+): AgingTier {
+  const tier = tierForDistance(distanceFromEnd, t);
+  if (!freezeKey || tier === "verbatim") return tier;
+  return freezeAgingTier(freezeKey, `${role}\u0000${text}`, tier);
+}
+
 /**
  * Build the aged content for a message, keeping structured payloads intact:
  * - pure JSON: leave verbatim and untagged (stays JSON.parse-able). Aging engines
@@ -68,7 +127,8 @@ export function applyAging(
   thresholds?: AgingThresholds,
   summarizer?: Summarizer,
   preserveSystemPrompt = true,
-  spareUserIndex?: number
+  spareUserIndex?: number,
+  freezeKey?: string
 ): { messages: unknown[]; saved: number } {
   const t = thresholds ?? DEFAULT_AGGRESSIVE_CONFIG.thresholds;
   const sum = summarizer ?? {
@@ -104,9 +164,11 @@ export function applyAging(
 
     const distanceFromEnd = totalMessages - 1 - i;
 
-    if (distanceFromEnd <= t.verbatim) {
+    const tier = resolveAgingTier(freezeKey, msg.role, text, distanceFromEnd, t);
+
+    if (tier === "verbatim") {
       result.push(msg);
-    } else if (distanceFromEnd <= t.light) {
+    } else if (tier === "light") {
       const compressed = applyLiteCompression({ messages: [msg] }) as CompressedResult;
       if (compressed?.body?.messages?.[0]?.content) {
         const newContent =
@@ -119,8 +181,10 @@ export function applyAging(
       } else {
         result.push(msg);
       }
-    } else if (distanceFromEnd <= t.moderate) {
-      const compressed = cavemanCompress({ messages: [msg] as unknown as Parameters<typeof cavemanCompress>[0]["messages"] }) as CompressedResult;
+    } else if (tier === "moderate") {
+      const compressed = cavemanCompress({
+        messages: [msg] as unknown as Parameters<typeof cavemanCompress>[0]["messages"],
+      }) as CompressedResult;
       if (compressed?.body?.messages?.[0]?.content) {
         const newContent =
           typeof compressed.body.messages[0].content === "string"

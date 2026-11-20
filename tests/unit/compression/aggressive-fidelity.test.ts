@@ -5,7 +5,10 @@ import {
   replaceTextContent,
   type ChatMessageLike,
 } from "../../../open-sse/services/compression/messageContent.ts";
-import { applyAging } from "../../../open-sse/services/compression/progressiveAging.ts";
+import {
+  applyAging,
+  resetAgingTierFreeze,
+} from "../../../open-sse/services/compression/progressiveAging.ts";
 import { compressAggressive } from "../../../open-sse/services/compression/aggressive.ts";
 import type { AgingThresholds } from "../../../open-sse/services/compression/types.ts";
 
@@ -142,7 +145,10 @@ describe("aggressive — Anthropic tool_result compression (B-AGG-ANTHROPIC-TR)"
     );
     assert.ok(tr, "tool_result block must survive");
     assert.equal(tr!.tool_use_id, "toolu_ERR");
-    assert.ok((tr!.content as string).length < errorOutput.length, "string tool_result not compressed");
+    assert.ok(
+      (tr!.content as string).length < errorOutput.length,
+      "string tool_result not compressed"
+    );
   });
 });
 
@@ -176,7 +182,7 @@ describe("progressiveAging — structured-content tag safety (B-AGG-JSONTAG)", (
   });
 
   it("keeps a fenced code block valid after aging (tag outside the fence)", () => {
-    const fenced = "```json\n{\n  \"a\": 1,\n  \"b\": [1, 2, 3]\n}\n```";
+    const fenced = '```json\n{\n  "a": 1,\n  "b": [1, 2, 3]\n}\n```';
     const aged = agedFirstContent(fenced, thresholds);
     // The fenced block must still be present and intact.
     assert.ok(aged.includes("```json"), "opening fence lost");
@@ -194,16 +200,79 @@ describe("progressiveAging — structured-content tag safety (B-AGG-JSONTAG)", (
     ];
     const first = applyAging(msgs, thresholds);
     const second = applyAging(first.messages as ChatMessageLike[], thresholds);
-    const firstContent = JSON.stringify(
-      first.messages.map((m) => (m as ChatMessageLike).content)
-    );
+    const firstContent = JSON.stringify(first.messages.map((m) => (m as ChatMessageLike).content));
     const secondContent = JSON.stringify(
       second.messages.map((m) => (m as ChatMessageLike).content)
     );
     assert.equal(secondContent, firstContent, "second aging pass changed structured content");
     // And it must still be parseable.
     const c0 = (second.messages[0] as ChatMessageLike).content;
-    const text0 = typeof c0 === "string" ? c0 : extractTextContent(c0 as ChatMessageLike["content"]);
+    const text0 =
+      typeof c0 === "string" ? c0 : extractTextContent(c0 as ChatMessageLike["content"]);
     assert.doesNotThrow(() => JSON.parse(text0), "JSON corrupted after two aging passes");
+  });
+});
+
+// A tier that follows the distance from the end changes on every later turn, rewriting
+// bytes the provider already cached. Freezing the tier per conversation keeps them stable.
+describe("progressiveAging — tier freeze keeps already-sent bytes stable", () => {
+  const thresholds: AgingThresholds = { fullSummary: 10, moderate: 4, light: 3, verbatim: 1 };
+  const filler = (n: number): ChatMessageLike => ({
+    role: n % 2 ? "assistant" : "user",
+    content: `filler ${n} ${"z".repeat(120)}`,
+  });
+  const head = { role: "user", content: `alpha-marker request ${"y".repeat(160)}` };
+  // 3 messages after `head` → distance 3 → light tier.
+  const early = [head, filler(1), filler(2), filler(3)];
+  // The same head is now 8 from the end → full-summary tier without a freeze.
+  const later = [...early, filler(4), filler(5), filler(6), filler(7), filler(8)];
+
+  it("keeps the tier a message first aged into", () => {
+    resetAgingTierFreeze();
+    const first = applyAging(
+      structuredClone(early),
+      thresholds,
+      undefined,
+      true,
+      undefined,
+      "conv-a"
+    );
+    const grown = applyAging(
+      structuredClone(later),
+      thresholds,
+      undefined,
+      true,
+      undefined,
+      "conv-a"
+    );
+    assert.deepEqual(grown.messages[0], first.messages[0], "tier freeze must keep the sent bytes");
+  });
+
+  it("still re-tiers without a freeze key (unchanged behavior)", () => {
+    resetAgingTierFreeze();
+    const first = applyAging(structuredClone(early), thresholds);
+    const grown = applyAging(structuredClone(later), thresholds);
+    assert.notDeepEqual(grown.messages[0], first.messages[0], "distance tiers still move");
+  });
+
+  it("keeps tiers separate per conversation", () => {
+    resetAgingTierFreeze();
+    const first = applyAging(
+      structuredClone(early),
+      thresholds,
+      undefined,
+      true,
+      undefined,
+      "conv-b"
+    );
+    const other = applyAging(
+      structuredClone(later),
+      thresholds,
+      undefined,
+      true,
+      undefined,
+      "conv-c"
+    );
+    assert.notDeepEqual(other.messages[0], first.messages[0]);
   });
 });

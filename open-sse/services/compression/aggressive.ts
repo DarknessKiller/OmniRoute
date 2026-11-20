@@ -31,7 +31,8 @@ function estimateTokens(text: string): number {
 export function compressAggressive(
   messages: ChatMessage[],
   config?: Partial<AggressiveConfig>,
-  stats?: CompressionStats
+  stats?: CompressionStats,
+  freezeKey?: string
 ): AggressiveCompressionResult {
   const cfg: AggressiveConfig = {
     ...DEFAULT_AGGRESSIVE_CONFIG,
@@ -112,7 +113,8 @@ export function compressAggressive(
       cfg.thresholds,
       summarizer,
       cfg.preserveSystemPrompt !== false,
-      lastUserIdx
+      lastUserIdx,
+      freezeKey
     );
     agingSavings = agingResult.saved;
     currentMessages = agingResult.messages as ChatMessage[];
