@@ -7,8 +7,11 @@
  * 2. Disable thinking when tool_choice forces a specific tool
  * 3. Enforce max 4 cache_control breakpoints
  * 4. Normalize cache_control TTL ordering
- * 5. Default missing cache_control.ttl to "1h" on the native Claude OAuth path
+ * 5. Keep a Claude Code subagent on Anthropic's 5-minute cache-write tier by
+ *    stripping its cache_control.ttl (1h costs 2x per written token)
  */
+
+import { getHeader } from "../utils/headers.ts";
 
 /**
  * Anthropic's extended-thinking contract rejects non-default sampling params:
@@ -362,4 +365,65 @@ export function normalizeCacheControlTtl(body: Record<string, unknown>): void {
       }
     }
   }
+}
+
+/** Every `ephemeral` cache_control in a Messages body, in prompt order. */
+function cacheControlObjects(body: Record<string, unknown>): Array<Record<string, unknown>> {
+  const found: Array<Record<string, unknown>> = [];
+  const visit = (block: unknown) => {
+    const cc = (block as Record<string, unknown> | null | undefined)?.cache_control as
+      Record<string, unknown> | undefined;
+    if (cc?.type === "ephemeral") found.push(cc);
+  };
+  if (Array.isArray(body.tools)) for (const tool of body.tools) visit(tool);
+  if (Array.isArray(body.system)) for (const block of body.system) visit(block);
+  if (Array.isArray(body.messages)) {
+    for (const message of body.messages as Array<Record<string, unknown>>) {
+      if (Array.isArray(message?.content)) for (const block of message.content) visit(block);
+    }
+  }
+  return found;
+}
+
+/** Drops every TTL so Anthropic bills its 5-minute default, not the 2x 1h pool. */
+export function stripCacheControlTtl(body: Record<string, unknown>): void {
+  for (const cc of cacheControlObjects(body)) delete cc.ttl;
+}
+
+/** Anthropic's 1h cache beta: how a caller opts even a subagent into the 1h pool. */
+export const EXTENDED_CACHE_TTL_BETA = "extended-cache-ttl-2025-04-11";
+
+/**
+ * A Claude Code subagent. The CLI marks one with an agent-id header, points
+ * metadata.user_id at the parent session, or writes cc_is_subagent=true into the
+ * billing line in system[0] — so call this before that line is rewritten.
+ */
+export function isClaudeSubagentRequest(headers: unknown, body: Record<string, unknown>): boolean {
+  if (getHeader(headers, "x-claude-code-agent-id")) return true;
+  if (getHeader(headers, "x-claude-code-parent-agent-id")) return true;
+
+  const rawUserId = (body.metadata as Record<string, unknown> | undefined)?.user_id;
+  if (typeof rawUserId === "string" && rawUserId.includes('"parent_session_id"')) return true;
+  if (rawUserId && typeof rawUserId === "object") {
+    const parentSession = (rawUserId as Record<string, unknown>).parent_session_id;
+    if (typeof parentSession === "string" && parentSession) return true;
+  }
+
+  const system = body.system;
+  const systemText =
+    typeof system === "string"
+      ? system
+      : Array.isArray(system) && typeof (system[0] as Record<string, unknown>)?.text === "string"
+        ? String((system[0] as Record<string, unknown>).text)
+        : "";
+  return systemText.includes("cc_is_subagent=true");
+}
+
+/**
+ * A subagent keeps 1h only when the caller negotiated the extended-cache-ttl beta.
+ * A `ttl:"1h"` already in the payload is not an opt-in: chatCore's passthrough rescue
+ * writes 1h markers itself, so the body cannot tell the caller's ask from our own.
+ */
+export function claudeSubagentRequests1h(headers: unknown): boolean {
+  return String(getHeader(headers, "anthropic-beta") ?? "").includes(EXTENDED_CACHE_TTL_BETA);
 }
