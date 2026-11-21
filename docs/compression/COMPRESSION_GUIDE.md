@@ -44,6 +44,14 @@ The safest mode — formatting cleanup. Its tool-result truncation is lossy, so 
 path (no `allow-lossy`, `engine:lite` or named-combo opt-in) runs lite with
 `compressToolResults: false`: earlier tool results reach the provider unchanged.
 
+`compressToolResults` keeps this turn's tool results intact and truncates the earlier ones — a
+window that slides every turn. With prompt caching that window is the problem: the tool result
+that was this turn's yesterday is truncated today, so one already-sent message changes bytes on
+every request and the cached prefix from that message onward is invalidated (measured on a
+20-turn Claude Code session: 49,855 re-billed tokens, 2.8× the tokens the step saved). The live
+zone (see Prefix stability, below) freezes the already-sent prefix; without it, keep the lossy
+step off (`compressToolResults: false`, the default) for cache-sensitive clients.
+
 | Technique                | Description                                                                       |
 | ------------------------ | --------------------------------------------------------------------------------- |
 | `collapseWhitespace`     | Merge consecutive blank lines and trailing spaces                                 |
