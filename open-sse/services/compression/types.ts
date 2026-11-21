@@ -272,6 +272,8 @@ export interface CompressionConfig {
    * change for installs that predate the panel). Set by `getCompressionSettings`.
    */
   enginesExplicit?: boolean;
+  /** Runtime-only (NOT persisted): a saved toggle wins over the OpenCode force-on (#18787). */
+  liveZoneExplicit?: boolean;
   /**
    * Context-budget adaptive compression (Sub-project C). Absent / mode:"off" = legacy
    * binary auto-trigger (byte-identical). When mode is "floor" or "replace-autotrigger"
