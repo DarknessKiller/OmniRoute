@@ -305,9 +305,6 @@ export function ensureCacheControlOnLastUserMessage(
 
   const candidates = cacheBreakpointCandidates(body, messages, countTools);
   const cacheControlCount = candidates.filter((block) => block.cache_control).length;
-  const hasFiveMinuteCacheControl = candidates.some(
-    (block) => (block.cache_control as Record<string, unknown> | undefined)?.ttl === "5m"
-  );
 
   // Find the last user message
   for (let i = messages.length - 1; i >= 0; i--) {
@@ -316,9 +313,7 @@ export function ensureCacheControlOnLastUserMessage(
       if (Array.isArray(content) && content.length > 0) {
         const lastBlock = content[content.length - 1] as Record<string, unknown>;
         if (!lastBlock.cache_control && cacheControlCount < MAX_CACHE_CONTROL_BLOCKS) {
-          lastBlock.cache_control = hasFiveMinuteCacheControl
-            ? { type: "ephemeral", ttl: "5m" }
-            : { type: "ephemeral" };
+          lastBlock.cache_control = { type: "ephemeral" };
         }
       }
       break;
@@ -326,20 +321,16 @@ export function ensureCacheControlOnLastUserMessage(
   }
 }
 
-/** Defaults missing TTLs and keeps earlier breakpoints at 1h before a later 1h breakpoint. */
+/** Keeps earlier breakpoints at 1h before a later 1h breakpoint. A marker with no ttl
+ * is left bare so Anthropic's own 5m default applies — writing "5m" is redundant, and
+ * inventing "1h" silently bills the 2x write rate for a ttl the client never sent. */
 export function normalizeCacheControlTtl(body: Record<string, unknown>): void {
-  let hasFiveMinuteCacheControl = false;
   const ephemeralCacheControls: Array<Record<string, unknown>> = [];
 
-  const defaultMissingTtl = (block: Record<string, unknown> | null | undefined) => {
+  const collectCacheControl = (block: Record<string, unknown> | null | undefined) => {
     const cc = block?.cache_control as Record<string, unknown> | undefined;
     if (!cc || cc.type !== "ephemeral") return;
 
-    if (cc.ttl === "5m") {
-      hasFiveMinuteCacheControl = true;
-    } else if (cc.ttl === undefined) {
-      cc.ttl = hasFiveMinuteCacheControl ? "5m" : "1h";
-    }
     if (cc.ttl === "1h") {
       for (const earlier of ephemeralCacheControls) earlier.ttl = "1h";
     }
@@ -348,12 +339,12 @@ export function normalizeCacheControlTtl(body: Record<string, unknown>): void {
 
   const tools = body.tools as Array<Record<string, unknown>> | undefined;
   if (Array.isArray(tools)) {
-    for (const tool of tools) defaultMissingTtl(tool);
+    for (const tool of tools) collectCacheControl(tool);
   }
 
   const system = body.system as Array<Record<string, unknown>> | undefined;
   if (Array.isArray(system)) {
-    for (const block of system) defaultMissingTtl(block);
+    for (const block of system) collectCacheControl(block);
   }
 
   const messages = body.messages as Array<Record<string, unknown>> | undefined;
@@ -361,7 +352,7 @@ export function normalizeCacheControlTtl(body: Record<string, unknown>): void {
     for (const message of messages) {
       const content = message.content as Array<Record<string, unknown>> | undefined;
       if (Array.isArray(content)) {
-        for (const block of content) defaultMissingTtl(block);
+        for (const block of content) collectCacheControl(block);
       }
     }
   }

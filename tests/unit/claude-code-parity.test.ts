@@ -389,7 +389,7 @@ describe("ensureCacheControlOnLastUserMessage", () => {
     );
   });
 
-  it("keeps a new tail breakpoint at 5m after an existing 5m breakpoint", () => {
+  it("adds a bare tail breakpoint regardless of the ttls already present", () => {
     const body = {
       system: [
         { type: "text", text: "long", cache_control: { type: "ephemeral", ttl: "1h" } },
@@ -400,10 +400,7 @@ describe("ensureCacheControlOnLastUserMessage", () => {
 
     ensureCacheControlOnLastUserMessage(body);
 
-    assert.deepEqual(body.messages[0].content[0].cache_control, {
-      type: "ephemeral",
-      ttl: "5m",
-    });
+    assert.deepEqual(body.messages[0].content[0].cache_control, { type: "ephemeral" });
   });
 
   it("does not exceed four surviving system and message breakpoints", () => {
@@ -453,7 +450,7 @@ describe("ensureCacheControlOnLastUserMessage", () => {
 // ─────────────────────────────────────────────────────────────────────────────
 
 describe("normalizeCacheControlTtl", () => {
-  it("defaults a missing ttl to 1h on the last system block", () => {
+  it("leaves a marker with no ttl bare so Anthropic applies its 5m default", () => {
     const body = {
       system: [
         { type: "text", text: "billing" },
@@ -464,7 +461,7 @@ describe("normalizeCacheControlTtl", () => {
 
     normalizeCacheControlTtl(body);
 
-    assert.deepEqual(body.system[2].cache_control, { type: "ephemeral", ttl: "1h" });
+    assert.deepEqual(body.system[2].cache_control, { type: "ephemeral" });
   });
 
   it("does not touch a cache_control that already specifies a ttl", () => {
@@ -477,7 +474,7 @@ describe("normalizeCacheControlTtl", () => {
     assert.deepEqual(body.system[0].cache_control, { type: "ephemeral", ttl: "5m" });
   });
 
-  it("defaults missing ttl in tools and message content blocks", () => {
+  it("leaves bare markers in tools and message content bare", () => {
     const body = {
       tools: [{ name: "bash", description: "run", cache_control: { type: "ephemeral" } }],
       messages: [
@@ -490,14 +487,11 @@ describe("normalizeCacheControlTtl", () => {
 
     normalizeCacheControlTtl(body);
 
-    assert.deepEqual(body.tools[0].cache_control, { type: "ephemeral", ttl: "1h" });
-    assert.deepEqual(body.messages[0].content[0].cache_control, {
-      type: "ephemeral",
-      ttl: "1h",
-    });
+    assert.deepEqual(body.tools[0].cache_control, { type: "ephemeral" });
+    assert.deepEqual(body.messages[0].content[0].cache_control, { type: "ephemeral" });
   });
 
-  it("defaults missing ttl to 5m after a 5m breakpoint", () => {
+  it("leaves a bare marker bare after a 5m breakpoint too", () => {
     const body = {
       system: [{ type: "text", text: "stable", cache_control: { type: "ephemeral", ttl: "5m" } }],
       messages: [
@@ -510,10 +504,7 @@ describe("normalizeCacheControlTtl", () => {
 
     normalizeCacheControlTtl(body);
 
-    assert.deepEqual(body.messages[0].content[0].cache_control, {
-      type: "ephemeral",
-      ttl: "5m",
-    });
+    assert.deepEqual(body.messages[0].content[0].cache_control, { type: "ephemeral" });
   });
 
   it("leaves blocks without cache_control untouched", () => {
