@@ -40,6 +40,7 @@ const plainLanguage = args.includes("--language=fixed");
 const frozenMarker = args.includes("--frozen-marker");
 const budgetArg = args.find((a) => a.startsWith("--budget="));
 const targetTokens = budgetArg ? Number(budgetArg.split("=")[1]) : undefined;
+const dumpArg = args.find((a) => a.startsWith("--dump="));
 const turnCount = turnsArg ? Number(turnsArg.split("=")[1]) : 8;
 
 if (!file) {
@@ -160,6 +161,14 @@ const options = {
   supportsVision: true,
   config,
 };
+
+if (dumpArg) {
+  // `--dump=<messages>:<path>` writes the reconstructed request body for live probing.
+  const [countPart, outPath] = dumpArg.slice("--dump=".length).split(":");
+  fs.writeFileSync(outPath, JSON.stringify(buildBody(Number(countPart))));
+  console.log(`dumped ${countPart}-message body to ${outPath}`);
+  process.exit(0);
+}
 
 const boundaries: number[] = [];
 for (let i = 0; i < messages.length; i++) {
