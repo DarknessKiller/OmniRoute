@@ -392,6 +392,8 @@ export const compressionSettingsUpdateSchema = z
     contextEditing: contextEditingConfigSchema.optional(),
     omniglyph: omniglyphConfigSchema.optional(),
     liveZone: z.object({ enabled: z.boolean() }).strict().optional(),
+    // Runtime-only marker returned by GET; accepted so a view round-trip does not 400.
+    liveZoneExplicit: z.boolean().optional(),
     engines: z.record(z.string(), engineToggleSchema).optional(),
     enginesExplicit: z.boolean().optional(),
     activeComboId: z.string().nullable().optional(),

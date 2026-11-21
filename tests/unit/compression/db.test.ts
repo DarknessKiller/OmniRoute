@@ -271,13 +271,20 @@ describe("updateCompressionSettings", () => {
   });
 
   it("round-trips cache-aligned live-zone compression", async () => {
-    await updateCompressionSettings({ liveZone: { enabled: true } });
+    // No saved toggle: the OpenCode lane may still force the cache-aligned lane on (#18787).
     let settings = await getCompressionSettings();
-    assert.deepEqual(settings.liveZone, { enabled: true });
+    assert.equal(settings.liveZoneExplicit, false);
 
+    await updateCompressionSettings({ liveZone: { enabled: true } });
+    settings = await getCompressionSettings();
+    assert.deepEqual(settings.liveZone, { enabled: true });
+    assert.equal(settings.liveZoneExplicit, true);
+
+    // A saved disable is authoritative — it must beat the OpenCode force-on.
     await updateCompressionSettings({ liveZone: { enabled: false } });
     settings = await getCompressionSettings();
     assert.deepEqual(settings.liveZone, { enabled: false });
+    assert.equal(settings.liveZoneExplicit, true);
   });
 
   it("updates multiple settings at once", async () => {
