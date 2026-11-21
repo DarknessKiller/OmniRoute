@@ -318,6 +318,7 @@ import {
   type CachingDetectionContext,
 } from "../services/compression/cachingAware.ts";
 import { runLiveZoneCompression } from "./chatCore/liveZoneCompression.ts";
+import { shouldRunLiveZoneLane } from "./chatCore/liveZoneGate.ts";
 import { prepareWebSearchFallbackBody } from "../services/webSearchFallback.ts";
 import { prepareWebFetchFallbackBody } from "../services/webFetchInterception.ts";
 import { resolveInterceptSearch, resolveInterceptFetch } from "@/lib/db/interceptionRules";
@@ -1780,6 +1781,7 @@ async function handleChatCoreInner({
         };
         const runCompression = (input: Record<string, unknown>) =>
           applyCompressionAsync(input, mode, compressionOptions);
+        const liveZoneLane = shouldRunLiveZoneLane(compressionConfig, protectOpenCodePrefix);
         const omniglyphSelected =
           mode === "omniglyph" ||
           (mode === "stacked" &&
@@ -1801,7 +1803,7 @@ async function handleChatCoreInner({
             });
           // #18787: post-translation engines also need a separate frozen prefix.
           // Keep their cache key distinct from the pre-translation live-zone entry.
-          runPostTranslationCompression = protectOpenCodePrefix
+          runPostTranslationCompression = liveZoneLane
             ? (input) =>
                 runLiveZoneCompression({
                   compressionInputBody: input,
@@ -1818,7 +1820,7 @@ async function handleChatCoreInner({
             : compressTranslated;
         }
         let result: CompressionResult;
-        if (compressionConfig.liveZone?.enabled === true || protectOpenCodePrefix) {
+        if (liveZoneLane) {
           // Live-zone lane extracted to chatCore/liveZoneCompression.ts (chatCore slice 2).
           result = await runLiveZoneCompression({
             compressionInputBody,

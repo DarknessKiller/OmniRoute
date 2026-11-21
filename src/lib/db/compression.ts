@@ -724,6 +724,7 @@ export async function getCompressionSettings(): Promise<CompressionConfig> {
     contextEditing: { ...DEFAULT_CONTEXT_EDITING_CONFIG },
     omniglyph: { ...DEFAULT_OMNIGLYPH_CONFIG },
     liveZone: { enabled: false },
+    liveZoneExplicit: false,
     engines: {},
     activeComboId: null,
     exclusions: [],
@@ -887,6 +888,9 @@ export async function getCompressionSettings(): Promise<CompressionConfig> {
         break;
       case "liveZone":
         config.liveZone = { enabled: toRecord(parsed).enabled === true };
+        // Saved toggle = authoritative (see shouldRunLiveZoneLane): an explicit `false`
+        // must beat the OpenCode automatic-prefix-cache force-on below.
+        config.liveZoneExplicit = true;
         break;
       case "engines":
         storedEngines = parseStoredEnginesMap(parsed);
