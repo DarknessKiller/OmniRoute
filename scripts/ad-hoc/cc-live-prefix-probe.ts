@@ -8,17 +8,18 @@
  *
  * Usage: node --import tsx scripts/ad-hoc/cc-live-prefix-probe.ts <session.jsonl> --turns=A,B
  *          [--url=https://...] [--key=sk-...] [--dry]
+ *          (or set OMNIROUTE_URL / OMNIROUTE_API_KEY instead of the flags)
  */
 import fs from "node:fs";
 
 const args = process.argv.slice(2);
 const file = args.find((a) => !a.startsWith("--"));
 const turnsArg = args.find((a) => a.startsWith("--turns="));
-const url =
-  args.find((a) => a.startsWith("--url="))?.split("=")[1] ?? "https://northstar-67.mrdarknessk.dev";
+const url = args.find((a) => a.startsWith("--url="))?.split("=")[1] ?? process.env.OMNIROUTE_URL;
 const key =
   args.find((a) => a.startsWith("--key="))?.split("=")[1] ?? process.env.OMNIROUTE_API_KEY;
 const dry = args.includes("--dry");
+if (!url) throw new Error("missing deployment URL (--url= or OMNIROUTE_URL)");
 const lossless = args.includes("--lossless");
 // A fresh nonce makes every probe independent of cache entries written by earlier runs.
 const nonce = args.find((a) => a.startsWith("--nonce="))?.split("=")[1] ?? "";
