@@ -399,6 +399,23 @@ etc.); explicit `cache_control` markers are not required — a caching provider 
 triggers the downgrade, and markers alone never do (marker detection feeds cache
 telemetry, not the strategy decision).
 
+#### Prefix stability (rolling breakpoints)
+
+A provider matches a cached prefix by content, not by where the breakpoint sits — but the
+breakpoint decides which prefix is cached **at all**. When a client moves its breakpoint every
+turn (Claude Code marks the second-to-last message), a transform that behaves differently on a
+marked block produces a body whose early messages change as the marker advances. The provider
+then matches only up to the last breakpoint that still matches — usually the system prompt — and
+re-bills everything after it.
+
+Compression therefore has to stay a **pure function of the content**: `cache_control` is
+metadata that is carried through untouched, never a reason to skip a block.
+`open-sse/services/compression/engines/rtk/index.ts` compresses a marked `tool_result` exactly
+like an unmarked one for this reason (regression:
+`tests/unit/compression/rtk-cache-control-preserve.test.ts`), and the live zone
+(`liveZone.ts`) enforces the same rule one level up by reusing a frozen, byte-stable prefix and
+overlaying only the current request's markers.
+
 ### Progressive Aging
 
 Long conversations accumulate many message turns, but older turns become less
