@@ -173,6 +173,10 @@ function truncate(
     // Report what the caller actually lost, markers excluded.
     const kept = result.split(/\r?\n/).filter((line) => !line.startsWith("[rtk:")).length;
     droppedLines = Math.max(0, sourceLineCount - kept);
+    // The line-pass marker above was rendered BEFORE this pass ran, so it still states the
+    // pre-char count — `[rtk:truncated 0 lines]` next to a text that lost five. Rewrite it with
+    // the recount, so the number in the text always matches what is missing.
+    result = result.replace(/\[rtk:truncated \d+ lines\]/, `[rtk:truncated ${droppedLines} lines]`);
   }
 
   return { text: result, truncated: true, droppedLines };
