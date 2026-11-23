@@ -5,7 +5,7 @@ import { detectCommandType } from "./commandDetector.ts";
 import { RTK_SCHEMA, validateRtkEngineConfig } from "./configSchema.ts";
 import { deduplicateRepeatedLines } from "./deduplicator.ts";
 import { groupSimilarLines } from "./grouper.ts";
-import { matchRtkFilter } from "./filterLoader.ts";
+import { filterMatchesCommand, matchRtkFilter } from "./filterLoader.ts";
 import { applyLineFilter } from "./lineFilter.ts";
 import { smartTruncate } from "./smartTruncate.ts";
 import { normalizeCodeLanguage, stripCode } from "./codeStripper.ts";
@@ -241,8 +241,22 @@ export function processRtkText(
     });
     if (filter && !config.disabledFilters.includes(filter.id)) {
       if (config.enabledFilters.length === 0 || config.enabledFilters.includes(filter.id)) {
+        // A filter with `includePatterns` / `dropPatterns` / `collapsePatterns` DELETES lines.
+        // Selection is not always that confident: `matchRtkFilter` also falls back to the
+        // filter's own content regexes, and one content hit is confidence 0.25. That is how
+        // `bash cat README.md` came back as the two markdown bullets that matched git-branch's
+        // `^\*\s+\S+` probe, every other line deleted. A destructive stage therefore requires a
+        // confirmation the command actually matched (>= 0.5: a command pattern, or two aligned
+        // content patterns); on weaker evidence the filter still contributes its preserve /
+        // priority patterns, it just cannot delete anything.
+        const destructiveStagesAllowed =
+          detection.confidence >= 0.5 ||
+          filterMatchesCommand(filter, detection.command ?? options.command);
         const filtered = applyLineFilter(result, {
           ...filter,
+          ...(destructiveStagesAllowed
+            ? {}
+            : { keepPatterns: [], stripPatterns: [], collapsePatterns: [] }),
           maxLines: effectiveMaxLines(
             filter.maxLines || config.maxLinesPerResult,
             config.intensity
