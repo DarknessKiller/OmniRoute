@@ -419,7 +419,11 @@ then matches only up to the last breakpoint that still matches — usually the s
 re-bills everything after it.
 
 Compression therefore has to stay a **pure function of the content**: `cache_control` is
-metadata that is carried through untouched, never a reason to skip a block.
+metadata that is carried through untouched, never a reason to skip a block. That rule binds the
+per-message engines; `session-dedup` (content already sent this session), `read-lifecycle` (only
+after a later read/write touches the same path) and progressive aging (turn distance) are not
+functions of the message alone, which is why those ids are outside the deterministic memo
+whitelist (`open-sse/services/compression/resultMemo.ts:59`).
 `open-sse/services/compression/engines/rtk/index.ts` compresses a marked `tool_result` exactly
 like an unmarked one for this reason (regression:
 `tests/unit/compression/rtk-cache-control-preserve.test.ts`), and the live zone
