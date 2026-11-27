@@ -11,7 +11,7 @@
  *             owns each hash.
  *   Pass 2 — for each non-system message (index i), find blocks whose hash was
  *             first seen in a STRICTLY EARLIER message (index j < i). Replace the
- *             LONGEST such block's text with `[dedup:ref sha=<8hex>]`.
+ *             LONGEST such block's text with `[dedup:ref sha=<24hex>]`.
  *             First occurrence is always kept intact.
  *
  * Greedy, longest-first replacement: sort duplicate blocks by length descending;
@@ -22,8 +22,11 @@
  *   - Never touch multipart content parts other than `type: "text"`.
  *   - Only dedup blocks ≥ minBlockChars (default 80 chars) AND ≥ MIN_BLOCK_LINES lines.
  *   - First occurrence is ALWAYS kept intact; only later identical occurrences are replaced.
- *   - Never rewrite the current turn (messages after the last assistant message): the
- *     model must see what it just read or was just sent. It is deduped on a later turn.
+ *   - Elide on arrival, never on a later turn: a provider prompt cache only hits on identical
+ *     bytes, so rewriting a message an earlier turn already sent re-bills the history as cache
+ *     creation. The marker points at an earlier copy that stays in the same request.
+ *   - Idempotent: a message that already carries a marker is left untouched, so re-running the
+ *     engine over its own output returns the same bytes.
  *
  * Reconstruction:
  *   Replace every `[dedup:ref sha=XXXXXXXX]` marker with the original block text
@@ -63,6 +66,8 @@ const MIN_BLOCK_LINES = 3;
  */
 const MAX_SUFFIX_STARTS = 2000;
 const MAX_TOTAL_BLOCK_BYTES = 8 * 1024 * 1024;
+/** Prefix of an elision marker. A text carrying one was already deduped: never re-elide it. */
+const MARKER_PREFIX = "[dedup:ref sha=";
 
 // ─── hash helper (SHA-256 prefix, collision-resistant) ───────────────────────
 
@@ -155,6 +160,8 @@ function dedupeWithinMessage(
   text: string,
   minBlockChars: number
 ): { deduped: string; changed: boolean } {
+  // Already elided once: markers are not block candidates, and re-eliding would rewrite bytes.
+  if (text.includes(MARKER_PREFIX)) return { deduped: text, changed: false };
   const lines = text.split("\n");
   const blocks = findSuffixBlocks(lines, minBlockChars);
 
@@ -198,9 +205,8 @@ function dedupeWithinMessage(
  * Returns the replaced texts for duplicate messages, a reverse map, and a count.
  */
 function dedupMessageTexts(
-  msgTexts: Array<{ msgIdx: number; messageIndex: number; text: string }>,
-  minBlockChars: number,
-  currentTurnStart: number
+  msgTexts: Array<{ msgIdx: number; text: string }>,
+  minBlockChars: number
 ): {
   deduped: Map<number, string>;
   dedupCount: number;
@@ -210,10 +216,7 @@ function dedupMessageTexts(
 
   // Single-message case: apply intra-message dedup.
   if (msgTexts.length === 1) {
-    const { text, msgIdx, messageIndex } = msgTexts[0];
-    if (messageIndex >= currentTurnStart) {
-      return { deduped, dedupCount };
-    }
+    const { text, msgIdx } = msgTexts[0];
     const { deduped: dedupedText, changed } = dedupeWithinMessage(text, minBlockChars);
     if (changed) {
       deduped.set(msgIdx, dedupedText);
@@ -222,12 +225,13 @@ function dedupMessageTexts(
     return { deduped, dedupCount };
   }
 
-  // Multi-message case: apply cross-turn dedup.
+  // Multi-message case: apply cross-message dedup.
   // Pass 1: for each message, extract suffix blocks and record first ownership.
   // `firstSeen`: sha → { ownerMsgIdx, block }
   const firstSeen = new Map<string, { ownerMsgIdx: number; block: string }>();
 
   for (const { msgIdx, text } of msgTexts) {
+    if (text.includes(MARKER_PREFIX)) continue;
     const lines = text.split("\n");
     const blocks = findSuffixBlocks(lines, minBlockChars);
     for (const { block } of blocks) {
@@ -239,10 +243,10 @@ function dedupMessageTexts(
   }
 
   // Pass 2: for each message, find blocks that were FIRST seen in an earlier message.
-  // The current turn is never rewritten: a re-read tool result replaced by a marker
-  // reads to the model as a lost read, and it reads the file again another way.
-  for (const { msgIdx, messageIndex, text } of msgTexts) {
-    if (messageIndex >= currentTurnStart) continue;
+  // The first copy stays intact, so the marker always resolves to text still in this request.
+  // A message that already carries a marker is settled — never rewritten on a later turn.
+  for (const { msgIdx, text } of msgTexts) {
+    if (text.includes(MARKER_PREFIX)) continue;
     const lines = text.split("\n");
     const blocks = findSuffixBlocks(lines, minBlockChars);
 
@@ -385,29 +389,15 @@ function applyTextSlots(
 }
 
 /**
- * Calculates the start index of the current turn (messages after the last assistant message).
- * If no assistant message is present, returns 0 (the entire conversation is the current turn).
- */
-function calculateCurrentTurnStart(messages: MessageLike[]): number {
-  for (let i = messages.length - 1; i >= 0; i--) {
-    if (messages[i]?.role === "assistant") {
-      return i + 1;
-    }
-  }
-  return 0;
-}
-
-/**
  * Process messages: collect text content, run two-pass dedup, apply results.
  */
 function processMessages(
   messages: MessageLike[],
-  minBlockChars: number,
-  currentTurnStart: number
+  minBlockChars: number
 ): { messages: MessageLike[]; dedupCount: number } {
   // Collect (msgIdx, text) for non-system messages, including Anthropic tool_result text.
   // For multipart, index each text-bearing slot separately.
-  const msgTexts: Array<{ msgIdx: number; messageIndex: number; text: string }> = [];
+  const msgTexts: Array<{ msgIdx: number; text: string }> = [];
 
   for (let i = 0; i < messages.length; i++) {
     const msg = messages[i];
@@ -415,7 +405,7 @@ function processMessages(
     const slots = collectTextSlots(msg);
     for (let s = 0; s < slots.length; s++) {
       // Composite key: i * 100000 + s + 1 (stride leaves room for 100k slots).
-      msgTexts.push({ msgIdx: i * 100000 + s + 1, messageIndex: i, text: slots[s] });
+      msgTexts.push({ msgIdx: i * 100000 + s + 1, text: slots[s] });
     }
   }
 
@@ -423,7 +413,7 @@ function processMessages(
     return { messages, dedupCount: 0 };
   }
 
-  const { deduped, dedupCount } = dedupMessageTexts(msgTexts, minBlockChars, currentTurnStart);
+  const { deduped, dedupCount } = dedupMessageTexts(msgTexts, minBlockChars);
 
   if (dedupCount === 0) {
     return { messages, dedupCount: 0 };
@@ -532,13 +522,10 @@ export const sessionDedupEngine: CompressionEngine = {
       return { body, compressed: false, stats: null };
     }
 
-    const currentTurnStart = calculateCurrentTurnStart(messages as MessageLike[]);
-
     const start = performance.now();
     const { messages: exactMessages, dedupCount } = processMessages(
       messages as MessageLike[],
-      minBlockChars,
-      currentTurnStart
+      minBlockChars
     );
 
     const { messages: finalMessages, fuzzyCount } = runFuzzyPass(
@@ -546,8 +533,7 @@ export const sessionDedupEngine: CompressionEngine = {
       stepConfig,
       minBlockChars,
       options?.principalId,
-      callerSupportsCcrRetrieve(body),
-      currentTurnStart
+      callerSupportsCcrRetrieve(body)
     );
 
     if (dedupCount + fuzzyCount === 0) {
