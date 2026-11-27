@@ -49,7 +49,9 @@ arrives. The cap never moves afterwards, so the bytes a provider already cached 
 on every later turn and the cached prefix keeps hitting. (Deferring the cut to a later turn was
 the old behaviour: the message changed bytes after it had been sent, and the cached prefix from
 that message onward was invalidated — measured on a 20-turn Claude Code session: 49,855
-re-billed tokens, 2.8× the tokens the step saved.) Because the cut is arrival-scoped, the live
+re-billed tokens, 2.8× the tokens the step saved.) A concatenated multi-file read (`--- path ---`,
+`=== path ===`, `<file path=…>`, `path/to/file:`) is capped per file rather than as one blob, so one large
+file cannot consume the budget and hide the files after it. Because the cut is arrival-scoped, the live
 zone (see Prefix stability, below) is not needed for it; the live zone still freezes the prefix
 for the position-dependent presets (aggressive, adaptive, max-tokens). Without a request opt-in
 the lossy step stays off (`compressToolResults: false`, the default) for cache-sensitive
