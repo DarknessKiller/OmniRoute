@@ -55,7 +55,7 @@ const SAFE_PIPELINE_CONFIG = {
 };
 
 describe("lite: Anthropic tool_result blocks", () => {
-  it("truncates old tool_result string content and keeps the newest whole", () => {
+  it("truncates tool_result string content on arrival, the newest included", () => {
     const { body, applied } = compressToolResults({
       messages: [
         { role: "user", content: "read it" },
@@ -68,7 +68,7 @@ describe("lite: Anthropic tool_result blocks", () => {
 
     assert.equal(applied, true);
     assert.match(String(resultBlocks(body.messages![2])[0].content), TRUNCATED);
-    assert.equal(resultBlocks(body.messages![4])[0].content, FILE);
+    assert.match(String(resultBlocks(body.messages![4])[0].content), TRUNCATED);
   });
 
   it("truncates text blocks inside tool_result array content and keeps images", () => {
@@ -89,10 +89,13 @@ describe("lite: Anthropic tool_result blocks", () => {
     });
 
     assert.equal(applied, true);
-    const oldBlocks = resultBlocks(body.messages![2])[0].content;
-    assert.match(String(oldBlocks[0].text), TRUNCATED);
-    assert.deepEqual(oldBlocks[1], image);
-    assert.deepEqual(resultBlocks(body.messages![4])[0].content, inner);
+    for (const index of [2, 4]) {
+      const blocks = resultBlocks(body.messages![index])[0].content as Array<
+        Record<string, unknown>
+      >;
+      assert.match(String(blocks[0].text), TRUNCATED);
+      assert.deepEqual(blocks[1], image);
+    }
   });
 
   it("reports compression through applyLiteCompression", () => {
@@ -113,7 +116,7 @@ describe("lite: Anthropic tool_result blocks", () => {
 });
 
 describe("session-dedup: Anthropic tool_result blocks", () => {
-  it("deduplicates repeated tool_result text from earlier turns only", () => {
+  it("deduplicates repeated tool_result text on arrival", () => {
     const result = sessionDedupEngine.apply({
       messages: [
         { role: "user", content: "read it" },
@@ -129,16 +132,15 @@ describe("session-dedup: Anthropic tool_result blocks", () => {
     assert.equal(result.compressed, true);
     const messages = result.body.messages as Array<{ content: unknown }>;
 
-    // First occurrence stays intact; the later duplicate becomes a reference.
+    // First occurrence stays intact; the later duplicates become references.
     assert.equal(resultBlocks(messages[2])[0].content, FILE);
     assert.match(String(resultBlocks(messages[4])[0].content), /^\[dedup:ref sha=[0-9a-f]+\]$/);
-    // Current turn (after the last assistant message) is never rewritten.
-    assert.equal(resultBlocks(messages[6])[0].content, FILE);
+    assert.match(String(resultBlocks(messages[6])[0].content), /^\[dedup:ref sha=[0-9a-f]+\]$/);
   });
 });
 
 describe("safe pipeline: Claude Code request shape", () => {
-  it("compresses old tool results and preserves the newest", () => {
+  it("compresses tool results on arrival, the newest included", () => {
     const result = applyCompression(
       {
         messages: [
@@ -158,7 +160,8 @@ describe("safe pipeline: Claude Code request shape", () => {
     assert.ok(result.stats.compressedTokens < result.stats.originalTokens);
 
     const messages = result.body.messages as Array<{ content: unknown }>;
-    assert.notEqual(resultBlocks(messages[2])[0].content, FILE);
-    assert.equal(resultBlocks(messages[4])[0].content, FILE);
+    // The first copy is capped by lite; the duplicate is elided by session-dedup.
+    assert.match(String(resultBlocks(messages[2])[0].content), TRUNCATED);
+    assert.match(String(resultBlocks(messages[4])[0].content), /^\[dedup:ref sha=[0-9a-f]+\]$/);
   });
 });
