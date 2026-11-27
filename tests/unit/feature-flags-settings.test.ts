@@ -88,7 +88,8 @@ const {
 // AGENT_SESSION_MESSAGES_ENABLED (#14864, opt-in session turn capture, default off) takes it to 138.
 // ENFORCE_HIDDEN_MODELS (hidden models dropped from integration model discovery,
 // default off) takes it to 139.
-const EXPECTED_FEATURE_FLAG_COUNT = 139;
+// AIHORDE_CATALOG_BACKGROUND_REFRESH_ENABLED (default off) takes it to 140.
+const EXPECTED_FEATURE_FLAG_COUNT = 140;
 // tool_call wrapper repair, default on) to 86; OPENCODE_V2_CLIENT_FINGERPRINT_ENABLED
 // (#16571, OpenCode v2 client fingerprint, default off) to 87.
 // tool_call wrapper repair, default on) to 86; CLAUDE_OAUTH_SUMMARIZED_THINKING_UNREDACTED
