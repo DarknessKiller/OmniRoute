@@ -42,23 +42,28 @@ No compression applied. All messages pass through unchanged.
 
 The safest mode — formatting cleanup. Its tool-result truncation is lossy, so the default
 path (no `allow-lossy`, `engine:lite` or named-combo opt-in) runs lite with
-`compressToolResults: false`: earlier tool results reach the provider unchanged.
+`compressToolResults: false`: tool results reach the provider unchanged.
 
-`compressToolResults` keeps this turn's tool results intact and truncates the earlier ones — a
-window that slides every turn. With prompt caching that window is the problem: the tool result
-that was this turn's yesterday is truncated today, so one already-sent message changes bytes on
-every request and the cached prefix from that message onward is invalidated (measured on a
-20-turn Claude Code session: 49,855 re-billed tokens, 2.8× the tokens the step saved). The live
-zone (see Prefix stability, below) freezes the already-sent prefix; without it, keep the lossy
-step off (`compressToolResults: false`, the default) for cache-sensitive clients.
+`compressToolResults` caps every tool result, the newest included, and only when it first
+arrives. The cap never moves afterwards, so the bytes a provider already cached stay identical
+on every later turn and the cached prefix keeps hitting. (Deferring the cut to a later turn was
+the old behaviour: the message changed bytes after it had been sent, and the cached prefix from
+that message onward was invalidated — measured on a 20-turn Claude Code session: 49,855
+re-billed tokens, 2.8× the tokens the step saved.) A concatenated multi-file read (`--- path ---`,
+`=== path ===`, `<file path=…>`, `path/to/file:`) is capped per file rather than as one blob, so one large
+file cannot consume the budget and hide the files after it. Because the cut is arrival-scoped, the live
+zone (see Prefix stability, below) is not needed for it; the live zone still freezes the prefix
+for the position-dependent presets (aggressive, adaptive, max-tokens). Without a request opt-in
+the lossy step stays off (`compressToolResults: false`, the default) for cache-sensitive
+clients.
 
-| Technique                | Description                                                                       |
-| ------------------------ | --------------------------------------------------------------------------------- |
-| `collapseWhitespace`     | Merge consecutive blank lines and trailing spaces                                 |
-| `dedupSystemPrompt`      | Remove duplicate system messages                                                  |
-| `compressToolResults`    | Truncate earlier tool results to the lite cap (lossy: only with a request opt-in) |
-| `removeRedundantContent` | Strip repeated instructions                                                       |
-| `replaceImageUrls`       | Shorten base64 image data URIs                                                    |
+| Technique                | Description                                                                 |
+| ------------------------ | --------------------------------------------------------------------------- |
+| `collapseWhitespace`     | Merge consecutive blank lines and trailing spaces                           |
+| `dedupSystemPrompt`      | Remove duplicate system messages                                            |
+| `compressToolResults`    | Cap tool results when they first arrive (lossy: only with a request opt-in) |
+| `removeRedundantContent` | Strip repeated instructions                                                 |
+| `replaceImageUrls`       | Shorten base64 image data URIs                                              |
 
 **Best for:** Always-on usage, safety-critical workflows.
 
@@ -420,10 +425,11 @@ re-bills everything after it.
 
 Compression therefore has to stay a **pure function of the content**: `cache_control` is
 metadata that is carried through untouched, never a reason to skip a block. That rule binds the
-per-message engines; `session-dedup` (content already sent this session), `read-lifecycle` (only
-after a later read/write touches the same path) and progressive aging (turn distance) are not
-functions of the message alone, which is why those ids are outside the deterministic memo
-whitelist (`open-sse/services/compression/resultMemo.ts:59`).
+per-message engines; `session-dedup` (a repeat is elided on arrival against an earlier copy,
+so the output depends on the rest of the conversation), `read-lifecycle` (only after a later
+read/write touches the same path) and progressive aging (turn distance) are not functions of
+the message alone, which is why those ids are outside the deterministic memo whitelist
+(`open-sse/services/compression/resultMemo.ts:59`).
 `open-sse/services/compression/engines/rtk/index.ts` compresses a marked `tool_result` exactly
 like an unmarked one for this reason (regression:
 `tests/unit/compression/rtk-cache-control-preserve.test.ts`), and the live zone

@@ -92,6 +92,11 @@
 
 ## [3.8.55] — TBD
 
+### 🐛 Bug Fixes
+
+- **fix(compression):** lite caps a concatenated multi-file read per file instead of as one blob, so one large file no longer consumes the whole cap and hides the files after it; the split understands the Gemini `read_many_files`, MCP `read_multiple_files` (`path/to/file:`) and `<file path=…>` headers, refuses prose, and is idempotent.
+- **fix(compression):** lite tool-result caps and `session-dedup` elisions now apply on arrival instead of on a later turn — a provider prompt cache only hits on identical bytes, so rewriting an already-sent message re-billed the history as cache creation; the cap and the elision are idempotent (a second pass over their own output returns the same bytes) and every marker still points at a copy kept in the same request.
+
 ---
 
 ## [3.8.54] — 2026-11-17
