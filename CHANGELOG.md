@@ -90,6 +90,11 @@
 - **feat(cli):** run `omniroute serve --tray` as a detached desktop process after server and tray readiness, with graphical login auto-start support.
 - **feat(routing):** add client-, provider-, and model-neutral exclusive managed session connection leases with API-key-bound generation fencing, durable SQLite ownership, explicit allowlist policy, and bounded 429 capacity retry semantics.
 
+### 🐛 Bug Fixes
+
+- **fix(compression):** lite caps a concatenated multi-file read per file instead of as one blob, so one large file no longer consumes the whole cap and hides the files after it; the split understands the Gemini `read_many_files`, MCP `read_multiple_files` (`path/to/file:`) and `<file path=…>` headers, refuses prose, and is idempotent.
+- **fix(compression):** lite tool-result caps and `session-dedup` elisions now apply on arrival instead of on a later turn — a provider prompt cache only hits on identical bytes, so rewriting an already-sent message re-billed the history as cache creation; the cap and the elision are idempotent (a second pass over their own output returns the same bytes) and every marker still points at a copy kept in the same request.
+
 ## [3.8.54] — 2026-11-17
 
 _Living section — reconciled 2026-11-16 from all cycle commits (`6cc6965075` → `a9539085bd`, 920 non-merge commits). Bullets carry the merged PR and its author; direct pushes are listed with their commit hash. Regenerated at each `/generate-release` phase._

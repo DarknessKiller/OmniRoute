@@ -1,7 +1,6 @@
 import { isVisionModelId } from "@/shared/constants/visionModels";
 import type { CompressionResult, CompressionMode } from "./types.ts";
 import { createCompressionStats } from "./stats.ts";
-import { isResponsesToolOutputMessage } from "./bodyAdapter.ts";
 
 interface Message {
   role: string;
@@ -175,6 +174,63 @@ function findTailStart(text: string, tailBudget: number): number {
   return newline + 1;
 }
 
+/** True when a header value can plausibly name a file (mirrors the CLIProxyAPI guard). */
+function looksLikeFilePath(path: string): boolean {
+  if (!path || path.length > 1024) return false;
+  if (path.includes("://") || path.startsWith("//")) return false;
+  if (/[\n\r\t|<>*?]/.test(path)) return false;
+  if (/[/\\]/.test(path)) return true;
+  return path.includes(".") && !/[ \t]/.test(path);
+}
+
+/**
+ * Path named by a multi-file read header, or null. Understands the Gemini CLI `read_many_files`
+ * (`--- path ---`, `=== path ===`), the MCP filesystem `read_multiple_files` (`path:`) and
+ * `<file path="...">` separators.
+ */
+function multiFileHeaderPath(line: string): string | null {
+  const trimmed = line.trim();
+  if (!trimmed) return null;
+  let path: string | null = null;
+  if (trimmed.length > 6 && trimmed.startsWith("---") && trimmed.endsWith("---")) {
+    path = trimmed.slice(3, -3).trim();
+  } else if (trimmed.length > 6 && trimmed.startsWith("===") && trimmed.endsWith("===")) {
+    path = trimmed.slice(3, -3).trim();
+  } else if (trimmed.startsWith("<file ") && trimmed.endsWith(">")) {
+    const inner = trimmed.slice("<file ".length, -1).trim();
+    if (inner.startsWith("path=")) {
+      path = inner
+        .slice("path=".length)
+        .trim()
+        .replace(/^["']+|["']+$/g, "");
+    }
+  } else if (trimmed.endsWith(":") && !trimmed.endsWith("::")) {
+    path = trimmed.slice(0, -1).trim();
+  }
+  return path && looksLikeFilePath(path) ? path : null;
+}
+
+/**
+ * Split a concatenated multi-file read into byte-exact sections, one per file. Refuses to split
+ * unless at least two file headers are found and nothing but whitespace precedes the first one,
+ * so prose or a single-file read is never mistaken for a bundle.
+ */
+function splitMultiFileRead(text: string): string[] | null {
+  const starts: number[] = [];
+  for (let lineStart = 0; ;) {
+    const lineEnd = text.indexOf("\n", lineStart);
+    const line = lineEnd === -1 ? text.slice(lineStart) : text.slice(lineStart, lineEnd);
+    if (multiFileHeaderPath(line)) starts.push(lineStart);
+    if (lineEnd === -1) break;
+    lineStart = lineEnd + 1;
+  }
+  if (starts.length < 2) return null;
+  if (text.slice(0, starts[0]).trim() !== "") return null;
+  return starts.map((start, index) =>
+    text.slice(start, index + 1 < starts.length ? starts[index + 1] : text.length)
+  );
+}
+
 /**
  * Truncate a tool result string to the Lite cap. Multi-line content keeps its tail as well as its
  * head: a head-only cut deletes the lines an agent is about to edit (anchors, grep hits at the
@@ -182,8 +238,34 @@ function findTailStart(text: string, tailBudget: number): number {
  * The head is cut on a word boundary, the tail starts on a line boundary inside its budget, and
  * content whose last line alone exceeds that budget falls back to the head-only cut.
  * Single-line content still gets the #8169 word-boundary cut.
+ *
+ * A concatenated multi-file read is capped per file, not as one blob, so one large file cannot
+ * consume the budget and hide the others. Sections are byte-exact slices that join back to the
+ * original text.
+ *
+ * The cut happens once, when the content first arrives: a provider prompt cache only hits on
+ * identical bytes, so rewriting a result an earlier turn already sent re-bills the history as
+ * cache creation. An already-marked result is therefore returned untouched.
  */
 function truncateToolText(text: string, maxLength: number): string {
+  if (text.endsWith(TRUNCATION_MARKER)) return text;
+  const sections = splitMultiFileRead(text);
+  if (!sections) return truncateSingleToolText(text, maxLength);
+  return sections
+    .map((section) => {
+      if (section.length <= maxLength) return section;
+      // The next header must stay on its own line: move the separator after the marker.
+      const newline = section.endsWith("\n") ? "\n" : "";
+      return (
+        truncateSingleToolText(section.slice(0, section.length - newline.length), maxLength) +
+        newline
+      );
+    })
+    .join("");
+}
+
+function truncateSingleToolText(text: string, maxLength: number): string {
+  if (text.endsWith(TRUNCATION_MARKER)) return text;
   const budgetLength = maxLength - TRUNCATION_MARKER.length - ELISION_RESERVE;
   if (budgetLength > 0 && hasMoreLinesThan(text, MIN_LINES_FOR_TAIL)) {
     const headCut = backOffToWordBoundary(text, Math.ceil(budgetLength * (1 - TAIL_SHARE)));
@@ -191,11 +273,21 @@ function truncateToolText(text: string, maxLength: number): string {
     if (tailStart > headCut) {
       const elided = text.slice(headCut, tailStart).split("\n").length;
       const tail = text.slice(tailStart);
-      return `${text.slice(0, headCut)}\n... [${elided} lines elided] ...\n${tail}${TRUNCATION_MARKER}`;
+      return `${trimTrailingBlanks(text.slice(0, headCut))}\n... [${elided} lines elided] ...\n${tail}${TRUNCATION_MARKER}`;
     }
   }
-  const cutIndex = backOffToWordBoundary(text, maxLength);
-  return text.slice(0, cutIndex) + TRUNCATION_MARKER;
+  // Reserve the marker as well: the output must fit under the cap so a later pass sees it as
+  // already short instead of cutting the marker off and producing different bytes.
+  const cutIndex = backOffToWordBoundary(text, Math.max(0, maxLength - TRUNCATION_MARKER.length));
+  return trimTrailingBlanks(text.slice(0, cutIndex)) + TRUNCATION_MARKER;
+}
+
+/**
+ * A cut can land right after a space that was mid-line in the source; once the marker follows it,
+ * the next lite pass' whitespace collapse would strip it and change the bytes. Trim at the cut.
+ */
+function trimTrailingBlanks(text: string): string {
+  return text.replace(/[ \t]+$/, "");
 }
 
 /**
@@ -213,16 +305,20 @@ function truncateToolResultBlocks(
     const inner = block.content;
     if (typeof inner === "string") {
       if (inner.length <= maxLength) return block;
+      const capped = truncateToolText(inner, maxLength);
+      if (capped === inner) return block;
       applied = true;
-      return { ...block, content: truncateToolText(inner, maxLength) };
+      return { ...block, content: capped };
     }
     if (!Array.isArray(inner)) return block;
     let innerApplied = false;
     const newInner = inner.map((part) => {
       const text = part.text;
       if (part.type !== "text" || typeof text !== "string" || text.length <= maxLength) return part;
+      const capped = truncateToolText(text, maxLength);
+      if (capped === text) return part;
       innerApplied = true;
-      return { ...part, text: truncateToolText(text, maxLength) };
+      return { ...part, text: capped };
     });
     if (!innerApplied) return block;
     applied = true;
@@ -242,30 +338,16 @@ export function compressToolResults(
 } {
   if (!body.messages) return { body, applied: false };
   const MAX_TOOL_LENGTH = resolveLiteMaxToolLength(options.maxToolLength);
-  // Results of the latest tool calls (after the last assistant message) are
-  // what the model asked for this turn. Cutting them makes it re-read the same
-  // file forever, since every re-read is cut again.
-  const lastAssistant = body.messages.findLastIndex((msg) => msg.role === "assistant");
-  // An OpenAI Responses API tool turn carries no assistant message — the call and its
-  // output arrive as top-level items — so the trailing Responses outputs are this turn's.
-  let trailingToolStart = body.messages.length;
-  while (
-    trailingToolStart > 0 &&
-    isResponsesToolOutputMessage(body.messages[trailingToolStart - 1])
-  ) {
-    trailingToolStart -= 1;
-  }
-  const currentTurnStart = Math.min(
-    lastAssistant === -1 ? body.messages.length : lastAssistant + 1,
-    trailingToolStart
-  );
+  // Every tool result is capped, the newest included: cutting on arrival keeps the bytes the
+  // provider already cached identical on every later turn.
   let applied = false;
-  const messages = body.messages.map((msg, index) => {
-    if (index >= currentTurnStart) return msg;
+  const messages = body.messages.map((msg) => {
     if (msg.role === "tool" && typeof msg.content === "string") {
       if (msg.content.length <= MAX_TOOL_LENGTH) return msg;
+      const capped = truncateToolText(msg.content, MAX_TOOL_LENGTH);
+      if (capped === msg.content) return msg;
       applied = true;
-      return { ...msg, content: truncateToolText(msg.content, MAX_TOOL_LENGTH) };
+      return { ...msg, content: capped };
     }
     const toolResult = truncateToolResultBlocks(msg, MAX_TOOL_LENGTH);
     if (toolResult.applied) applied = true;

@@ -49,7 +49,7 @@ export const CCR_PROTOCOL_MARKER_SENTINEL = "[CCR protocol]";
 /** Prefix of the CCR retrieve marker (the engine writes the 24-hex hash + char count). */
 const CCR_MARKER_PREFIX = "[CCR retrieve hash=";
 
-/** Prefix of the session-dedup marker (the dedup engine writes the 8-hex sha). */
+/** Prefix of the session-dedup marker (the dedup engine writes the 24-hex sha). */
 const DEDUP_MARKER_PREFIX = "[dedup:ref sha=";
 
 const DEDUP_CLAUSE =

@@ -83,22 +83,18 @@ export interface FuzzyPassOptions {
   maxBlocks: number;
   minBlockChars: number;
   principalId?: string;
-  boundary?: number;
 }
 export interface FuzzyPassResult {
   messages: MessageLike[];
   fuzzyCount: number;
 }
 
-/** True when `index` lies before the live-turn `boundary` (always true without a boundary). */
-function isBeforeBoundary(index: number, boundary?: number): boolean {
-  return boundary === undefined || index < boundary;
-}
-
 /**
  * Near-duplicate second pass over WHOLE string-content messages. A later message ≥minJaccard
  * similar to an earlier one is stored in the CCR store and replaced inline with a recoverable
  * `[CCR retrieve …]` marker (only when the marker shrinks). FAIL-OPEN: any error → no-op.
+ * Elides on arrival like the exact pass: the first copy stays in the request, so no already-sent
+ * message is rewritten on a later turn.
  */
 export function applyFuzzyPass(messages: MessageLike[], opts: FuzzyPassOptions): FuzzyPassResult {
   try {
@@ -112,13 +108,8 @@ export function applyFuzzyPass(messages: MessageLike[], opts: FuzzyPassOptions):
     }
     if (blocks.length < 2) return { messages, fuzzyCount: 0 };
 
-    // Blocks at/after the live-turn boundary are never rewritten.
-    const nearDups = findNearDuplicates(
-      blocks,
-      opts.minJaccard,
-      opts.maxBlocks,
-      opts.shingleSize
-    ).filter((nd) => isBeforeBoundary(nd.block.index, opts.boundary));
+    // Blocks after an earlier one are elided on arrival; the first copy is kept.
+    const nearDups = findNearDuplicates(blocks, opts.minJaccard, opts.maxBlocks, opts.shingleSize);
     if (nearDups.length === 0) return { messages, fuzzyCount: 0 };
 
     const replacements = new Map<number, string>();
@@ -149,8 +140,7 @@ export function runFuzzyPass(
   stepConfig: Record<string, unknown>,
   minBlockChars: number,
   principalId?: string,
-  callerCanRetrieve = false,
-  boundary?: number
+  callerCanRetrieve = false
 ): FuzzyPassResult {
   const raw = stepConfig["fuzzy"] as
     boolean | { enabled?: boolean; minJaccard?: number; shingleSize?: number } | undefined;
@@ -167,6 +157,5 @@ export function runFuzzyPass(
     maxBlocks: MAX_FUZZY_BLOCKS,
     minBlockChars,
     principalId,
-    boundary,
   });
 }

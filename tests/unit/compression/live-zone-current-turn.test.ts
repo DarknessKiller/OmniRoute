@@ -315,10 +315,10 @@ describe("live-zone contextual copy-back correspondence", () => {
   }
 });
 
-describe("live-zone composition preserves current-turn context", () => {
+describe("live-zone composition over arrival-scoped engines", () => {
   for (const mode of ["lite", "stacked"] as const) {
     for (const boundaryInCache of [false, true]) {
-      it(`${mode} preserves parallel observations with the assistant boundary ${boundaryInCache ? "frozen" : "live"}`, async () => {
+      it(`${mode} caps parallel observations on arrival with a byte-stable prefix (assistant boundary ${boundaryInCache ? "frozen" : "live"})`, async () => {
         const run = async (body: Record<string, unknown>) =>
           applyCompression(body, mode, { config });
         const prefix: Item[] = [{ role: "user", content: "Inspect both observations" }];
@@ -337,8 +337,9 @@ describe("live-zone composition preserves current-turn context", () => {
           run
         );
         const warm = await applyLiveZoneCompression({ messages }, options, run);
-        assert.deepEqual(messagesOf(direct).slice(-2), messages.slice(-2), "cold control");
-        assert.deepEqual(messagesOf(warm).slice(-2), messages.slice(-2));
+        // Both observations are capped/elided when they arrive, never on a later turn.
+        assert.notDeepEqual(messagesOf(direct).slice(-2), messages.slice(-2), "cold control");
+        assert.notDeepEqual(messagesOf(warm).slice(-2), messages.slice(-2));
         assert.deepEqual(messagesOf(warm).slice(0, prefix.length), messagesOf(first));
         assert.deepEqual(messages, original, "request input must not be mutated");
         assert.equal(warm.stats?.liveZone?.cacheHit, true);
@@ -346,7 +347,7 @@ describe("live-zone composition preserves current-turn context", () => {
     }
   }
 
-  it("compresses completed live tools but preserves current observations and instruction messages", async () => {
+  it("compresses completed history and current observations on arrival, keeping instructions", async () => {
     const prefix = [{ role: "user", content: "Inspect the history" }];
     const first = await applyLiveZoneCompression({ messages: prefix }, options, compress);
     const live = [
@@ -365,10 +366,14 @@ describe("live-zone composition preserves current-turn context", () => {
     const original = structuredClone(body);
     const warm = await applyLiveZoneCompression(body, options, compress);
     const items = messagesOf(warm);
-    assert.ok(String(items[2].content).endsWith("...[truncated]"), "old output remains eligible");
+    assert.ok(String(items[2].content).endsWith("...[truncated]"), "completed output is capped");
     assert.match(String(items[4].content), /\[dedup:ref sha=/, "completed duplicate is deduped");
-    for (let i = 0; i < live.length; i++) {
-      if (i !== 1 && i !== 3) assert.deepEqual(items[prefix.length + i], live[i]);
+    for (const i of [1, 3, 7, 8]) {
+      const toolContent = items[prefix.length + i].content;
+      assert.notEqual(toolContent, observation, `live item ${i} must be compressed on arrival`);
+    }
+    for (const i of [4, 5, 9]) {
+      assert.deepEqual(items[prefix.length + i], live[i]);
     }
     assert.deepEqual(items.slice(0, prefix.length), messagesOf(first));
     assert.deepEqual(body, original);
@@ -382,8 +387,21 @@ describe("live-zone composition preserves current-turn context", () => {
       const frozenCount = raw.length;
       raw = [...raw, ...added];
       const next = await applyLiveZoneCompression({ messages: raw }, options, compress);
-      assert.equal(JSON.stringify(messagesOf(next).slice(0, frozenCount)), frozen);
-      assert.deepEqual(messagesOf(next).slice(frozenCount), added);
+      const nextItems = messagesOf(next);
+      assert.equal(JSON.stringify(nextItems.slice(0, frozenCount)), frozen);
+      assert.equal(nextItems.length, frozenCount + added.length);
+      for (let i = 0; i < added.length; i++) {
+        const input = added[i] as Item;
+        const output = nextItems[frozenCount + i];
+        assert.equal(output.role, input.role);
+        if ("tool_call_id" in input) {
+          // Appended tool outputs are capped on arrival; identity must survive.
+          assert.equal(output.tool_call_id, input.tool_call_id);
+          assert.ok(String(output.content).length <= String(input.content).length);
+        } else {
+          assert.deepEqual(output, input);
+        }
+      }
       assert.deepEqual(next.stats?.liveZone, {
         cacheHit: true,
         frozenItems: frozenCount,
@@ -393,7 +411,7 @@ describe("live-zone composition preserves current-turn context", () => {
     }
   });
 
-  it("passes completed-turn context to session-dedup instead of treating all live tools as current", async () => {
+  it("dedups live tools against completed-turn context on arrival", async () => {
     const run = async (body: Record<string, unknown>) => sessionDedupEngine.apply(body);
     const prefix = [{ role: "user", content: "Inspect" }];
     await applyLiveZoneCompression({ messages: prefix }, options, run);
@@ -407,11 +425,12 @@ describe("live-zone composition preserves current-turn context", () => {
     const warm = await applyLiveZoneCompression({ messages: [...prefix, ...live] }, options, run);
     assert.equal(messagesOf(warm)[2].content, observation);
     assert.match(String(messagesOf(warm)[3].content), /\[dedup:ref sha=/);
-    assert.deepEqual(messagesOf(warm).slice(-2), live.slice(-2));
+    assert.match(String(messagesOf(warm)[5].content), /\[dedup:ref sha=/);
+    assert.deepEqual(messagesOf(warm)[4], live[3]);
   });
 
   for (const boundaryInCache of [false, true]) {
-    it(`preserves Responses output through the real body adapter with a ${boundaryInCache ? "frozen" : "live"} assistant`, async () => {
+    it(`keeps Responses output identity through the real body adapter with a ${boundaryInCache ? "frozen" : "live"} assistant`, async () => {
       const run = async (body: Record<string, unknown>) => {
         const adapter = adaptBodyForCompression(body);
         const result = await compress(adapter.body);
@@ -436,9 +455,25 @@ describe("live-zone composition preserves current-turn context", () => {
         run
       );
       const warm = await applyLiveZoneCompression(body, options, run);
-      assert.deepEqual((direct.body.input as Item[]).slice(prefix.length), live, "cold control");
-      assert.deepEqual((warm.body.input as Item[]).slice(prefix.length), live);
-      assert.deepEqual((warm.body.input as Item[]).slice(0, prefix.length), first.body.input);
+      const tails = [direct, warm].map((result) => {
+        const items = result.body.input as Item[];
+        const tail = items.slice(items.length - live.length);
+        assert.deepEqual(
+          items.slice(items.length - live.length - prefix.length, items.length - live.length),
+          first.body.input
+        );
+        // Calls keep their identity; the trailing outputs are capped on arrival.
+        assert.deepEqual(tail.slice(0, live.length - 2), live.slice(0, live.length - 2));
+        for (const index of [live.length - 2, live.length - 1]) {
+          assert.equal(tail[index].type, live[index].type);
+          assert.equal(tail[index].call_id, live[index].call_id);
+        }
+        return tail;
+      });
+      for (const tail of tails) {
+        assert.notEqual(tail[live.length - 2].output, observation, "linked output is capped");
+      }
+      assert.notEqual(tails[0][live.length - 1].output, observation, "cold control caps both");
       assert.deepEqual(body, original);
     });
   }
@@ -473,7 +508,10 @@ describe("live-zone composition preserves current-turn context", () => {
     await applyLiveZoneCompression({ messages: prefix }, options, run);
     const body = { messages: [...prefix, tool("one")] };
     const next = await applyLiveZoneCompression(body, options, run);
-    assert.deepEqual(next.body.messages, body.messages);
+    const items = messagesOf(next);
+    assert.deepEqual(items.slice(0, prefix.length), body.messages.slice(0, prefix.length));
+    // The cold transform is not reused as a cached prefix; its own arrival output is sent.
+    assert.ok(String(items[2].content).endsWith("...[truncated]"));
     assert.equal(next.stats?.liveZone, undefined, "unmappable cold output must force a cache miss");
   });
 
